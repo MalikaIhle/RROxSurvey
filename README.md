@@ -1,5 +1,7 @@
 # RROxSurvey
 
+in Rscript folder:
+
 ## 1. FormatPGRdata.R
 Starts with `rm(list = ls())` and ends with `source("Functions-and-Parameters.R")`.
 This script loads the survey data run on PGR students in HT 2020 and format it for analysis.
@@ -22,7 +24,7 @@ This R file is called in LongReport.Rmd which needs these two lines at the top t
 
 This script compiles sample sizes of answers per Division, per question, and for staff and students.
 
-## 3. Question.R
+## 4. Question.R
 
 There is one R file per question, which creates plots and tables.
 To work on one file specifically, one need to uncomment the two first lines 
@@ -46,10 +48,10 @@ The list of file in order of the questions in the survey is:
 
 PROBLEM ---> plots layout were creating by judging the preview within RStudio, or the output of the RMd in HTML. How can I save them in PDF with the right layout? Plots in the Figures folder were saved using the Export as image button and resizing the window.
 
+in Report folder:
 
-## 4. Rmd reports
+## 5. Rmd reports
 
-in Draf-Report folder:
 - ShortReport.R -> create combines figures for a landscape draft report made in Gdoc: https://docs.google.com/document/d/1dc3E3oU9evBrBYhIxMUqiEsvxx_bkc_y/edit
 - Report.html -> version that compiled before changing Function-and-Parameters.R for circular plot to take more arguments depending on the question.
 - LongReport.html -> version that compiled after changing Function-and-Parameters.R (commenting out the argument question to the circular plot)
