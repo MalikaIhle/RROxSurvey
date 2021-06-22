@@ -59,8 +59,9 @@ Definitions of relevant terms vary across fields of research and contexts. There
 
 ### Sample sizes
 ```{r, echo = FALSE, include = FALSE}
-source("FormatPGRdata.R")
-source("Sample-sizes.R")
+library(here)
+source(here::here("Rscripts","FormatPGRdata.R"))
+source(here::here("Rscripts","Sample-sizes.R"))
 totalStaff_duringPGRcollection <- sst_staff_pgrdatat$Total[sst_staff_pgrdatat$Question == "Consent_Affiliation_Role"]
 ```
 A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in Jan 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. 
@@ -85,7 +86,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("Awareness.R")
+source(here::here("Rscripts","Awareness.R"))
 
 not_aware_OA <- round(All_pgrdata_Awareness$perc[All_pgrdata_Awareness$LabelIndiv == "Open Access" & All_pgrdata_Awareness$Answer == "Not aware / not sure if applicable"],1)
 
@@ -138,7 +139,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("Effect.R")
+source(here::here("Rscripts","Effect.R"))
 beneficial_all <- round(summary(All_pgrdata_Effect$perc[All_pgrdata_Effect$Answer == "Beneficial"]),1)
 detrimental_all <- round(summary(All_pgrdata_Effect$perc[All_pgrdata_Effect$Answer == "Detrimental"]),1)
 Hum_Preprint_Detrimental <- round(pgrdata_Effect$perc[pgrdata_Effect$LabelIndiv == "preprint" & pgrdata_Effect$Div == "Hum" & pgrdata_Effect$Answer == "Detrimental"],1)
@@ -179,7 +180,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("Barriers.R")
+source(here::here("Rscripts","Barriers.R"))
 OA_incentives <- round(All_pgrdata_Barriers$perc[All_pgrdata_Barriers$LabelIndiv == 'Open Access' & All_pgrdata_Barriers$Answer == 'Incentives'],1)
 data_training <- round(All_pgrdata_Barriers$perc[All_pgrdata_Barriers$LabelIndiv == 'Open Data' & All_pgrdata_Barriers$Answer == 'Training'],1)
 preprint_none <- round(All_pgrdata_Barriers$perc[All_pgrdata_Barriers$LabelIndiv == 'Preprint' & All_pgrdata_Barriers$Answer == 'None'],1)
@@ -198,7 +199,7 @@ pgrdata_Barriers_plot
 ```
 #### Other barriers
 ```{r, echo = FALSE, include = FALSE}
-source('OtherBarriersDownsides.R')
+source(here::here("Rscripts","OtherBarriersDownsides.R"))
 ```
 
 ```{r, echo = FALSE}
@@ -216,7 +217,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("Downsides.R")
+source(here::here("Rscripts","Downsides.R"))
 no_downsides <- round(summary(All_pgrdata_Downsides$perc[All_pgrdata_Downsides$Answer == 'No']),1)
 yes_downsides <- round(summary(All_pgrdata_Downsides$perc[All_pgrdata_Downsides$Answer == 'Yes']),1)
 no_downsides_MSD <- round(summary(pgrdata_Downsides$perc[pgrdata_Downsides$Answer == 'No' & pgrdata_Downsides$Div == 'MSD'], na.rm=TRUE),1)
@@ -262,7 +263,7 @@ Guidance on sharing preprints (e.g. selection of appropriate repository, conside
 How to assess job applications responsibly, fairly, and transparently [labelled ]
 
 ```{r, echo = FALSE, include = FALSE}
-source("Training.R")
+source(here::here("Rscripts","Training.R"))
 some_guidance_wanted <- All_pgrdata_Training %>% group_by(LabelIndiv) %>% summarise(some_guidance_wanted = round(sum(perc[Answer == 'Written guidance and workshop-led training'], perc[Answer == 'Written guidance only']),1))
 summary_some_guidance_wanted <- summary(some_guidance_wanted$some_guidance_wanted)
 
@@ -287,7 +288,7 @@ xtab_OtherTraining %>% knitr::kable()
 
 ### Support
 ```{r, echo = FALSE, include = FALSE}
-source("Support.R")
+source(here::here("Rscripts","Support.R"))
 ```
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
@@ -311,7 +312,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("CurrentRecruitment.R")
+source(here::here("Rscripts","CurrentRecruitment.R"))
 ```
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
@@ -336,7 +337,7 @@ a %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-source("FutureRecruitment.R")
+source(here::here("Rscripts","FutureRecruitment.R"))
 ```
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}

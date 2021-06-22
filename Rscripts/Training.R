@@ -5,7 +5,7 @@
 
 
 #rm(list = ls())
-#source("FormatPGRdata.R")
+#source("Rscripts/FormatPGRdata.R")
 
 
 Trainings <- c('Open Access', 'Data Management', 'FAIR Data','Ethics','Open Code', 'Open Materials', 'Licences', 'Preprint', 'Preregistration', 'Recruitement')
