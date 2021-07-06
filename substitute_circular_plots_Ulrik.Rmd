@@ -114,7 +114,7 @@ count_by_answer_and_div_and_orp %>%
     scale_fill_manual(values = answers_colors) +
     coord_flip() +
     facet_wrap(~LabelIndiv, ncol = 1)
-    
+ggsave("Figures/example-plot-Awareness-per-ORP.png", height = 8)  
 ```
 
 This is the second plot - I think this is probably the better one than the one before, because the focus is probably not meant to be on comparing the divisions but rather on comparing the ORPs.
@@ -139,5 +139,5 @@ count_by_answer_and_div_and_orp %>%
     theme(legend.title = element_blank(),
           strip.text.x = element_text(size = 10, colour = "black")) +
     labs(x = "", y = "")
-ggsave("Figures/example-plot-Awareness-per-ORP.png", height = 8)
+ggsave("Figures/example-plot-Awareness-per-ORP-2.png", height = 8)
 ```
