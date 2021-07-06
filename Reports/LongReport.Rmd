@@ -2,7 +2,11 @@
 title: "Open research at Oxford survey"
 subtitle: "round 1: PGR (12 Jan - 1 Mar 2021)"
 author: "Malika Ihle, Reproducible Research Oxford Coordinator"
-output: html_document
+output: 
+  bookdown::word_document2:
+    reference_docx: "template-lyngs.docx"
+    number_sections: false
+  bookdown::html_document2: default
 ---
 
 <style>
@@ -19,14 +23,22 @@ h1.title {
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(flextable)
+library(tidyverse)
+library(here)
+library(knitr)
+library(officer)
+library(bookdown)
 ```
 
----
-## Keeping track of decisions
-#### I have not considered non pgr entries
-#### if one item not scored in a grid, I remove those NAs for calculation of percentage for each responses for that item. (i.e. like if items were independants)
-#### for Barriers: select items if at least one answer is not NA to calculate percentages (like if items were independents)
----
+<!-- Keeping track of decisions
+I have not considered non pgr entries
+if one item not scored in a grid, I remove those NAs for calculation of percentage for each responses for that item. (i.e. like if items were independants)
+for Barriers: select items if at least one answer is not NA to calculate percentages (like if items were independents)
+-->
+
+
+
 
 <br>
 
@@ -59,7 +71,6 @@ Definitions of relevant terms vary across fields of research and contexts. There
 
 ### Sample sizes
 ```{r, echo = FALSE, include = FALSE}
-library(here)
 source(here::here("Rscripts","FormatPGRdata.R"))
 source(here::here("Rscripts","Sample-sizes.R"))
 totalStaff_duringPGRcollection <- sst_staff_pgrdatat$Total[sst_staff_pgrdatat$Question == "Consent_Affiliation_Role"]
@@ -71,8 +82,23 @@ Given the low sample size (**5**) for ContEd, we will not interpret the results 
 ```{r general sample size, echo = FALSE}
 a <- cbind( " " = c("Number of respondents", "Census 2021 (unofficial)", "Representativeness in %", "Number of dropouts", "Dropouts in %"), sst[c(1, 11, 12, 13, 14),2:7])
 rownames(a) <- NULL
-a %>% knitr::kable()
+#a %>% knitr::kable()
+
+set_flextable_defaults(
+  table.layout = "autofit",
+  digits = 1,
+  font.color = "black",
+  font.family = "Calibri", 
+  font.size = 10
+  )
+
+a %>% flextable() %>% 
+    set_caption(caption = "Respondents by Division",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tabSS"))
 ```
+
+TO_REMOVE_JUST FOR TESTING_This is a reference to flextable \@ref(tab:tabSS).
 
 An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or  fellows, or research support staff)  filled out the survey. Their responses will be merged to the views gathered in the second round of data collection, which will target this population specifically.
 
