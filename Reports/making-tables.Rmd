@@ -1,0 +1,39 @@
+---
+title: "test of tables"
+output: 
+  bookdown::word_document2:
+    reference_docx: "template-lyngs.docx"
+---
+
+```{r setup, include=FALSE}
+library(flextable)
+library(tidyverse)
+```
+
+# Test of tables
+## A kable table
+
+```{r}
+diamonds %>% 
+  head() %>% 
+  knitr::kable(caption = "A kable table")
+```
+
+## A flextable
+
+```{r, echo=FALSE}
+set_flextable_defaults(
+  table.layout = "autofit",
+  font.family = "Calibri", 
+  font.size = 10
+  )
+
+diamonds %>% 
+  head() %>% 
+  flextable() %>% 
+  set_caption(caption = "A flextable") %>% 
+  theme_alafoli() %>% 
+  bold(bold = TRUE, part = "header") %>% 
+  color(color = "black", part = "all")
+
+```
