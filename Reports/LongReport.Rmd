@@ -153,6 +153,7 @@ Another point worth noting: the two least known measures overall (namely **Prere
 
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_Awareness_plot
+#include_graphics(here::here("Figures/pgrdata_Awareness.png"))
 ```
 
 ### Overall effect of open research practices
