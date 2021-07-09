@@ -223,6 +223,7 @@ While the lack of incentives to practice **Open Access** and lack of training to
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_Barriers_plot
 ```
+
 #### Other barriers
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","OtherBarriersDownsides.R"))
