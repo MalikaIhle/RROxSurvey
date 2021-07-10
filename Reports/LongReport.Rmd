@@ -9,18 +9,20 @@ output:
   bookdown::html_document2: default
 ---
 
+```{=html}
 <style>
 body {
 text-align: justify}
 </style>
-
+```
+```{=html}
 <style type="text/css">
 h1.title {
   text-align: center;
 }
 
 </style>
-
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(flextable)
@@ -31,53 +33,53 @@ library(officer)
 library(bookdown)
 ```
 
+```{=html}
 <!-- Keeping track of decisions
 I have not considered non pgr entries
 if one item not scored in a grid, I remove those NAs for calculation of percentage for each responses for that item. (i.e. like if items were independants)
 for Barriers: select items if at least one answer is not NA to calculate percentages (like if items were independents)
 -->
-
-
-
-
+```
 <br>
 
-Broadly, open research (also called ‘open scholarship’ or, in some disciplines, ‘open science’) refers to efforts to ensure that different elements of the research process are transparent and accessible. The aim of this survey is to assess the views of Oxford researchers on **open research practices**, related **training needs and provision**, and **recruitment criteria**.
+Broadly, open research (also called 'open scholarship' or, in some disciplines, 'open science') refers to efforts to ensure that different elements of the research process are transparent and accessible. The aim of this survey is to assess the views of Oxford researchers on **open research practices**, related **training needs and provision**, and **recruitment criteria**.
 
-The survey was designed and administered by Reproducible Research Oxford. The first round was aimed at post-graduate research (PGR) students working in any field of research and based in any Divisions of the University (Humanities; Mathematical, Physical, and Life Sciences; Medical Sciences; Social Sciences;  Continuing Education).
+The survey was designed and administered by Reproducible Research Oxford. The first round was aimed at post-graduate research (PGR) students working in any field of research and based in any Divisions of the University (Humanities; Mathematical, Physical, and Life Sciences; Medical Sciences; Social Sciences; Continuing Education).
 
 Participation in the survey was voluntary and all responses were anonymous.
 
 The survey was circulated to all Oxford PGR through both the Divisional and Collegial communication channels (newsletters and email to students from graduate training coordinators) to maximise the diversity of views and representativeness of the survey results, and to minimize the self-selection bias (where only people already invested in a subject chose to take part) as much as possible.
 
 ### Open research practices
-Definitions of relevant terms vary across fields of research and contexts. Therefore, we provided the following standardised entries for respondents to refer to throughout the survey. 
 
-**Open Access publication** An article, book chapter, book, or other scholarly work that is released with unrestricted access (i.e. available to the public to view online, or download, without registration, payment, or approval). This includes all forms of open access, such as 'green' (i.e. the accepted version of the work, after peer review, is shared by the author(s) in a repository), and 'gold' (i.e. the version processed by the publisher is released openly on the publisher’s system upon publication).
+Definitions of relevant terms vary across fields of research and contexts. Therefore, we provided the following standardised entries for respondents to refer to throughout the survey.
+
+**Open Access publication** An article, book chapter, book, or other scholarly work that is released with unrestricted access (i.e. available to the public to view online, or download, without registration, payment, or approval). This includes all forms of open access, such as 'green' (i.e. the accepted version of the work, after peer review, is shared by the author(s) in a repository), and 'gold' (i.e. the version processed by the publisher is released openly on the publisher's system upon publication).
 
 **Repository** A service dedicated to facilitating the preservation and sharing of research content, including digital repositories (for digital collections, data, code, etc.) and physical repositories (for collections, archives, reagents, specimens, etc.). The service may be operated by universities, governments, or private organizations, and it can be domain-agnostic or discipline-specific. Access to such repositories may be open or controlled (e.g. requiring registration, payment, or approval). Personal web-pages or other ad hoc methods of storing and sharing research content are not included.
 
-**Data** Any information underpinning a piece of research. The information can be qualitative (e.g. source, archive, representation of art, artefact) and/or quantitative (e.g. measurements, machine output, simulation results). The data can be raw (i.e. as collected), cleaned (i.e. corrected for errors), or prepared/processed (e.g. transformed into a different format for analysis, or anonymized for sharing). 
+**Data** Any information underpinning a piece of research. The information can be qualitative (e.g. source, archive, representation of art, artefact) and/or quantitative (e.g. measurements, machine output, simulation results). The data can be raw (i.e. as collected), cleaned (i.e. corrected for errors), or prepared/processed (e.g. transformed into a different format for analysis, or anonymized for sharing).
 
-**Code** Custom software developed by researchers specifically for the purpose of conducting a piece of research (e.g. a computer program to extract, clean, or analyse data, or to generate simulation results), or to build components of a research data infrastructure (e.g. a data repository). 
+**Code** Custom software developed by researchers specifically for the purpose of conducting a piece of research (e.g. a computer program to extract, clean, or analyse data, or to generate simulation results), or to build components of a research data infrastructure (e.g. a data repository).
 
-**Materials** Any element of the research process that can be coded digitally or shared physically (e.g. protocols, survey questions, instructions, intervention materials, videos of the study procedure, specimens, reagents, samples, and other items used to collect data and/or conduct the research). 
+**Materials** Any element of the research process that can be coded digitally or shared physically (e.g. protocols, survey questions, instructions, intervention materials, videos of the study procedure, specimens, reagents, samples, and other items used to collect data and/or conduct the research).
 
 **Preprint** An article, book chapter, book, or other scholarly work that is deposited in a repository ahead of peer review. Equivalent terms used in some disciplines are 'working papers' and 'unpublished manuscripts'.
 
-**Preregistration** The practice by which researchers specify elements of the planned work in a dedicated registry before observing the outcomes of the work. Examples include description of the planned approach for a qualitative study, and the data analysis plan for a quantitative study (i.e. a ’pre-analysis plan’, which can be submitted either before the start of data collection or for previously collected datasets, before the start of data analysis).
+**Preregistration** The practice by which researchers specify elements of the planned work in a dedicated registry before observing the outcomes of the work. Examples include description of the planned approach for a qualitative study, and the data analysis plan for a quantitative study (i.e. a 'pre-analysis plan', which can be submitted either before the start of data collection or for previously collected datasets, before the start of data analysis).
 
 **Registered report** A journal article format in which research question(s) and methodology are peer-reviewed before the work is conducted. A submission may be provisionally accepted for publication following peer-review, and eventually published if the authors follow through with the methodology specified in the accepted version (deviations from the registered plan are allowed, but they must be explicitly justified and noted as such). Acceptance of the article to the journal is therefore independent of the results obtained.
 
 ### Sample sizes
+
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","FormatPGRdata.R"))
 source(here::here("Rscripts","Sample-sizes.R"))
 totalStaff_duringPGRcollection <- sst_staff_pgrdatat$Total[sst_staff_pgrdatat$Question == "Consent_Affiliation_Role"]
 ```
-A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in Jan 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. 
-The table below shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD';  Continuing Education by 'ContEd').  
-Given the low sample size (**5**) for ContEd, we will not interpret the results for this department separetely. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.  
+
+A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in Jan 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. The table below shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Continuing Education by 'ContEd').\
+Given the low sample size (**5**) for ContEd, we will not interpret the results for this department separetely. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.
 
 ```{r general sample size, echo = FALSE}
 a <- cbind( " " = c("Number of respondents", "Census 2021 (unofficial)", "Representativeness in %", "Number of dropouts", "Dropouts in %"), sst[c(1, 11, 12, 13, 14),2:7])
@@ -100,11 +102,13 @@ a %>% flextable() %>%
 
 TO_REMOVE_JUST FOR TESTING_This is a reference to flextable \@ref(tab:tabSS).
 
-An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or  fellows, or research support staff)  filled out the survey. Their responses will be merged to the views gathered in the second round of data collection, which will target this population specifically.
+An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or fellows, or research support staff) filled out the survey. Their responses will be merged to the views gathered in the second round of data collection, which will target this population specifically.
 
 ### Awareness of open research practices
-A total of **`r sst$Total[sst$Question == "Awareness"]`** PGR students responded to the question:  
-"**Which of the following research practices are you aware of, and which do you have experience with?** ‘Aware only’ indicates that the practice is applicable to your discipline, but you do not have direct experience with it. ‘Accessing/using only’ refers to resources made available by others. ‘Practicing myself’ relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."  
+
+A total of **`r sst$Total[sst$Question == "Awareness"]`** PGR students responded to the question:\
+"**Which of the following research practices are you aware of, and which do you have experience with?** 'Aware only' indicates that the practice is applicable to your discipline, but you do not have direct experience with it. 'Accessing/using only' refers to resources made available by others. 'Practicing myself' relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."
+
 ```{r, echo = FALSE}
 a <- cbind( " " = c("Number of respondents"), sst[3,2:7])
 rownames(a) <- NULL
@@ -136,10 +140,10 @@ aware_MSD_preregRR <- atleastaware_preregRR$meanatleastaware[atleastaware_prereg
 aware_allothers_preregRR  <- mean(atleastaware_preregRR$meanatleastaware[atleastaware_preregRR$Div != 'MSD'])
 
 ```
-<br>
-Overall, **Open Access** publishing was indicated to be the most practiced among PGR students and only **`r not_aware_OA`%** of the respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was a large proportion (**`r aware_dont_practice_OA`%**) of respondents who were aware or accessing open access publications but who did not practice it themselves. Analyses of barriers to this practice (see details below) reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).  
 
-**Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice (around **`r pratice_middle_practices`%**), and unawareness (on average **`r unaware_middle_practices`%**).  
+<br> Overall, **Open Access** publishing was indicated to be the most practiced among PGR students and only **`r not_aware_OA`%** of the respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was a large proportion (**`r aware_dont_practice_OA`%**) of respondents who were aware or accessing open access publications but who did not practice it themselves. Analyses of barriers to this practice (see details below) reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).
+
+**Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice (around **`r pratice_middle_practices`%**), and unawareness (on average **`r unaware_middle_practices`%**).
 
 Overall, **Preregistration** and **Registered Reports** were the least practiced among PGR students (on average, by **`r practice_preregRR`%** of the respondents), and the majority of PGR students (on average, **`r unaware_preregRR`%** of the respondents)) indicated not to be aware of these practices.
 
@@ -147,8 +151,7 @@ Overall, **Preregistration** and **Registered Reports** were the least practiced
 All_pgrdata_Awareness_plot
 ```
 
-<br>
-When looking at the same data split per Divisions, it appears respondents from the Humanities and the SSD had overall less awareness of the open research practices proposed than respondents from the MSD and MPLS (on average **`r unaware_HumSSD`%** vs **`r unaware_MSDMPLS`%**, respectively).  
+<br> When looking at the same data split per Divisions, it appears respondents from the Humanities and the SSD had overall less awareness of the open research practices proposed than respondents from the MSD and MPLS (on average **`r unaware_HumSSD`%** vs **`r unaware_MSDMPLS`%**, respectively).\
 Another point worth noting: the two least known measures overall (namely **Preregistration** and **Registred Reports**) were the most practiced by MSD respondents and, in Division, more than half of the respondents were at least aware of these measures (**`r aware_MSD_preregRR`%** vs **`r aware_allothers_preregRR`%** on average for all other Divisions), This can be explained by the fact that the registration of clinical trials (which is mandatory) is a very similar practice than Preregistrations and Registered Reports (which can in principle be applied to most if not all fields).
 
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
@@ -156,8 +159,10 @@ pgrdata_Awareness_plot
 ```
 
 ### Overall effect of open research practices
-A total of **`r sst$Total[sst$Question == "Effect"]`** PGR students responded to the question:  
+
+A total of **`r sst$Total[sst$Question == "Effect"]`** PGR students responded to the question:\
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
+
 ```{r, echo = FALSE}
 a <- cbind( " " = c("Number of respondents"), sst[4,2:7])
 rownames(a) <- NULL
@@ -170,35 +175,37 @@ beneficial_all <- round(summary(All_pgrdata_Effect$perc[All_pgrdata_Effect$Answe
 detrimental_all <- round(summary(All_pgrdata_Effect$perc[All_pgrdata_Effect$Answer == "Detrimental"]),1)
 Hum_Preprint_Detrimental <- round(pgrdata_Effect$perc[pgrdata_Effect$LabelIndiv == "preprint" & pgrdata_Effect$Div == "Hum" & pgrdata_Effect$Answer == "Detrimental"],1)
 ```
-<br>
-Overall, the vast majority of respondents (on average **`r beneficial_all[4]`%**, ranging from **`r beneficial_all[1]`%** to **`r beneficial_all[6]`%**) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average **`r detrimental_all[4]`%**, ranging from **`r detrimental_all[1]`%** to **`r detrimental_all[6]`%**). Lower levels of favorable opinions did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect a widespread adoption of open research practices would be. This pattern of 'uncertaintly' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports. 
+
+<br> Overall, the vast majority of respondents (on average **`r beneficial_all[4]`%**, ranging from **`r beneficial_all[1]`%** to **`r beneficial_all[6]`%**) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average **`r detrimental_all[4]`%**, ranging from **`r detrimental_all[1]`%** to **`r detrimental_all[6]`%**). Lower levels of favorable opinions did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect a widespread adoption of open research practices would be. This pattern of 'uncertaintly' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports.
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
 All_pgrdata_Effect_plot
 ```
 
-When looking at Divisions separately, the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial while lower level of favourable opinions were only corresponding to higher level of uncertainty (whose patterns matched the patterns seen in the awareness question) rather than unfavorable opinions.  
-**Preprint** was judged the most detrimental practice with **`r Hum_Preprint_Detrimental`%** of the PGR students from the Humanities indicating that they think that the overall effect of its widespread adoption would be detrimental. 
+When looking at Divisions separately, the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial while lower level of favourable opinions were only corresponding to higher level of uncertainty (whose patterns matched the patterns seen in the awareness question) rather than unfavorable opinions.\
+**Preprint** was judged the most detrimental practice with **`r Hum_Preprint_Detrimental`%** of the PGR students from the Humanities indicating that they think that the overall effect of its widespread adoption would be detrimental.
 
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_Effect_plot
 ```
 
 ### Barriers to adoption of open research practices
-Different factors may contribute to the adoption of open research practices, including:  
-  - infrastructure, i.e. tools, resources, and/or services that enable implementation of the practice (e.g. repositories for digital or physical storage; registries for preregistration; publishing platforms or outlets) and of relevant community standards (e.g. guidelines relating to citation of data and metadata; ethical and legal guidelines for sharing sensitive data);  
-  - training, i.e the acquisition of knowledge and/or skills needed to implement the practice;  
-  - norms, i.e. widespread attitudes and behaviours that support and/or encourage the practice (e.g. the perception that the field is aware of the practice and in favour of implementation; interest from early-career researchers; support from supervisors, mentors);  
-  - incentives, i.e. resources and/or mechanisms that reward the practice (e.g. dedicated funding, awards; institutional recognition);  
-  - policy, i.e. a requirement to implement the practice by relevant stakeholders (e.g. institutions, funders, publishers).  
 
-Time may be perceived as an additional factor contributing to adoption of a practice. Rather, we consider availability of time, or lack thereof, as a consequence of the factors listed above. For example, a researcher may choose to invest the time required to adopt a practice depending on:  
-  - the availability of infrastructure or training, which facilitate implementation;  
-  - the existence of norms in the community, which mitigate the burden on the researcher;  
-  - the presence of incentives, or policy, which reward and/or mandate the practice in the researcher’s field or institution.   
+Different factors may contribute to the adoption of open research practices, including:\
+- infrastructure, i.e. tools, resources, and/or services that enable implementation of the practice (e.g. repositories for digital or physical storage; registries for preregistration; publishing platforms or outlets) and of relevant community standards (e.g. guidelines relating to citation of data and metadata; ethical and legal guidelines for sharing sensitive data);\
+- training, i.e the acquisition of knowledge and/or skills needed to implement the practice;\
+- norms, i.e. widespread attitudes and behaviours that support and/or encourage the practice (e.g. the perception that the field is aware of the practice and in favour of implementation; interest from early-career researchers; support from supervisors, mentors);\
+- incentives, i.e. resources and/or mechanisms that reward the practice (e.g. dedicated funding, awards; institutional recognition);\
+- policy, i.e. a requirement to implement the practice by relevant stakeholders (e.g. institutions, funders, publishers).
 
-A total of **`r sst$Total[sst$Question == "Barriers"]`** PGR students responded to the question:  
+Time may be perceived as an additional factor contributing to adoption of a practice. Rather, we consider availability of time, or lack thereof, as a consequence of the factors listed above. For example, a researcher may choose to invest the time required to adopt a practice depending on:\
+- the availability of infrastructure or training, which facilitate implementation;\
+- the existence of norms in the community, which mitigate the burden on the researcher;\
+- the presence of incentives, or policy, which reward and/or mandate the practice in the researcher's field or institution.
+
+A total of **`r sst$Total[sst$Question == "Barriers"]`** PGR students responded to the question:\
 "**Do you face any barriers in adopting the following practices and, if so, what are they?** Tick all that apply and/or provide a brief description for any others."
+
 ```{r, echo = FALSE}
 a <- cbind(" " = c("Number of respondents"), sst[5,2:7])
 rownames(a) <- NULL
@@ -218,12 +225,14 @@ Because each respondent could select multiple answers, the sum of the percentage
 All_pgrdata_Barriers_plot
 ```
 
-While the lack of incentives to practice **Open Access** and lack of training to practice **Open Data** is shared across all Divisions, the ~25% of respondents thinking that there are no barriers to **Preprint** are mostly distributed among the MPLS and MSD Divisions where these practices are already more common. 
+While the lack of incentives to practice **Open Access** and lack of training to practice **Open Data** is shared across all Divisions, the \~25% of respondents thinking that there are no barriers to **Preprint** are mostly distributed among the MPLS and MSD Divisions where these practices are already more common.
 
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_Barriers_plot
 ```
+
 #### Other barriers
+
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","OtherBarriersDownsides.R"))
 ```
@@ -233,9 +242,11 @@ rownames(pivot_table_OtherBarriers) <- NULL
 pivot_table_OtherBarriers %>% knitr::kable()
 ```
 
-### Downsides to widespread adoption of  open research practices
-A total of **`r sst$Total[sst$Question == "Downsides"]`** PGR students responded to the question:  
+### Downsides to widespread adoption of open research practices
+
+A total of **`r sst$Total[sst$Question == "Downsides"]`** PGR students responded to the question:\
 "**In your view, are there any downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
+
 ```{r, echo = FALSE}
 a <- cbind(" " = c("Number of respondents"), sst[6,2:7])
 rownames(a) <- NULL
@@ -250,42 +261,46 @@ no_downsides_MSD <- round(summary(pgrdata_Downsides$perc[pgrdata_Downsides$Answe
 yes_downsides_data_MSD <- round(pgrdata_Downsides$perc[pgrdata_Downsides$Answer == 'Yes' & pgrdata_Downsides$Div == 'MSD' & pgrdata_Downsides$LabelIndiv == 'Open Data'],1)
 
 ```
+
 Overall, the vast majority of respondents (on average **`r no_downsides[4]`%**, ranging from **`r no_downsides[1]`%** to **`r no_downsides[6]`%**) found that the widespread adoption of open research practices would have no downsides, while very few found that it would (on average **`r yes_downsides[4]`%**, ranging from **`r yes_downsides[1]`%** to **`r yes_downsides[6]`%**). Lower levels of favorable opinions, like previously, did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about whether a widespread adoption of open research practices would lead to any downsides. T
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
 All_pgrdata_Downsides_plot
 ```
 
-In MSD, more than half (`r no_downsides_MSD[1]`% at minimum) of the respondents thought there were no downsides to any of the measures presented. The MSD (if we exclude ContEd) also presented the highest percentage of respondents (**`r yes_downsides_data_MSD`% **) indicating downsides for an open research practice (namely, **Open Data**).
+In MSD, more than half (`r no_downsides_MSD[1]`% at minimum) of the respondents thought there were no downsides to any of the measures presented. The MSD (if we exclude ContEd) also presented the highest percentage of respondents (**`r yes_downsides_data_MSD`%** ) indicating downsides for an open research practice (namely, **Open Data**).
 
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_Downsides_plot
 ```
+
 #### what downsides
+
 ```{r, echo = FALSE}
 rownames(pivot_table_WhatDownsides) <- NULL
 pivot_table_WhatDownsides %>% knitr::kable()
 ```
 
 ### Training needs
-A total of **`r sst$Total[sst$Question == "Training"]`** PGR students responded to the question:  
-"**For which of the following topics do you think more guidance is necessary?** ‘No guidance needed’ indicates that sufficient guidance on the topic is available. ‘No guidance wanted’ indicates that you do not see the net benefit of engaging with the topic. Please list any additional topics in the empty boxes below."
+
+A total of **`r sst$Total[sst$Question == "Training"]`** PGR students responded to the question:\
+"**For which of the following topics do you think more guidance is necessary?** 'No guidance needed' indicates that sufficient guidance on the topic is available. 'No guidance wanted' indicates that you do not see the net benefit of engaging with the topic. Please list any additional topics in the empty boxes below."
+
 ```{r, echo = FALSE}
 a <- cbind(" " = c("Number of respondents"), sst[9,2:7])
 rownames(a) <- NULL
 a %>% knitr::kable()
 ```
 
-The topics listed were:  
-How to publish open access articles, theses, or monographs [labelled **Open Access**]  
-How to prepare data management plans [labelled **Data Management Plan**]  
-How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled **Open data**]  
-How to prepare ethics applications that allow archiving of anonymised data in a public repository [lablled **Ethics**]  
-How to write good quality code (including unit testing, version control, reproducible documentation) and share it publicly (e.g. selection of a repository that assigns a DOI) [labelled **Open Code**]  
-How to prepare materials for sharing (e.g. in a digital repository that assigns a DOI, or in a physical repository)
-How to choose and apply licences for sharing resources (e.g. data, materials, and/or code) and navigate relevant legislation (including copyright law, privacy and GDPR law, commercial law, and institutional regulations) [labelled **Licences**]  
-How to prepare preregistrations and/or registered reports (including experimental design, statistics, data simulation) [labelled **Preregistration**]  
-Guidance on sharing preprints (e.g. selection of appropriate repository, consideration of publisher’s rights, ethical considerations) [labelled **Preprint**]  
+The topics listed were:\
+How to publish open access articles, theses, or monographs [labelled **Open Access**]\
+How to prepare data management plans [labelled **Data Management Plan**]\
+How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled **Open data**]\
+How to prepare ethics applications that allow archiving of anonymised data in a public repository [lablled **Ethics**]\
+How to write good quality code (including unit testing, version control, reproducible documentation) and share it publicly (e.g. selection of a repository that assigns a DOI) [labelled **Open Code**]\
+How to prepare materials for sharing (e.g. in a digital repository that assigns a DOI, or in a physical repository) How to choose and apply licences for sharing resources (e.g. data, materials, and/or code) and navigate relevant legislation (including copyright law, privacy and GDPR law, commercial law, and institutional regulations) [labelled **Licences**]\
+How to prepare preregistrations and/or registered reports (including experimental design, statistics, data simulation) [labelled **Preregistration**]\
+Guidance on sharing preprints (e.g. selection of appropriate repository, consideration of publisher's rights, ethical considerations) [labelled **Preprint**]\
 How to assess job applications responsibly, fairly, and transparently [labelled ]
 
 ```{r, echo = FALSE, include = FALSE}
@@ -297,7 +312,8 @@ no_guidance_needed <- All_pgrdata_Training %>% group_by(LabelIndiv) %>% summaris
 
 
 ```
-Overall, most respondents indicated they wanted some form of guidance (written guidance and/or worshop-led training) for each of the topics presented (on average **`r summary_some_guidance_wanted[4]`%** of the respondents; ranging from `r summary_some_guidance_wanted[1]`% for Preregistration and Registered Reports to `r summary_some_guidance_wanted[6]`% for FAIR data. 
+
+Overall, most respondents indicated they wanted some form of guidance (written guidance and/or worshop-led training) for each of the topics presented (on average **`r summary_some_guidance_wanted[4]`%** of the respondents; ranging from `r summary_some_guidance_wanted[1]`% for Preregistration and Registered Reports to `r summary_some_guidance_wanted[6]`% for FAIR data.
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
 All_pgrdata_Training_plot
@@ -308,11 +324,13 @@ pgrdata_Training_plot
 ```
 
 #### extra training requested
+
 ```{r, echo = FALSE}
 xtab_OtherTraining %>% knitr::kable()
 ```
 
 ### Support
+
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","Support.R"))
 ```
@@ -326,11 +344,13 @@ pgrdata_Support_plot
 ```
 
 #### extra support requested
+
 ```{r, echo = FALSE}
 xtab_OtherSupport %>% knitr::kable()
 ```
 
 ### Perceived current recruitment criteria
+
 ```{r, echo = FALSE}
 a <- cbind( " " = c("Number of respondents"), sst[7,2:7])
 rownames(a) <- NULL
@@ -350,12 +370,13 @@ pgrdata_CurrentCriteria_plot
 ```
 
 #### other perceived current recruitment criteria
+
 ```{r, echo = FALSE}
 xtab_OtherCurrentRecruitment %>% knitr::kable()
 ```
 
-
 ### Desired future recruitment criteria
+
 ```{r, echo = FALSE}
 a <- cbind( " " = c("Number of respondents"), sst[8,2:7])
 rownames(a) <- NULL
@@ -371,11 +392,13 @@ All_pgrdata_FutureCriteria_plot
 ```
 
 teaching most desired criteria in Humanities not so elsewhere.
+
 ```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
 pgrdata_FutureCriteria_plot
 ```
 
 #### other desired future recruitment criteria
+
 ```{r, echo = FALSE}
 xtab_OtherFutureRecruitment %>% knitr::kable()
 ```
