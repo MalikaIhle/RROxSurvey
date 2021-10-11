@@ -24,13 +24,22 @@ h1.title {
 </style>
 ```
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library(flextable)
 library(tidyverse)
 library(here)
 library(knitr)
 library(officer)
 library(bookdown)
+
+set_flextable_defaults(
+  table.layout = "autofit",
+  digits = 1,
+  font.color = "black",
+  font.family = "Calibri", 
+  font.size = 10
+  )
+
+options(dplyr.summarise.inform = FALSE) # Suppress summarise info 'summarise() has grouped output by '
 ```
 
 ```{=html}
@@ -44,11 +53,11 @@ for Barriers: select items if at least one answer is not NA to calculate percent
 
 Broadly, open research (also called 'open scholarship' or, in some disciplines, 'open science') refers to efforts to ensure that different elements of the research process are transparent and accessible. The aim of this survey is to assess the views of Oxford researchers on **open research practices**, related **training needs and provision**, and **recruitment criteria**.
 
-The survey was designed and administered by Reproducible Research Oxford. The first round was aimed at post-graduate research (PGR) students working in any field of research and based in any Divisions of the University (Humanities; Mathematical, Physical, and Life Sciences; Medical Sciences; Social Sciences; Continuing Education).
+The survey was designed and administered by Reproducible Research Oxford. The first round was aimed at post-graduate research (PGR) students working in any field of research and based in any Divisions of the University (Humanities; Mathematical, Physical, and Life Sciences; Medical Sciences; Social Sciences; Department for Continuing Education).
 
 Participation in the survey was voluntary and all responses were anonymous.
 
-The survey was circulated to all Oxford PGR through both the Divisional and Collegial communication channels (newsletters and email to students from graduate training coordinators) to maximise the diversity of views and representativeness of the survey results, and to minimize the self-selection bias (where only people already invested in a subject chose to take part) as much as possible.
+The survey was circulated to all Oxford PGR through both the Divisional and Collegial communication channels (newsletters and email to students from graduate training coordinators) to maximise the diversity of views and representativeness of the survey results, and to minimise the self-selection bias (where only people already invested in a subject chose to take part) as much as possible.
 
 ### Open research practices
 
@@ -78,29 +87,18 @@ source(here::here("Rscripts","Sample-sizes.R"))
 totalStaff_duringPGRcollection <- sst_staff_pgrdatat$Total[sst_staff_pgrdatat$Question == "Consent_Affiliation_Role"]
 ```
 
-A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in Jan 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. The table below shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Continuing Education by 'ContEd').\
-Given the low sample size (**5**) for ContEd, we will not interpret the results for this department separetely. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.
+A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in January 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. Table \@ref(tab:tabSS) shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Department for Continuing Education by 'ContEd').\
+Given the low sample size (**5**) for ContEd, we will not interpret the results for this department separately. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.
 
 ```{r general sample size, echo = FALSE}
 a <- cbind( " " = c("Number of respondents", "Census 2021 (unofficial)", "Representativeness in %", "Number of dropouts", "Dropouts in %"), sst[c(1, 11, 12, 13, 14),2:7])
 rownames(a) <- NULL
-#a %>% knitr::kable()
-
-set_flextable_defaults(
-  table.layout = "autofit",
-  digits = 1,
-  font.color = "black",
-  font.family = "Calibri", 
-  font.size = 10
-  )
 
 a %>% flextable() %>% 
-    set_caption(caption = "Respondents by Division",
+    set_caption(caption = "Total number of respondents by Division",
                 style = "Table Caption", 
                 autonum = run_autonum(seq_id = "tab", bkm = "tabSS"))
 ```
-
-TO_REMOVE_JUST FOR TESTING_This is a reference to flextable \@ref(tab:tabSS).
 
 An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or fellows, or research support staff) filled out the survey. Their responses will be merged to the views gathered in the second round of data collection, which will target this population specifically.
 
@@ -108,12 +106,6 @@ An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academi
 
 A total of **`r sst$Total[sst$Question == "Awareness"]`** PGR students responded to the question:\
 "**Which of the following research practices are you aware of, and which do you have experience with?** 'Aware only' indicates that the practice is applicable to your discipline, but you do not have direct experience with it. 'Accessing/using only' refers to resources made available by others. 'Practicing myself' relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."
-
-```{r, echo = FALSE}
-a <- cbind( " " = c("Number of respondents"), sst[3,2:7])
-rownames(a) <- NULL
-a %>% knitr::kable()
-```
 
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","Awareness.R"))
@@ -141,24 +133,23 @@ aware_allothers_preregRR  <- mean(atleastaware_preregRR$meanatleastaware[atleast
 
 ```
 
-<br> Overall, **Open Access** publishing was indicated to be the most practiced among PGR students and only **`r not_aware_OA`%** of the respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was a large proportion (**`r aware_dont_practice_OA`%**) of respondents who were aware or accessing open access publications but who did not practice it themselves. Analyses of barriers to this practice (see details below) reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).
+<br> Overall, **Open Access** publishing was indicated to be the most practiced among PGR students and only **`r not_aware_OA`%** of the respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work (see Figure \@ref(fig:fig-awareness)). However, there was a large proportion (**`r aware_dont_practice_OA`%**) of respondents who were aware or accessing open access publications but who did not practice it themselves. Analyses of barriers to this practice (see details below) reveals that the lack of funding for gold open access may be one of the cause, therefore **we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA)**.
+
+```{r, echo = FALSE}
+a <- cbind( " " = c("Number of respondents"), sst[3,2:7])
+rownames(a) <- NULL
+```
+
+```{r fig-awareness, echo = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses for awareness of ORPs across Divisions. N = ", a$Total, "PGR students. (ContEd: ",a$ContEd, ", Hum: ", a$Hum, ", MPLS: ", a$MPLS, ", MSD: ",a$MSD, ", SSD: ", a$SSD, ").", sep = "")}
+horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors)
+```
 
 **Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice (around **`r pratice_middle_practices`%**), and unawareness (on average **`r unaware_middle_practices`%**).
 
-Overall, **Preregistration** and **Registered Reports** were the least practiced among PGR students (on average, by **`r practice_preregRR`%** of the respondents), and the majority of PGR students (on average, **`r unaware_preregRR`%** of the respondents)) indicated not to be aware of these practices.
+**Preregistration** and **Registered Reports** were the least practiced among PGR students (on average, by **`r practice_preregRR`%** of the respondents), and the majority of PGR students (on average, **`r unaware_preregRR`%** of the respondents)) indicated not to be aware of these practices.<br> When comparing Divisions, it appears that respondents from the Humanities and the SSD had overall less awareness of the open research practices proposed than respondents from the MSD and MPLS (on average **`r unaware_HumSSD`%** vs **`r unaware_MSDMPLS`%**, respectively).\
+Another point worth noting: the two least known measures overall (namely **Preregistration** and **Registered Reports**) were the most practiced by MSD respondents and, in this Division, more than half of the respondents were at least aware of these measures (**`r aware_MSD_preregRR`%** vs **`r aware_allothers_preregRR`%** on average for all other Divisions). This can be explained by the fact that the registration of clinical trials (which is mandatory) is a very similar practice than Preregistrations and Registered Reports (which can most easily be applied to experimental fields).
 
-```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
-All_pgrdata_Awareness_plot
-```
-
-<br> When looking at the same data split per Divisions, it appears respondents from the Humanities and the SSD had overall less awareness of the open research practices proposed than respondents from the MSD and MPLS (on average **`r unaware_HumSSD`%** vs **`r unaware_MSDMPLS`%**, respectively).\
-Another point worth noting: the two least known measures overall (namely **Preregistration** and **Registred Reports**) were the most practiced by MSD respondents and, in Division, more than half of the respondents were at least aware of these measures (**`r aware_MSD_preregRR`%** vs **`r aware_allothers_preregRR`%** on average for all other Divisions), This can be explained by the fact that the registration of clinical trials (which is mandatory) is a very similar practice than Preregistrations and Registered Reports (which can in principle be applied to most if not all fields).
-
-```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
-pgrdata_Awareness_plot
-```
-
-### Overall effect of open research practices
+## Overall effect of open research practices
 
 A total of **`r sst$Total[sst$Question == "Effect"]`** PGR students responded to the question:\
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
@@ -176,11 +167,7 @@ detrimental_all <- round(summary(All_pgrdata_Effect$perc[All_pgrdata_Effect$Answ
 Hum_Preprint_Detrimental <- round(pgrdata_Effect$perc[pgrdata_Effect$LabelIndiv == "preprint" & pgrdata_Effect$Div == "Hum" & pgrdata_Effect$Answer == "Detrimental"],1)
 ```
 
-<br> Overall, the vast majority of respondents (on average **`r beneficial_all[4]`%**, ranging from **`r beneficial_all[1]`%** to **`r beneficial_all[6]`%**) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average **`r detrimental_all[4]`%**, ranging from **`r detrimental_all[1]`%** to **`r detrimental_all[6]`%**). Lower levels of favorable opinions did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect a widespread adoption of open research practices would be. This pattern of 'uncertaintly' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports.
-
-```{r, echo = FALSE, fig.width=10, fig.height=4, fig.align = "center"}
-All_pgrdata_Effect_plot
-```
+<br> The vast majority of respondents (on average **`r beneficial_all[4]`%**, ranging from **`r beneficial_all[1]`%** to **`r beneficial_all[6]`%**) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average **`r detrimental_all[4]`%**, ranging from **`r detrimental_all[1]`%** to **`r detrimental_all[6]`%**). Lower levels of favorable opinions did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect a widespread adoption of open research practices would be. This pattern of 'uncertainty' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports.
 
 When looking at Divisions separately, the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial while lower level of favourable opinions were only corresponding to higher level of uncertainty (whose patterns matched the patterns seen in the awareness question) rather than unfavorable opinions.\
 **Preprint** was judged the most detrimental practice with **`r Hum_Preprint_Detrimental`%** of the PGR students from the Humanities indicating that they think that the overall effect of its widespread adoption would be detrimental.
