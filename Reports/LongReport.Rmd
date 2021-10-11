@@ -23,6 +23,7 @@ h1.title {
 
 </style>
 ```
+
 ```{r setup, include=FALSE}
 library(flextable)
 library(tidyverse)
