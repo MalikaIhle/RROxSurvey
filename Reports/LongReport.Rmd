@@ -37,7 +37,8 @@ set_flextable_defaults(
   digits = 1,
   font.color = "black",
   font.family = "Calibri", 
-  font.size = 10
+  font.size = 10,
+  line_spacing = 1 # this argument doesn't seem to work.
   )
 
 options(dplyr.summarise.inform = FALSE) # Suppress summarise info 'summarise() has grouped output by '
@@ -106,7 +107,7 @@ An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academi
 ### Awareness of open research practices
 
 A total of **`r sst$Total[sst$Question == "Awareness"]`** PGR students responded to the question:\
-"**Which of the following research practices are you aware of, and which do you have experience with?** 'Aware only' indicates that the practice is applicable to your discipline, but you do not have direct experience with it. 'Accessing/using only' refers to resources made available by others. 'Practicing myself' relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."
+"**Which of the following research practices are you aware of, and which do you have experience with?** 'Aware only' indicates that the practice is applicable to your discipline, but you do not have direct experience with it. 'Accessing/using only' refers to resources made available by others. 'Practising myself' relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."
 
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","Awareness.R"))
@@ -141,8 +142,8 @@ a <- cbind( " " = c("Number of respondents"), sst[3,2:7])
 rownames(a) <- NULL
 ```
 
-```{r fig-awareness, echo = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses for awareness of ORPs across Divisions. N = ", a$Total, "PGR students. (ContEd: ",a$ContEd, ", Hum: ", a$Hum, ", MPLS: ", a$MPLS, ", MSD: ",a$MSD, ", SSD: ", a$SSD, ").", sep = "")}
-horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors)
+```{r fig-awareness, echo = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses for awareness of ORPs across Divisions. N = ", a$Total, " PGR students. (ContEd: ",a$ContEd, ", Hum: ", a$Hum, ", MPLS: ", a$MPLS, ", MSD: ",a$MSD, ", SSD: ", a$SSD, ").", sep = "")}
+horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors, title_plot)
 ```
 
 **Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice (around **`r pratice_middle_practices`%**), and unawareness (on average **`r unaware_middle_practices`%**).
@@ -154,12 +155,6 @@ Another point worth noting: the two least known measures overall (namely **Prere
 
 A total of **`r sst$Total[sst$Question == "Effect"]`** PGR students responded to the question:\
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
-
-```{r, echo = FALSE}
-a <- cbind( " " = c("Number of respondents"), sst[4,2:7])
-rownames(a) <- NULL
-a %>% knitr::kable()
-```
 
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","Effect.R"))
@@ -173,8 +168,13 @@ Hum_Preprint_Detrimental <- round(pgrdata_Effect$perc[pgrdata_Effect$LabelIndiv 
 When looking at Divisions separately, the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial while lower level of favourable opinions were only corresponding to higher level of uncertainty (whose patterns matched the patterns seen in the awareness question) rather than unfavorable opinions.\
 **Preprint** was judged the most detrimental practice with **`r Hum_Preprint_Detrimental`%** of the PGR students from the Humanities indicating that they think that the overall effect of its widespread adoption would be detrimental.
 
-```{r, echo = FALSE, warning = FALSE, fig.width=10, fig.height=8, fig.align = "center"}
-pgrdata_Effect_plot
+```{r, echo = FALSE}
+a <- cbind( " " = c("Number of respondents"), sst[4,2:7])
+rownames(a) <- NULL
+```
+
+```{r, echo = FALSE, warning = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses across Divisions for the expected overall effect of widespread adoption of ORPs. N = ", a$Total, " PGR students. (ContEd: ",a$ContEd, ", Hum: ", a$Hum, ", MPLS: ", a$MPLS, ", MSD: ",a$MSD, ", SSD: ", a$SSD, ").", sep = "")}
+horizontal_stack_barplot_per_ORP(pgrdata_Effect, Effect_answers, answers_colors, title_plot)
 ```
 
 ### Barriers to adoption of open research practices
