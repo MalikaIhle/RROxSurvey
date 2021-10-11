@@ -46,5 +46,5 @@ All_pgrdata_Awareness <- regroup_all_data(pgrdata_Awareness)
 
 
 # Horizontal stacked barplot per ORP
-horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors)
+horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors, title_plot)
 #ggsave("Figures/example-plot-Awareness-per-ORP.png", width = 7, height = 9, bg = "white")

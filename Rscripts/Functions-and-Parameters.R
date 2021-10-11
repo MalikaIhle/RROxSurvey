@@ -183,7 +183,7 @@ stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answe
   
 }  
 
-horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors){
+horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_plot){
   
 data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
 
@@ -204,9 +204,10 @@ count_by_answer_and_div_and_orp %>%
   theme_minimal() +
   scale_y_continuous(labels = scales::percent) +
   theme(legend.position="right",
-        legend.title = element_blank(),
+        #legend.title = element_blank(),
         strip.text.x = element_text(size = 10, colour = "black")) +
-  labs(x = "", y = "")
+  labs(x = "", y = "")+
+  guides(fill=guide_legend(title=title_plot))
 
 }
 
