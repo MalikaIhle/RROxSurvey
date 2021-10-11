@@ -31,7 +31,7 @@ To work on one file specifically, one need to uncomment the two first lines
 `#rm(list = ls())`
 `#source("FormatPGRdata.R")`
 
-Each of these R files is called in LongReport.Rmd which needs these two lines at the top to be commented.
+Each of these R files is called in LongReport.Rmd which needs these two lines at the top to be commented out.
 
 The list of file in order of the questions in the survey is:
 - Awareness.R -> Q4 Which of the following research practices are you aware of, and which do you have experience with?
@@ -55,7 +55,7 @@ in Report folder:
 - ShortReport.R -> create combines figures for a landscape draft report made in Gdoc: https://docs.google.com/document/d/1dc3E3oU9evBrBYhIxMUqiEsvxx_bkc_y/edit
 - Report.html -> version that compiled before changing Function-and-Parameters.R for circular plot to take more arguments depending on the question.
 - LongReport.html -> version that compiled after changing Function-and-Parameters.R (commenting out the argument question to the circular plot)
-- For the actually shared executive sumamry report  https://docs.google.com/document/d/1mxloQSeqGx9fWX_SvNp-t2cISb5OOJWMaPb5ZGy7irs/edit, the figures were created by running the circular plot function 'by hand' (to personalise layout) and saved through the RStudio preview.
+- For the actually shared executive summary report  https://docs.google.com/document/d/1mxloQSeqGx9fWX_SvNp-t2cISb5OOJWMaPb5ZGy7irs/edit, the figures were created by running the circular plot function 'by hand' (to personalise layout) and saved through the RStudio preview.
 
 - LongReport.Rmd
 current version of the report.
