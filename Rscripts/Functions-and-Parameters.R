@@ -14,7 +14,7 @@ Criteria <- c('Number of publications','Prestige of publication outlet','Quality
 Criteria_short <- c("PubNub","PubPrestige","PubQual","Authorship","Citation","Grant","Impact", "Teaching","Supervision","Service","Citizenship",
                     "Reputation","Collaboration","OpenResearch")
 
-Divisions <- c("SSD", "Hum", "ContEd","MPLS", "MSD")
+Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd")
 
 # functions
 
@@ -182,3 +182,31 @@ stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answe
     legend.title=element_blank())
   
 }  
+
+horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors){
+  
+data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+
+count_by_answer_and_div_and_orp <- data %>% 
+  group_by(Answer, Div, LabelIndiv) %>%
+  summarise(num_respondents = sum(n, na.rm = TRUE)) %>% 
+  mutate(Answer = factor(Answer, levels = answers))
+
+count_by_answer_and_div_and_orp %>% 
+  ggplot() +
+  geom_bar(aes(x = Div, y = num_respondents, fill = Answer), stat = "identity", position = "fill") +
+  scale_fill_manual(values = (answers_colors),
+                    breaks = rev(answers), 
+                    labels = rev(answers), 
+                    drop = FALSE) +
+  facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position="right",
+        legend.title = element_blank(),
+        strip.text.x = element_text(size = 10, colour = "black")) +
+  labs(x = "", y = "")
+
+}
+
