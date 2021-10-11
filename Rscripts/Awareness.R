@@ -13,6 +13,7 @@ answers_colors <- rev(c("#ABDDA4", "#FFFFBF", "#FDAE61", "#D7191C", "black"))
 title_plot <- 'Awareness'
 
 
+
 # create datadet for plotting per Divisions -----
 ## select subdataset 
 pgrdata_Awareness <- pgrdata[pgrdata$StudentStaff == "Student",  
@@ -31,14 +32,19 @@ rm(skeleton, summaryitems, Awareness_columns)
 
 
 # plot per Division -----
-pgrdata_Awareness_plot <- circular_plot_function(pgrdata_Awareness, Measures, Awareness_answers, title_plot, answers_colors)
-pgrdata_Awareness_plot
+## pgrdata_Awareness_plot <- circular_plot_function(pgrdata_Awareness, Measures, Awareness_answers, title_plot, answers_colors)
+## pgrdata_Awareness_plot
 ## ggsave(pgrdata_Awareness_plot, file=here("Figures/pgrdata_Awareness2.png"), width=10, height=8)
 
 # regroup data split per Division for overall plot -----
 All_pgrdata_Awareness <- regroup_all_data(pgrdata_Awareness)
 
 # plot regrouped data  -----
-All_pgrdata_Awareness_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Awareness, Measures, Awareness_answers, answers_colors)
-All_pgrdata_Awareness_plot
+## All_pgrdata_Awareness_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Awareness, Measures, Awareness_answers, answers_colors)
+## All_pgrdata_Awareness_plot
 ## ggsave(All_pgrdata_Support_plot, file=here("Figures/All_pgrdata_Awareness_plot.png"), width=10, height=8)
+
+
+# Horizontal stacked barplot per ORP
+horizontal_stack_barplot_per_ORP(pgrdata_Awareness, Awareness_answers, answers_colors)
+#ggsave("Figures/example-plot-Awareness-per-ORP.png", width = 7, height = 9)
