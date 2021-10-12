@@ -18,6 +18,86 @@ Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd")
 
 # functions
 
+clean_qualtrics_data <- function(data, surveyindex){
+  
+  ## change column names according to survey index
+  data <- data[-c(1, 2), -which(names(data) %in% c("DistributionChannel","UserLanguage"))] 
+  colnames(data) <- surveyindex$VariableName[surveyindex$QuestionCode == colnames(data)] 
+  data[data == ""] <- NA
+  
+  ## Subset data to records with filled out Consent, Affiliation, and Role: the 3 mandatory questions
+    #nrow(data)
+  data <- subset(data[!is.na(data$Consent) & !is.na(data$DivCol) & !is.na(data$Role),] )
+    #nrow(data)
+  
+  ## Consent T/F
+  data$Consent <- data$Consent == "I consent to participating in the survey and to processing of the information I provide as outlined above."
+  
+  # Affiliation
+  {
+    ## College TRUE FALSE
+    data$College <- data$DivCol == "College-only staff"
+      #table(data$College)
+    
+    ## Division
+    data$Div <- data$DivCol
+    data$Div[data$Div == "College-only staff"] <- data$ColDiv[data$Div == "College-only staff"]
+    
+    data$Div[data$Div == "Social Sciences Division"] <- "SSD"
+    data$Div[data$Div == "Humanities Division"] <- "Hum"
+    data$Div[data$Div == "Department for Continuing Education"] <- "ContEd"
+    data$Div[data$Div == "Mathematical, Physical, and Life Sciences Division"] <- "MPLS"
+    data$Div[data$Div == "Medical Sciences Division"] <- "MSD"
+    data$Div[data$Div == "Gardens, Libraries and Museums"] <- "GLAM"
+      #table(data$Div)
+    
+    ## Department
+    data$Dept <- data$Dept1 
+    data$Dept[!is.na(data$Dept2)] <- data$Dept2[!is.na(data$Dept2)]
+    data$Dept[!is.na(data$Dept3)] <- data$Dept3[!is.na(data$Dept3)]
+    data$Dept[!is.na(data$Dept4)] <- data$Dept4[!is.na(data$Dept4)]
+    data$Dept[!is.na(data$Dept5)] <- data$Dept5[!is.na(data$Dept5)]
+    data$Dept[!is.na(data$Dept6)] <- data$Dept6[!is.na(data$Dept6)]
+    data$Dept[!is.na(data$Dept7)] <- data$Dept7[!is.na(data$Dept7)]
+    data$Dept[!is.na(data$Dept8)] <- data$Dept8[!is.na(data$Dept8)]
+    data$Dept[!is.na(data$Dept9)] <- data$Dept9[!is.na(data$Dept9)]
+    data$Dept[!is.na(data$Dept10)] <- data$Dept10[!is.na(data$Dept10)]
+      #table(data$Dept)
+    
+    ## Other Department
+      #table(data$OtherDept)
+    data[!is.na(data$OtherDept),c('OtherDept', 'Dept', 'Div')]
+    
+    ### recoding of Dept for otherdept actually in the list
+    data$Dept[!is.na(data$OtherDept) & (data$OtherDept == "Wellcome Centre for Human Genetics" |
+                                                data$OtherDept == "Experimental Medicine"|
+                                                data$OtherDept == "Nuffield Department of Experimental Medicine")] <- "Nuffield Department of Clinical Medicine"
+    
+    data$Dept[!is.na(data$OtherDept) & str_detect(data$OtherDept, "Oxford Internet Institute")] <- "Oxford Internet Institute"
+    
+    data[!is.na(data$Dept) & data$Dept == "Other",]
+    
+    # clean up long longer useful column
+    unwanted_colnames <- c("DivCol", "ColDiv", names(data[, grep(pattern="Dept[0-9]+", colnames(data))]))
+    data <- data[, -which(names(data) %in% unwanted_colnames)] 
+    rm(unwanted_colnames)
+  }
+  
+  # Role
+  {
+      #table(data$Role) 
+    data$StudentStaff <- data$Role == "Student on a postgraduate research programme"
+    data$StudentStaff[data$StudentStaff == TRUE] <- "Student"
+    data$StudentStaff[data$StudentStaff == FALSE] <- "Staff"
+  }
+  
+  # Years of Experience
+  data$Duration <- as.numeric(data$Duration)
+  
+  return(data)
+  
+}
+
 create_skeleton <- function(Question, Divisions, answers, columns){
   Div <- rep(Divisions, each = length(columns)*length(answers)) 
   LabelIndiv <- rep(Question, each = length(answers), times = length(Divisions)) 
@@ -79,10 +159,10 @@ circular_plot_function <- function(data, Question, answers, title_plot, answers_
     rowwise() %>% 
     mutate(title=mean(c(start, end)))
   
-if (name_data_argument == 'pgrdata_Awareness'){
+if (name_data_argument == 'data_Awareness'){
 base_data$title[base_data$Div == 'SSD'] <- 39} #for awareness plot
 
-if (name_data_argument == 'pgrdata_Training'){
+if (name_data_argument == 'data_Training'){
 base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
   
   
@@ -97,7 +177,7 @@ base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
   
   
   ## Make the plot
-  pgrdata_Support_plot <- ggplot(data) +     
+  data_Support_plot <- ggplot(data) +     
     
     ### Add the stacked bar
     geom_bar(aes(x=as.factor(id), y=perc, fill=factor(Answer, level = answers)), stat="identity", alpha=0.5) +
@@ -183,7 +263,7 @@ stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answe
   
 }  
 
-horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_plot){
+horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
   
 data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
 
@@ -207,7 +287,9 @@ count_by_answer_and_div_and_orp %>%
         #legend.title = element_blank(),
         strip.text.x = element_text(size = 10, colour = "black")) +
   labs(x = "", y = "")+
-  guides(fill=guide_legend(title=title_plot))
+  guides(fill=guide_legend(title=title_legend))+
+  ggtitle(title_plot) + 
+  theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
 
 }
 
