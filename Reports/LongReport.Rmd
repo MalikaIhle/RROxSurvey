@@ -23,7 +23,6 @@ h1.title {
 
 </style>
 ```
-
 ```{r setup, include=FALSE}
 library(flextable)
 library(tidyverse)
@@ -89,20 +88,20 @@ source(here::here("Rscripts","Sample-sizes.R"))
 totalStaff_duringPGRcollection <- sst_staff_pgrdatat$Total[sst_staff_pgrdatat$Question == "Consent_Affiliation_Role"]
 ```
 
-A total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in January 2021) provided their consent to participating in the survey, as well as their affiliations and their role, which were the only mandatory questions participants needed to answer to be included in the analysis. Among these, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. Table \@ref(tab:tabSS) shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Department for Continuing Education by 'ContEd').\
-Given the low sample size (**5**) for ContEd, we will not interpret the results for this department separately. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.
+In the first round targeting PGR students, a total of **`r sst$Total[sst$Question == "Consent_Affiliation_Role"]`** PGR students (i.e. **`r sst$Total[sst$Question == "PercRepresentativeness"]`%** of the total number of students registered in January 2021) and an additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or fellows, or research support staff) participated in the survey, i.e. provided their consent to participating, as well as their affiliations and role (the only two mandatory questions). The following analyses only will only use the data collected on PGR students. The responses collected on research staff will be merged to the views gathered in the second round of data collection, which will target this population specifically.
+
+Among the PGR students, **`r sst$Total[sst$Question == "TotalDrop"]`** (**`r sst$Total[sst$Question == "PercDrop"]`%**) respondents dropped out of the survey at various points before the last question. Table \@ref(tab:tabSS) shows the number of respondents per Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Department for Continuing Education by 'ContEd').\
+Given the low sample size for ContEd, we will not interpret the results for this department separately. However, because the representativeness of this sample is in the same range as for the other Divisions (ContEd: 4.3% of the total number of PGR students in that Department took the survey, SSD: 4.7%), we will still include it to the upcoming visual representations.
 
 ```{r general sample size, echo = FALSE}
-a <- cbind( " " = c("Number of respondents", "Census 2021 (unofficial)", "Representativeness in %", "Number of dropouts", "Dropouts in %"), sst[c(1, 11, 12, 13, 14),2:7])
+a <- cbind( " " = c("Number of PGR respondents", "PGR students census 2021", "Representativeness in %", "Number of dropouts", "Dropouts in %"), sst[c(1, 11, 12, 13, 14),2:7])
 rownames(a) <- NULL
 
 a %>% flextable() %>% 
-    set_caption(caption = "Total number of respondents by Division",
+    set_caption(caption = "Number of PGR students who participated in the survey by Division",
                 style = "Table Caption", 
                 autonum = run_autonum(seq_id = "tab", bkm = "tabSS"))
 ```
-
-An additional **`r totalStaff_duringPGRcollection`** staff members (i.e. academics, research staff or fellows, or research support staff) filled out the survey. Their responses will be merged to the views gathered in the second round of data collection, which will target this population specifically.
 
 ### Awareness of open research practices
 
