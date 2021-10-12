@@ -14,7 +14,7 @@ title_plot <- 'Overall effect'
 
 # create datadet for plotting per Divisions -----
 ## select subdataset 
-pgrdata_Effect <- pgrdata[, c(grep("Div", colnames(pgrdata)), grep(pattern="^Effect", x=colnames(pgrdata)))]
+
 head(pgrdata_Effect)
 
 pgrdata_Effect  <-as.data.frame(lapply(pgrdata_Effect, gsub, pattern = "Neutral(neither detrimental nor beneficial)", 
