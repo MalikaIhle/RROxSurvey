@@ -3,8 +3,7 @@
 ## round 1: PGR - 12 jan 2021 to 1 march 2021 ##
 ################################################
 
-#rm(list = ls())
-#source("Rscripts/FormatPGRdata.R")
+#source("Rscripts/FormatData.R")
 
 Measures
 Effect_columns <- c(expr(Effect_OA), expr(Effect_Data), expr(Effect_Code), expr(Effect_Materials),expr(Effect_Preprint),expr(Effect_Prereg),expr(Effect_RegRep))
@@ -15,8 +14,7 @@ title_plot <- 'Overall effect'
 
 # create datadet for plotting per Divisions -----
 ## select subdataset 
-pgrdata_Effect <- pgrdata[pgrdata$StudentStaff == "Student",  
-                          c(grep("Div", colnames(pgrdata)), grep(pattern="^Effect", x=colnames(pgrdata)))]
+pgrdata_Effect <- pgrdata[, c(grep("Div", colnames(pgrdata)), grep(pattern="^Effect", x=colnames(pgrdata)))]
 head(pgrdata_Effect)
 
 pgrdata_Effect  <-as.data.frame(lapply(pgrdata_Effect, gsub, pattern = "Neutral(neither detrimental nor beneficial)", 
