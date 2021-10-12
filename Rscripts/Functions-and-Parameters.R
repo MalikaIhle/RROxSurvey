@@ -18,6 +18,7 @@ Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd")
 
 # functions
 
+## Format raw data
 clean_qualtrics_data <- function(data, surveyindex){
   
   ## change column names according to survey index
@@ -98,7 +99,12 @@ clean_qualtrics_data <- function(data, surveyindex){
   
 }
 
-create_skeleton <- function(Question, Divisions, answers, columns){
+subset_columns_by_pattern <- function(data, pattern){
+  data[, c(grep("Div", colnames(data)), grep(pattern=pattern, x=colnames(data)))]
+}
+
+## Prepare data for plotting
+create_skeleton <- function(Question, answers, columns){
   Div <- rep(Divisions, each = length(columns)*length(answers)) 
   LabelIndiv <- rep(Question, each = length(answers), times = length(Divisions)) 
   Indiv <-paste(Div, LabelIndiv, sep ="_") 
@@ -125,6 +131,14 @@ bind_summaries_items <- function(Question, data, columns){
   return(summaryitems)
 }
 
+prepare_data_for_plotting <- function(Question, data, answers, columns){
+  skeleton <- create_skeleton(Question, answers, columns) # create skeleton of all possible answers
+  summaryitems <- bind_summaries_items(Question, data, columns)
+  formatted_data <- merge(skeleton, summaryitems, by = "ID", all.x = TRUE) # merge summary items to skeleton
+  return(formatted_data)
+}
+
+## Plotting functions
 circular_plot_function <- function(data, Question, answers, title_plot, answers_colors) {
 
   name_data_argument <- deparse(substitute(data)) # get the name of the dataset to apply if statement below

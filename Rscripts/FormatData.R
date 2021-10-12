@@ -9,10 +9,10 @@ rm(list = ls())
 # Packages
 library(here)
 library(tidyverse)
-library(here)
 library(RColorBrewer)
 library(janitor)
-library(ggpubr)
+library(ggpubr) # for function ggarange for grid ggplot
+library(arsenal) # for function comparedf (to compare dataset created by hand and output of function)
 
 # Functions
 source(here::here("Rscripts","Functions-and-Parameters.R"))
@@ -29,6 +29,14 @@ data_round2 <- clean_qualtrics_data(data_round2, surveyindex) ## this is simulat
 rm(surveyindex)
 
 # Split data per respondent type
-pgrdata <- data_round1[data_round1$StudentStaff == "Student",]
+pgrdata <- data_round1[data_round1$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
 staffdata <- rbind(data_round1[data_round1$StudentStaff == "Staff",], data_round2)
+
+# Split data per question
+pgrdata_Awareness <- subset_columns_by_pattern(pgrdata, "^Awareness")
+pgrdata_Effect <- subset_columns_by_pattern(pgrdata, "^Effect")
+pgrdata_Barriers <- subset_columns_by_pattern(pgrdata, "^Barriers")
+
+staffdata_Awareness <- subset_columns_by_pattern(staffdata, "^Awareness")
+
 
