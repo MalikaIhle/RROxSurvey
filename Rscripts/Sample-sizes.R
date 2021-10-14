@@ -6,7 +6,7 @@
 #rm(list = ls())
 #source("Rscripts/FormatPGRdata.R")
 
-# Numbers of responses per Dpt, survey diration, experience duration
+# Numbers of responses per Dpt, survey duration, experience duration
 {
 
   ## number of responses per Dpt
