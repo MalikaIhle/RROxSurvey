@@ -39,4 +39,5 @@ pgrdata_Barriers <- subset_columns_by_pattern(pgrdata, "^Barriers")
 
 staffdata_Awareness <- subset_columns_by_pattern(staffdata, "^Awareness")
 
+# Sample size
 
