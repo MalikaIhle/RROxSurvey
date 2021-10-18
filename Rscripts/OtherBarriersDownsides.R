@@ -1,22 +1,14 @@
-################################################
-##    RROx survey: Open research at Oxford    ##
-## round 1: PGR - 12 jan 2021 to 1 march 2021 ##
-################################################
 
-# source("Rscripts/FormatPGRdata.R")
-require('reshape2') # for making pivot tables
+  # source("Rscripts/FormatData.R")
 
 # pgrdata_OtherBarriers -----
-
-pgrdata_OtherBarriers <- pgrdata[pgrdata$StudentStaff == "Student",  
-                                 c(grep("Div", colnames(pgrdata)), grep(pattern="^OtherBarriers", x=colnames(pgrdata)))]
-head(pgrdata_OtherBarriers)
-
+pgrdata_OtherBarriers <- subset_columns_by_pattern(pgrdata, "^OtherBarriers")
 pgrdata_OtherBarriers <- pgrdata_OtherBarriers[rowSums(!is.na(pgrdata_OtherBarriers)) > 1, ]
 
 ## Nb of responses
 pgrdata_OtherBarriers %>% summarise(across (everything(), ~sum(!is.na(.))))
 
+## put all strings in capital letter
 pgrdata_OtherBarriers <-  data.frame(lapply(pgrdata_OtherBarriers, function(v) {
   if (is.character(v)) return(toupper(v))
   else return(v)
@@ -54,7 +46,7 @@ table(pgrdata_OtherBarriers$OtherBarriers_OA_recode)
 ## Data
 pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "MANAGING DATA")] <- 'Difficult resource management and lack of metadata standards'
 pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA")] <- 'Ethical concerns'
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY")] <- 'Resource not owned'
+pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
 pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "OEUVERS")] <- 'Resource not always digital'
 
 pgrdata_OtherBarriers$OtherBarriers_Data_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Data) & is.na(pgrdata_OtherBarriers$OtherBarriers_Data_recode)] <- 'Not categorised'
@@ -64,7 +56,7 @@ table(pgrdata_OtherBarriers$OtherBarriers_Data_recode)
 
 ## Code
 pgrdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
-pgrdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "TIME")] <- 'Time investment'
+pgrdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "TIME|LOT OF WORK")] <- 'Time investment'
 
 pgrdata_OtherBarriers$OtherBarriers_Code_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Code) & is.na(pgrdata_OtherBarriers$OtherBarriers_Code_recode)] <- 'Not categorised'
 pgrdata_OtherBarriers$OtherBarriers_Code[!is.na(pgrdata_OtherBarriers$OtherBarriers_Code) & pgrdata_OtherBarriers$OtherBarriers_Code_recode == 'Not categorised']
@@ -110,25 +102,71 @@ pgrdata_OtherBarriers$OtherBarriers_RegRep[!is.na(pgrdata_OtherBarriers$OtherBar
 table(pgrdata_OtherBarriers$OtherBarriers_RegRep_recode)
 
   
-# pgrdata_staff_OtherBarriers -----
-pgrdata_staff_OtherBarriers <- pgrdata[pgrdata$StudentStaff == "Staff",  
-                                       c(grep("Div", colnames(pgrdata)), grep(pattern="^OtherBarriers", x=colnames(pgrdata)))]
-head(pgrdata_staff_OtherBarriers)
-
-pgrdata_staff_OtherBarriers <- pgrdata_staff_OtherBarriers[rowSums(!is.na(pgrdata_staff_OtherBarriers)) > 1, ]
+# staffdata_OtherBarriers -----
+staffdata_OtherBarriers <- subset_columns_by_pattern(staffdata, "^OtherBarriers")
+staffdata_OtherBarriers <- staffdata_OtherBarriers[rowSums(!is.na(staffdata_OtherBarriers)) > 1, ]
 
 ## Nb of responses
-pgrdata_staff_OtherBarriers %>% summarise(across (everything(), ~sum(!is.na(.))))
+staffdata_OtherBarriers %>% summarise(across (everything(), ~sum(!is.na(.))))
+
+## put all strings in capital letter
+staffdata_OtherBarriers <-  data.frame(lapply(staffdata_OtherBarriers, function(v) {
+  if (is.character(v)) return(toupper(v))
+  else return(v)
+}), stringsAsFactors=FALSE)
+
+## check if respondents wrote something like same as previous answer.....
+staffdata_OtherBarriers[unique(c(
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OtherBarriers$OtherBarriers_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+
+## categorise barriers
+staffdata_OtherBarriers$OtherBarriers_OA_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_Data_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_Code_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_Materials_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_Preprint_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_Prereg_recode <- NA
+staffdata_OtherBarriers$OtherBarriers_RegRep_recode <- NA
+
+## OA
+staffdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES"))] <- 'Financial cost'
+
+## Data
+staffdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
+
+## Code
+staffdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_Code, "TIME|LOT OF WORK")] <- 'Time investment'
+
+## Materials
+staffdata_OtherBarriers$OtherBarriers_Materials
+
+## Preprint
+staffdata_OtherBarriers$OtherBarriers_Preprint
+
+## Prereg
+staffdata_OtherBarriers$OtherBarriers_Prereg
+
+## RegRep
+staffdata_OtherBarriers$OtherBarriers_RegRep
+
+
+
+
 
 
 # pgrdata_WhatDownsides -----
-
-pgrdata_WhatDownsides <- pgrdata[pgrdata$StudentStaff == "Student",  
-                                 c(grep("Div", colnames(pgrdata)), grep(pattern="^WhatDownsides", x=colnames(pgrdata)))]
-head(pgrdata_WhatDownsides)
-
+pgrdata_WhatDownsides <- subset_columns_by_pattern(pgrdata, "^WhatDownsides")
 pgrdata_WhatDownsides <- pgrdata_WhatDownsides[rowSums(!is.na(pgrdata_WhatDownsides)) > 1, ]
 
+## Nb of responses
+pgrdata_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
+
+## convert all string to upper case
 pgrdata_WhatDownsides <-  data.frame(lapply(pgrdata_WhatDownsides, function(v) {
   if (is.character(v)) return(toupper(v))
   else return(v)
@@ -162,10 +200,6 @@ pgrdata_WhatDownsides$WhatDownsides_RegRep[!is.na(pgrdata_WhatDownsides$WhatDown
 
 rm(Cells_to_fillup_manually)
 
-## Nb of responses
-pgrdata_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
-
-
 ## categorise downsides
 pgrdata_WhatDownsides$WhatDownsides_OA_recode <- NA
 pgrdata_WhatDownsides$WhatDownsides_Data_recode <- NA
@@ -185,7 +219,7 @@ pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$W
 pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation
 pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "JOURNAL INCOME|PRODUCTION")] <- 'Loss of journal income' # need to find other means of journal production'
 pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "QUALITY|RIGOR*")] <- 'Lowers quality' # reduce quality of peer review if journal paid
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "OPTIONS")] <- 'Fewer (prestigious) journal options'
+pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
 pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "OPINION")] <- 'Ethical, safety, or security concerns'
 
 pgrdata_WhatDownsides$WhatDownsides_OA_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_OA) & is.na(pgrdata_WhatDownsides$WhatDownsides_OA_recode)] <- 'Not categorised'
@@ -295,16 +329,58 @@ table(c(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode, pgrdata_WhatDownsides
 
 
 
-# pgrdata_staff_WhatDownsides -----
-
-pgrdata_staff_WhatDownsides <- pgrdata[pgrdata$StudentStaff == "Staff",  
-                                       c(grep("Div", colnames(pgrdata)), grep(pattern="^WhatDownsides", x=colnames(pgrdata)))]
-head(pgrdata_staff_WhatDownsides)
-
-pgrdata_staff_WhatDownsides <- pgrdata_staff_WhatDownsides[rowSums(!is.na(pgrdata_staff_WhatDownsides)) > 1, ]
+# staffdata_WhatDownsides -----
+staffdata_WhatDownsides <- subset_columns_by_pattern(staffdata, "^WhatDownsides")
+staffdata_WhatDownsides <- staffdata_WhatDownsides[rowSums(!is.na(staffdata_WhatDownsides)) > 1, ]
 
 ## Nb of responses
-pgrdata_staff_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
+staffdata_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
+
+## put all strings in capital letter
+staffdata_WhatDownsides <-  data.frame(lapply(staffdata_WhatDownsides, function(v) {
+  if (is.character(v)) return(toupper(v))
+  else return(v)
+}), stringsAsFactors=FALSE)
+
+## check if respondents wrote something like same as previous answer.....
+staffdata_WhatDownsides[unique(c(
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WhatDownsides$WhatDownsides_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+
+## categorise barriers
+staffdata_WhatDownsides$WhatDownsides_OA_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_Data_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_Code_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_Materials_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_Preprint_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_Prereg_recode <- NA
+staffdata_WhatDownsides$WhatDownsides_RegRep_recode <- NA
+
+## OA
+staffdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES|POORER"))] <- 'Financial cost'
+staffdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
+
+## Data
+staffdata_WhatDownsides$WhatDownsides_Data[!is.na(staffdata_WhatDownsides$WhatDownsides_Data)]
+
+## Code
+staffdata_WhatDownsides$WhatDownsides_Code[!is.na(staffdata_WhatDownsides$WhatDownsides_Code)]
+
+## Materials
+staffdata_WhatDownsides$WhatDownsides_Materials[!is.na(staffdata_WhatDownsides$WhatDownsides_Materials)]
+
+## Preprint
+staffdata_WhatDownsides$WhatDownsides_Preprint[!is.na(staffdata_WhatDownsides$WhatDownsides_Preprint)]
+
+## Prereg
+staffdata_WhatDownsides$WhatDownsides_Prereg[!is.na(staffdata_WhatDownsides$WhatDownsides_Prereg)]
+
+## RegRep
+staffdata_WhatDownsides$WhatDownsides_RegRep[!is.na(staffdata_WhatDownsides$WhatDownsides_RegRep)]
 
 
 
