@@ -11,7 +11,7 @@ library(tidyverse)
 ## Read in data
 ```{r}
 #pgrdata_Awareness <-  read_csv(here::here("Data", "processed", "pgrdata_Awareness.csv"))
-source(here::here('Rscripts','FormatPGRdata.R'))
+source(here::here('Rscripts','FormatData.R'))
 #pgrdata_Awareness <- pgrdata[pgrdata$StudentStaff == "Student",  
    #                       c(grep("Div", colnames(pgrdata)), grep(pattern="^Awareness", x=colnames(pgrdata)))]
 source(here::here('Rscripts','Awareness.R'))
