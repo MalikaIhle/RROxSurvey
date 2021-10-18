@@ -1,7 +1,3 @@
-################################################
-##    RROx survey: Open research at Oxford    ##
-## round 1: PGR - 12 jan 2021 to 1 march 2021 ##
-################################################
 
   #source("Rscripts/FormatData.R")
 
@@ -17,6 +13,7 @@ staffdata_Awareness_for_plotting <- prepare_data_for_plotting(Measures, staffdat
 
 # regroup data split per Division for overall plot
 All_pgrdata_Awareness_for_plotting <- regroup_all_data(pgrdata_Awareness_for_plotting)
+All_staffdata_Awareness_for_plotting <- regroup_all_data(staffdata_Awareness_for_plotting)
 
 # circular plot per Division
 ## pgrdata_Awareness_plot <- circular_plot_function(pgrdata_Awareness_for_plotting, Measures, Awareness_answers, title_plot = 'Awareness', Awareness_colors)
