@@ -1,45 +1,33 @@
-################################################
-##    RROx survey: Open research at Oxford    ##
-## round 1: PGR - 12 jan 2021 to 1 march 2021 ##
-################################################
 
-#rm(list = ls())
-#source("Rscripts/FormatPGRdata.R")
+  #source("Rscripts/FormatData.R")
 
 Measures
 Downsides_columns <- c(expr(Downsides_OA), expr(Downsides_Data), expr(Downsides_Code), expr(Downsides_Materials),expr(Downsides_Preprint),expr(Downsides_Prereg),expr(Downsides_RegRep))
 Downsides_answers <- c("No", "Yes",  "Not sure",  "Not applicable" )
-answers_colors <- c("black", "#666666", "#D95F02", "#1B9E77")
-title_plot <- 'Any 
-downsides'
+Downsides_colors <- c("black", "#666666", "#D95F02", "#1B9E77")
 
+# create dataset for plotting per Divisions
+pgrdata_Downsides_for_plotting <- prepare_data_for_plotting(Measures, pgrdata_Downsides, Downsides_answers, Downsides_columns)
+staffdata_Downsides_for_plotting <- prepare_data_for_plotting(Measures, staffdata_Downsides, Downsides_answers, Downsides_columns)
 
-# create datadet for plotting per Divisions -----
-## select subdataset 
-pgrdata_Downsides <- pgrdata[pgrdata$StudentStaff == "Student",  
-                          c(grep("Div", colnames(pgrdata)), grep(pattern="^Downsides", x=colnames(pgrdata)))]
-head(pgrdata_Downsides)
+# regroup data split per Division for overall plot
+All_pgrdata_Downsides_for_plotting <- regroup_all_data(pgrdata_Downsides_for_plotting)
+All_staffdata_Downsides_for_plotting <- regroup_all_data(staffdata_Downsides_for_plotting)
 
-## create skeleton of all possible answers
-skeleton <- create_skeleton(Measures, Divisions, Downsides_answers, Downsides_columns)
+# circular plot per Division
+## pgrdata_Downsides_plot <- circular_plot_function(pgrdata_Downsides_for_plotting, Measures, Downsides_answers, title_plot = 'Downsides', Downsides_colors)
 
-## summarise items                                         
-summaryitems <- bind_summaries_items(Measures, pgrdata_Downsides, Downsides_columns)
+# plot regrouped data 
+## All_pgrdata_Downsides_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors)
 
-## merge summary items to skeleton
-pgrdata_Downsides <- merge(skeleton, summaryitems, by = "ID", all.x = TRUE)
-rm(skeleton, summaryitems, Downsides_columns)
+# Horizontal stacked barplot per ORP
+pgrdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = "PGR students")
+staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = "Researchers")
 
-
-# plot per Division -----
-pgrdata_Downsides_plot <- circular_plot_function(pgrdata_Downsides, Measures, Downsides_answers, title_plot, answers_colors)
-pgrdata_Downsides_plot
-## ggsave(pgrdata_Downsides_plot, file=here("Figures/pgrdata_Downsides.png"), width=10, height=8)
-
-# regroup data split per Division for overall plot -----
-All_pgrdata_Downsides <- regroup_all_data(pgrdata_Downsides)
-
-# plot regrouped data  -----
-All_pgrdata_Downsides_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Downsides, Measures, Downsides_answers, answers_colors)
-All_pgrdata_Downsides_plot
-## ggsave(All_pgrdata_Downsides_plot, file=here("Figures/All_pgrdata_Downsides.png"), width=10, height=8)
+doubleplot_Downsides <- ggarrange(pgrdata_Downsides_perORP, 
+                               staffdata_Downsides_perORP, 
+                               ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_Downsides <- annotate_figure(doubleplot_Downsides, 
+                                     top = text_grob("Downsides of ORPs", 
+                                                     face = "bold", size = 14))
+#ggsave("Figures/Downsides-per-ORP.png", width = 10, height = 9, bg = "white")
