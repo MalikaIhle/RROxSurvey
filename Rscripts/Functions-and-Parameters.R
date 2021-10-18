@@ -1,8 +1,3 @@
-################################################
-##    RROx survey: Open research at Oxford    ##
-##        Functions and parameters            ##
-################################################
-
 # items to judges or categories
 
 Measures <- c('Open Access', 'Open Data', 'Open Code', 'Open Materials', 'Preprint', 'Preregistration', 'Registered Report')
@@ -14,7 +9,11 @@ Criteria <- c('Number of publications','Prestige of publication outlet','Quality
 Criteria_short <- c("PubNub","PubPrestige","PubQual","Authorship","Citation","Grant","Impact", "Teaching","Supervision","Service","Citizenship",
                     "Reputation","Collaboration","OpenResearch")
 
-Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd")
+Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd", "GLAM")
+
+#Questions <- c("Awareness","Effect", "Barriers", "Downsides", "CurrentRecruitment", "FutureRecruitment", "Training", "Support")
+Questions <- c(expr(Awareness),expr(Effect), expr(Barriers), expr(Downsides), expr(CurrentRecruitment), 
+               expr(FutureRecruitment), expr(Training), expr(Support))
 
 # functions
 
@@ -27,9 +26,9 @@ clean_qualtrics_data <- function(data, surveyindex){
   data[data == ""] <- NA
   
   ## Subset data to records with filled out Consent, Affiliation, and Role: the 3 mandatory questions
-    #nrow(data)
+  #nrow(data)
   data <- subset(data[!is.na(data$Consent) & !is.na(data$DivCol) & !is.na(data$Role),] )
-    #nrow(data)
+  #nrow(data)
   
   ## Consent T/F
   data$Consent <- data$Consent == "I consent to participating in the survey and to processing of the information I provide as outlined above."
@@ -38,7 +37,7 @@ clean_qualtrics_data <- function(data, surveyindex){
   {
     ## College TRUE FALSE
     data$College <- data$DivCol == "College-only staff"
-      #table(data$College)
+    #table(data$College)
     
     ## Division
     data$Div <- data$DivCol
@@ -50,7 +49,7 @@ clean_qualtrics_data <- function(data, surveyindex){
     data$Div[data$Div == "Mathematical, Physical, and Life Sciences Division"] <- "MPLS"
     data$Div[data$Div == "Medical Sciences Division"] <- "MSD"
     data$Div[data$Div == "Gardens, Libraries and Museums"] <- "GLAM"
-      #table(data$Div)
+    #table(data$Div)
     
     ## Department
     data$Dept <- data$Dept1 
@@ -63,16 +62,16 @@ clean_qualtrics_data <- function(data, surveyindex){
     data$Dept[!is.na(data$Dept8)] <- data$Dept8[!is.na(data$Dept8)]
     data$Dept[!is.na(data$Dept9)] <- data$Dept9[!is.na(data$Dept9)]
     data$Dept[!is.na(data$Dept10)] <- data$Dept10[!is.na(data$Dept10)]
-      #table(data$Dept)
+    #table(data$Dept)
     
     ## Other Department
-      #table(data$OtherDept)
+    #table(data$OtherDept)
     data[!is.na(data$OtherDept),c('OtherDept', 'Dept', 'Div')]
     
     ### recoding of Dept for otherdept actually in the list
     data$Dept[!is.na(data$OtherDept) & (data$OtherDept == "Wellcome Centre for Human Genetics" |
-                                                data$OtherDept == "Experimental Medicine"|
-                                                data$OtherDept == "Nuffield Department of Experimental Medicine")] <- "Nuffield Department of Clinical Medicine"
+                                          data$OtherDept == "Experimental Medicine"|
+                                          data$OtherDept == "Nuffield Department of Experimental Medicine")] <- "Nuffield Department of Clinical Medicine"
     
     data$Dept[!is.na(data$OtherDept) & str_detect(data$OtherDept, "Oxford Internet Institute")] <- "Oxford Internet Institute"
     
@@ -86,7 +85,7 @@ clean_qualtrics_data <- function(data, surveyindex){
   
   # Role
   {
-      #table(data$Role) 
+    #table(data$Role) 
     data$StudentStaff <- data$Role == "Student on a postgraduate research programme"
     data$StudentStaff[data$StudentStaff == TRUE] <- "Student"
     data$StudentStaff[data$StudentStaff == FALSE] <- "Staff"
@@ -103,6 +102,17 @@ subset_columns_by_pattern <- function(data, pattern){
   data[, c(grep("Div", colnames(data)), grep(pattern=pattern, x=colnames(data)))]
 }
 
+## Calculate sample sizes
+sample_size_perQ <- function(data, Question){
+  ss <- data[rowSums(!is.na(data)) > 1, ] %>% 
+    group_by(Div) %>% 
+    summarise({{Question}} := n()) # https://stackoverflow.com/questions/26003574/use-dynamic-variable-names-in-dplyr
+  return(ss)
+}
+          # example to test function sample_size_perQ
+          # data <- pgrdata_Awareness
+          # Question <- "Awareness"
+
 ## Prepare data for plotting
 create_skeleton <- function(Question, answers, columns){
   Div <- rep(Divisions, each = length(columns)*length(answers)) 
@@ -113,19 +123,28 @@ create_skeleton <- function(Question, answers, columns){
   skeleton <- data.frame(ID, Indiv, Div, LabelIndiv, Answer)
 }
 
-summarise_item <-  function(data, item, name_item){
+summarise_item <-  function(data, item, name_item){  # item is the name of the columns e.g. Awareness_OA given as an expression (not a string)
   data2 <-  data[!is.na(data[,as.character(item)]),]  %>%  
-    group_by(Div,{{item}}) %>%
+    group_by(Div,{{item}}) %>%   # the double curly bracket read item as e.g. Awareness_OA
     summarise (n = n()) %>% 
     mutate(perc = n / sum(n) * 100 ) 
   data2$ID = paste(paste(data2$Div, name_item, sep="_"), unlist(data2[,as.character(item)]), sep ="_")
   return(data2[,c('ID', 'n', 'perc')])
 }
+          # example to test function summarise_item
+          # data <- pgrdata
+          # columns <- c(expr(Awareness_OA), expr(Awareness_Data), expr(Awareness_Code), expr(Awareness_Materials),expr(Awareness_Preprint),expr(Awareness_Prereg),expr(Awareness_RegRep))
+          # Question <- Measures
+          # i <- 1
+          # item <- columns[[i]]
+          # name_item <- Question[i]
+          # summarise_item(data, columns[[i]], Question[i])
+
 
 bind_summaries_items <- function(Question, data, columns){
   summaryitems <- vector(mode= "list", length = length(Question))
   for (i in 1:length(Question)) {
-    summaryitems[[i]] <-  summarise_item(data,columns[[i]],Question[i])
+    summaryitems[[i]] <-  summarise_item(data, columns[[i]], Question[i])
   }
   summaryitems <- data.frame(do.call(rbind, summaryitems))
   return(summaryitems)
@@ -140,8 +159,10 @@ prepare_data_for_plotting <- function(Question, data, answers, columns){
 
 ## Plotting functions
 circular_plot_function <- function(data, Question, answers, title_plot, answers_colors) {
-
-  name_data_argument <- deparse(substitute(data)) # get the name of the dataset to apply if statement below
+  
+  data <-data[data$Div != "GLAM",] # plot below was designed without GLAM (i.e. missing aestethics e.g. hjust if included)
+  
+  #name_data_argument <- deparse(substitute(data)) # get the name of the dataset to apply if statement below to move label around depending on plot
   
   data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
   
@@ -173,11 +194,11 @@ circular_plot_function <- function(data, Question, answers, title_plot, answers_
     rowwise() %>% 
     mutate(title=mean(c(start, end)))
   
-if (name_data_argument == 'data_Awareness'){
-base_data$title[base_data$Div == 'SSD'] <- 39} #for awareness plot
-
-if (name_data_argument == 'data_Training'){
-base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
+  # if (name_data_argument == 'pgrdata_Awareness_for_plotting'){
+  # base_data$title[base_data$Div == 'SSD'] <- 15} #for awareness plot
+  # 
+  # if (name_data_argument == 'pgrdata_Training_for_plotting'){
+  # base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
   
   
   # prepare a data frame for grid (scales)
@@ -191,7 +212,7 @@ base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
   
   
   ## Make the plot
-  data_Support_plot <- ggplot(data) +     
+  data_plot <- ggplot(data) +     
     
     ### Add the stacked bar
     geom_bar(aes(x=as.factor(id), y=perc, fill=factor(Answer, level = answers)), stat="identity", alpha=0.5) +
@@ -215,7 +236,7 @@ base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
                       breaks = answers, 
                       labels = answers, 
                       drop = FALSE)+
-
+    
     scale_x_discrete(expand = c(0, 0)) +
     ylim(-70,150) +
     theme_minimal() +
@@ -229,7 +250,7 @@ base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
       panel.border=element_blank(), axis.ticks.length = unit(0, "mm")
     ) +
     
-   # guides(fill=guide_legend(nrow=2,byrow=FALSE))+
+    # guides(fill=guide_legend(nrow=2,byrow=FALSE))+
     
     coord_polar() +
     
@@ -245,65 +266,99 @@ base_data$title[base_data$Div == 'SSD'] <- 51} #for training plot
   
   
 }
+          # example to test circular_plot_function 
+          # data <- pgrdata_Awareness_for_plotting
+          # Question <- Measures
+          # answers <- Awareness_answers
+          # title_plot <- 'Awareness'
+          # answers_colors <- Awareness_colors
 
 regroup_all_data <- function(splitdata){
   All_data <- splitdata[,c("LabelIndiv", "Answer", "n")] %>% group_by(LabelIndiv, Answer) %>% summarise (n = sum(n, na.rm=TRUE)) 
   All_data <- All_data %>% group_by(LabelIndiv) %>% mutate(perc = n / sum(n) * 100 )
   return(All_data)
-  }
-  
+}
+
 stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answers_colors){
   All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = Question) # this will determine order of the bars
   ggplot(All_data) +
     
-  ### Add the stacked bar
-  geom_bar(aes(x=LabelIndiv, y=perc, fill=factor(Answer, 
-                                                 level = answers)),
-           stat="identity", alpha=0.5) +
-  
-  scale_fill_manual(values = rev(answers_colors), 
-                    breaks=answers, 
-                    labels =answers, 
-                    drop = FALSE)+
-  
-  theme_minimal() +
-  theme(
-    legend.position = "right",
-    axis.title = element_blank(),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    axis.text.x = element_text(angle = 90),
-    legend.title=element_blank())
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=perc, fill=factor(Answer, 
+                                                   level = answers)),
+             stat="identity", alpha=0.5) +
+    
+    scale_fill_manual(values = rev(answers_colors), 
+                      breaks=answers, 
+                      labels =answers, 
+                      drop = FALSE)+
+    
+    theme_minimal() +
+    theme(
+      legend.position = "right",
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.text.x = element_text(angle = 90),
+      legend.title=element_blank())
   
 }  
 
 horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
   
-data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  
+  count_by_answer_and_div_and_orp <- data %>% 
+    group_by(Answer, Div, LabelIndiv) %>%
+    summarise(num_respondents = sum(n, na.rm = TRUE)) %>% 
+    mutate(Answer = factor(Answer, levels = answers))
+  
+  count_by_answer_and_div_and_orp %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = num_respondents, fill = Answer), stat = "identity", position = "fill") +
+    scale_fill_manual(values = (answers_colors),
+                      breaks = rev(answers), 
+                      labels = rev(answers), 
+                      drop = FALSE) +
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip() +
+    theme_minimal() +
+    scale_y_continuous(labels = scales::percent) +
+    theme(legend.position="right",
+          #legend.title = element_blank(),
+          strip.text.x = element_text(size = 10, colour = "black")) + 
+    labs(x = "", y = "")+
+    guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
 
-count_by_answer_and_div_and_orp <- data %>% 
-  group_by(Answer, Div, LabelIndiv) %>%
-  summarise(num_respondents = sum(n, na.rm = TRUE)) %>% 
-  mutate(Answer = factor(Answer, levels = answers))
-
-count_by_answer_and_div_and_orp %>% 
-  ggplot() +
-  geom_bar(aes(x = Div, y = num_respondents, fill = Answer), stat = "identity", position = "fill") +
-  scale_fill_manual(values = (answers_colors),
-                    breaks = rev(answers), 
-                    labels = rev(answers), 
-                    drop = FALSE) +
-  facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
-  coord_flip() +
-  theme_minimal() +
-  scale_y_continuous(labels = scales::percent) +
-  theme(legend.position="right",
-        #legend.title = element_blank(),
-        strip.text.x = element_text(size = 10, colour = "black")) +
-  labs(x = "", y = "")+
-  guides(fill=guide_legend(title=title_legend))+
-  ggtitle(title_plot) + 
-  theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
-
+horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answers_colors, title_plot){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
+  
+  All_data %>% 
+    ggplot() +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=(perc/100), fill=factor(Answer, level = answers)),
+             stat="identity") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_manual(values = rev(answers_colors), 
+                      breaks=answers, 
+                      labels =answers, 
+                      drop = FALSE) +
+    coord_flip() +
+    theme_minimal() +
+    theme(
+      legend.position = "bottom", 
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      legend.title=element_blank(),
+      axis.text.y = element_text(size = 11, colour = "black"),
+      plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5)) + 
+    ggtitle(title_plot) + 
+    guides(fill = guide_legend(nrow = 1, reverse = TRUE))
 }
 
