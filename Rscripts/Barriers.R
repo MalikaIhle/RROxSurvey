@@ -1,14 +1,5 @@
-################################################
-##    RROx survey: Open research at Oxford    ##
-## round 1: PGR - 12 jan 2021 to 1 march 2021 ##
-################################################
 
-#rm(list = ls())
-#source("Rscripts/FormatPGRdata.R")
-
-##############
-## Barriers ##
-##############
+  #source("Rscripts/FormatData.R")
 
 # pgrdata_Barriers
 {
