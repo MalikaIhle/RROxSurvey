@@ -362,3 +362,52 @@ horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, ans
     guides(fill = guide_legend(nrow = 1, reverse = TRUE))
 }
 
+data <- pgrdata_OtherBarriers
+
+create_pivot_table_OtherBarriersorDownsides <- function (data){
+  data <- add_column(data, ID = 1:nrow(data), .before = 1)
+
+  colnameswithrecode <- colnames(data[,grep(pattern=".*recode", x=colnames(data))])
+  
+  a_values <- pivot_longer(data[,!colnames(data) %in% colnameswithrecode], -c(ID,Div), values_to = "Value", names_to = "Measure")
+  a_recode <- pivot_longer(data[,colnames(data) %in% colnameswithrecode],  colnameswithrecode, values_to = "Recode", names_to = "Measure")
+  a <- cbind(a_values, a_recode[,c('Recode')])
+  a <- a[!is.na(a["Value"]),]
+    #list_for_checking_recode_barriers <- a
+  rm(a_values,a_recode, colnameswithrecode)
+  
+  a$Measure[a$Measure == 'OtherBarriers_OA' | a$Measure == 'OtherDownsides_OA'] <- "Open Access" 
+  a$Measure[a$Measure == 'OtherBarriers_Data'| a$Measure == 'OtherDownsides_Data'] <- "Open Data" 
+  a$Measure[a$Measure == 'OtherBarriers_Code'| a$Measure == 'OtherDownsides_Code'] <- "Open Code" 
+  a$Measure[a$Measure == 'OtherBarriers_Materials'| a$Measure == 'OtherDownsides_Materials'] <- "Open Materials" 
+  a$Measure[a$Measure == 'OtherBarriers_Preprint'| a$Measure == 'OtherDownsides_Preprint'] <- "Preprint" 
+  a$Measure[a$Measure == 'OtherBarriers_Prereg'| a$Measure == 'OtherDownsides_Prereg'] <- "Preregistration"
+  a$Measure[a$Measure == 'OtherBarriers_RegRep'| a$Measure == 'OtherDownsides_RegRep'] <- "Registered Report"
+  a$Measure<- factor(a$Measure, levels = Measures)
+  
+  b <- a %>% group_by(Measure, Recode) %>% summarise(count = n()) 
+  b <- b[b$Recode != 'Not categorised',]
+  c <- dcast(b, Recode ~ Measure, value.var = "count") # from reshape2
+  c$Total <- rowSums(c[,-1], na.rm=TRUE)
+  
+  d <- c %>% arrange(desc(.[[ncol(c)]])) 
+   
+  # if all column exist... this is better output 
+  # d <- c[with(c, order(-c$Total,
+  #                      -c$`Open Access`,
+  #                      -c$`Open Data`,
+  #                      -c$`Open Code`,
+  #                      -c$`Open Materials`,
+  #                      -c$Preprint,
+  #                      -c$Preregistration,
+  #                      -c$`Registered Report`)),]
+  
+  d[is.na(d)] <- '-'
+  colnames(d)[colnames(d) == 'Recode'] <- ''
+  rownames(d) <- NULL
+  pivot_table_OtherBarriers <- d
+  rm(a,b,c,d)
+  return(pivot_table_OtherBarriers) 
+  }
+  
+  

@@ -134,7 +134,7 @@ staffdata_OtherBarriers$OtherBarriers_Prereg_recode <- NA
 staffdata_OtherBarriers$OtherBarriers_RegRep_recode <- NA
 
 ## OA
-staffdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES"))] <- 'Financial cost'
+staffdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES"))] <- 'Financial cost'
 
 ## Data
 staffdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
@@ -150,6 +150,7 @@ staffdata_OtherBarriers$OtherBarriers_Preprint
 
 ## Prereg
 staffdata_OtherBarriers$OtherBarriers_Prereg
+staffdata_OtherBarriers$OtherBarriers_Prereg_recode[!is.na(staffdata_OtherBarriers$OtherBarriers_Prereg) & is.na(staffdata_OtherBarriers$OtherBarriers_Prereg_recode)] <- 'Not categorised'
 
 ## RegRep
 staffdata_OtherBarriers$OtherBarriers_RegRep
@@ -366,67 +367,54 @@ staffdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(staffdata_WhatDownsid
 
 ## Data
 staffdata_WhatDownsides$WhatDownsides_Data[!is.na(staffdata_WhatDownsides$WhatDownsides_Data)]
+staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "NO NORM FOR CITATION")] <- 'No norm for citation'
+staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
+staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "LICENCES|FORMATS")] <- 'Proprietary file format'
+staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN")] <- 'No control over validity of reuse, misrepresentation, misuse'
+staffdata_WhatDownsides$WhatDownsides_Data_recode2[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
 
 ## Code
-staffdata_WhatDownsides$WhatDownsides_Code[!is.na(staffdata_WhatDownsides$WhatDownsides_Code)]
+staffdata_WhatDownsides$WhatDownsides_recode[!is.na(staffdata_WhatDownsides$WhatDownsides_Code)]
+staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE|SLOW DOWN")] <- 'Time investment'
+staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "REDUCE THE NUMBER OF APPROACHES USED")] <- 'Reduce diversity of approaches'
+staffdata_WhatDownsides$WhatDownsides_recode2[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "FIND PEOPLE TO REVIEW THE CODE")] <- 'No time or expertise to review code'
+staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' 
 
 ## Materials
 staffdata_WhatDownsides$WhatDownsides_Materials[!is.na(staffdata_WhatDownsides$WhatDownsides_Materials)]
+staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "LICENCES")] <- 'Resource not own'
+staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "NATIONAL POLICIES")] <- 'Law against sharing specific material'
+staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "FRAGILE")] <- 'Impractical'
 
 ## Preprint
 staffdata_WhatDownsides$WhatDownsides_Preprint[!is.na(staffdata_WhatDownsides$WhatDownsides_Preprint)]
+staffdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "ECOLOGICAL COST")] <- 'Ecological cost'
+staffdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "PEER-REVIEW")] <- 'No peer-review, reliance on reputation'
 
 ## Prereg
 staffdata_WhatDownsides$WhatDownsides_Prereg[!is.na(staffdata_WhatDownsides$WhatDownsides_Prereg)]
+staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
+staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
 
 ## RegRep
 staffdata_WhatDownsides$WhatDownsides_RegRep[!is.na(staffdata_WhatDownsides$WhatDownsides_RegRep)]
+staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "TIME COST|MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
+staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
 
 
 
 
 # making Other Barriers table -----
 
-pgrdata_OtherBarriers <- add_column(pgrdata_OtherBarriers, ID = 1:nrow(pgrdata_OtherBarriers), .before = 1)
+## pgrdata
 
-colnameswithrecode <- colnames(pgrdata_OtherBarriers[,grep(pattern=".*recode", x=colnames(pgrdata_OtherBarriers))])
+### making 1 function create list for recheck on which create pivot table is based
+pgrdata_OtherBarriers_table <- create_pivot_table_OtherBarriersorDownsides(pgrdata_OtherBarriers)
+staffdata_OtherBarriers_table <- create_pivot_table_OtherBarriersorDownsides(staffdata_OtherBarriers)
 
-a_values <- pivot_longer(pgrdata_OtherBarriers[,!colnames(pgrdata_OtherBarriers) %in% colnameswithrecode], -c(ID,Div), values_to = "Value", names_to = "Measure")
-a_recode <- pivot_longer(pgrdata_OtherBarriers[,colnames(pgrdata_OtherBarriers) %in% colnameswithrecode],  colnameswithrecode, values_to = "Recode", names_to = "Measure")
-a <- cbind(a_values, a_recode[,c('Recode')])
-a <- a[!is.na(a["Value"]),]
-list_for_checking_recode_barriers <- a
-rm(a_values,a_recode, colnameswithrecode)
-
-a$Measure[a$Measure == 'OtherBarriers_OA'] <- "Open Access" 
-a$Measure[a$Measure == 'OtherBarriers_Data'] <- "Open Data" 
-a$Measure[a$Measure == 'OtherBarriers_Code'] <- "Open Code" 
-a$Measure[a$Measure == 'OtherBarriers_Materials'] <- "Open Materials" 
-a$Measure[a$Measure == 'OtherBarriers_Preprint'] <- "Preprint" 
-a$Measure[a$Measure == 'OtherBarriers_Prereg'] <- "Preregistration"
-a$Measure[a$Measure == 'OtherBarriers_RegRep'] <- "Registered Report"
-a$Measure<- factor(a$Measure, levels = Measures)
-
-b <- a %>% group_by(Measure, Recode) %>% summarise(count = n()) 
-c <- dcast(b, Recode ~ Measure, value.var = "count") # from reshape2
-c$Total <- rowSums(c[,-1], na.rm=TRUE)
-
-d <- c[with(c, order(-c$Total,
-                -c$`Open Access`,
-                -c$`Open Data`,
-                -c$`Open Code`,
-                -c$`Open Materials`,
-                -c$Preprint,
-                -c$Preregistration,
-                -c$`Registered Report`)),]
-
-d[is.na(d)] <- '-'
-e <- d[d$Recode != 'Not categorised',]
-colnames(e)[colnames(e) == 'Recode'] <- ''
-rownames(e) <- NULL
-pivot_table_OtherBarriers <- e
-pivot_table_OtherBarriers %>% knitr::kable()
-rm(a,b,c,d,e)
+pgrdata_WhatDownsides_table <- create_pivot_table_OtherBarriersorDownsides(pgrdata_WhatDownsides)
+staffdata_WhatDownsides_table <- create_pivot_table_OtherBarriersorDownsides(staffdata_WhatDownsides)
 
 # making What Downsides table -----
 
