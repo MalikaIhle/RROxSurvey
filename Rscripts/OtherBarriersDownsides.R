@@ -1,489 +1,477 @@
+# OB = Other Barriers
+# WD = What Downsides
+
 
   # source("Rscripts/FormatData.R")
 
-# pgrdata_OtherBarriers -----
-pgrdata_OtherBarriers <- subset_columns_by_pattern(pgrdata, "^OtherBarriers")
-pgrdata_OtherBarriers <- pgrdata_OtherBarriers[rowSums(!is.na(pgrdata_OtherBarriers)) > 1, ]
+
+# pgrdata_OB -----
+pgrdata_OB <- prepare_freetext_subdataset(pgrdata, "^OtherBarriers_")
 
 ## Nb of responses
-pgrdata_OtherBarriers %>% summarise(across (everything(), ~sum(!is.na(.))))
-
-## put all strings in capital letter
-pgrdata_OtherBarriers <-  data.frame(lapply(pgrdata_OtherBarriers, function(v) {
-  if (is.character(v)) return(toupper(v))
-  else return(v)
-}), stringsAsFactors=FALSE)
+pgrdata_OB %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like same as previous answer.....
-pgrdata_OtherBarriers[unique(c(
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_OtherBarriers$OtherBarriers_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+pgrdata_OB[unique(c(
+  which(str_detect(pgrdata_OB$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_OB$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_OB$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_OB$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_OB$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_OB$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 
 ## categorise barriers
-pgrdata_OtherBarriers$OtherBarriers_OA_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_Data_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_Code_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_Materials_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_Preprint_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_Prereg_recode <- NA
-pgrdata_OtherBarriers$OtherBarriers_RegRep_recode <- NA
+pgrdata_OB$OA_cat <- NA
+pgrdata_OB$Data_cat <- NA
+pgrdata_OB$Code_cat <- NA
+pgrdata_OB$Materials_cat <- NA
+pgrdata_OB$Preprint_cat <- NA
+pgrdata_OB$Prereg_cat <- NA
+pgrdata_OB$RegRep_cat <- NA
 
 ### OA
-pgrdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_OA, "INDUSTRY")] <- 'Resource not owned'
-pgrdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES"))] <- 'Financial cost'
-pgrdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_OA, "JOURNAL QUALITY")] <- 'Lower quality'
+pgrdata_OB$OA[!is.na(pgrdata_OB$OA)]
+pgrdata_OB$OA_cat[str_detect(pgrdata_OB$OA, "INDUSTRY")] <- 'Resource not owned'
+pgrdata_OB$OA_cat[str_detect(pgrdata_OB$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES"))] <- 'Financial cost'
+pgrdata_OB$OA_cat[str_detect(pgrdata_OB$OA, "JOURNAL QUALITY")] <- 'Lower quality'
 
-pgrdata_OtherBarriers$OtherBarriers_OA_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_OA) & is.na(pgrdata_OtherBarriers$OtherBarriers_OA_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_OA[!is.na(pgrdata_OtherBarriers$OtherBarriers_OA_recode) & pgrdata_OtherBarriers$OtherBarriers_OA_recode == 'Not categorised']
+pgrdata_OB$OA_cat[!is.na(pgrdata_OB$OA) & is.na(pgrdata_OB$OA_cat)] <- 'Not categorised'
+pgrdata_OB$OA[!is.na(pgrdata_OB$OA_cat) & pgrdata_OB$OA_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_OA_recode)
+table(pgrdata_OB$OA_cat)
 
 ## Data
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "MANAGING DATA")] <- 'Difficult resource management and lack of metadata standards'
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA")] <- 'Ethical concerns'
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Data, "OEUVERS")] <- 'Resource not always digital'
+pgrdata_OB$Data_cat[str_detect(pgrdata_OB$Data, "MANAGING DATA")] <- 'Difficult resource management and lack of metadata standards'
+pgrdata_OB$Data_cat[str_detect(pgrdata_OB$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA")] <- 'Ethical concerns'
+pgrdata_OB$Data_cat[str_detect(pgrdata_OB$Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
+pgrdata_OB$Data_cat[str_detect(pgrdata_OB$Data, "OEUVERS")] <- 'Resource not always digital'
 
-pgrdata_OtherBarriers$OtherBarriers_Data_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Data) & is.na(pgrdata_OtherBarriers$OtherBarriers_Data_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_Data[!is.na(pgrdata_OtherBarriers$OtherBarriers_Data_recode) & pgrdata_OtherBarriers$OtherBarriers_Data_recode == 'Not categorised']
+pgrdata_OB$Data_cat[!is.na(pgrdata_OB$Data) & is.na(pgrdata_OB$Data_cat)] <- 'Not categorised'
+pgrdata_OB$Data[!is.na(pgrdata_OB$Data_cat) & pgrdata_OB$Data_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_Data_recode)
+table(pgrdata_OB$Data_cat)
 
 ## Code
-pgrdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
-pgrdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Code, "TIME|LOT OF WORK")] <- 'Time investment'
+pgrdata_OB$Code_cat[str_detect(pgrdata_OB$Code, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
+pgrdata_OB$Code_cat[str_detect(pgrdata_OB$Code, "TIME|LOT OF WORK")] <- 'Time investment'
 
-pgrdata_OtherBarriers$OtherBarriers_Code_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Code) & is.na(pgrdata_OtherBarriers$OtherBarriers_Code_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_Code[!is.na(pgrdata_OtherBarriers$OtherBarriers_Code) & pgrdata_OtherBarriers$OtherBarriers_Code_recode == 'Not categorised']
+pgrdata_OB$Code_cat[!is.na(pgrdata_OB$Code) & is.na(pgrdata_OB$Code_cat)] <- 'Not categorised'
+pgrdata_OB$Code[!is.na(pgrdata_OB$Code) & pgrdata_OB$Code_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_Code_recode)
+table(pgrdata_OB$Code_cat)
 
 ## Materials
-pgrdata_OtherBarriers$OtherBarriers_Materials_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Materials, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
-pgrdata_OtherBarriers$OtherBarriers_Materials_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Materials, "MANAGING DATA")] <- 'Difficult resource management and lack of metadata standards'
-pgrdata_OtherBarriers$OtherBarriers_Materials_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Materials, "LIBRARIES")] <- 'Resource not always digital'
+pgrdata_OB$Materials_cat[str_detect(pgrdata_OB$Materials, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
+pgrdata_OB$Materials_cat[str_detect(pgrdata_OB$Materials, "MANAGING DATA")] <- 'Difficult resource management and lack of metadata standards'
+pgrdata_OB$Materials_cat[str_detect(pgrdata_OB$Materials, "LIBRARIES")] <- 'Resource not always digital'
 
-pgrdata_OtherBarriers$OtherBarriers_Materials_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Materials) & is.na(pgrdata_OtherBarriers$OtherBarriers_Materials_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_Materials[!is.na(pgrdata_OtherBarriers$OtherBarriers_Materials) & pgrdata_OtherBarriers$OtherBarriers_Materials_recode == 'Not categorised']
+pgrdata_OB$Materials_cat[!is.na(pgrdata_OB$Materials) & is.na(pgrdata_OB$Materials_cat)] <- 'Not categorised'
+pgrdata_OB$Materials[!is.na(pgrdata_OB$Materials) & pgrdata_OB$Materials_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_Materials_recode)
+table(pgrdata_OB$Materials_cat)
 
 ## Preprint
-pgrdata_OtherBarriers$OtherBarriers_Preprint_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Preprint, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
-pgrdata_OtherBarriers$OtherBarriers_Preprint_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Preprint, "PEER REVIEW")] <- 'Lack of peer review'
+pgrdata_OB$Preprint_cat[str_detect(pgrdata_OB$Preprint, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
+pgrdata_OB$Preprint_cat[str_detect(pgrdata_OB$Preprint, "PEER REVIEW")] <- 'Lack of peer review'
 
-pgrdata_OtherBarriers$OtherBarriers_Preprint_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Preprint) & is.na(pgrdata_OtherBarriers$OtherBarriers_Preprint_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_Preprint[!is.na(pgrdata_OtherBarriers$OtherBarriers_Preprint) & pgrdata_OtherBarriers$OtherBarriers_Preprint_recode == 'Not categorised']
+pgrdata_OB$Preprint_cat[!is.na(pgrdata_OB$Preprint) & is.na(pgrdata_OB$Preprint_cat)] <- 'Not categorised'
+pgrdata_OB$Preprint[!is.na(pgrdata_OB$Preprint) & pgrdata_OB$Preprint_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_Preprint_recode)
+table(pgrdata_OB$Preprint_cat)
 
 ## Preregistration
-pgrdata_OtherBarriers$OtherBarriers_Prereg_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Prereg, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
-pgrdata_OtherBarriers$OtherBarriers_Prereg_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Prereg, "PILOT")] <- 'Lack of funding for pilot studies'
-pgrdata_OtherBarriers$OtherBarriers_Prereg_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_Prereg, "DISCIPLINE")] <- 'Not applicable to all disciplines'
+pgrdata_OB$Prereg_cat[str_detect(pgrdata_OB$Prereg, "PRIOR TO PUBLICATION")] <- 'Fear of scooping'
+pgrdata_OB$Prereg_cat[str_detect(pgrdata_OB$Prereg, "PILOT")] <- 'Lack of funding for pilot studies'
+pgrdata_OB$Prereg_cat[str_detect(pgrdata_OB$Prereg, "DISCIPLINE")] <- 'Not applicable to all disciplines'
 
-pgrdata_OtherBarriers$OtherBarriers_Prereg_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_Prereg) & is.na(pgrdata_OtherBarriers$OtherBarriers_Prereg_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_Prereg[!is.na(pgrdata_OtherBarriers$OtherBarriers_Prereg) & pgrdata_OtherBarriers$OtherBarriers_Prereg_recode == 'Not categorised']
+pgrdata_OB$Prereg_cat[!is.na(pgrdata_OB$Prereg) & is.na(pgrdata_OB$Prereg_cat)] <- 'Not categorised'
+pgrdata_OB$Prereg[!is.na(pgrdata_OB$Prereg) & pgrdata_OB$Prereg_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_Prereg_recode)
+table(pgrdata_OB$Prereg_cat)
 
 
 ## Registered Report
-pgrdata_OtherBarriers$OtherBarriers_RegRep_recode[str_detect(pgrdata_OtherBarriers$OtherBarriers_RegRep, "MESSY")] <- 'Impedes flexibility in protocols'
+pgrdata_OB$RegRep_cat[str_detect(pgrdata_OB$RegRep, "MESSY")] <- 'Impedes flexibility in protocols'
 
-pgrdata_OtherBarriers$OtherBarriers_RegRep_recode[!is.na(pgrdata_OtherBarriers$OtherBarriers_RegRep) & is.na(pgrdata_OtherBarriers$OtherBarriers_RegRep_recode)] <- 'Not categorised'
-pgrdata_OtherBarriers$OtherBarriers_RegRep[!is.na(pgrdata_OtherBarriers$OtherBarriers_RegRep) & pgrdata_OtherBarriers$OtherBarriers_RegRep_recode == 'Not categorised']
+pgrdata_OB$RegRep_cat[!is.na(pgrdata_OB$RegRep) & is.na(pgrdata_OB$RegRep_cat)] <- 'Not categorised'
+pgrdata_OB$RegRep[!is.na(pgrdata_OB$RegRep) & pgrdata_OB$RegRep_cat == 'Not categorised']
 
-table(pgrdata_OtherBarriers$OtherBarriers_RegRep_recode)
+table(pgrdata_OB$RegRep_cat)
 
   
-# staffdata_OtherBarriers -----
-staffdata_OtherBarriers <- subset_columns_by_pattern(staffdata, "^OtherBarriers")
-staffdata_OtherBarriers <- staffdata_OtherBarriers[rowSums(!is.na(staffdata_OtherBarriers)) > 1, ]
+# staffdata_OB -----
+staffdata_OB <- prepare_freetext_subdataset(staffdata, "^OtherBarriers_")
 
 ## Nb of responses
-staffdata_OtherBarriers %>% summarise(across (everything(), ~sum(!is.na(.))))
-
-## put all strings in capital letter
-staffdata_OtherBarriers <-  data.frame(lapply(staffdata_OtherBarriers, function(v) {
-  if (is.character(v)) return(toupper(v))
-  else return(v)
-}), stringsAsFactors=FALSE)
+staffdata_OB %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like same as previous answer.....
-staffdata_OtherBarriers[unique(c(
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OtherBarriers$OtherBarriers_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+staffdata_OB[unique(c(
+  which(str_detect(staffdata_OB$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OB$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OB$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OB$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OB$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_OB$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 ## categorise barriers
-staffdata_OtherBarriers$OtherBarriers_OA_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_Data_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_Code_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_Materials_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_Preprint_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_Prereg_recode <- NA
-staffdata_OtherBarriers$OtherBarriers_RegRep_recode <- NA
+staffdata_OB$OA_cat <- NA
+staffdata_OB$Data_cat <- NA
+staffdata_OB$Code_cat <- NA
+staffdata_OB$Materials_cat <- NA
+staffdata_OB$Preprint_cat <- NA
+staffdata_OB$Prereg_cat <- NA
+staffdata_OB$RegRep_cat <- NA
 
 ## OA
-staffdata_OtherBarriers$OtherBarriers_OA_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES"))] <- 'Financial cost'
+staffdata_OB$OA_cat[str_detect(staffdata_OB$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES"))] <- 'Financial cost'
+
+staffdata_OB$OA_cat[!is.na(staffdata_OB$OA) & is.na(staffdata_OB$OA_cat)] <- 'Not categorised'
+staffdata_OB$OA[!is.na(staffdata_OB$OA_cat) & staffdata_OB$OA_cat == 'Not categorised']
+
+table(staffdata_OB$OA_cat)
 
 ## Data
-staffdata_OtherBarriers$OtherBarriers_Data_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
+staffdata_OB$Data[!is.na(staffdata_OB$Data)]
+staffdata_OB$Data_cat[str_detect(staffdata_OB$Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
+
+staffdata_OB$Data_cat[!is.na(staffdata_OB$Data) & is.na(staffdata_OB$Data_cat)] <- 'Not categorised'
+staffdata_OB$Data[!is.na(staffdata_OB$Data_cat) & staffdata_OB$Data_cat == 'Not categorised']
+
+table(staffdata_OB$Data_cat)
 
 ## Code
-staffdata_OtherBarriers$OtherBarriers_Code_recode[str_detect(staffdata_OtherBarriers$OtherBarriers_Code, "TIME|LOT OF WORK")] <- 'Time investment'
+staffdata_OB$Code_cat[str_detect(staffdata_OB$Code, "TIME|LOT OF WORK")] <- 'Time investment'
+
+staffdata_OB$Code_cat[!is.na(staffdata_OB$Code) & is.na(staffdata_OB$Code_cat)] <- 'Not categorised'
+staffdata_OB$Code[!is.na(staffdata_OB$Code_cat) & staffdata_OB$Code_cat == 'Not categorised']
+
+table(staffdata_OB$Code_cat)
 
 ## Materials
-staffdata_OtherBarriers$OtherBarriers_Materials
+staffdata_OB$Materials
+
+# staffdata_OB$Materials_cat[!is.na(staffdata_OB$Materials) & is.na(staffdata_OB$Materials_cat)] <- 'Not categorised'
+# staffdata_OB$Materials[!is.na(staffdata_OB$Materials_cat) & staffdata_OB$Materials_cat == 'Not categorised']
+# 
+# table(staffdata_OB$Materials_cat)
 
 ## Preprint
-staffdata_OtherBarriers$OtherBarriers_Preprint
+staffdata_OB$Preprint
+
+# staffdata_OB$Preprint_cat[!is.na(staffdata_OB$Preprint) & is.na(staffdata_OB$Preprint_cat)] <- 'Not categorised'
+# staffdata_OB$Preprint[!is.na(staffdata_OB$Preprint_cat) & staffdata_OB$Preprint_cat == 'Not categorised']
+# 
+# table(staffdata_OB$Preprint_cat)
+
 
 ## Prereg
-staffdata_OtherBarriers$OtherBarriers_Prereg
-staffdata_OtherBarriers$OtherBarriers_Prereg_recode[!is.na(staffdata_OtherBarriers$OtherBarriers_Prereg) & is.na(staffdata_OtherBarriers$OtherBarriers_Prereg_recode)] <- 'Not categorised'
+staffdata_OB$Prereg[!is.na(staffdata_OB$Prereg)]
+
+staffdata_OB$Prereg_cat[!is.na(staffdata_OB$Prereg) & is.na(staffdata_OB$Prereg_cat)] <- 'Not categorised'
+staffdata_OB$Prereg[!is.na(staffdata_OB$Prereg_cat) & staffdata_OB$Prereg_cat == 'Not categorised']
+
+table(staffdata_OB$Prereg_cat)
+
 
 ## RegRep
-staffdata_OtherBarriers$OtherBarriers_RegRep
+staffdata_OB$RegRep
+
+# staffdata_OB$RegRep_cat[!is.na(staffdata_OB$RegRep) & is.na(staffdata_OB$RegRep_cat)] <- 'Not categorised'
+# staffdata_OB$RegRep[!is.na(staffdata_OB$RegRep_cat) & staffdata_OB$RegRep_cat == 'Not categorised']
+# 
+# table(staffdata_OB$RegRep_cat)
 
 
-
-
-
-
-# pgrdata_WhatDownsides -----
-pgrdata_WhatDownsides <- subset_columns_by_pattern(pgrdata, "^WhatDownsides")
-pgrdata_WhatDownsides <- pgrdata_WhatDownsides[rowSums(!is.na(pgrdata_WhatDownsides)) > 1, ]
+# pgrdata_WD -----
+pgrdata_WD <- prepare_freetext_subdataset(pgrdata, "^WhatDownsides_")
 
 ## Nb of responses
-pgrdata_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
-
-## convert all string to upper case
-pgrdata_WhatDownsides <-  data.frame(lapply(pgrdata_WhatDownsides, function(v) {
-  if (is.character(v)) return(toupper(v))
-  else return(v)
-}),  stringsAsFactors=FALSE)
-
-
+pgrdata_WD %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like 'same as previous answer'.....
-Cells_to_fillup_manually <- pgrdata_WhatDownsides[unique(c(
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+Cells_to_fillup_manually <- pgrdata_WD[unique(c(
+  which(str_detect(pgrdata_WD$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_WD$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_WD$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_WD$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_WD$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(pgrdata_WD$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 ### line 6
-pgrdata_WhatDownsides$WhatDownsides_Data[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & pgrdata_WhatDownsides$WhatDownsides_Data == 'SAME AS OPEN ACCESS PUBLICATION'] <- pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & pgrdata_WhatDownsides$WhatDownsides_Data == 'SAME AS OPEN ACCESS PUBLICATION']
-pgrdata_WhatDownsides$WhatDownsides_Materials[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == 'SAME AS OPEN ACCESS PUBLICATION'] <- pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == 'SAME AS OPEN ACCESS PUBLICATION']
+pgrdata_WD$Data[!is.na(pgrdata_WD$Data) & pgrdata_WD$Data == 'SAME AS OPEN ACCESS PUBLICATION'] <- pgrdata_WD$OA[!is.na(pgrdata_WD$Data) & pgrdata_WD$Data == 'SAME AS OPEN ACCESS PUBLICATION']
+pgrdata_WD$Materials[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == 'SAME AS OPEN ACCESS PUBLICATION'] <- pgrdata_WD$OA[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == 'SAME AS OPEN ACCESS PUBLICATION']
 
 ### line 9
-pgrdata_WhatDownsides$WhatDownsides_Data[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & pgrdata_WhatDownsides$WhatDownsides_Data == '^'] <- pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & pgrdata_WhatDownsides$WhatDownsides_Data == '^']
-pgrdata_WhatDownsides$WhatDownsides_Code[!is.na(pgrdata_WhatDownsides$WhatDownsides_Code) & pgrdata_WhatDownsides$WhatDownsides_Code == '^'] <- pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_Code) & pgrdata_WhatDownsides$WhatDownsides_Code == '^']
-pgrdata_WhatDownsides$WhatDownsides_Materials[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == '^'] <- pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == '^']
+pgrdata_WD$Data[!is.na(pgrdata_WD$Data) & pgrdata_WD$Data == '^'] <- pgrdata_WD$OA[!is.na(pgrdata_WD$Data) & pgrdata_WD$Data == '^']
+pgrdata_WD$Code[!is.na(pgrdata_WD$Code) & pgrdata_WD$Code == '^'] <- pgrdata_WD$OA[!is.na(pgrdata_WD$Code) & pgrdata_WD$Code == '^']
+pgrdata_WD$Materials[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == '^'] <- pgrdata_WD$OA[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == '^']
 
 ### line 52
-pgrdata_WhatDownsides$WhatDownsides_Materials[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == 'AS FOR DATA. '] <- pgrdata_WhatDownsides$WhatDownsides_Data[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials == 'AS FOR DATA. ']
+pgrdata_WD$Materials[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == 'AS FOR DATA. '] <- pgrdata_WD$Data[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials == 'AS FOR DATA. ']
 
 ### line 53
-pgrdata_WhatDownsides$WhatDownsides_RegRep[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep) & pgrdata_WhatDownsides$WhatDownsides_RegRep == 'SAME AS FOR PREREGISTRATION.'] <- pgrdata_WhatDownsides$WhatDownsides_Prereg[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep) & pgrdata_WhatDownsides$WhatDownsides_RegRep == 'SAME AS FOR PREREGISTRATION.']
+pgrdata_WD$RegRep[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep == 'SAME AS FOR PREREGISTRATION.'] <- pgrdata_WD$Prereg[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep == 'SAME AS FOR PREREGISTRATION.']
 
 rm(Cells_to_fillup_manually)
 
 ## categorise downsides
-pgrdata_WhatDownsides$WhatDownsides_OA_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Data_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Data_recode2 <- NA
-pgrdata_WhatDownsides$WhatDownsides_Code_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2 <- NA
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode <- NA
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2 <- NA
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3 <- NA
+pgrdata_WD$OA_cat <- NA
+pgrdata_WD$Data_cat <- NA
+pgrdata_WD$Data_cat2 <- NA
+pgrdata_WD$Code_cat <- NA
+pgrdata_WD$Materials_cat <- NA
+pgrdata_WD$Preprint_cat <- NA
+pgrdata_WD$Prereg_cat <- NA
+pgrdata_WD$Prereg_cat2 <- NA
+pgrdata_WD$RegRep_cat <- NA
+pgrdata_WD$RegRep_cat2 <- NA
+pgrdata_WD$RegRep_cat3 <- NA
 
 ### OA
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "HARM*|INAPPROPRIATE")] <- 'No control over validity of reuse, misrepresentation, misuse'
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES")] <- 'Financial cost' # including inequalities of access to publishing between institutions
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "JOURNAL INCOME|PRODUCTION")] <- 'Loss of journal income' # need to find other means of journal production'
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "QUALITY|RIGOR*")] <- 'Lowers quality' # reduce quality of peer review if journal paid
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_OA, "OPINION")] <- 'Ethical, safety, or security concerns'
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "HARM*|INAPPROPRIATE")] <- 'No control over validity of reuse, misrepresentation, misuse'
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES")] <- 'Financial cost' # including inequalities of access to publishing between institutions
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "JOURNAL INCOME|PRODUCTION")] <- 'Loss of journal income' # need to find other means of journal production'
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "QUALITY|RIGOR*")] <- 'Lowers quality' # reduce quality of peer review if journal paid
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
+pgrdata_WD$OA_cat[str_detect(pgrdata_WD$OA, "OPINION")] <- 'Ethical, safety, or security concerns'
 
-pgrdata_WhatDownsides$WhatDownsides_OA_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_OA) & is.na(pgrdata_WhatDownsides$WhatDownsides_OA_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_OA[!is.na(pgrdata_WhatDownsides$WhatDownsides_OA) & pgrdata_WhatDownsides$WhatDownsides_OA_recode == 'Not categorised']
+pgrdata_WD$OA_cat[!is.na(pgrdata_WD$OA) & is.na(pgrdata_WD$OA_cat)] <- 'Not categorised'
+pgrdata_WD$OA[!is.na(pgrdata_WD$OA) & pgrdata_WD$OA_cat == 'Not categorised']
 
-table(pgrdata_WhatDownsides$WhatDownsides_OA_recode)
-  #WhatDownsides_OA_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_OA),c('WhatDownsides_OA','WhatDownsides_OA_recode')]
+table(pgrdata_WD$OA_cat)
+  #OA_cat <-  pgrdata_WD[!is.na(pgrdata_WD$OA),c('OA','OA_cat')]
 
 ## Data
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "PIPPED|STEALING|SCOOPED")] <- 'Fear of scooping'
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
-pgrdata_WhatDownsides$WhatDownsides_Data_recode2[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "CONTINUITY")] <- 'Challenges around continuity of ownership (e.g. for longitudinal dataset)'
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure' 
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Data, "HARMFUL|MALICIOUS|MISUSE")] <- 'No control over validity of reuse, misrepresentation, misuse'
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "PIPPED|STEALING|SCOOPED")] <- 'Fear of scooping'
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
+pgrdata_WD$Data_cat2[str_detect(pgrdata_WD$Data, "CONTINUITY")] <- 'Challenges around continuity of ownership (e.g. for longitudinal dataset)'
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure' 
+pgrdata_WD$Data_cat[str_detect(pgrdata_WD$Data, "HARMFUL|MALICIOUS|MISUSE")] <- 'No control over validity of reuse, misrepresentation, misuse'
 
-pgrdata_WhatDownsides$WhatDownsides_Data_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & is.na(pgrdata_WhatDownsides$WhatDownsides_Data_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_Data[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data) & pgrdata_WhatDownsides$WhatDownsides_Data_recode == 'Not categorised']
+pgrdata_WD$Data_cat[!is.na(pgrdata_WD$Data) & is.na(pgrdata_WD$Data_cat)] <- 'Not categorised'
+pgrdata_WD$Data[!is.na(pgrdata_WD$Data) & pgrdata_WD$Data_cat == 'Not categorised']
 
-table(c(pgrdata_WhatDownsides$WhatDownsides_Data_recode, pgrdata_WhatDownsides$WhatDownsides_Data_recode2))
-  #WhatDownsides_Data_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data),c('WhatDownsides_Data','WhatDownsides_Data_recode','WhatDownsides_Data_recode2')]  #not recoded: "Academics are too protective over their work"
+table(c(pgrdata_WD$Data_cat, pgrdata_WD$Data_cat2))
+  #Data_cat <-  pgrdata_WD[!is.na(pgrdata_WD$Data),c('Data','Data_cat','Data_cat2')]  #not catd: "Academics are too protective over their work"
 
 
 ## Code
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "POOR QUALITY|REVIEWED AND TESTED")] <- 'Lowers quality' # by propagating unreviewed and untested code
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "LONG TIME")] <- 'Time investment'
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' # (including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Code, "HARMFUL|MALICIOUS|MISUSE|INAPPRORPIATE|NOT UNDERSTAND|NUANCE")] <- 'No control over validity of reuse, misrepresentation, misuse'
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "POOR QUALITY|REVIEWED AND TESTED")] <- 'Lowers quality' # by propagating unreviewed and untested code
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "LONG TIME")] <- 'Time investment'
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' # (including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure
+pgrdata_WD$Code_cat[str_detect(pgrdata_WD$Code, "HARMFUL|MALICIOUS|MISUSE|INAPPRORPIATE|NOT UNDERSTAND|NUANCE")] <- 'No control over validity of reuse, misrepresentation, misuse'
 
-pgrdata_WhatDownsides$WhatDownsides_Code_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Code) & is.na(pgrdata_WhatDownsides$WhatDownsides_Code_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_Code[!is.na(pgrdata_WhatDownsides$WhatDownsides_Code) & pgrdata_WhatDownsides$WhatDownsides_Code_recode == 'Not categorised']
+pgrdata_WD$Code_cat[!is.na(pgrdata_WD$Code) & is.na(pgrdata_WD$Code_cat)] <- 'Not categorised'
+pgrdata_WD$Code[!is.na(pgrdata_WD$Code) & pgrdata_WD$Code_cat == 'Not categorised']
 
-  #WhatDownsides_Code_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Code),c('WhatDownsides_Code','WhatDownsides_Code_recode')]  
-
-table(pgrdata_WhatDownsides$WhatDownsides_Code_recode)
+table(pgrdata_WD$Code_cat)
+  #Code_cat <-  pgrdata_WD[!is.na(pgrdata_WD$Code),c('Code','Code_cat')]  
 
 ## Materials
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|RADIOACTIVE")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' # (including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "FIRST TO PUBLISH")] <- 'Lowers quality'# by increasing \'first to publish\' pressure
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "PIPPED|STEALING|SCOOPED|PUBLISH PAPERS FAST")] <- 'Fear of scooping' # leading to loss of career prospect
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "HARMFUL|MALICIOUS|MISUSE|INAPPRORPIATE|NOT UNDERSTAND|NUANCE")] <- 'No control over validity of reuse, misrepresentation, misuse'
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "RETURNED")] <- 'Resource not owned' # (e.g. archelogical artifacts)
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Materials, "PLATFORMS")] <- 'Unusable if not from open source platforms' # 
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|RADIOACTIVE")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' # (including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "FIRST TO PUBLISH")] <- 'Lowers quality'# by increasing \'first to publish\' pressure
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "PIPPED|STEALING|SCOOPED|PUBLISH PAPERS FAST")] <- 'Fear of scooping' # leading to loss of career prospect
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "HARMFUL|MALICIOUS|MISUSE|INAPPRORPIATE|NOT UNDERSTAND|NUANCE")] <- 'No control over validity of reuse, misrepresentation, misuse'
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "RETURNED")] <- 'Resource not owned' # (e.g. archelogical artifacts)
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
+pgrdata_WD$Materials_cat[str_detect(pgrdata_WD$Materials, "PLATFORMS")] <- 'Unusable if not from open source platforms' # 
 
-pgrdata_WhatDownsides$WhatDownsides_Materials_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & is.na(pgrdata_WhatDownsides$WhatDownsides_Materials_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_Materials[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials) & pgrdata_WhatDownsides$WhatDownsides_Materials_recode == 'Not categorised']
+pgrdata_WD$Materials_cat[!is.na(pgrdata_WD$Materials) & is.na(pgrdata_WD$Materials_cat)] <- 'Not categorised'
+pgrdata_WD$Materials[!is.na(pgrdata_WD$Materials) & pgrdata_WD$Materials_cat == 'Not categorised']
 
-  #WhatDownsides_Materials_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Materials),c('WhatDownsides_Materials','WhatDownsides_Materials_recode')]  
-
-table(pgrdata_WhatDownsides$WhatDownsides_Materials_recode) 
+table(pgrdata_WD$Materials_cat) 
+  #Materials_cat <-  pgrdata_WD[!is.na(pgrdata_WD$Materials),c('Materials','Materials_cat')]  
 
 ## Preprint
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "TIME REQUIRED")] <- 'Time investment'
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "PUBLICATION OF FULL PAPER|PREVENT PUBLICATION|TOP JOURNALS")] <- 'Prevents or complicates formal publishing'
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "PEER REVIEW*|UNRELIABLE|ISSUES|PEER-REVIEW*|ERRO*|POOR QUALITY|SCHOLARS")] <- 'Misleading due to lack of peer review' # (e.g. public, media, other researchers (for new research or as citation)) and requires to revisit the final version (which few will do)'
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "BLIND PEER REVIEW*")] <- 'Interferes with blind peer reviewing' # to overwrite the simple 'peer review' above
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode2[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure' 
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Preprint, "FASTER")] <- 'Fear of scooping' 
+pgrdata_WD$Preprint_cat[str_detect(pgrdata_WD$Preprint, "TIME REQUIRED")] <- 'Time investment'
+pgrdata_WD$Preprint_cat[str_detect(pgrdata_WD$Preprint, "PUBLICATION OF FULL PAPER|PREVENT PUBLICATION|TOP JOURNALS")] <- 'Prevents or complicates formal publishing'
+pgrdata_WD$Preprint_cat[str_detect(pgrdata_WD$Preprint, "PEER REVIEW*|UNRELIABLE|ISSUES|PEER-REVIEW*|ERRO*|POOR QUALITY|SCHOLARS")] <- 'Misleading due to lack of peer review' # (e.g. public, media, other researchers (for new research or as citation)) and requires to revisit the final version (which few will do)'
+pgrdata_WD$Preprint_cat[str_detect(pgrdata_WD$Preprint, "BLIND PEER REVIEW*")] <- 'Interferes with blind peer reviewing' # to overwrite the simple 'peer review' above
+pgrdata_WD$Preprint_cat2[str_detect(pgrdata_WD$Preprint, "FIRST TO PUBLISH")] <- 'Lowers quality' # by increasing \'first to publish\' pressure' 
+pgrdata_WD$Preprint_cat[str_detect(pgrdata_WD$Preprint, "FASTER")] <- 'Fear of scooping' 
 
-pgrdata_WhatDownsides$WhatDownsides_Preprint_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint) & is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_Preprint[!is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint) & pgrdata_WhatDownsides$WhatDownsides_Preprint_recode == 'Not categorised']
+pgrdata_WD$Preprint_cat[!is.na(pgrdata_WD$Preprint) & is.na(pgrdata_WD$Preprint_cat)] <- 'Not categorised'
+pgrdata_WD$Preprint[!is.na(pgrdata_WD$Preprint) & pgrdata_WD$Preprint_cat == 'Not categorised']
 
-  #WhatDownsides_Preprint_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint),c('WhatDownsides_Preprint','WhatDownsides_Preprint_recode')] 
-
-table(pgrdata_WhatDownsides$WhatDownsides_Preprint_recode)
+table(pgrdata_WD$Preprint_cat)
+  #Preprint_cat <-  pgrdata_WD[!is.na(pgrdata_WD$Preprint),c('Preprint','Preprint_cat')] 
 
 ## Preregistration
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "PIPPED|STEAL*|SCOOPED|PUBLISH BEFORE YOU|COMPETITIVE")] <- 'Fear of scooping' 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "NO EXPERIMENTATION|NOT RELEVANT")] <- 'Not relevant for all fields' # (e.g. theoretical, mathematical research where biases are not present or in the humanities that do not follow a scientific process)' 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "EXPLORATORY|BLUE SKIES")] <- 'Impedes exploratory research' 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "NULL FINDINGS")] <- 'Needs corresponding increase in respect for null findings' 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2[str_detect(pgrdata_WhatDownsides$WhatDownsides_Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|ADAPT TO UNFORESEEN")] <- 'Impedes flexibility in protocols'
+pgrdata_WD$Prereg_cat[str_detect(pgrdata_WD$Prereg, "PIPPED|STEAL*|SCOOPED|PUBLISH BEFORE YOU|COMPETITIVE")] <- 'Fear of scooping' 
+pgrdata_WD$Prereg_cat[str_detect(pgrdata_WD$Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
+pgrdata_WD$Prereg_cat[str_detect(pgrdata_WD$Prereg, "NO EXPERIMENTATION|NOT RELEVANT")] <- 'Not relevant for all fields' # (e.g. theoretical, mathematical research where biases are not present or in the humanities that do not follow a scientific process)' 
+pgrdata_WD$Prereg_cat[str_detect(pgrdata_WD$Prereg, "EXPLORATORY|BLUE SKIES")] <- 'Impedes exploratory research' 
+pgrdata_WD$Prereg_cat[str_detect(pgrdata_WD$Prereg, "NULL FINDINGS")] <- 'Needs corresponding increase in respect for null findings' 
+pgrdata_WD$Prereg_cat2[str_detect(pgrdata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|ADAPT TO UNFORESEEN")] <- 'Impedes flexibility in protocols'
 
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg) & is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_Prereg[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg) & pgrdata_WhatDownsides$WhatDownsides_Prereg_recode == 'Not categorised']
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2) & pgrdata_WhatDownsides$WhatDownsides_Prereg_recode == 'Not categorised'] <- pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2) & pgrdata_WhatDownsides$WhatDownsides_Prereg_recode == 'Not categorised']
-pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2) & pgrdata_WhatDownsides$WhatDownsides_Prereg_recode == pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2] <- NA
+pgrdata_WD$Prereg_cat[!is.na(pgrdata_WD$Prereg) & is.na(pgrdata_WD$Prereg_cat)] <- 'Not categorised'
+pgrdata_WD$Prereg[!is.na(pgrdata_WD$Prereg) & pgrdata_WD$Prereg_cat == 'Not categorised']
+pgrdata_WD$Prereg_cat[!is.na(pgrdata_WD$Prereg_cat2) & pgrdata_WD$Prereg_cat == 'Not categorised'] <- pgrdata_WD$Prereg_cat2[!is.na(pgrdata_WD$Prereg_cat2) & pgrdata_WD$Prereg_cat == 'Not categorised']
+pgrdata_WD$Prereg_cat2[!is.na(pgrdata_WD$Prereg_cat2) & pgrdata_WD$Prereg_cat == pgrdata_WD$Prereg_cat2] <- NA
 
-  #WhatDownsides_Prereg_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg),c('WhatDownsides_Prereg','WhatDownsides_Prereg_recode', 'WhatDownsides_Prereg_recode2')]  
-table(c(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode,pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2))
+pgrdata_WD$Prereg[!is.na(pgrdata_WD$Prereg) & pgrdata_WD$Prereg_cat == 'Not categorised']
+pgrdata_WD$Prereg[!is.na(pgrdata_WD$Prereg) & pgrdata_WD$Prereg_cat2 == 'Not categorised']
 
+table(c(pgrdata_WD$Prereg_cat,pgrdata_WD$Prereg_cat2))
+  #Prereg_cat <-  pgrdata_WD[!is.na(pgrdata_WD$Prereg),c('Prereg','Prereg_cat', 'Prereg_cat2')]  
+  
 
 ## Registered Report
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "PIPPED|STEAL*|SCOOPED|PUBLISH BEFORE YOU|COMPETITIVE|POACHING|COPY METHOD")] <- 'Fear of scooping' 
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN")] <- 'Impedes flexibility in protocols' # 'the understanding of data (e.g. longitudinal data) or the developement of hypothesis for an experiment are evolving, and this process is valuable, it should not be forced into a preregistration'
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH|SLOWS")] <- 'Time investment' 
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "TIMESCALE")] <- 'Challenging timescale for ECR under short term contracts' 
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' #including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[str_detect(pgrdata_WhatDownsides$WhatDownsides_RegRep, "EXPLORATORY|BLUE SKIES")] <- 'Impedes exploratory research' 
+pgrdata_WD$RegRep_cat[str_detect(pgrdata_WD$RegRep, "PIPPED|STEAL*|SCOOPED|PUBLISH BEFORE YOU|COMPETITIVE|POACHING|COPY METHOD")] <- 'Fear of scooping' 
+pgrdata_WD$RegRep_cat2[str_detect(pgrdata_WD$RegRep, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN")] <- 'Impedes flexibility in protocols' # 'the understanding of data (e.g. longitudinal data) or the developement of hypothesis for an experiment are evolving, and this process is valuable, it should not be forced into a preregistration'
+pgrdata_WD$RegRep_cat3[str_detect(pgrdata_WD$RegRep, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH|SLOWS")] <- 'Time investment' 
+pgrdata_WD$RegRep_cat[str_detect(pgrdata_WD$RegRep, "TIMESCALE")] <- 'Challenging timescale for ECR under short term contracts' 
+pgrdata_WD$RegRep_cat[str_detect(pgrdata_WD$RegRep, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|ACKNOWLEDGED")] <- 'Intellectual property concerns' #including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation)'
+pgrdata_WD$RegRep_cat[str_detect(pgrdata_WD$RegRep, "EXPLORATORY|BLUE SKIES")] <- 'Impedes exploratory research' 
 
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep) & is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode)] <- 'Not categorised'
-pgrdata_WhatDownsides$WhatDownsides_RegRep[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == 'Not categorised']
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == 'Not categorised'] <- pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == 'Not categorised']
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2] <- NA
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == 'Not categorised'] <- pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == 'Not categorised']
-pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3) & pgrdata_WhatDownsides$WhatDownsides_RegRep_recode == pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3] <- NA
+pgrdata_WD$RegRep_cat[!is.na(pgrdata_WD$RegRep) & is.na(pgrdata_WD$RegRep_cat)] <- 'Not categorised'
+pgrdata_WD$RegRep[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep_cat == 'Not categorised']
+pgrdata_WD$RegRep_cat[!is.na(pgrdata_WD$RegRep_cat2) & pgrdata_WD$RegRep_cat == 'Not categorised'] <- pgrdata_WD$RegRep_cat2[!is.na(pgrdata_WD$RegRep_cat2) & pgrdata_WD$RegRep_cat == 'Not categorised']
+pgrdata_WD$RegRep_cat2[!is.na(pgrdata_WD$RegRep_cat2) & pgrdata_WD$RegRep_cat == pgrdata_WD$RegRep_cat2] <- NA
+pgrdata_WD$RegRep_cat[!is.na(pgrdata_WD$RegRep_cat3) & pgrdata_WD$RegRep_cat == 'Not categorised'] <- pgrdata_WD$RegRep_cat3[!is.na(pgrdata_WD$RegRep_cat3) & pgrdata_WD$RegRep_cat == 'Not categorised']
+pgrdata_WD$RegRep_cat3[!is.na(pgrdata_WD$RegRep_cat3) & pgrdata_WD$RegRep_cat == pgrdata_WD$RegRep_cat3] <- NA
 
-  #WhatDownsides_RegRep_recode <-  pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep),c('WhatDownsides_RegRep','WhatDownsides_RegRep_recode', 'WhatDownsides_RegRep_recode2','WhatDownsides_RegRep_recode3')]  #not recoded: "Academics are too protective over their work"
+pgrdata_WD$RegRep[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep_cat == 'Not categorised']
+pgrdata_WD$RegRep[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep_cat2 == 'Not categorised']
+pgrdata_WD$RegRep[!is.na(pgrdata_WD$RegRep) & pgrdata_WD$RegRep_cat3 == 'Not categorised']
 
-table(c(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode, pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2, pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3))
+table(c(pgrdata_WD$RegRep_cat, pgrdata_WD$RegRep_cat2, pgrdata_WD$RegRep_cat3))
+  #RegRep_cat <-  pgrdata_WD[!is.na(pgrdata_WD$RegRep),c('RegRep','RegRep_cat', 'RegRep_cat2','RegRep_cat3')]  #not catd: "Academics are too protective over their work"
 
 
-
-# staffdata_WhatDownsides -----
-staffdata_WhatDownsides <- subset_columns_by_pattern(staffdata, "^WhatDownsides")
-staffdata_WhatDownsides <- staffdata_WhatDownsides[rowSums(!is.na(staffdata_WhatDownsides)) > 1, ]
+# staffdata_WD -----
+staffdata_WD <- prepare_freetext_subdataset(staffdata, "^WhatDownsides_")
 
 ## Nb of responses
-staffdata_WhatDownsides %>% summarise(across (everything(), ~sum(!is.na(.))))
-
-## put all strings in capital letter
-staffdata_WhatDownsides <-  data.frame(lapply(staffdata_WhatDownsides, function(v) {
-  if (is.character(v)) return(toupper(v))
-  else return(v)
-}), stringsAsFactors=FALSE)
+staffdata_WD %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like same as previous answer.....
-staffdata_WhatDownsides[unique(c(
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WhatDownsides$WhatDownsides_RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+staffdata_WD[unique(c(
+  which(str_detect(staffdata_WD$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WD$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WD$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WD$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WD$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(staffdata_WD$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 ## categorise barriers
-staffdata_WhatDownsides$WhatDownsides_OA_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_Data_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_Code_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_Materials_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_Preprint_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_Prereg_recode <- NA
-staffdata_WhatDownsides$WhatDownsides_RegRep_recode <- NA
+staffdata_WD$OA_cat <- NA
+staffdata_WD$Data_cat <- NA
+staffdata_WD$Code_cat <- NA
+staffdata_WD$Code_cat2 <- NA
+staffdata_WD$Materials_cat <- NA
+staffdata_WD$Preprint_cat <- NA
+staffdata_WD$Prereg_cat <- NA
+staffdata_WD$RegRep_cat <- NA
 
 ## OA
-staffdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES|POORER"))] <- 'Financial cost'
-staffdata_WhatDownsides$WhatDownsides_OA_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
+staffdata_WD$OA_cat[str_detect(staffdata_WD$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES|POORER"))] <- 'Financial cost'
+staffdata_WD$OA_cat[str_detect(staffdata_WD$OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
+
+staffdata_WD$OA_cat[!is.na(staffdata_WD$OA) & is.na(staffdata_WD$OA_cat)] <- 'Not categorised'
+staffdata_WD$OA[!is.na(staffdata_WD$OA) & staffdata_WD$OA_cat == 'Not categorised']
+
+table(staffdata_WD$OA_cat)
 
 ## Data
-staffdata_WhatDownsides$WhatDownsides_Data[!is.na(staffdata_WhatDownsides$WhatDownsides_Data)]
-staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "NO NORM FOR CITATION")] <- 'No norm for citation'
-staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
-staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
-staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "LICENCES|FORMATS")] <- 'Proprietary file format'
-staffdata_WhatDownsides$WhatDownsides_Data_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN")] <- 'No control over validity of reuse, misrepresentation, misuse'
-staffdata_WhatDownsides$WhatDownsides_Data_recode2[str_detect(staffdata_WhatDownsides$WhatDownsides_Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
+staffdata_WD$Data[!is.na(staffdata_WD$Data)]
+staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "NO NORM FOR CITATION")] <- 'No norm for citation'
+staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
+staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "LICENCES|LICENSES|FORMATS")] <- 'Proprietary file format'
+staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN")] <- 'No control over validity of reuse, misrepresentation, misuse'
+staffdata_WD$Data_cat2[str_detect(staffdata_WD$Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
+
+staffdata_WD$Data_cat[!is.na(staffdata_WD$Data) & is.na(staffdata_WD$Data_cat)] <- 'Not categorised'
+staffdata_WD$Data[!is.na(staffdata_WD$Data) & staffdata_WD$Data_cat == 'Not categorised']
+
+table(staffdata_WD$Data_cat)
 
 ## Code
-staffdata_WhatDownsides$WhatDownsides_recode[!is.na(staffdata_WhatDownsides$WhatDownsides_Code)]
-staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE|SLOW DOWN")] <- 'Time investment'
-staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "REDUCE THE NUMBER OF APPROACHES USED")] <- 'Reduce diversity of approaches'
-staffdata_WhatDownsides$WhatDownsides_recode2[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "FIND PEOPLE TO REVIEW THE CODE")] <- 'No time or expertise to review code'
-staffdata_WhatDownsides$WhatDownsides_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' 
+staffdata_WD$Code[!is.na(staffdata_WD$Code)]
+staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE|SLOW DOWN")] <- 'Time investment'
+staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "REDUCE THE NUMBER OF APPROACHES USED")] <- 'Reduce diversity of approaches'
+staffdata_WD$Code_cat2[str_detect(staffdata_WD$Code, "FIND PEOPLE TO REVIEW THE CODE")] <- 'No time or expertise to review code'
+staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' 
+
+staffdata_WD$Code_cat[!is.na(staffdata_WD$Code) & is.na(staffdata_WD$Code_cat)] <- 'Not categorised'
+staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat == 'Not categorised']
+staffdata_WD$Code_cat[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == 'Not categorised'] <- staffdata_WD$Code_cat2[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == 'Not categorised']
+staffdata_WD$Code_cat2[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == staffdata_WD$Code_cat2] <- NA
+
+staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat == 'Not categorised']
+staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat2 == 'Not categorised']
+
+table(staffdata_WD$Code_cat)
 
 ## Materials
-staffdata_WhatDownsides$WhatDownsides_Materials[!is.na(staffdata_WhatDownsides$WhatDownsides_Materials)]
-staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "LICENCES")] <- 'Resource not own'
-staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "NATIONAL POLICIES")] <- 'Law against sharing specific material'
-staffdata_WhatDownsides$WhatDownsides_Materials_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Materials, "FRAGILE")] <- 'Impractical'
+staffdata_WD$Materials[!is.na(staffdata_WD$Materials)]
+staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "LICENCES|LICENSES")] <- 'Resource not own'
+staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "NATIONAL POLICIES")] <- 'Law against sharing specific material'
+staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "FRAGILE")] <- 'Impractical'
+
+staffdata_WD$Materials_cat[!is.na(staffdata_WD$Materials) & is.na(staffdata_WD$Materials_cat)] <- 'Not categorised'
+staffdata_WD$Materials[!is.na(staffdata_WD$Materials) & staffdata_WD$Materials_cat == 'Not categorised']
+
+table(staffdata_WD$Materials_cat)
 
 ## Preprint
-staffdata_WhatDownsides$WhatDownsides_Preprint[!is.na(staffdata_WhatDownsides$WhatDownsides_Preprint)]
-staffdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "ECOLOGICAL COST")] <- 'Ecological cost'
-staffdata_WhatDownsides$WhatDownsides_Preprint_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Preprint, "PEER-REVIEW")] <- 'No peer-review, reliance on reputation'
+staffdata_WD$Preprint[!is.na(staffdata_WD$Preprint)]
+staffdata_WD$Preprint_cat[str_detect(staffdata_WD$Preprint, "ECOLOGICAL COST")] <- 'Ecological cost'
+staffdata_WD$Preprint_cat[str_detect(staffdata_WD$Preprint, "PEER-REVIEW")] <- 'No peer-review, reliance on reputation'
+
+staffdata_WD$Preprint_cat[!is.na(staffdata_WD$Preprint) & is.na(staffdata_WD$Preprint_cat)] <- 'Not categorised'
+staffdata_WD$Preprint[!is.na(staffdata_WD$Preprint) & staffdata_WD$Preprint_cat == 'Not categorised']
+
+table(staffdata_WD$Preprint_cat)
+
 
 ## Prereg
-staffdata_WhatDownsides$WhatDownsides_Prereg[!is.na(staffdata_WhatDownsides$WhatDownsides_Prereg)]
-staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
-staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+staffdata_WD$Prereg[!is.na(staffdata_WD$Prereg)]
+staffdata_WD$Prereg_cat[str_detect(staffdata_WD$Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH|TIME IT TAKES")] <- 'Time investment' 
+staffdata_WD$Prereg_cat[str_detect(staffdata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+
+staffdata_WD$Prereg_cat[!is.na(staffdata_WD$Prereg) & is.na(staffdata_WD$Prereg_cat)] <- 'Not categorised'
+staffdata_WD$Prereg[!is.na(staffdata_WD$Prereg) & staffdata_WD$Prereg_cat == 'Not categorised']
+
+table(staffdata_WD$Prereg_cat)
+
 
 ## RegRep
-staffdata_WhatDownsides$WhatDownsides_RegRep[!is.na(staffdata_WhatDownsides$WhatDownsides_RegRep)]
-staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "TIME COST|MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
-staffdata_WhatDownsides$WhatDownsides_Prereg_recode[str_detect(staffdata_WhatDownsides$WhatDownsides_Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+staffdata_WD$RegRep[!is.na(staffdata_WD$RegRep)]
+staffdata_WD$RegRep_cat[str_detect(staffdata_WD$RegRep, "TIME COST|MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
+staffdata_WD$RegRep_cat[str_detect(staffdata_WD$RegRep, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+
+staffdata_WD$RegRep_cat[!is.na(staffdata_WD$RegRep) & is.na(staffdata_WD$RegRep_cat)] <- 'Not categorised'
+staffdata_WD$RegRep[!is.na(staffdata_WD$RegRep) & staffdata_WD$RegRep_cat == 'Not categorised']
+
+table(staffdata_WD$RegRep_cat)
 
 
+# Create list for checking categories -----
+a_pgrdata_OB<- create_list_for_checking_cat(pgrdata_OB)
+a_staffdata_OB <- create_list_for_checking_cat(staffdata_OB)
 
+a_pgrdata_WD <- create_list_for_checking_cat(pgrdata_WD)
+a_staffdata_WD <- create_list_for_checking_cat(staffdata_WD)
 
-# making Other Barriers table -----
+## to print list for someone to check recoding categories
+list_for_checking_cat <- rbind(a_pgrdata_OB, a_staffdata_OB, a_pgrdata_WD, a_staffdata_WD)
 
-## pgrdata
+#write.csv(list_for_checking_cat, file='list_for_checking_cat.csv')
 
-### making 1 function create list for recheck on which create pivot table is based
-pgrdata_OtherBarriers_table <- create_pivot_table_OtherBarriersorDownsides(pgrdata_OtherBarriers)
-staffdata_OtherBarriers_table <- create_pivot_table_OtherBarriersorDownsides(staffdata_OtherBarriers)
+# Create pivot tables from list for checking categories
+pgrdata_OB_table <- create_pivot_table_from_list_for_checking_cat(a_pgrdata_OB)
+staffdata_OB_table <- create_pivot_table_from_list_for_checking_cat(a_staffdata_OB)
 
-pgrdata_WhatDownsides_table <- create_pivot_table_OtherBarriersorDownsides(pgrdata_WhatDownsides)
-staffdata_WhatDownsides_table <- create_pivot_table_OtherBarriersorDownsides(staffdata_WhatDownsides)
+pgrdata_WD_table <- create_pivot_table_from_list_for_checking_cat(a_pgrdata_WD)
+staffdata_WD_table <- create_pivot_table_from_list_for_checking_cat(a_staffdata_WD)
 
-# making What Downsides table -----
-
-pgrdata_WhatDownsides <- add_column(pgrdata_WhatDownsides, ID = 1:nrow(pgrdata_WhatDownsides), .before = 1)
-
-colnameswithrecode_all <- colnames(pgrdata_WhatDownsides[,grep(pattern=".*recode", x=colnames(pgrdata_WhatDownsides))])
-colnameswithrecode_1 <- colnames(pgrdata_WhatDownsides[,grep(pattern=".*recode$", x=colnames(pgrdata_WhatDownsides))])
-colnameswithrecode_23 <- colnames(pgrdata_WhatDownsides[,grep(pattern=".*recode.$", x=colnames(pgrdata_WhatDownsides))])
-
-# merge pivot table of values with their first recode 
-a_values_1 <- pivot_longer(pgrdata_WhatDownsides[,!colnames(pgrdata_WhatDownsides) %in% colnameswithrecode_all], -c(ID, Div), values_to = "Value", names_to = "Measure")
-a_recode_1 <- pivot_longer(pgrdata_WhatDownsides[,colnames(pgrdata_WhatDownsides) %in% colnameswithrecode_1],  colnameswithrecode_1, values_to = "Recode", names_to = "Measure")
-a_1 <- cbind(a_values_1, a_recode_1[,c('Recode')])
-
-# add all the extra columns for values that were recoded in 2 or 3 categories
-a_values_data2 <- pivot_longer(pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data_recode2),c('ID', 'Div','WhatDownsides_Data')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-a_values_prereg2 <- pivot_longer(pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2),c('ID', 'Div','WhatDownsides_Prereg')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-a_values_regrep2 <- pivot_longer(pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2),c('ID', 'Div','WhatDownsides_RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-a_values_regrep3 <- pivot_longer(pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3),c('ID', 'Div','WhatDownsides_RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-a_values_preprint2 <- pivot_longer(pgrdata_WhatDownsides[!is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint_recode2),c('ID', 'Div','WhatDownsides_Preprint')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-
-a_data2 <- cbind(a_values_data2, Recode = pgrdata_WhatDownsides$WhatDownsides_Data_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_Data_recode2)])
-a_prereg2 <- cbind(a_values_prereg2, Recode = pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_Prereg_recode2)])
-a_regrep2 <- cbind(a_values_regrep2, Recode = pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode2)])
-a_regrep3 <- cbind(a_values_regrep3, Recode = pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3[!is.na(pgrdata_WhatDownsides$WhatDownsides_RegRep_recode3)])
-a_preprint2 <- cbind(a_values_preprint2, Recode = pgrdata_WhatDownsides$WhatDownsides_Preprint_recode2[!is.na(pgrdata_WhatDownsides$WhatDownsides_Preprint_recode2)])
-
-a <- rbind(a_1, a_data2, a_prereg2, a_regrep2, a_regrep3,a_preprint2)
-a <- a[!is.na(a["Value"]),]
-a <- a[with(a,order(a$ID,a$Measure)),]
-list_for_checking_recode_downsides <- a
-rm(a_values_1,a_recode_1, a_1, a_values_data2, a_values_prereg2, a_values_regrep2, a_values_regrep3, a_values_preprint2,
-   a_data2, a_prereg2,a_regrep2, a_regrep3, a_preprint2,
-   colnameswithrecode_all, colnameswithrecode_1, colnameswithrecode_23)
-
-a$Measure[a$Measure == 'WhatDownsides_OA'] <- "Open Access" 
-a$Measure[a$Measure == 'WhatDownsides_Data'] <- "Open Data" 
-a$Measure[a$Measure == 'WhatDownsides_Code'] <- "Open Code" 
-a$Measure[a$Measure == 'WhatDownsides_Materials'] <- "Open Materials" 
-a$Measure[a$Measure == 'WhatDownsides_Preprint'] <- "Preprint" 
-a$Measure[a$Measure == 'WhatDownsides_Prereg'] <- "Preregistration"
-a$Measure[a$Measure == 'WhatDownsides_RegRep'] <- "Registered Report"
-a$Measure<- factor(a$Measure, levels = Measures)
-
-b <- a %>% group_by(Measure, Recode) %>% summarise(count = n()) 
-c <- dcast(b, Recode ~ Measure, value.var = "count") # from reshape2
-c$Total <- rowSums(c[,-1], na.rm=TRUE)
-
-d <- c[with(c, order(-c$Total,
-                     -c$`Open Access`,
-                     -c$`Open Data`,
-                     -c$`Open Code`,
-                     -c$`Open Materials`,
-                     -c$Preprint,
-                     -c$Preregistration,
-                     -c$`Registered Report`)),]
-
-d[is.na(d)] <- '-'
-e <- d[d$Recode != 'Not categorised',]
-colnames(e)[colnames(e) == 'Recode'] <- ''
-rownames(e) <- NULL
-pivot_table_WhatDownsides <- e
-pivot_table_WhatDownsides %>% knitr::kable()
-rm(a,b,c,d,e)
-
-
-
-# print list for checking recode -----
-
-list_for_checking_recode <- rbind(list_for_checking_recode_barriers, list_for_checking_recode_downsides)
-rm(list_for_checking_recode_barriers, list_for_checking_recode_downsides)
-  #write.csv(list_for_checking_recode, file='list_for_checking_recode.csv')

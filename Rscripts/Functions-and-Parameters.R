@@ -104,14 +104,16 @@ subset_columns_by_pattern <- function(data, pattern){
 
 ## Calculate sample sizes
 sample_size_perQ <- function(data, Question){
+  
+  # example to test function sample_size_perQ
+  # data <- pgrdata_Awareness
+  # Question <- "Awareness"
+  
   ss <- data[rowSums(!is.na(data)) > 1, ] %>% 
     group_by(Div) %>% 
     summarise({{Question}} := n()) # https://stackoverflow.com/questions/26003574/use-dynamic-variable-names-in-dplyr
   return(ss)
 }
-          # example to test function sample_size_perQ
-          # data <- pgrdata_Awareness
-          # Question <- "Awareness"
 
 ## Prepare data for plotting
 create_skeleton <- function(Question, answers, columns){
@@ -124,6 +126,16 @@ create_skeleton <- function(Question, answers, columns){
 }
 
 summarise_item <-  function(data, item, name_item){  # item is the name of the columns e.g. Awareness_OA given as an expression (not a string)
+  
+  # example to test function summarise_item
+  # data <- pgrdata
+  # columns <- c(expr(Awareness_OA), expr(Awareness_Data), expr(Awareness_Code), expr(Awareness_Materials),expr(Awareness_Preprint),expr(Awareness_Prereg),expr(Awareness_RegRep))
+  # Question <- Measures
+  # i <- 1
+  # item <- columns[[i]]
+  # name_item <- Question[i]
+  # summarise_item(data, columns[[i]], Question[i])
+  
   data2 <-  data[!is.na(data[,as.character(item)]),]  %>%  
     group_by(Div,{{item}}) %>%   # the double curly bracket read item as e.g. Awareness_OA
     summarise (n = n()) %>% 
@@ -131,15 +143,6 @@ summarise_item <-  function(data, item, name_item){  # item is the name of the c
   data2$ID = paste(paste(data2$Div, name_item, sep="_"), unlist(data2[,as.character(item)]), sep ="_")
   return(data2[,c('ID', 'n', 'perc')])
 }
-          # example to test function summarise_item
-          # data <- pgrdata
-          # columns <- c(expr(Awareness_OA), expr(Awareness_Data), expr(Awareness_Code), expr(Awareness_Materials),expr(Awareness_Preprint),expr(Awareness_Prereg),expr(Awareness_RegRep))
-          # Question <- Measures
-          # i <- 1
-          # item <- columns[[i]]
-          # name_item <- Question[i]
-          # summarise_item(data, columns[[i]], Question[i])
-
 
 bind_summaries_items <- function(Question, data, columns){
   summaryitems <- vector(mode= "list", length = length(Question))
@@ -159,6 +162,13 @@ prepare_data_for_plotting <- function(Question, data, answers, columns){
 
 ## Plotting functions
 circular_plot_function <- function(data, Question, answers, title_plot, answers_colors) {
+ 
+  # example to test circular_plot_function 
+  # data <- pgrdata_Awareness_for_plotting
+  # Question <- Measures
+  # answers <- Awareness_answers
+  # title_plot <- 'Awareness'
+  # answers_colors <- Awareness_colors
   
   data <-data[data$Div != "GLAM",] # plot below was designed without GLAM (i.e. missing aestethics e.g. hjust if included)
   
@@ -266,12 +276,6 @@ circular_plot_function <- function(data, Question, answers, title_plot, answers_
   
   
 }
-          # example to test circular_plot_function 
-          # data <- pgrdata_Awareness_for_plotting
-          # Question <- Measures
-          # answers <- Awareness_answers
-          # title_plot <- 'Awareness'
-          # answers_colors <- Awareness_colors
 
 regroup_all_data <- function(splitdata){
   All_data <- splitdata[,c("LabelIndiv", "Answer", "n")] %>% group_by(LabelIndiv, Answer) %>% summarise (n = sum(n, na.rm=TRUE)) 
@@ -362,52 +366,110 @@ horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, ans
     guides(fill = guide_legend(nrow = 1, reverse = TRUE))
 }
 
-data <- pgrdata_OtherBarriers
+## analyse text
 
-create_pivot_table_OtherBarriersorDownsides <- function (data){
+capitalise_all_strings <- function(data){
+  data.frame(lapply(data, function(v) {
+  if (is.character(v)) return(toupper(v))
+  else return(v)
+}), stringsAsFactors=FALSE)
+}
+
+prepare_freetext_subdataset <- function(data, pattern){
+  # example to test function
+  # data <- pgrdata
+  # pattern <- "^OtherBarriers_"
+  subdataset <- subset_columns_by_pattern(data, pattern)
+  subdataset <- subdataset[rowSums(!is.na(subdataset)) > 1, ] # kepp rows with at least one entry in the row
+  subdataset <- capitalise_all_strings(subdataset)
+  colnames(subdataset) <- str_remove(colnames(subdataset), pattern)
+  return(subdataset)
+}
+
+create_list_for_checking_cat <- function (data){
+  
+  #example to test function
+  #data <- pgrdata_OB
+  #data <- pgrdata_WD
+  
   data <- add_column(data, ID = 1:nrow(data), .before = 1)
-
-  colnameswithrecode <- colnames(data[,grep(pattern=".*recode", x=colnames(data))])
   
-  a_values <- pivot_longer(data[,!colnames(data) %in% colnameswithrecode], -c(ID,Div), values_to = "Value", names_to = "Measure")
-  a_recode <- pivot_longer(data[,colnames(data) %in% colnameswithrecode],  colnameswithrecode, values_to = "Recode", names_to = "Measure")
-  a <- cbind(a_values, a_recode[,c('Recode')])
+  colnameswithcat_all <- colnames(data[,grep(pattern=".*cat", x=colnames(data))])
+  colnameswithcat_1 <- colnames(data[,grep(pattern=".*cat$", x=colnames(data))])
+  colnameswithcat_23 <- colnames(data[,grep(pattern=".*cat.$", x=colnames(data))])
+  
+  # merge pivot table of values with their first cat 
+  a_values_1 <- pivot_longer(data[,!colnames(data) %in% colnameswithcat_all], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_cat_1 <- pivot_longer(data[,colnames(data) %in% colnameswithcat_1],  colnameswithcat_1, values_to = "Category", names_to = "Measure")
+  a_1 <- cbind(a_values_1, a_cat_1[,c('Category')])
+  
+  # add all the extra columns for values that were cat 2 or 3 
+  a_values_data2 <- pivot_longer(data[!is.na(data$Data_cat2),c('ID', 'Div','Data')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_prereg2 <- pivot_longer(data[!is.na(data$Prereg_cat2),c('ID', 'Div','Prereg')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_regrep2 <- pivot_longer(data[!is.na(data$RegRep_cat2),c('ID', 'Div','RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_regrep3 <- pivot_longer(data[!is.na(data$RegRep_cat3),c('ID', 'Div','RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_preprint2 <- pivot_longer(data[!is.na(data$Preprint_cat2),c('ID', 'Div','Preprint')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  
+  a_data2 <- cbind(a_values_data2, Category = data$Data_cat2[!is.na(data$Data_cat2)])
+  a_prereg2 <- cbind(a_values_prereg2, Category = data$Prereg_cat2[!is.na(data$Prereg_cat2)])
+  a_regrep2 <- cbind(a_values_regrep2, Category = data$RegRep_cat2[!is.na(data$RegRep_cat2)])
+  a_regrep3 <- cbind(a_values_regrep3, Category = data$RegRep_cat3[!is.na(data$RegRep_cat3)])
+  a_preprint2 <- cbind(a_values_preprint2, Category = data$Preprint_cat2[!is.na(data$Preprint_cat2)])
+  
+  a <- rbind(a_1, a_data2, a_prereg2, a_regrep2, a_regrep3,a_preprint2)
   a <- a[!is.na(a["Value"]),]
-    #list_for_checking_recode_barriers <- a
-  rm(a_values,a_recode, colnameswithrecode)
-  
-  a$Measure[a$Measure == 'OtherBarriers_OA' | a$Measure == 'OtherDownsides_OA'] <- "Open Access" 
-  a$Measure[a$Measure == 'OtherBarriers_Data'| a$Measure == 'OtherDownsides_Data'] <- "Open Data" 
-  a$Measure[a$Measure == 'OtherBarriers_Code'| a$Measure == 'OtherDownsides_Code'] <- "Open Code" 
-  a$Measure[a$Measure == 'OtherBarriers_Materials'| a$Measure == 'OtherDownsides_Materials'] <- "Open Materials" 
-  a$Measure[a$Measure == 'OtherBarriers_Preprint'| a$Measure == 'OtherDownsides_Preprint'] <- "Preprint" 
-  a$Measure[a$Measure == 'OtherBarriers_Prereg'| a$Measure == 'OtherDownsides_Prereg'] <- "Preregistration"
-  a$Measure[a$Measure == 'OtherBarriers_RegRep'| a$Measure == 'OtherDownsides_RegRep'] <- "Registered Report"
-  a$Measure<- factor(a$Measure, levels = Measures)
-  
-  b <- a %>% group_by(Measure, Recode) %>% summarise(count = n()) 
-  b <- b[b$Recode != 'Not categorised',]
-  c <- dcast(b, Recode ~ Measure, value.var = "count") # from reshape2
-  c$Total <- rowSums(c[,-1], na.rm=TRUE)
-  
-  d <- c %>% arrange(desc(.[[ncol(c)]])) 
-   
-  # if all column exist... this is better output 
-  # d <- c[with(c, order(-c$Total,
-  #                      -c$`Open Access`,
-  #                      -c$`Open Data`,
-  #                      -c$`Open Code`,
-  #                      -c$`Open Materials`,
-  #                      -c$Preprint,
-  #                      -c$Preregistration,
-  #                      -c$`Registered Report`)),]
-  
-  d[is.na(d)] <- '-'
-  colnames(d)[colnames(d) == 'Recode'] <- ''
-  rownames(d) <- NULL
-  pivot_table_OtherBarriers <- d
-  rm(a,b,c,d)
-  return(pivot_table_OtherBarriers) 
+  a <- a[with(a,order(a$ID,a$Measure)),]
+  rm(a_values_1,a_cat_1, a_1, a_values_data2, a_values_prereg2, a_values_regrep2, a_values_regrep3, a_values_preprint2,
+     a_data2, a_prereg2,a_regrep2, a_regrep3, a_preprint2,
+     colnameswithcat_all, colnameswithcat_1, colnameswithcat_23)
+  return(a)
   }
   
+create_pivot_table_from_list_for_checking_cat <- function (a){
   
+  #example to test function
+  #a <- a_staffdata_OB
+
+  name_data_argument <- deparse(substitute(a)) # get the name of the dataset to apply if statement below to sort columns in the table
+  
+  a$Measure[a$Measure == 'OA'] <- "Open Access" 
+  a$Measure[a$Measure == 'Data'] <- "Open Data" 
+  a$Measure[a$Measure == 'Code'] <- "Open Code" 
+  a$Measure[a$Measure == 'Materials'] <- "Open Materials" 
+  a$Measure[a$Measure == 'Preprint'] <- "Preprint" 
+  a$Measure[a$Measure == 'Prereg'] <- "Preregistration"
+  a$Measure[a$Measure == 'RegRep'] <- "Registered Report"
+  a$Measure<- factor(a$Measure, levels = Measures)
+  
+  b <- a %>% group_by(Measure, Category) %>% summarise(count = n()) 
+  c <- dcast(b, Category ~ Measure, value.var = "count") # from reshape2
+  c$Total <- rowSums(c[,-1], na.rm=TRUE)
+  
+  if (name_data_argument != 'a_staffdata_OB'){
+  c <- c[with(c, order(-c$Total,
+                       -c$`Open Access`,
+                       -c$`Open Data`,
+                       -c$`Open Code`,
+                       -c$`Open Materials`,
+                       -c$Preprint,
+                       -c$Preregistration,
+                       -c$`Registered Report`)),]
+  }
+  else {
+    c <- c[with(c, order(-c$Total,
+                         -c$`Open Access`,
+                         -c$`Open Data`,
+                         -c$`Open Code`,
+                         -c$Preregistration)),]
+  }
+  
+  c[is.na(c)] <- '-'
+  d <- c[c$Category != 'Not categorised',]
+  colnames(d)[colnames(d) == 'Category'] <- ''
+  rownames(d) <- NULL
+  pivot_table <- d
+  rm(a,b,c,d)
+  
+  return(pivot_table)
+}
+
