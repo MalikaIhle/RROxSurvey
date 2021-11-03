@@ -115,8 +115,8 @@ sample_size_perQ <- function(data, Question){
   return(ss)
 }
 
-## Prepare data for plotting
-create_skeleton <- function(Question, answers, columns){
+## Prepare data (all but barriers) for plotting
+create_skeleton <- function(Question, answers, columns){ # needed for the legend in case some values were not represented
   Div <- rep(Divisions, each = length(columns)*length(answers)) 
   LabelIndiv <- rep(Question, each = length(answers), times = length(Divisions)) 
   Indiv <-paste(Div, LabelIndiv, sep ="_") 
@@ -128,7 +128,7 @@ create_skeleton <- function(Question, answers, columns){
 summarise_item <-  function(data, item, name_item){  # item is the name of the columns e.g. Awareness_OA given as an expression (not a string)
   
   # example to test function summarise_item
-  # data <- pgrdata
+  # data <- pgrdata_Awareness
   # columns <- c(expr(Awareness_OA), expr(Awareness_Data), expr(Awareness_Code), expr(Awareness_Materials),expr(Awareness_Preprint),expr(Awareness_Prereg),expr(Awareness_RegRep))
   # Question <- Measures
   # i <- 1
@@ -136,15 +136,27 @@ summarise_item <-  function(data, item, name_item){  # item is the name of the c
   # name_item <- Question[i]
   # summarise_item(data, columns[[i]], Question[i])
   
-  data2 <-  data[!is.na(data[,as.character(item)]),]  %>%  
-    group_by(Div,{{item}}) %>%   # the double curly bracket read item as e.g. Awareness_OA
+  data2 <-  data[!is.na(data[,as.character(item)]), c("Div", as.character(item))]  %>%  # select 1 column (item) when non NA (e.g. 'Awareness_OA')
+    group_by(Div,{{item}}) %>%  # the double curly bracket read item as e.g. Awareness_OA; ie. it groups by the type of answer (e.g. 'Accessing / using only')
     summarise (n = n()) %>% 
     mutate(perc = n / sum(n) * 100 ) 
-  data2$ID = paste(paste(data2$Div, name_item, sep="_"), unlist(data2[,as.character(item)]), sep ="_")
+  data2$ID = paste(paste(data2$Div, name_item, sep="_"), unlist(data2[,as.character(item)]), sep ="_") # use the full name of the item (e.g. "Open Access")
   return(data2[,c('ID', 'n', 'perc')])
+  
 }
 
 bind_summaries_items <- function(Question, data, columns){
+  
+  # example to test function summarise_item
+  # data <- pgrdata_Awareness
+  # columns <- c(expr(Awareness_OA), expr(Awareness_Data), expr(Awareness_Code), expr(Awareness_Materials),expr(Awareness_Preprint),expr(Awareness_Prereg),expr(Awareness_RegRep))
+  # Question <- Measures
+  # i <- 1
+  # item <- columns[[i]]
+  # name_item <- Question[i]
+  # summarize_item(data, item, name_item)
+  # summarise_item(data, columns[[i]], Question[i])
+  
   summaryitems <- vector(mode= "list", length = length(Question))
   for (i in 1:length(Question)) {
     summaryitems[[i]] <-  summarise_item(data, columns[[i]], Question[i])
@@ -156,6 +168,77 @@ bind_summaries_items <- function(Question, data, columns){
 prepare_data_for_plotting <- function(Question, data, answers, columns){
   skeleton <- create_skeleton(Question, answers, columns) # create skeleton of all possible answers
   summaryitems <- bind_summaries_items(Question, data, columns)
+  formatted_data <- merge(skeleton, summaryitems, by = "ID", all.x = TRUE) # merge summary items to skeleton
+  return(formatted_data)
+}
+
+## Prepare barriers data for plotting
+create_barriers_skeleton <- function(data, answers, columns){ # doesn't rely on 'Divisions' which now inlcudes GLAM
+  
+  # example to test function
+  # data <- pgrdata_Barriers
+  # columns <- c(expr(Barriers_OA), expr(Barriers_Data), expr(Barriers_Code), expr(Barriers_Materials),expr(Barriers_Preprint),expr(Barriers_Prereg),expr(Barriers_RegRep))
+  # answers <- c("Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None", "NotSure","NA")
+  # create_barriers_skeleton(data, answers, columns)
+  
+  Div <- rep(sort(unique(data$Div)), each = length(columns)*length(answers)) 
+  LabelIndiv <- rep(Measures, each = length(answers), times = length(unique(data$Div))) 
+  LabelIndivShort <- rep(Measures_short, each = length(answers), times = length(unique(data$Div)))
+  Indiv <-paste(Div, paste( "Barriers", LabelIndivShort, sep = "_"), sep ="_") 
+  Answer <- rep(answers, times= length(unique(data$Div))*length(columns)) 
+  ID <- paste(Indiv, Answer, sep="_") 
+  skeleton <- data.frame(ID, Indiv, Div, LabelIndiv, Answer)
+  return(skeleton)
+}
+
+summarise_barriers_item <-  function(data, item){
+  
+  #example to test function
+  # data <- pgrdata_Barriers
+  # columns <- c(expr(Barriers_OA), expr(Barriers_Data), expr(Barriers_Code), expr(Barriers_Materials),expr(Barriers_Preprint),expr(Barriers_Prereg),expr(Barriers_RegRep))
+  # i <- 1
+  # item <- columns[[i]]
+  # summarise_barriers_item(data, columns[[i]])
+  # summarise_barriers_item(pgrdata_Barriers, "Barriers_OA")
+
+  data2 <- subset_columns_by_pattern(data, item) 
+  data3 <- data2[rowSums(!is.na(data2)) > 1, ] # remove lines where the item was not scored (all possible answers were left blank, i.e. NA)
+  
+  NbRespondents <- data3 %>% group_by(Div) %>% summarise(NbRespondents = n()) # number of time the item was scored
+  
+  data4 <- (data3 %>% 
+              group_by(Div) %>% 
+              summarise(across (everything(), ~sum(!is.na(.)))) )  %>% # counts of each answer
+    
+    pivot_longer(!Div, names_to = as.character({{item}}) , values_to = "n")
+  
+  data5 <- merge(data4, NbRespondents, by = 'Div', all.x = TRUE) 
+  data5$perc <- data5$n/data5$NbRespondents * 100 # calculate percentages of respondent having selected (non mutually exclusively) each answer
+  data5$ID <- paste(data5$Div, data5$Barriers, sep="_")
+  data6 <- data5[,c('ID', 'n', 'perc','NbRespondents')]
+  return(data6)
+}
+
+bind_summaries_barriers_items <- function(data, columns){
+  
+  # data <- pgrdata_Barriers
+  # columns <- c(expr(Barriers_OA), expr(Barriers_Data), expr(Barriers_Code), expr(Barriers_Materials),expr(Barriers_Preprint),expr(Barriers_Prereg),expr(Barriers_RegRep))
+  # i <- 1
+  # item <- columns[[i]]
+  # summarise_item(data, columns[[i]])
+  
+  summaryitems <- vector(mode= "list", length = length(columns))
+  for (i in 1:length(columns)) {
+    summaryitems[[i]] <-  summarise_barriers_item(data, columns[[i]])
+  }
+  summaryitems <- data.frame(do.call(rbind, summaryitems))
+  return(summaryitems)
+  
+}
+
+prepare_barriers_data_for_plotting <- function(data, answers, columns){
+  skeleton <- create_barriers_skeleton(data, answers, columns) # create skeleton of all possible answers
+  summaryitems <- bind_summaries_barriers_items(data, columns)
   formatted_data <- merge(skeleton, summaryitems, by = "ID", all.x = TRUE) # merge summary items to skeleton
   return(formatted_data)
 }
@@ -366,8 +449,143 @@ horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, ans
     guides(fill = guide_legend(nrow = 1, reverse = TRUE))
 }
 
-## analyse text
+# Plotting functions for barriers
 
+barriers_circular_plot_function <- function(data){
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Measures) # this will determine order of the bars
+  
+  
+  # Set a number of 'empty bar' to add at the end of each Div
+  empty_bar <- 2
+  data$Answer <- as.factor(data$Answer)
+  data$Div <- as.factor(data$Div)
+  nObsType <- nlevels(data$Answer)
+  to_add <- data.frame( matrix(NA, empty_bar*nlevels(data$Div)*nObsType, ncol(data)) )
+  colnames(to_add) <- colnames(data)
+  to_add$Div <- rep(levels(data$Div), each=empty_bar*nObsType )
+  data <- rbind(data, to_add)
+  data <- data %>% arrange(Div, LabelIndiv)  # this will determine order of the bars
+  data$id <- rep( seq(1, nrow(data)/nObsType) , each=nObsType)
+  rm(to_add)
+  
+  # Get the name and the y position of each label
+  label_data <- data %>% group_by(id, Indiv) %>% summarize(tot=sum(perc, na.rm=TRUE)) # here all at 100% to plot percents and not counts
+  number_of_bar <- nrow(label_data)
+  angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+  label_data$hjust <- ifelse(angle < -90, 1, 0)
+  label_data$angle <- ifelse(angle < -90, angle+180, angle)
+  label_data <- merge(label_data, unique(data[,c('Indiv', 'LabelIndiv')]), all.x= TRUE, by = 'Indiv')
+  
+  
+  # prepare a data frame for base lines
+  base_data <- data %>% 
+    group_by(Div) %>% 
+    summarize(start=min(id), end=max(id) - empty_bar) %>% 
+    rowwise() %>% 
+    mutate(title=mean(c(start, end)))
+  base_data2 <- base_data
+  base_data2$title[base_data$Div == 'SSD'] <- 39
+  
+  # prepare a data frame for grid (scales)
+  grid_data <- base_data
+  grid_data$end <- grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+  grid_data$start <- grid_data$start - 1
+  grid_data <- grid_data[-1,]
+  
+  
+  
+  
+  
+  ## Make the plot
+  pgrdata_Barriers_plot <- ggplot(data) +      
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=as.factor(id), y=perc, fill=factor(Answer, level = c("None", "Other", "Policy", "Incentives", "Norms" , "Training", "Infrastructure", "NotSure", "NA"))), stat="identity", alpha=0.5) +
+    
+    ### Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+    geom_segment(data=grid_data, aes(x = end, y = 0, xend = start, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) + 
+    geom_segment(data=grid_data, aes(x = end, y = 25, xend = start, yend = 25), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = end, y = 75, xend = start, yend = 75), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = end, y = 100, xend = start, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = number_of_bar-1, y = 100, xend = number_of_bar, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = number_of_bar-1, y = 75, xend = number_of_bar, yend = 75), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = number_of_bar-1, y = 50, xend = number_of_bar, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = number_of_bar-1, y = 25, xend = number_of_bar, yend = 25), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    geom_segment(data=grid_data, aes(x = number_of_bar-1, y = 0, xend = number_of_bar, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+    
+    ### Add text showing the value of each lines max(data$id-0.1)
+    ggplot2::annotate("text", x = rep(number_of_bar-0.5,5), y = c(0, 25, 50, 75, 100), label = c("0%", "25%", "50%", "75%", "100%") , color="grey", size=3 , angle=0, fontface="bold", hjust=c(0.5,0.5,0.5,0.5,0.5), vjust = -0.2) +
+    
+    
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+    
+    scale_x_discrete(expand = c(0, 0)) + # remove padding
+    ylim(-100,max(label_data$tot, na.rm=T)+30) +
+    theme_minimal() +
+    theme(
+      legend.position = "bottom",
+      legend.title=element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank()
+      # plot.margin = unit(rep(1,4), "cm") 
+    ) +
+    coord_polar() +
+    
+    ### Add labels on top of each bar
+    geom_text(data=label_data, aes(x=id, y=tot+10, label=LabelIndiv, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=3, angle= label_data$angle, inherit.aes = FALSE ) +
+    
+    ### Add base line information
+    geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+    geom_text(data=base_data2, aes(x = title, y = -20, label=Div), hjust=c(1,1,0.5,0, 0), vjust=c(0.5,0.5,0.5,0.5, 1), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE) +
+    
+    ### Add title in the middle
+    ggplot2::annotate("text", x = 0, y = -90, label = "Barriers" , color="black", size=5 , angle=0, fontface="bold", hjust=0.5) 
+  
+}
+
+regroup_all_barriers_data <- function(splitdata){
+  
+  # example to test function
+  # splitdata <- pgrdata_Barriers_for_plotting
+
+  All_data <- splitdata[,c("LabelIndiv", "Answer", "n", "NbRespondents")] %>% group_by(LabelIndiv, Answer) %>% summarise (n = sum(n, na.rm=TRUE),NbRespondents = sum(NbRespondents, na.rm=TRUE)) 
+  All_data <- All_data  %>% group_by(LabelIndiv) %>% mutate(perc = n / NbRespondents * 100 )
+  return(All_data)
+  
+}
+
+stacked_barplot_on_barriers_regrouped_data <- function(All_data, Question, answers){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = Question) # this will determine order of the bars
+  ggplot(All_data) +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=perc, fill=factor(Answer, 
+                                                   level = answers)),
+             stat="identity", alpha=0.5) +
+    
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+    
+    theme_minimal() +
+    theme(
+      legend.position = "right",
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.text.x = element_text(angle = 90),
+      legend.title=element_blank()) + guides(fill = guide_legend(reverse = TRUE))
+  
+}  
+
+
+## analyse text
 capitalise_all_strings <- function(data){
   data.frame(lapply(data, function(v) {
   if (is.character(v)) return(toupper(v))
@@ -423,7 +641,7 @@ create_list_for_checking_cat <- function (data){
      a_data2, a_prereg2,a_regrep2, a_regrep3, a_preprint2,
      colnameswithcat_all, colnameswithcat_1, colnameswithcat_23)
   return(a)
-  }
+  } # to update if more cat2 and cat3
   
 create_pivot_table_from_list_for_checking_cat <- function (a){
   
