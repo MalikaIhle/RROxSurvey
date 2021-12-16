@@ -421,7 +421,45 @@ horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, titl
   
 }
 
-horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answers_colors, title_plot){
+#modify function above to remove position = fill <--- which to keep?
+horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
+  
+  # example to test function
+  # data <- pgrdata_Awareness_for_plotting
+  # answers <- Awareness_answers
+  # answers_colors <- Awareness_colors
+  # title_legend <- "PGR students"
+  # title_plot <- NULL
+  
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  
+  count_by_answer_and_div_and_orp <- data %>% 
+    group_by(Answer, Div, LabelIndiv) %>%
+    #summarise(num_respondents = sum(n, na.rm = TRUE)) %>% 
+    mutate(Answer = factor(Answer, levels = answers))
+  
+  count_by_answer_and_div_and_orp %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "fill") +
+    scale_fill_manual(values = (answers_colors),
+                      breaks = rev(answers), 
+                      labels = rev(answers), 
+                      drop = FALSE) +
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip() +
+    theme_minimal() +
+    scale_y_continuous(labels = scales::percent) +
+    theme(legend.position="right",
+          #legend.title = element_blank(),
+          strip.text.x = element_text(size = 10, colour = "black")) + 
+    labs(x = "", y = "")+
+    guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
+
+horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answers_colors, title_plot, legend_position){
   All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
   
   All_data %>% 
@@ -438,7 +476,7 @@ horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, ans
     coord_flip() +
     theme_minimal() +
     theme(
-      legend.position = "bottom", 
+      legend.position = legend_position, 
       axis.title = element_blank(),
       panel.grid.major.x = element_blank(),
       panel.grid.minor.y = element_blank(),
@@ -448,6 +486,102 @@ horizontal_stacked_barplot_on_regrouped_data <- function(All_data, Question, ans
     ggtitle(title_plot) + 
     guides(fill = guide_legend(nrow = 1, reverse = TRUE))
 }
+
+horizontal_stacked_barplot_on_regrouped_data_x_right <- function(All_data, Question, answers, answers_colors, title_plot){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
+  
+  All_data %>% 
+    ggplot() +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=(perc/100), fill=factor(Answer, level = answers)),
+             stat="identity") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_manual(values = rev(answers_colors), 
+                      breaks=answers, 
+                      labels =answers, 
+                      drop = FALSE) +
+    scale_x_discrete(position = "top")+
+    coord_flip() +
+    theme_minimal() +
+    theme(
+      legend.position = "none", 
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      legend.title=element_blank(),
+      axis.text.y = element_text(size = 11, colour = "black"),
+      plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5)) + 
+    ggtitle(title_plot) + 
+    guides(fill = guide_legend(nrow = 1, reverse = TRUE))
+}
+
+horizontal_stacked_barplot_on_regrouped_data_without_axis_text <- function(All_data, Question, answers, answers_colors, title_plot){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
+  
+  All_data %>% 
+    ggplot() +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=(perc/100), fill=factor(Answer, level = answers)),
+             stat="identity") +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_manual(values = rev(answers_colors), 
+                      breaks=answers, 
+                      labels =answers, 
+                      drop = FALSE) +
+    coord_flip() +
+    theme_minimal() +
+    theme(
+      legend.position = "none", 
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      legend.title=element_blank(),
+      axis.text.y = element_blank(),
+      plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5)) + 
+    ggtitle(title_plot) + 
+    guides(fill = guide_legend(nrow = 1, reverse = TRUE))
+}
+
+extract_legend <- function(my_ggp) {
+  step1 <- ggplot_gtable(ggplot_build(my_ggp))
+  step2 <- which(sapply(step1$grobs, function(x) x$name) == "guide-box")
+  step3 <- step1$grobs[[step2]]
+  return(step3)
+}
+
+# horizontal_stacked_barplot_on_regrouped_data_only_x_axis <- function(All_data, Question, answers, answers_colors, title_plot){
+#   All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
+#   
+#   All_data %>% 
+#     ggplot() +
+#     
+#     ### Add the stacked bar
+#     geom_bar(aes(x=LabelIndiv, y=(perc/100), fill=factor(Answer, level = answers)),
+#              stat="identity") +
+#     scale_y_continuous(labels = scales::percent) +
+#     scale_fill_manual(values = rep("red",length(answers_colors)), 
+#                       breaks=answers, 
+#                       labels =answers, 
+#                       drop = FALSE) +
+#     coord_flip() +
+#     theme_minimal() +
+#     theme(
+#       legend.position = "none", 
+#       axis.title = element_blank(),
+#       panel.grid.major.x = element_blank(),
+#       panel.grid.minor.y = element_blank(),
+#       legend.title=element_blank(),
+#       legend.text=element_text(color= "red"),
+#       axis.text.x = element_text(colour = "red"),
+#       axis.ticks.y = element_blank(),
+#       axis.ticks.x = element_blank(),
+#       axis.text.y = element_text(size = 11, colour = "black"),
+#       plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5, colour = "red")) + 
+#     ggtitle(title_plot) 
+# }
+
 
 # Plotting functions for barriers
 
@@ -584,6 +718,66 @@ stacked_barplot_on_barriers_regrouped_data <- function(All_data, Question, answe
   
 }  
 
+dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answers){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = Question) # this will determine order of the bars
+  ggplot(All_data) +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=perc, fill=factor(Answer, 
+                                                   level = answers)),
+             stat="identity", alpha=0.5, position = "dodge") +
+    
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+    
+    theme_minimal() +
+    theme(
+      legend.position = "right",
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.text.x = element_text(angle = 90),
+      legend.title=element_blank()) + guides(fill = guide_legend(reverse = TRUE))
+  
+}  
+
+
+barriers_horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
+  
+  # example to test function
+  # data <- pgrdata_Barriers_for_plotting
+  # answers <- Barriers_answers
+  # answers_colors <- Barriers_colors
+  # title_legend <- "PGR students"
+  # title_plot <- NULL
+  
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the ORPs
+  
+  
+  data %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity") +
+    scale_fill_manual(values = (answers_colors),
+                      breaks = rev(answers), 
+                      labels = rev(answers), 
+                      drop = FALSE) +
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip() +
+    theme_minimal() +
+    scale_y_continuous(labels = scales::percent) +
+    theme(legend.position="right",
+          #legend.title = element_blank(),
+          strip.text.x = element_text(size = 10, colour = "black")) + 
+    labs(x = "", y = "")+
+    guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
+
 
 ## analyse text
 capitalise_all_strings <- function(data){
@@ -646,7 +840,7 @@ create_list_for_checking_cat <- function (data){
 create_pivot_table_from_list_for_checking_cat <- function (a){
   
   #example to test function
-  #a <- a_staffdata_OB
+  #a <- a_allstaffdata_OB
 
   name_data_argument <- deparse(substitute(a)) # get the name of the dataset to apply if statement below to sort columns in the table
   
@@ -663,7 +857,7 @@ create_pivot_table_from_list_for_checking_cat <- function (a){
   c <- dcast(b, Category ~ Measure, value.var = "count") # from reshape2
   c$Total <- rowSums(c[,-1], na.rm=TRUE)
   
-  if (name_data_argument != 'a_staffdata_OB'){
+  if (name_data_argument != 'a_allstaffdata_OB'){
   c <- c[with(c, order(-c$Total,
                        -c$`Open Access`,
                        -c$`Open Data`,
