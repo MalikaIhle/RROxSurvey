@@ -40,6 +40,46 @@ allstaffdata_FutureRecruitment_ss <- sample_size_perQ(allstaffdata_FutureRecruit
 allstaffdata_Training_ss <- sample_size_perQ(allstaffdata_Training, Training)
 allstaffdata_Support_ss <- sample_size_perQ(allstaffdata_Support, Support)
 
+### for staff data
+staffdata_Consent_Affiliation_Role_ss <- staffdata %>% group_by(Div) %>% summarise (Consent_Affiliation_Role=n())
+staffdata_Duration <- staffdata[, c( "Div", "Duration")]
+staffdata_Duration_ss <- sample_size_perQ(staffdata_Duration, ExperienceDuration)
+staffdata_Awareness_ss <- sample_size_perQ(staffdata_Awareness, Awareness)
+staffdata_Effect_ss <- sample_size_perQ(staffdata_Effect, Effect)
+staffdata_Barriers_ss <- sample_size_perQ(staffdata_Barriers, Barriers)
+staffdata_Downsides_ss <- sample_size_perQ(staffdata_Downsides, Downsides)
+staffdata_CurrentRecruitment_ss <- sample_size_perQ(staffdata_CurrentRecruitment, CurrentRecruitment)
+staffdata_FutureRecruitment_ss <- sample_size_perQ(staffdata_FutureRecruitment, FutureRecruitment)
+staffdata_Training_ss <- sample_size_perQ(staffdata_Training, Training)
+staffdata_Support_ss <- sample_size_perQ(staffdata_Support, Support)
+
+### for support staff data
+supportstaffdata_Consent_Affiliation_Role_ss <- supportstaffdata %>% group_by(Div) %>% summarise (Consent_Affiliation_Role=n())
+supportstaffdata_Duration <- supportstaffdata[, c( "Div", "Duration")]
+supportstaffdata_Duration_ss <- sample_size_perQ(supportstaffdata_Duration, ExperienceDuration)
+supportstaffdata_Awareness_ss <- sample_size_perQ(supportstaffdata_Awareness, Awareness)
+supportstaffdata_Effect_ss <- sample_size_perQ(supportstaffdata_Effect, Effect)
+supportstaffdata_Barriers_ss <- sample_size_perQ(supportstaffdata_Barriers, Barriers)
+supportstaffdata_Downsides_ss <- sample_size_perQ(supportstaffdata_Downsides, Downsides)
+supportstaffdata_CurrentRecruitment_ss <- sample_size_perQ(supportstaffdata_CurrentRecruitment, CurrentRecruitment)
+supportstaffdata_FutureRecruitment_ss <- sample_size_perQ(supportstaffdata_FutureRecruitment, FutureRecruitment)
+supportstaffdata_Training_ss <- sample_size_perQ(supportstaffdata_Training, Training)
+supportstaffdata_Support_ss <- sample_size_perQ(supportstaffdata_Support, Support)
+
+
+### for academic data
+academicdata_Consent_Affiliation_Role_ss <- academicdata %>% group_by(Div) %>% summarise (Consent_Affiliation_Role=n())
+academicdata_Duration <- academicdata[, c( "Div", "Duration")]
+academicdata_Duration_ss <- sample_size_perQ(academicdata_Duration, ExperienceDuration)
+academicdata_Awareness_ss <- sample_size_perQ(academicdata_Awareness, Awareness)
+academicdata_Effect_ss <- sample_size_perQ(academicdata_Effect, Effect)
+academicdata_Barriers_ss <- sample_size_perQ(academicdata_Barriers, Barriers)
+academicdata_Downsides_ss <- sample_size_perQ(academicdata_Downsides, Downsides)
+academicdata_CurrentRecruitment_ss <- sample_size_perQ(academicdata_CurrentRecruitment, CurrentRecruitment)
+academicdata_FutureRecruitment_ss <- sample_size_perQ(academicdata_FutureRecruitment, FutureRecruitment)
+academicdata_Training_ss <- sample_size_perQ(academicdata_Training, Training)
+academicdata_Support_ss <- sample_size_perQ(academicdata_Support, Support)
+
 ## prepare table with sample sizes for pgrdata
 ss_pgrdata <- pgrdata_Consent_Affiliation_Role_ss %>%
   full_join(pgrdata_Awareness_ss,  by = 'Div') %>% 
@@ -101,3 +141,95 @@ rownames(sst_allstaffdata) <- NULL
 sst_allstaffdata <- sst_allstaffdata[,c(ncol(sst_allstaffdata), 1:(ncol(sst_allstaffdata)-1))]
 sst_allstaffdata
 
+
+## prepare table with sample sizes for staffdata
+ss_staffdata <- staffdata_Consent_Affiliation_Role_ss %>%
+  full_join(staffdata_Awareness_ss,  by = 'Div') %>% 
+  full_join(staffdata_Duration_ss,  by = 'Div') %>% 
+  full_join(staffdata_Effect_ss,  by = 'Div') %>% 
+  full_join(staffdata_Barriers_ss,  by = 'Div') %>% 
+  full_join(staffdata_Downsides_ss,  by = 'Div') %>% 
+  full_join(staffdata_CurrentRecruitment_ss,  by = 'Div') %>% 
+  full_join(staffdata_FutureRecruitment_ss,  by = 'Div') %>% 
+  full_join(staffdata_Training_ss,  by = 'Div') %>% 
+  full_join(staffdata_Support_ss,  by = 'Div') %>% 
+  full_join(targetnumbers[,c('Div', 'ResearchStaffTotal2019')],  by = 'Div') ### need updating !!
+
+ss_staffdata[is.na(ss_staffdata)] <- 0
+ss_staffdata <- rbind(ss_staffdata, c("Total", colSums(ss_staffdata[,-1], na.rm = TRUE)))
+
+ss_staffdata$PercRepresentativeness <- round(as.numeric(ss_staffdata$Consent_Affiliation_Role)*100/as.numeric(ss_staffdata$ResearchStaffTotal2019),1)
+ss_staffdata[,2:ncol(ss_staffdata)] <- sapply(ss_staffdata[,2:ncol(ss_staffdata)], as.integer) # needed for the apply function to work
+ss_staffdata$TotalDrop <- apply(ss_staffdata[,2:10], 1, max) - apply(ss_staffdata[,2:10], 1, min)
+ss_staffdata$PercDrop <- round(ss_staffdata$TotalDrop/apply(ss_staffdata[,2:10], 1, max)*100,1)
+
+ss_staffdata <- data.frame(ss_staffdata)
+sst_staffdata <- transpose(ss_staffdata)
+colnames(sst_staffdata) <- sst_staffdata[1,]
+sst_staffdata <- sst_staffdata[-1,]
+sst_staffdata$Question <- colnames(ss_staffdata)[-1]
+rownames(sst_staffdata) <- NULL
+sst_staffdata <- sst_staffdata[,c(ncol(sst_staffdata), 1:(ncol(sst_staffdata)-1))]
+sst_staffdata
+
+
+## prepare table with sample sizes for support staff data
+ss_supportstaffdata <- supportstaffdata_Consent_Affiliation_Role_ss %>%
+  full_join(supportstaffdata_Awareness_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Duration_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Effect_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Barriers_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Downsides_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_CurrentRecruitment_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_FutureRecruitment_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Training_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Support_ss,  by = 'Div') %>% 
+  full_join(targetnumbers[,c('Div', 'ResearchSupportTotal2019')],  by = 'Div') ### need updating !!
+
+ss_supportstaffdata[is.na(ss_supportstaffdata)] <- 0
+ss_supportstaffdata <- rbind(ss_supportstaffdata, c("Total", colSums(ss_supportstaffdata[,-1], na.rm = TRUE)))
+
+ss_supportstaffdata$PercRepresentativeness <- round(as.numeric(ss_supportstaffdata$Consent_Affiliation_Role)*100/as.numeric(ss_supportstaffdata$ResearchSupportTotal2019),1)
+ss_supportstaffdata[,2:ncol(ss_supportstaffdata)] <- sapply(ss_supportstaffdata[,2:ncol(ss_supportstaffdata)], as.integer) # needed for the apply function to work
+ss_supportstaffdata$TotalDrop <- apply(ss_supportstaffdata[,2:10], 1, max) - apply(ss_supportstaffdata[,2:10], 1, min)
+ss_supportstaffdata$PercDrop <- round(ss_supportstaffdata$TotalDrop/apply(ss_supportstaffdata[,2:10], 1, max)*100,1)
+
+ss_supportstaffdata <- data.frame(ss_supportstaffdata)
+sst_supportstaffdata <- transpose(ss_supportstaffdata)
+colnames(sst_supportstaffdata) <- sst_supportstaffdata[1,]
+sst_supportstaffdata <- sst_supportstaffdata[-1,]
+sst_supportstaffdata$Question <- colnames(ss_supportstaffdata)[-1]
+rownames(sst_supportstaffdata) <- NULL
+sst_supportstaffdata <- sst_supportstaffdata[,c(ncol(sst_supportstaffdata), 1:(ncol(sst_supportstaffdata)-1))]
+sst_supportstaffdata
+
+
+## prepare table with sample sizes for academic data
+ss_academicdata <- academicdata_Consent_Affiliation_Role_ss %>%
+  full_join(academicdata_Awareness_ss,  by = 'Div') %>% 
+  full_join(academicdata_Duration_ss,  by = 'Div') %>% 
+  full_join(academicdata_Effect_ss,  by = 'Div') %>% 
+  full_join(academicdata_Barriers_ss,  by = 'Div') %>% 
+  full_join(academicdata_Downsides_ss,  by = 'Div') %>% 
+  full_join(academicdata_CurrentRecruitment_ss,  by = 'Div') %>% 
+  full_join(academicdata_FutureRecruitment_ss,  by = 'Div') %>% 
+  full_join(academicdata_Training_ss,  by = 'Div') %>% 
+  full_join(academicdata_Support_ss,  by = 'Div') %>% 
+  full_join(targetnumbers[,c('Div', 'AcademicTotal2019')],  by = 'Div') ### need updating !!
+
+ss_academicdata[is.na(ss_academicdata)] <- 0
+ss_academicdata <- rbind(ss_academicdata, c("Total", colSums(ss_academicdata[,-1], na.rm = TRUE)))
+
+ss_academicdata$PercRepresentativeness <- round(as.numeric(ss_academicdata$Consent_Affiliation_Role)*100/as.numeric(ss_academicdata$AcademicTotal2019),1)
+ss_academicdata[,2:ncol(ss_academicdata)] <- sapply(ss_academicdata[,2:ncol(ss_academicdata)], as.integer) # needed for the apply function to work
+ss_academicdata$TotalDrop <- apply(ss_academicdata[,2:10], 1, max) - apply(ss_academicdata[,2:10], 1, min)
+ss_academicdata$PercDrop <- round(ss_academicdata$TotalDrop/apply(ss_academicdata[,2:10], 1, max)*100,1)
+
+ss_academicdata <- data.frame(ss_academicdata)
+sst_academicdata <- transpose(ss_academicdata)
+colnames(sst_academicdata) <- sst_academicdata[1,]
+sst_academicdata <- sst_academicdata[-1,]
+sst_academicdata$Question <- colnames(ss_academicdata)[-1]
+rownames(sst_academicdata) <- NULL
+sst_academicdata <- sst_academicdata[,c(ncol(sst_academicdata), 1:(ncol(sst_academicdata)-1))]
+sst_academicdata
