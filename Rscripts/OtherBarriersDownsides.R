@@ -100,88 +100,88 @@ pgrdata_OB$RegRep[!is.na(pgrdata_OB$RegRep) & pgrdata_OB$RegRep_cat == 'Not cate
 table(pgrdata_OB$RegRep_cat)
 
   
-# staffdata_OB -----
-staffdata_OB <- prepare_freetext_subdataset(staffdata, "^OtherBarriers_")
+# allstaffdata_OB -----
+allstaffdata_OB <- prepare_freetext_subdataset(allstaffdata, "^OtherBarriers_")
 
 ## Nb of responses
-staffdata_OB %>% summarise(across (everything(), ~sum(!is.na(.))))
+allstaffdata_OB %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like same as previous answer.....
-staffdata_OB[unique(c(
-  which(str_detect(staffdata_OB$Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OB$Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OB$Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OB$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OB$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_OB$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+allstaffdata_OB[unique(c(
+  which(str_detect(allstaffdata_OB$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_OB$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_OB$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_OB$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_OB$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_OB$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 ## categorise barriers
-staffdata_OB$OA_cat <- NA
-staffdata_OB$Data_cat <- NA
-staffdata_OB$Code_cat <- NA
-staffdata_OB$Materials_cat <- NA
-staffdata_OB$Preprint_cat <- NA
-staffdata_OB$Prereg_cat <- NA
-staffdata_OB$RegRep_cat <- NA
+allstaffdata_OB$OA_cat <- NA
+allstaffdata_OB$Data_cat <- NA
+allstaffdata_OB$Code_cat <- NA
+allstaffdata_OB$Materials_cat <- NA
+allstaffdata_OB$Preprint_cat <- NA
+allstaffdata_OB$Prereg_cat <- NA
+allstaffdata_OB$RegRep_cat <- NA
 
 ## OA
-staffdata_OB$OA_cat[str_detect(staffdata_OB$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES"))] <- 'Financial cost'
+allstaffdata_OB$OA_cat[str_detect(allstaffdata_OB$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES"))] <- 'Financial cost'
 
-staffdata_OB$OA_cat[!is.na(staffdata_OB$OA) & is.na(staffdata_OB$OA_cat)] <- 'Not categorised'
-staffdata_OB$OA[!is.na(staffdata_OB$OA_cat) & staffdata_OB$OA_cat == 'Not categorised']
+allstaffdata_OB$OA_cat[!is.na(allstaffdata_OB$OA) & is.na(allstaffdata_OB$OA_cat)] <- 'Not categorised'
+allstaffdata_OB$OA[!is.na(allstaffdata_OB$OA_cat) & allstaffdata_OB$OA_cat == 'Not categorised']
 
-table(staffdata_OB$OA_cat)
+table(allstaffdata_OB$OA_cat)
 
 ## Data
-staffdata_OB$Data[!is.na(staffdata_OB$Data)]
-staffdata_OB$Data_cat[str_detect(staffdata_OB$Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
+allstaffdata_OB$Data[!is.na(allstaffdata_OB$Data)]
+allstaffdata_OB$Data_cat[str_detect(allstaffdata_OB$Data, "AUTHORITY|INDUSTRY|COMMERCIAL*")] <- 'Resource not owned'
 
-staffdata_OB$Data_cat[!is.na(staffdata_OB$Data) & is.na(staffdata_OB$Data_cat)] <- 'Not categorised'
-staffdata_OB$Data[!is.na(staffdata_OB$Data_cat) & staffdata_OB$Data_cat == 'Not categorised']
+allstaffdata_OB$Data_cat[!is.na(allstaffdata_OB$Data) & is.na(allstaffdata_OB$Data_cat)] <- 'Not categorised'
+allstaffdata_OB$Data[!is.na(allstaffdata_OB$Data_cat) & allstaffdata_OB$Data_cat == 'Not categorised']
 
-table(staffdata_OB$Data_cat)
+table(allstaffdata_OB$Data_cat)
 
 ## Code
-staffdata_OB$Code_cat[str_detect(staffdata_OB$Code, "TIME|LOT OF WORK")] <- 'Time investment'
+allstaffdata_OB$Code_cat[str_detect(allstaffdata_OB$Code, "TIME|LOT OF WORK")] <- 'Time investment'
 
-staffdata_OB$Code_cat[!is.na(staffdata_OB$Code) & is.na(staffdata_OB$Code_cat)] <- 'Not categorised'
-staffdata_OB$Code[!is.na(staffdata_OB$Code_cat) & staffdata_OB$Code_cat == 'Not categorised']
+allstaffdata_OB$Code_cat[!is.na(allstaffdata_OB$Code) & is.na(allstaffdata_OB$Code_cat)] <- 'Not categorised'
+allstaffdata_OB$Code[!is.na(allstaffdata_OB$Code_cat) & allstaffdata_OB$Code_cat == 'Not categorised']
 
-table(staffdata_OB$Code_cat)
+table(allstaffdata_OB$Code_cat)
 
 ## Materials
-staffdata_OB$Materials
+allstaffdata_OB$Materials
 
-# staffdata_OB$Materials_cat[!is.na(staffdata_OB$Materials) & is.na(staffdata_OB$Materials_cat)] <- 'Not categorised'
-# staffdata_OB$Materials[!is.na(staffdata_OB$Materials_cat) & staffdata_OB$Materials_cat == 'Not categorised']
+# allstaffdata_OB$Materials_cat[!is.na(allstaffdata_OB$Materials) & is.na(allstaffdata_OB$Materials_cat)] <- 'Not categorised'
+# allstaffdata_OB$Materials[!is.na(allstaffdata_OB$Materials_cat) & allstaffdata_OB$Materials_cat == 'Not categorised']
 # 
-# table(staffdata_OB$Materials_cat)
+# table(allstaffdata_OB$Materials_cat)
 
 ## Preprint
-staffdata_OB$Preprint
+allstaffdata_OB$Preprint
 
-# staffdata_OB$Preprint_cat[!is.na(staffdata_OB$Preprint) & is.na(staffdata_OB$Preprint_cat)] <- 'Not categorised'
-# staffdata_OB$Preprint[!is.na(staffdata_OB$Preprint_cat) & staffdata_OB$Preprint_cat == 'Not categorised']
+# allstaffdata_OB$Preprint_cat[!is.na(allstaffdata_OB$Preprint) & is.na(allstaffdata_OB$Preprint_cat)] <- 'Not categorised'
+# allstaffdata_OB$Preprint[!is.na(allstaffdata_OB$Preprint_cat) & allstaffdata_OB$Preprint_cat == 'Not categorised']
 # 
-# table(staffdata_OB$Preprint_cat)
+# table(allstaffdata_OB$Preprint_cat)
 
 
 ## Prereg
-staffdata_OB$Prereg[!is.na(staffdata_OB$Prereg)]
+allstaffdata_OB$Prereg[!is.na(allstaffdata_OB$Prereg)]
 
-staffdata_OB$Prereg_cat[!is.na(staffdata_OB$Prereg) & is.na(staffdata_OB$Prereg_cat)] <- 'Not categorised'
-staffdata_OB$Prereg[!is.na(staffdata_OB$Prereg_cat) & staffdata_OB$Prereg_cat == 'Not categorised']
+allstaffdata_OB$Prereg_cat[!is.na(allstaffdata_OB$Prereg) & is.na(allstaffdata_OB$Prereg_cat)] <- 'Not categorised'
+allstaffdata_OB$Prereg[!is.na(allstaffdata_OB$Prereg_cat) & allstaffdata_OB$Prereg_cat == 'Not categorised']
 
-table(staffdata_OB$Prereg_cat)
+table(allstaffdata_OB$Prereg_cat)
 
 
 ## RegRep
-staffdata_OB$RegRep
+allstaffdata_OB$RegRep
 
-# staffdata_OB$RegRep_cat[!is.na(staffdata_OB$RegRep) & is.na(staffdata_OB$RegRep_cat)] <- 'Not categorised'
-# staffdata_OB$RegRep[!is.na(staffdata_OB$RegRep_cat) & staffdata_OB$RegRep_cat == 'Not categorised']
+# allstaffdata_OB$RegRep_cat[!is.na(allstaffdata_OB$RegRep) & is.na(allstaffdata_OB$RegRep_cat)] <- 'Not categorised'
+# allstaffdata_OB$RegRep[!is.na(allstaffdata_OB$RegRep_cat) & allstaffdata_OB$RegRep_cat == 'Not categorised']
 # 
-# table(staffdata_OB$RegRep_cat)
+# table(allstaffdata_OB$RegRep_cat)
 
 
 # pgrdata_WD -----
@@ -347,131 +347,131 @@ table(c(pgrdata_WD$RegRep_cat, pgrdata_WD$RegRep_cat2, pgrdata_WD$RegRep_cat3))
   #RegRep_cat <-  pgrdata_WD[!is.na(pgrdata_WD$RegRep),c('RegRep','RegRep_cat', 'RegRep_cat2','RegRep_cat3')]  #not catd: "Academics are too protective over their work"
 
 
-# staffdata_WD -----
-staffdata_WD <- prepare_freetext_subdataset(staffdata, "^WhatDownsides_")
+# allstaffdata_WD -----
+allstaffdata_WD <- prepare_freetext_subdataset(allstaffdata, "^WhatDownsides_")
 
 ## Nb of responses
-staffdata_WD %>% summarise(across (everything(), ~sum(!is.na(.))))
+allstaffdata_WD %>% summarise(across (everything(), ~sum(!is.na(.))))
 
 ## check if respondents wrote something like same as previous answer.....
-staffdata_WD[unique(c(
-  which(str_detect(staffdata_WD$Data, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WD$Code, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WD$Materials, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WD$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WD$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
-  which(str_detect(staffdata_WD$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
+allstaffdata_WD[unique(c(
+  which(str_detect(allstaffdata_WD$Data, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_WD$Code, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_WD$Materials, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_WD$Preprint, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_WD$Prereg, "AS FOR|AS IN|SAME AS|\\^")),
+  which(str_detect(allstaffdata_WD$RegRep, "AS FOR|AS IN|SAME AS|\\^")))),]
 
 ## categorise barriers
-staffdata_WD$OA_cat <- NA
-staffdata_WD$Data_cat <- NA
-staffdata_WD$Code_cat <- NA
-staffdata_WD$Code_cat2 <- NA
-staffdata_WD$Materials_cat <- NA
-staffdata_WD$Preprint_cat <- NA
-staffdata_WD$Prereg_cat <- NA
-staffdata_WD$RegRep_cat <- NA
+allstaffdata_WD$OA_cat <- NA
+allstaffdata_WD$Data_cat <- NA
+allstaffdata_WD$Code_cat <- NA
+allstaffdata_WD$Code_cat2 <- NA
+allstaffdata_WD$Materials_cat <- NA
+allstaffdata_WD$Preprint_cat <- NA
+allstaffdata_WD$Prereg_cat <- NA
+allstaffdata_WD$RegRep_cat <- NA
 
 ## OA
-staffdata_WD$OA_cat[str_detect(staffdata_WD$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES|POORER"))] <- 'Financial cost'
-staffdata_WD$OA_cat[str_detect(staffdata_WD$OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
+allstaffdata_WD$OA_cat[str_detect(allstaffdata_WD$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANCIAL|PAY|CHARGES|POORER"))] <- 'Financial cost'
+allstaffdata_WD$OA_cat[str_detect(allstaffdata_WD$OA, "OPTIONS|LIMITS THE JOURNALS")] <- 'Fewer (prestigious) journal options'
 
-staffdata_WD$OA_cat[!is.na(staffdata_WD$OA) & is.na(staffdata_WD$OA_cat)] <- 'Not categorised'
-staffdata_WD$OA[!is.na(staffdata_WD$OA) & staffdata_WD$OA_cat == 'Not categorised']
+allstaffdata_WD$OA_cat[!is.na(allstaffdata_WD$OA) & is.na(allstaffdata_WD$OA_cat)] <- 'Not categorised'
+allstaffdata_WD$OA[!is.na(allstaffdata_WD$OA) & allstaffdata_WD$OA_cat == 'Not categorised']
 
-table(staffdata_WD$OA_cat)
+table(allstaffdata_WD$OA_cat)
 
 ## Data
-staffdata_WD$Data[!is.na(staffdata_WD$Data)]
-staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "NO NORM FOR CITATION")] <- 'No norm for citation'
-staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
-staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
-staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "LICENCES|LICENSES|FORMATS")] <- 'Proprietary file format'
-staffdata_WD$Data_cat[str_detect(staffdata_WD$Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN")] <- 'No control over validity of reuse, misrepresentation, misuse'
-staffdata_WD$Data_cat2[str_detect(staffdata_WD$Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
+allstaffdata_WD$Data[!is.na(allstaffdata_WD$Data)]
+allstaffdata_WD$Data_cat[str_detect(allstaffdata_WD$Data, "NO NORM FOR CITATION")] <- 'No norm for citation'
+allstaffdata_WD$Data_cat[str_detect(allstaffdata_WD$Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
+allstaffdata_WD$Data_cat[str_detect(allstaffdata_WD$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+allstaffdata_WD$Data_cat[str_detect(allstaffdata_WD$Data, "LICENCES|LICENSES|FORMATS")] <- 'Proprietary file format'
+allstaffdata_WD$Data_cat[str_detect(allstaffdata_WD$Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN")] <- 'No control over validity of reuse, misrepresentation, misuse'
+allstaffdata_WD$Data_cat2[str_detect(allstaffdata_WD$Data, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation'
 
-staffdata_WD$Data_cat[!is.na(staffdata_WD$Data) & is.na(staffdata_WD$Data_cat)] <- 'Not categorised'
-staffdata_WD$Data[!is.na(staffdata_WD$Data) & staffdata_WD$Data_cat == 'Not categorised']
+allstaffdata_WD$Data_cat[!is.na(allstaffdata_WD$Data) & is.na(allstaffdata_WD$Data_cat)] <- 'Not categorised'
+allstaffdata_WD$Data[!is.na(allstaffdata_WD$Data) & allstaffdata_WD$Data_cat == 'Not categorised']
 
-table(staffdata_WD$Data_cat)
+table(allstaffdata_WD$Data_cat)
 
 ## Code
-staffdata_WD$Code[!is.na(staffdata_WD$Code)]
-staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE|SLOW DOWN")] <- 'Time investment'
-staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "REDUCE THE NUMBER OF APPROACHES USED")] <- 'Reduce diversity of approaches'
-staffdata_WD$Code_cat2[str_detect(staffdata_WD$Code, "FIND PEOPLE TO REVIEW THE CODE")] <- 'No time or expertise to review code'
-staffdata_WD$Code_cat[str_detect(staffdata_WD$Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' 
+allstaffdata_WD$Code[!is.na(allstaffdata_WD$Code)]
+allstaffdata_WD$Code_cat[str_detect(allstaffdata_WD$Code, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE|SLOW DOWN")] <- 'Time investment'
+allstaffdata_WD$Code_cat[str_detect(allstaffdata_WD$Code, "REDUCE THE NUMBER OF APPROACHES USED")] <- 'Reduce diversity of approaches'
+allstaffdata_WD$Code_cat2[str_detect(allstaffdata_WD$Code, "FIND PEOPLE TO REVIEW THE CODE")] <- 'No time or expertise to review code'
+allstaffdata_WD$Code_cat[str_detect(allstaffdata_WD$Code, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL|CREDIT|COPYRIGHT*|PROTECTION OF IP")] <- 'Intellectual property concerns' 
 
-staffdata_WD$Code_cat[!is.na(staffdata_WD$Code) & is.na(staffdata_WD$Code_cat)] <- 'Not categorised'
-staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat == 'Not categorised']
-staffdata_WD$Code_cat[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == 'Not categorised'] <- staffdata_WD$Code_cat2[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == 'Not categorised']
-staffdata_WD$Code_cat2[!is.na(staffdata_WD$Code_cat2) & staffdata_WD$Code_cat == staffdata_WD$Code_cat2] <- NA
+allstaffdata_WD$Code_cat[!is.na(allstaffdata_WD$Code) & is.na(allstaffdata_WD$Code_cat)] <- 'Not categorised'
+allstaffdata_WD$Code[!is.na(allstaffdata_WD$Code) & allstaffdata_WD$Code_cat == 'Not categorised']
+allstaffdata_WD$Code_cat[!is.na(allstaffdata_WD$Code_cat2) & allstaffdata_WD$Code_cat == 'Not categorised'] <- allstaffdata_WD$Code_cat2[!is.na(allstaffdata_WD$Code_cat2) & allstaffdata_WD$Code_cat == 'Not categorised']
+allstaffdata_WD$Code_cat2[!is.na(allstaffdata_WD$Code_cat2) & allstaffdata_WD$Code_cat == allstaffdata_WD$Code_cat2] <- NA
 
-staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat == 'Not categorised']
-staffdata_WD$Code[!is.na(staffdata_WD$Code) & staffdata_WD$Code_cat2 == 'Not categorised']
+allstaffdata_WD$Code[!is.na(allstaffdata_WD$Code) & allstaffdata_WD$Code_cat == 'Not categorised']
+allstaffdata_WD$Code[!is.na(allstaffdata_WD$Code) & allstaffdata_WD$Code_cat2 == 'Not categorised']
 
-table(staffdata_WD$Code_cat)
+table(allstaffdata_WD$Code_cat)
 
 ## Materials
-staffdata_WD$Materials[!is.na(staffdata_WD$Materials)]
-staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "LICENCES|LICENSES")] <- 'Resource not own'
-staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "NATIONAL POLICIES")] <- 'Law against sharing specific material'
-staffdata_WD$Materials_cat[str_detect(staffdata_WD$Materials, "FRAGILE")] <- 'Impractical'
+allstaffdata_WD$Materials[!is.na(allstaffdata_WD$Materials)]
+allstaffdata_WD$Materials_cat[str_detect(allstaffdata_WD$Materials, "LICENCES|LICENSES")] <- 'Resource not own'
+allstaffdata_WD$Materials_cat[str_detect(allstaffdata_WD$Materials, "NATIONAL POLICIES")] <- 'Law against sharing specific material'
+allstaffdata_WD$Materials_cat[str_detect(allstaffdata_WD$Materials, "FRAGILE")] <- 'Impractical'
 
-staffdata_WD$Materials_cat[!is.na(staffdata_WD$Materials) & is.na(staffdata_WD$Materials_cat)] <- 'Not categorised'
-staffdata_WD$Materials[!is.na(staffdata_WD$Materials) & staffdata_WD$Materials_cat == 'Not categorised']
+allstaffdata_WD$Materials_cat[!is.na(allstaffdata_WD$Materials) & is.na(allstaffdata_WD$Materials_cat)] <- 'Not categorised'
+allstaffdata_WD$Materials[!is.na(allstaffdata_WD$Materials) & allstaffdata_WD$Materials_cat == 'Not categorised']
 
-table(staffdata_WD$Materials_cat)
+table(allstaffdata_WD$Materials_cat)
 
 ## Preprint
-staffdata_WD$Preprint[!is.na(staffdata_WD$Preprint)]
-staffdata_WD$Preprint_cat[str_detect(staffdata_WD$Preprint, "ECOLOGICAL COST")] <- 'Ecological cost'
-staffdata_WD$Preprint_cat[str_detect(staffdata_WD$Preprint, "PEER-REVIEW")] <- 'No peer-review, reliance on reputation'
+allstaffdata_WD$Preprint[!is.na(allstaffdata_WD$Preprint)]
+allstaffdata_WD$Preprint_cat[str_detect(allstaffdata_WD$Preprint, "ECOLOGICAL COST")] <- 'Ecological cost'
+allstaffdata_WD$Preprint_cat[str_detect(allstaffdata_WD$Preprint, "PEER-REVIEW")] <- 'No peer-review, reliance on reputation'
 
-staffdata_WD$Preprint_cat[!is.na(staffdata_WD$Preprint) & is.na(staffdata_WD$Preprint_cat)] <- 'Not categorised'
-staffdata_WD$Preprint[!is.na(staffdata_WD$Preprint) & staffdata_WD$Preprint_cat == 'Not categorised']
+allstaffdata_WD$Preprint_cat[!is.na(allstaffdata_WD$Preprint) & is.na(allstaffdata_WD$Preprint_cat)] <- 'Not categorised'
+allstaffdata_WD$Preprint[!is.na(allstaffdata_WD$Preprint) & allstaffdata_WD$Preprint_cat == 'Not categorised']
 
-table(staffdata_WD$Preprint_cat)
+table(allstaffdata_WD$Preprint_cat)
 
 
 ## Prereg
-staffdata_WD$Prereg[!is.na(staffdata_WD$Prereg)]
-staffdata_WD$Prereg_cat[str_detect(staffdata_WD$Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH|TIME IT TAKES")] <- 'Time investment' 
-staffdata_WD$Prereg_cat[str_detect(staffdata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+allstaffdata_WD$Prereg[!is.na(allstaffdata_WD$Prereg)]
+allstaffdata_WD$Prereg_cat[str_detect(allstaffdata_WD$Prereg, "MORE TIME|SLOW DOWN|TIME FOR RESEARCH|TIME IT TAKES")] <- 'Time investment' 
+allstaffdata_WD$Prereg_cat[str_detect(allstaffdata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
 
-staffdata_WD$Prereg_cat[!is.na(staffdata_WD$Prereg) & is.na(staffdata_WD$Prereg_cat)] <- 'Not categorised'
-staffdata_WD$Prereg[!is.na(staffdata_WD$Prereg) & staffdata_WD$Prereg_cat == 'Not categorised']
+allstaffdata_WD$Prereg_cat[!is.na(allstaffdata_WD$Prereg) & is.na(allstaffdata_WD$Prereg_cat)] <- 'Not categorised'
+allstaffdata_WD$Prereg[!is.na(allstaffdata_WD$Prereg) & allstaffdata_WD$Prereg_cat == 'Not categorised']
 
-table(staffdata_WD$Prereg_cat)
+table(allstaffdata_WD$Prereg_cat)
 
 
 ## RegRep
-staffdata_WD$RegRep[!is.na(staffdata_WD$RegRep)]
-staffdata_WD$RegRep_cat[str_detect(staffdata_WD$RegRep, "TIME COST|MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
-staffdata_WD$RegRep_cat[str_detect(staffdata_WD$RegRep, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
+allstaffdata_WD$RegRep[!is.na(allstaffdata_WD$RegRep)]
+allstaffdata_WD$RegRep_cat[str_detect(allstaffdata_WD$RegRep, "TIME COST|MORE TIME|SLOW DOWN|TIME FOR RESEARCH")] <- 'Time investment' 
+allstaffdata_WD$RegRep_cat[str_detect(allstaffdata_WD$RegRep, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE")] <- 'Impedes flexibility in protocols' # 
 
-staffdata_WD$RegRep_cat[!is.na(staffdata_WD$RegRep) & is.na(staffdata_WD$RegRep_cat)] <- 'Not categorised'
-staffdata_WD$RegRep[!is.na(staffdata_WD$RegRep) & staffdata_WD$RegRep_cat == 'Not categorised']
+allstaffdata_WD$RegRep_cat[!is.na(allstaffdata_WD$RegRep) & is.na(allstaffdata_WD$RegRep_cat)] <- 'Not categorised'
+allstaffdata_WD$RegRep[!is.na(allstaffdata_WD$RegRep) & allstaffdata_WD$RegRep_cat == 'Not categorised']
 
-table(staffdata_WD$RegRep_cat)
+table(allstaffdata_WD$RegRep_cat)
 
 
 # Create list for checking categories -----
 a_pgrdata_OB<- create_list_for_checking_cat(pgrdata_OB)
-a_staffdata_OB <- create_list_for_checking_cat(staffdata_OB)
+a_allstaffdata_OB <- create_list_for_checking_cat(allstaffdata_OB)
 
 a_pgrdata_WD <- create_list_for_checking_cat(pgrdata_WD)
-a_staffdata_WD <- create_list_for_checking_cat(staffdata_WD)
+a_allstaffdata_WD <- create_list_for_checking_cat(allstaffdata_WD)
 
 ## to print list for someone to check recoding categories
-list_for_checking_cat <- rbind(a_pgrdata_OB, a_staffdata_OB, a_pgrdata_WD, a_staffdata_WD)
+list_for_checking_cat <- rbind(a_pgrdata_OB, a_allstaffdata_OB, a_pgrdata_WD, a_allstaffdata_WD)
 
 #write.csv(list_for_checking_cat, file='list_for_checking_cat.csv')
 
 # Create pivot tables from list for checking categories
 pgrdata_OB_table <- create_pivot_table_from_list_for_checking_cat(a_pgrdata_OB)
-staffdata_OB_table <- create_pivot_table_from_list_for_checking_cat(a_staffdata_OB)
+allstaffdata_OB_table <- create_pivot_table_from_list_for_checking_cat(a_allstaffdata_OB)
 
 pgrdata_WD_table <- create_pivot_table_from_list_for_checking_cat(a_pgrdata_WD)
-staffdata_WD_table <- create_pivot_table_from_list_for_checking_cat(a_staffdata_WD)
+allstaffdata_WD_table <- create_pivot_table_from_list_for_checking_cat(a_allstaffdata_WD)
 

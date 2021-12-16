@@ -29,12 +29,12 @@ xtab_OtherSupport <- pgrdata_OtherSupport %>%
 names(xtab_OtherSupport)[1] <- "" 
 
 
-# staffdata_OtherSupport 
+# allstaffdata_OtherSupport 
 ## subset and reformat data
-staffdata_OtherSupport <- subset_columns_by_pattern(staffdata, "^Support_Other")
-staffdata_OtherSupport <- staffdata_OtherSupport[rowSums(!is.na(staffdata_OtherSupport)) > 1, ]
-colnames(staffdata_OtherSupport) <- c('Div', 'Support_Other_score', 'Support_Other', 'Support_Other_score', 'Support_Other','Support_Other_score', 'Support_Other')
-staffdata_OtherSupport <- rbind(staffdata_OtherSupport[,c(1,2,3)], staffdata_OtherSupport[,c(1,4,5)], staffdata_OtherSupport[, c(1,6,7)])
-staffdata_OtherSupport <- staffdata_OtherSupport[!is.na(staffdata_OtherSupport$Support_Other),]
+allstaffdata_OtherSupport <- subset_columns_by_pattern(allstaffdata, "^Support_Other")
+allstaffdata_OtherSupport <- allstaffdata_OtherSupport[rowSums(!is.na(allstaffdata_OtherSupport)) > 1, ]
+colnames(allstaffdata_OtherSupport) <- c('Div', 'Support_Other_score', 'Support_Other', 'Support_Other_score', 'Support_Other','Support_Other_score', 'Support_Other')
+allstaffdata_OtherSupport <- rbind(allstaffdata_OtherSupport[,c(1,2,3)], allstaffdata_OtherSupport[,c(1,4,5)], allstaffdata_OtherSupport[, c(1,6,7)])
+allstaffdata_OtherSupport <- allstaffdata_OtherSupport[!is.na(allstaffdata_OtherSupport$Support_Other),]
 ### Nb of respondents
-nrow(staffdata_OtherSupport)
+nrow(allstaffdata_OtherSupport)

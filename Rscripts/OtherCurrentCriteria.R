@@ -30,14 +30,14 @@ xtab_OtherCurrentRecruitment <- pgrdata_OtherCurrentRecruitment %>%
   arrange(-Considerably)
 names(xtab_OtherCurrentRecruitment)[1] <- "" 
 
-# staffdata_OtherCurrentRecruitment
+# allstaffdata_OtherCurrentRecruitment
 ## subset and reformat data
-staffdata_OtherCurrentRecruitment <- subset_columns_by_pattern(staffdata, "^CurrentRecruitment_Other")
-staffdata_OtherCurrentRecruitment <- staffdata_OtherCurrentRecruitment[rowSums(!is.na(staffdata_OtherCurrentRecruitment)) > 1, ]
-colnames(staffdata_OtherCurrentRecruitment) <- c('Div', 'CurrentRecruitment_Other_score', 'CurrentRecruitment_Other', 'CurrentRecruitment_Other_score', 'CurrentRecruitment_Other','CurrentRecruitment_Other_score', 'CurrentRecruitment_Other')
-staffdata_OtherCurrentRecruitment <- rbind(staffdata_OtherCurrentRecruitment[,c(1,2,3)], staffdata_OtherCurrentRecruitment[,c(1,4,5)], staffdata_OtherCurrentRecruitment[, c(1,6,7)])
-staffdata_OtherCurrentRecruitment <- staffdata_OtherCurrentRecruitment[!is.na(staffdata_OtherCurrentRecruitment$CurrentRecruitment_Other),] 
+allstaffdata_OtherCurrentRecruitment <- subset_columns_by_pattern(allstaffdata, "^CurrentRecruitment_Other")
+allstaffdata_OtherCurrentRecruitment <- allstaffdata_OtherCurrentRecruitment[rowSums(!is.na(allstaffdata_OtherCurrentRecruitment)) > 1, ]
+colnames(allstaffdata_OtherCurrentRecruitment) <- c('Div', 'CurrentRecruitment_Other_score', 'CurrentRecruitment_Other', 'CurrentRecruitment_Other_score', 'CurrentRecruitment_Other','CurrentRecruitment_Other_score', 'CurrentRecruitment_Other')
+allstaffdata_OtherCurrentRecruitment <- rbind(allstaffdata_OtherCurrentRecruitment[,c(1,2,3)], allstaffdata_OtherCurrentRecruitment[,c(1,4,5)], allstaffdata_OtherCurrentRecruitment[, c(1,6,7)])
+allstaffdata_OtherCurrentRecruitment <- allstaffdata_OtherCurrentRecruitment[!is.na(allstaffdata_OtherCurrentRecruitment$CurrentRecruitment_Other),] 
 ### Nb of respondents
-nrow(staffdata_OtherCurrentRecruitment)
+nrow(allstaffdata_OtherCurrentRecruitment)
 
-staffdata_OtherCurrentRecruitment
+allstaffdata_OtherCurrentRecruitment

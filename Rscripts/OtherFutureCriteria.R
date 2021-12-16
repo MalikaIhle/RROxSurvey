@@ -32,14 +32,14 @@ xtab_OtherFutureRecruitment <- pgrdata_OtherFutureRecruitment %>%
   arrange(-Considerably)
 names(xtab_OtherFutureRecruitment)[1] <- "" 
 
-# staffdata_OtherFutureRecruitment 
+# allstaffdata_OtherFutureRecruitment 
 ## subset and reformat data
-staffdata_OtherFutureRecruitment <- subset_columns_by_pattern(staffdata, "^FutureRecruitment_Other")
-staffdata_OtherFutureRecruitment <- staffdata_OtherFutureRecruitment[rowSums(!is.na(staffdata_OtherFutureRecruitment)) > 1, ]
-colnames(staffdata_OtherFutureRecruitment) <- c('Div', 'FutureRecruitment_Other_score', 'FutureRecruitment_Other', 'FutureRecruitment_Other_score', 'FutureRecruitment_Other','FutureRecruitment_Other_score', 'FutureRecruitment_Other')
-staffdata_OtherFutureRecruitment <- rbind(staffdata_OtherFutureRecruitment[,c(1,2,3)], staffdata_OtherFutureRecruitment[,c(1,4,5)], staffdata_OtherFutureRecruitment[, c(1,6,7)])
-staffdata_OtherFutureRecruitment <- staffdata_OtherFutureRecruitment[!is.na(staffdata_OtherFutureRecruitment$FutureRecruitment_Other),] 
+allstaffdata_OtherFutureRecruitment <- subset_columns_by_pattern(allstaffdata, "^FutureRecruitment_Other")
+allstaffdata_OtherFutureRecruitment <- allstaffdata_OtherFutureRecruitment[rowSums(!is.na(allstaffdata_OtherFutureRecruitment)) > 1, ]
+colnames(allstaffdata_OtherFutureRecruitment) <- c('Div', 'FutureRecruitment_Other_score', 'FutureRecruitment_Other', 'FutureRecruitment_Other_score', 'FutureRecruitment_Other','FutureRecruitment_Other_score', 'FutureRecruitment_Other')
+allstaffdata_OtherFutureRecruitment <- rbind(allstaffdata_OtherFutureRecruitment[,c(1,2,3)], allstaffdata_OtherFutureRecruitment[,c(1,4,5)], allstaffdata_OtherFutureRecruitment[, c(1,6,7)])
+allstaffdata_OtherFutureRecruitment <- allstaffdata_OtherFutureRecruitment[!is.na(allstaffdata_OtherFutureRecruitment$FutureRecruitment_Other),] 
 ### Nb of respondents
-nrow(staffdata_OtherFutureRecruitment)
+nrow(allstaffdata_OtherFutureRecruitment)
 
-staffdata_OtherFutureRecruitment
+allstaffdata_OtherFutureRecruitment
