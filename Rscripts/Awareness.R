@@ -33,11 +33,11 @@ title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdat
 title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Awareness"], ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Awareness"], ")" , sep="")
 
-pgrdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
-academicdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_academic)
+pgrdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Awareness_for_plotting, Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Awareness_for_plotting, Measures,Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Awareness_for_plotting, Measures,Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Awareness_for_plotting,Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Awareness_for_plotting, Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_academic)
 
 
 #doubleplot_Awareness <- ggpubr::ggarrange(pgrdata_Awareness_perORP, 

@@ -33,11 +33,11 @@ title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdat
 title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Downsides"], ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Downsides"], ")" , sep="")
 
-pgrdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
-academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_academic)
+pgrdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
+academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_academic)
 
 # doubleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
 #                                   allstaffdata_Downsides_perORP, 

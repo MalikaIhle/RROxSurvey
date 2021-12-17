@@ -391,7 +391,7 @@ stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answe
   
 }  
 
-horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
+horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot){
   
   # example to test function
   # data <- pgrdata_Awareness_for_plotting
@@ -401,6 +401,7 @@ horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, titl
   # title_plot <- NULL
   
   data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
   
   count_by_answer_and_div_and_orp <- data %>% 
     group_by(Answer, Div, LabelIndiv) %>%
@@ -681,7 +682,7 @@ dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answer
 }  
 
 
-barriers_horizontal_stack_barplot_per_ORP <- function(data, answers, answers_colors, title_legend, title_plot){
+barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot){
   
   # example to test function
   # data <- pgrdata_Barriers_for_plotting
@@ -691,8 +692,8 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, answers, answers_col
   # title_plot <- NULL
   
   data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
-  data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the ORPs
-  
+  data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the answers
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
   
   data %>% 
     ggplot() +

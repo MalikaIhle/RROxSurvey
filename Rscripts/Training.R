@@ -34,11 +34,11 @@ title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdat
 title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Training"], ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Training"], ")" , sep="")
 
-pgrdata_Training_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
-academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
+pgrdata_Training_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Training_for_plotting,Trainings, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
 
 
 # doubleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP, 

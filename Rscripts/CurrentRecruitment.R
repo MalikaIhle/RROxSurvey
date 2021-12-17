@@ -37,19 +37,19 @@ All_staffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped
 All_supportstaffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_supportstaff)
 All_academicdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_academic)
 
-quadrupleplot_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
+quadrupleplot_All_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
                                                All_staffdata_CurrentRecruitment_plot, 
                                                All_supportstaffdata_CurrentRecruitment_plot,
                                                All_academicdata_CurrentRecruitment_plot,
                                                nrow=1)
 
-quadrupleplot_CurrentRecruitement_with_legend <- ggpubr::ggarrange(quadrupleplot_CurrentRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+quadrupleplot_All_CurrentRecruitement_with_legend <- ggpubr::ggarrange(quadrupleplot_All_CurrentRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 
-quadrupleplot_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
+quadrupleplot_All_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_All_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
                                                                      face = "bold", size = 14))
 
 
-#ggsave("Figures/quadrupleplot_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
+#ggsave("Figures/quadrupleplot_All_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
 
 
 
@@ -60,13 +60,19 @@ quadrupleplot_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_C
 ## All_pgrdata_CurrentRecruitment_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors)
 
 # Horizontal stacked barplot per ORP
-## pgrdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_CurrentRecruitment_for_plotting, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "PGR students")
-## allstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_CurrentRecruitment_for_plotting, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
-## 
-## doubleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP, 
-##                                   allstaffdata_CurrentRecruitment_perORP, 
-##                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-## doubleplot_CurrentRecruitment <- annotate_figure(doubleplot_CurrentRecruitment, 
-##                                         top = text_grob("CurrentRecruitment of ORPs", 
-##                                                         face = "bold", size = 14))
-###ggsave("Figures/CurrentRecruitment.png", width = 10, height = 13, bg = "white")
+pgrdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_CurrentRecruitment_for_plotting,Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(staffdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(academicdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_academic)
+
+quadrupleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP,
+                                  staffdata_CurrentRecruitment_perORP,
+                                  supportstaffdata_CurrentRecruitment_perORP,
+                                  academicdata_CurrentRecruitment_perORP,
+                                  ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
+quadrupleplot_CurrentRecruitment <- annotate_figure(quadrupleplot_CurrentRecruitment,
+                                        top = text_grob("CurrentRecruitment of ORPs",
+                                                        face = "bold", size = 14))
+quadrupleplot_CurrentRecruitment
+#ggsave("Figures/quadruple_CurrentRecruitment.png", width = 12, height = 20, bg = "white")

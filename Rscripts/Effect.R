@@ -32,11 +32,11 @@ title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdat
 title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Effect"], ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Effect"], ")" , sep="")
 
-pgrdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
-academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_academic)
+pgrdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
+academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_academic)
 
 # doubleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
 #                                   allstaffdata_Effect_perORP, 

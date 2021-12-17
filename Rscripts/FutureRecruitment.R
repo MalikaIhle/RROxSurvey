@@ -37,19 +37,19 @@ All_staffdata_FutureRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_
 All_supportstaffdata_FutureRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_FutureRecruitment_for_plotting, Criteria, FutureRecruitment_answers, FutureRecruitment_colors, title_plot = title_plot_supportstaff)
 All_academicdata_FutureRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_FutureRecruitment_for_plotting, Criteria, FutureRecruitment_answers, FutureRecruitment_colors, title_plot = title_plot_academic)
 
-quadrupleplot_FutureRecruitement <- egg::ggarrange(All_pgrdata_FutureRecruitment_plot, 
+quadrupleplot_All_FutureRecruitement <- egg::ggarrange(All_pgrdata_FutureRecruitment_plot, 
                                                     All_staffdata_FutureRecruitment_plot, 
                                                     All_supportstaffdata_FutureRecruitment_plot,
                                                     All_academicdata_FutureRecruitment_plot,
                                                     nrow=1)
 
-quadrupleplot_FutureRecruitement_with_legend <- ggpubr::ggarrange(quadrupleplot_FutureRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+quadrupleplot_All_FutureRecruitement_with_legend <- ggpubr::ggarrange(quadrupleplot_All_FutureRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 
-quadrupleplot_FutureRecruitement_with_legend <- annotate_figure(quadrupleplot_FutureRecruitement_with_legend, top = text_grob("Desired future recruitment criteria", 
+quadrupleplot_All_FutureRecruitement_with_legend <- annotate_figure(quadrupleplot_All_FutureRecruitement_with_legend, top = text_grob("Desired future recruitment criteria", 
                                                                                                                                 face = "bold", size = 14))
 
 
-#ggsave("Figures/quadrupleplot_FutureRecruitement.png", width = 15, height = 10, bg = "white")
+#ggsave("Figures/quadrupleplot_All_FutureRecruitement.png", width = 15, height = 10, bg = "white")
 
 
 
@@ -60,13 +60,19 @@ quadrupleplot_FutureRecruitement_with_legend <- annotate_figure(quadrupleplot_Fu
 ## All_pgrdata_FutureRecruitment_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_FutureRecruitment_for_plotting, Criteria, FutureRecruitment_answers, FutureRecruitment_colors)
 
 # Horizontal stacked barplot per ORP
-## pgrdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_FutureRecruitment_for_plotting, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = "PGR students")
-## allstaffdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_FutureRecruitment_for_plotting, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
-## 
-## doubleplot_FutureRecruitment <- ggpubr::ggarrange(pgrdata_FutureRecruitment_perORP, 
-##                                   allstaffdata_FutureRecruitment_perORP, 
-##                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-## doubleplot_FutureRecruitment <- annotate_figure(doubleplot_FutureRecruitment, 
-##                                         top = text_grob("FutureRecruitment of ORPs", 
-##                                                         face = "bold", size = 14))
-###ggsave("Figures/FutureRecruitment.png", width = 10, height = 13, bg = "white")
+pgrdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_FutureRecruitment_for_plotting, Criteria, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_FutureRecruitment_for_plotting,Criteria, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(staffdata_FutureRecruitment_for_plotting, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_FutureRecruitment_for_plotting, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(academicdata_FutureRecruitment_for_plotting, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_academic)
+
+quadrupleplot_FutureRecruitment <- ggpubr::ggarrange(pgrdata_FutureRecruitment_perORP,
+                                                      staffdata_FutureRecruitment_perORP,
+                                                      supportstaffdata_FutureRecruitment_perORP,
+                                                      academicdata_FutureRecruitment_perORP,
+                                                      ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
+quadrupleplot_FutureRecruitment <- annotate_figure(quadrupleplot_FutureRecruitment,
+                                                    top = text_grob("FutureRecruitment of ORPs",
+                                                                    face = "bold", size = 14))
+quadrupleplot_FutureRecruitment
+#ggsave("Figures/quadruple_FutureRecruitment.png", width = 12, height = 20, bg = "white")

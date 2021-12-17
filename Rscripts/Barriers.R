@@ -23,11 +23,11 @@ All_allstaffdata_Barriers_for_plotting <- regroup_all_barriers_data(allstaffdata
 dodged_barplot_on_barriers_regrouped_data(All_pgrdata_Barriers_for_plotting, Measures, Barriers_answers)
 
 # Horizontal stacked barplot per ORP # are those corrects?
-barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
 
 
-pgrdata_Barriers_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
-allstaffdata_Barriers_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Barriers_for_plotting, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "Researchers")
+pgrdata_Barriers_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+allstaffdata_Barriers_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "Researchers")
 
 doubleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP, 
                                   allstaffdata_Barriers_perORP, 

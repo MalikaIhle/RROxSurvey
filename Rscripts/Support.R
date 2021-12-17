@@ -50,11 +50,11 @@ quadrupleplot_All_Support_with_legend
 #ggsave("Figures/quadrupleplot_All_Support.png", width = 12, height = 2.5, bg = "white")
 
 # Horizontal stacked barplot per ORP
-pgrdata_Support_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
-academicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot =title_plot_academic)
+pgrdata_Support_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot = "Researchers")
+staffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot =title_plot_academic)
 
 
 # doubleplot_Support <- ggpubr::ggarrange(pgrdata_Support_perORP, 
