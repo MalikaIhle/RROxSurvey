@@ -681,6 +681,34 @@ dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answer
   
 }  
 
+horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answers, title_plot){
+  All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
+  ggplot(All_data) +
+    
+    ### Add the stacked bar
+    geom_bar(aes(x=LabelIndiv, y=perc, fill=factor(Answer, 
+                                                   level = answers)),
+             stat="identity", position = "dodge") +
+       scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+   # ggplot2::annotate("text", x = rep(number_of_bar-0.5,5), y = c(0, 25, 50, 75, 100), label = c("0%", "25%", "50%", "75%", "100%") , color="grey", size=3 , angle=0, fontface="bold", hjust=c(0.5,0.5,0.5,0.5,0.5), vjust = -0.2) +
+    
+    coord_flip(ylim = c(0, 85)) +
+    scale_y_continuous(breaks = c(0, 20, 40, 60, 80), label = c("0%", "20%", "40%", "60%", "80%"))+
+    theme_minimal() +
+    theme(
+      legend.position = "right",
+      axis.title = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5),
+     # axis.text.x = element_text(angle = 90),
+            legend.title=element_blank()) + guides(fill = guide_legend(reverse = FALSE))+
+    ggtitle(title_plot)
+  
+}  
 
 barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot){
   
@@ -715,7 +743,6 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, a
     theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
   
 }
-
 
 ## analyse text
 capitalise_all_strings <- function(data){
