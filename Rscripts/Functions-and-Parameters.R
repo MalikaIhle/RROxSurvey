@@ -681,7 +681,7 @@ dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answer
   
 }  
 
-horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answers, title_plot){
+horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Question, answers, title_plot, plot_ylim){
   All_data$LabelIndiv <- factor(All_data$LabelIndiv, levels = rev(Question)) # this will determine order of the bars
   ggplot(All_data) +
     
@@ -695,7 +695,7 @@ horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Quest
                       , drop = FALSE)+
    # ggplot2::annotate("text", x = rep(number_of_bar-0.5,5), y = c(0, 25, 50, 75, 100), label = c("0%", "25%", "50%", "75%", "100%") , color="grey", size=3 , angle=0, fontface="bold", hjust=c(0.5,0.5,0.5,0.5,0.5), vjust = -0.2) +
     
-    coord_flip(ylim = c(0, 85)) +
+    coord_flip(ylim = c(0, plot_ylim)) +
     scale_y_continuous(breaks = c(0, 20, 40, 60, 80), label = c("0%", "20%", "40%", "60%", "80%"))+
     theme_minimal() +
     theme(
