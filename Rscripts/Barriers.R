@@ -93,7 +93,7 @@ quadrupleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP,
                                             staffdata_Barriers_perORP,
                                             supportstaffdata_Barriers_perORP,
                                             academicdata_Barriers_perORP,
-                                  ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
+                                  ncol=4, nrow=1, common.legend = TRUE, legend="right")
 quadrupleplot_Barriers <- annotate_figure(quadrupleplot_Barriers,
                                         top = text_grob("Barriers to adoption of ORPs",
                                                         face = "bold", size = 14))
