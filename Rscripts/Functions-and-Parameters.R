@@ -693,7 +693,6 @@ horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Quest
                       breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
                       labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
                       , drop = FALSE)+
-   # ggplot2::annotate("text", x = rep(number_of_bar-0.5,5), y = c(0, 25, 50, 75, 100), label = c("0%", "25%", "50%", "75%", "100%") , color="grey", size=3 , angle=0, fontface="bold", hjust=c(0.5,0.5,0.5,0.5,0.5), vjust = -0.2) +
     
     coord_flip(ylim = c(0, plot_ylim)) +
     scale_y_continuous(breaks = c(0, 20, 40, 60, 80), label = c("0%", "20%", "40%", "60%", "80%"))+
@@ -710,7 +709,7 @@ horizontal_dodged_barplot_on_barriers_regrouped_data <- function(All_data, Quest
   
 }  
 
-barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot){
+barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot, plot_ylim){
   
   # example to test function
   # data <- pgrdata_Barriers_for_plotting
@@ -731,7 +730,7 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, a
                       labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
                       , drop = FALSE)+
     facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
-    coord_flip() +
+    coord_flip(ylim = c(0, plot_ylim)) +
     theme_minimal() +
         theme(legend.position="bottom",
           #legend.title = element_blank(),
@@ -742,6 +741,33 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, a
     theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
   
 }
+
+barriers_horizontal_dodge_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot, plot_ylim){
+
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the answers
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
+  
+  data %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "dodge") +
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip(ylim = c(0, plot_ylim)) +
+    theme_minimal() +
+    theme(legend.position="bottom",
+          #legend.title = element_blank(),
+          strip.text.x = element_text(size = 10, colour = "black")) + 
+    labs(x = "", y = "")+
+    guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
+
 
 ## analyse text
 capitalise_all_strings <- function(data){

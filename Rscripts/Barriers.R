@@ -74,20 +74,31 @@ All_Grouped_Barriers_dodgeplot
 
 
 # Horizontal stacked barplot per ORP 
-pgrdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
-staffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(staffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
-supportstaffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(supportstaffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
-academicdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(academicdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+pgrdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_pgr, 600)
+staffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(staffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_staff, 600)
+supportstaffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(supportstaffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_supportstaff,600)
+academicdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(academicdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_academic, 600)
+
+# Horizontal dodged barplot per ORP 
+temp <- rbind(pgrdata_Barriers_for_plotting,staffdata_Barriers_for_plotting, supportstaffdata_Barriers_for_plotting, academicdata_Barriers_for_plotting)
+max(temp$perc, na.rm=TRUE)
+
+pgrdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_pgr, 100)
+staffdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(staffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_staff, 100)
+supportstaffdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(supportstaffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_supportstaff, 100)
+academicdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(academicdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_academic, 100)
 
 
-
-# doubleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP, 
-#                                   allstaffdata_Barriers_perORP, 
-#                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-# doubleplot_Barriers <- annotate_figure(doubleplot_Barriers, 
-#                                         top = text_grob("Barriers of ORPs", 
-#                                                         face = "bold", size = 14))
-#ggsave("Figures/Barriers-per-ORP.png", width = 10, height = 9, bg = "white")
+quadrupleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP,
+                                            staffdata_Barriers_perORP,
+                                            supportstaffdata_Barriers_perORP,
+                                            academicdata_Barriers_perORP,
+                                  ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
+quadrupleplot_Barriers <- annotate_figure(quadrupleplot_Barriers,
+                                        top = text_grob("Barriers to adoption of ORPs",
+                                                        face = "bold", size = 14))
+quadrupleplot_Barriers
+#ggsave("Figures/quadrupleplot_Barriers.png", width = 10, height = 25, bg = "white")
 
 
   
