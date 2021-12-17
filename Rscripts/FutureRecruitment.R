@@ -72,7 +72,7 @@ quadrupleplot_FutureRecruitment <- ggpubr::ggarrange(pgrdata_FutureRecruitment_p
                                                       academicdata_FutureRecruitment_perORP,
                                                       ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
 quadrupleplot_FutureRecruitment <- annotate_figure(quadrupleplot_FutureRecruitment,
-                                                    top = text_grob("FutureRecruitment of ORPs",
+                                                    top = text_grob("Desired future recruitment criteria",
                                                                     face = "bold", size = 14))
 quadrupleplot_FutureRecruitment
 #ggsave("Figures/quadruple_FutureRecruitment.png", width = 12, height = 20, bg = "white")

@@ -72,7 +72,7 @@ quadrupleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment
                                   academicdata_CurrentRecruitment_perORP,
                                   ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
 quadrupleplot_CurrentRecruitment <- annotate_figure(quadrupleplot_CurrentRecruitment,
-                                        top = text_grob("CurrentRecruitment of ORPs",
+                                        top = text_grob("Perceived current recruitment criteria",
                                                         face = "bold", size = 14))
 quadrupleplot_CurrentRecruitment
 #ggsave("Figures/quadruple_CurrentRecruitment.png", width = 12, height = 20, bg = "white")
