@@ -726,15 +726,14 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, a
   data %>% 
     ggplot() +
     geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity") +
-    scale_fill_manual(values = (answers_colors),
-                      breaks = rev(answers), 
-                      labels = rev(answers), 
-                      drop = FALSE) +
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
     facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
     coord_flip() +
     theme_minimal() +
-    scale_y_continuous(labels = scales::percent) +
-    theme(legend.position="right",
+        theme(legend.position="bottom",
           #legend.title = element_blank(),
           strip.text.x = element_text(size = 10, colour = "black")) + 
     labs(x = "", y = "")+

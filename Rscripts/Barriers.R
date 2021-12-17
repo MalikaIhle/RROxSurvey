@@ -57,7 +57,7 @@ All_Data_Barriers <- rbind(
   academicdata_Barriers)
 
 All_Split_Barriers_for_plotting <- prepare_barriers_data_for_plotting(All_Data_Barriers, Barriers_answers, Barriers_columns)
-All_Grouped_Barriers_for_plotting <- regroup_all_data(All_Split_Barriers_for_plotting)
+All_Grouped_Barriers_for_plotting <- regroup_all_barriers_data(All_Split_Barriers_for_plotting)
 
 max(All_Grouped_Barriers_for_plotting$perc)
 
@@ -68,13 +68,17 @@ title_plot_All_Barriers <- paste ("Barriers to adoption of ORPs
                          as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Barriers"])),
                          ")" , sep="")
 
-All_Grouped_Barriers_dodgeplot <- horizontal_dodged_barplot_on_barriers_regrouped_data(All_Grouped_Barriers_for_plotting, Measures, Barriers_answers,title_plot_All_Barriers , 40)
+All_Grouped_Barriers_dodgeplot <- horizontal_dodged_barplot_on_barriers_regrouped_data(All_Grouped_Barriers_for_plotting, Measures, Barriers_answers,title_plot_All_Barriers , 50)
 All_Grouped_Barriers_dodgeplot
 #ggsave("Figures/All_Grouped_Barriers.png", width = 5, height = 7, bg = "white")
 
 
 # Horizontal stacked barplot per ORP 
-barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+pgrdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(pgrdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+staffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(staffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+supportstaffdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(supportstaffdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+academicdata_Barriers_perORP <- barriers_horizontal_stack_barplot_per_ORP(academicdata_Barriers_for_plotting, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = "PGR students")
+
 
 
 # doubleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP, 
