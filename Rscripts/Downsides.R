@@ -39,7 +39,7 @@ staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsid
 supportstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
 academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Downsides_for_plotting, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_academic)
 
-# doubleplot_Downsides <- ggarrange(pgrdata_Downsides_perORP, 
+# doubleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
 #                                   allstaffdata_Downsides_perORP, 
 #                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 # doubleplot_Downsides <- annotate_figure(doubleplot_Downsides, 
@@ -47,7 +47,7 @@ academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_D
 #                                                         face = "bold", size = 14))
 # ggsave("Figures/Downsides-per-ORP.png", width = 10, height = 9, bg = "white")
 
-quadrupleplot_Downsides <- ggarrange(pgrdata_Downsides_perORP, 
+quadrupleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
                                   staffdata_Downsides_perORP, 
                                   supportstaffdata_Downsides_perORP,
                                   academicdata_Downsides_perORP,

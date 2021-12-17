@@ -63,7 +63,7 @@ quadrupleplot_FutureRecruitement_with_legend <- annotate_figure(quadrupleplot_Fu
 ## pgrdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_FutureRecruitment_for_plotting, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = "PGR students")
 ## allstaffdata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_FutureRecruitment_for_plotting, FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
 ## 
-## doubleplot_FutureRecruitment <- ggarrange(pgrdata_FutureRecruitment_perORP, 
+## doubleplot_FutureRecruitment <- ggpubr::ggarrange(pgrdata_FutureRecruitment_perORP, 
 ##                                   allstaffdata_FutureRecruitment_perORP, 
 ##                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 ## doubleplot_FutureRecruitment <- annotate_figure(doubleplot_FutureRecruitment, 

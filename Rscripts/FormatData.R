@@ -4,7 +4,7 @@ library(tidyverse)
 library(RColorBrewer)
 library(janitor)
 library(egg) # for function egg:: ggarrange (next package overwrites it because when not specified in code I want ggarrange from ggpubr). this one equalise width for shared axis
-library(ggpubr) # for function ggarange for grid ggplot. this one create common legend
+library(ggpubr) # for function ggarrange for grid ggplot. this one create common legend
 library(arsenal) # for function comparedf (to compare dataset created by hand and output of function)
 library(data.table) # for transpose(df) 
 library(reshape2) # for making pivot tables
@@ -94,3 +94,6 @@ supportstaffdata_Effect <- as.data.frame(lapply(supportstaffdata_Effect, gsub, p
                                             replacement = "Neutral (neither detrimental nor beneficial)", fixed = TRUE))
 academicdata_Effect <- as.data.frame(lapply(academicdata_Effect, gsub, pattern = "Neutral(neither detrimental nor beneficial)", 
                                             replacement = "Neutral (neither detrimental nor beneficial)", fixed = TRUE))
+
+
+source(here::here("Rscripts","Sample-sizes.R"))

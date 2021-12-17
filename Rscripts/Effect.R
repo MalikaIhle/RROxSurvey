@@ -38,7 +38,7 @@ staffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Effect_for
 supportstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
 academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effect_for_plotting, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_academic)
 
-# doubleplot_Effect <- ggarrange(pgrdata_Effect_perORP, 
+# doubleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
 #                                   allstaffdata_Effect_perORP, 
 #                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 # doubleplot_Effect <- annotate_figure(doubleplot_Effect, 
@@ -46,7 +46,7 @@ academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effe
 #                                                         face = "bold", size = 14))
 # ggsave("Figures/Effect-per-ORP.png", width = 10, height = 9, bg = "white")
 
-quadrupleplot_Effect <- ggarrange(pgrdata_Effect_perORP, 
+quadrupleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
                                      staffdata_Effect_perORP, 
                                      supportstaffdata_Effect_perORP,
                                      academicdata_Effect_perORP,

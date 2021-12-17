@@ -41,12 +41,12 @@ supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaf
 academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
 
 
-doubleplot_Training <- ggarrange(pgrdata_Training_perORP, 
-                               allstaffdata_Training_perORP, 
-                               ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-doubleplot_Training <- annotate_figure(doubleplot_Training, 
-                                     top = text_grob("Training needs", 
-                                                     face = "bold", size = 14))
+# doubleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP, 
+#                                allstaffdata_Training_perORP, 
+#                                ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+# doubleplot_Training <- annotate_figure(doubleplot_Training, 
+#                                      top = text_grob("Training needs", 
+#                                                      face = "bold", size = 14))
 #ggsave("Figures/Training.png", width = 10, height = 13, bg = "white")
 
 

@@ -1,6 +1,5 @@
 
   #source("Rscripts/FormatData.R")
-  #source("Rscripts/Sample-sizes.R")
 
 Criteria
 CurrentRecruitment_columns <- c(expr(CurrentRecruitment_PubNub), expr(CurrentRecruitment_PubPrestige), expr(CurrentRecruitment_PubQual), expr(CurrentRecruitment_Authorship),expr(CurrentRecruitment_Citation),
@@ -64,7 +63,7 @@ quadrupleplot_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_C
 ## pgrdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_CurrentRecruitment_for_plotting, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "PGR students")
 ## allstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_CurrentRecruitment_for_plotting, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
 ## 
-## doubleplot_CurrentRecruitment <- ggarrange(pgrdata_CurrentRecruitment_perORP, 
+## doubleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP, 
 ##                                   allstaffdata_CurrentRecruitment_perORP, 
 ##                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 ## doubleplot_CurrentRecruitment <- annotate_figure(doubleplot_CurrentRecruitment, 

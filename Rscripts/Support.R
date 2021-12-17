@@ -39,12 +39,12 @@ supportstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(supportstaff
 academicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Support_for_plotting, Support_answers, Support_colors, title_legend = NULL, title_plot =title_plot_academic)
 
 
-doubleplot_Support <- ggarrange(pgrdata_Support_perORP, 
-                                 allstaffdata_Support_perORP, 
-                                 ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-doubleplot_Support <- annotate_figure(doubleplot_Support, 
-                                       top = text_grob("Support needs", 
-                                                       face = "bold", size = 14))
+# doubleplot_Support <- ggpubr::ggarrange(pgrdata_Support_perORP, 
+#                                  allstaffdata_Support_perORP, 
+#                                  ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+# doubleplot_Support <- annotate_figure(doubleplot_Support, 
+#                                        top = text_grob("Support needs", 
+#                                                        face = "bold", size = 14))
 #ggsave("Figures/Support.png", width = 10, height = 13, bg = "white")
 
 

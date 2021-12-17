@@ -1,6 +1,5 @@
 
   #source("Rscripts/FormatData.R")
-  #source("Rscripts/Sample-sizes.R")
 
 # Variables to define
 Measures
@@ -41,7 +40,7 @@ supportstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(supportsta
 academicdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Awareness_for_plotting, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_academic)
 
 
-#doubleplot_Awareness <- ggarrange(pgrdata_Awareness_perORP, 
+#doubleplot_Awareness <- ggpubr::ggarrange(pgrdata_Awareness_perORP, 
 #                                  allstaffdata_Awareness_perORP, 
 #                                  ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 #doubleplot_Awareness <- annotate_figure(doubleplot_Awareness, 
@@ -49,7 +48,7 @@ academicdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(academicdata_A
 #                                                        face = "bold", size = 14))
 #  #ggsave("Figures/Awareness-per-ORP.png", width = 10, height = 9, bg = "white")
 
-quadrupleplot_Awareness <- ggarrange(pgrdata_Awareness_perORP, 
+quadrupleplot_Awareness <- ggpubr::ggarrange(pgrdata_Awareness_perORP, 
                                      staffdata_Awareness_perORP, 
                                      supportstaffdata_Awareness_perORP,
                                      academicdata_Awareness_perORP,
