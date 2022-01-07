@@ -64,6 +64,10 @@ clean_qualtrics_data <- function(data, surveyindex){
     data$Dept[!is.na(data$Dept10)] <- data$Dept10[!is.na(data$Dept10)]
     #table(data$Dept)
     
+    # one department was renamed
+    data$Dept[!is.na(data$Dept) & str_detect(data$Dept, "School of Interdisciplinary Area Studies")] <- "School of Global Area Studies" 
+    
+    
     ## Other Department
     #table(data$OtherDept)
     data[!is.na(data$OtherDept),c('OtherDept', 'Dept', 'Div')]
