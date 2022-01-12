@@ -3,38 +3,39 @@
 
 Support_answers <- c("Essential", "Useful", "Not sure", "Not useful")
 
-# pgrdata_OtherSupport 
-## subset and reformat data
-pgrdata_OtherSupport <- subset_columns_by_pattern(pgrdata, "^Support_Other")
-pgrdata_OtherSupport <- pgrdata_OtherSupport[rowSums(!is.na(pgrdata_OtherSupport)) > 1, ]
-colnames(pgrdata_OtherSupport) <- c('Div', 'Support_Other_score', 'Support_Other', 'Support_Other_score', 'Support_Other','Support_Other_score', 'Support_Other')
-pgrdata_OtherSupport <- rbind(pgrdata_OtherSupport[,c(1,2,3)], pgrdata_OtherSupport[,c(1,4,5)], pgrdata_OtherSupport[, c(1,6,7)])
-pgrdata_OtherSupport <- pgrdata_OtherSupport[!is.na(pgrdata_OtherSupport$Support_Other),]
+# Alldata_OtherSupport 
+## subset, merge, and reformat data
+pgrdata_OtherSupport <- cbind(subset_columns_by_pattern(pgrdata, "^Support_Other"), Subdataset = 'pgrdata')
+staffdata_OtherSupport <- cbind(subset_columns_by_pattern(staffdata, "^Support_Other"), Subdataset = 'staffdata')
+supportstaffdata_OtherSupport <- cbind(subset_columns_by_pattern(supportstaffdata, "^Support_Other"), Subdataset = 'supportstaffdata')
+academicdata_OtherSupport <- cbind(subset_columns_by_pattern(academicdata, "^Support_Other"), Subdataset = 'academicdata')
+
+Alldata_OtherSupport <- rbind(pgrdata_OtherSupport, staffdata_OtherSupport, supportstaffdata_OtherSupport, academicdata_OtherSupport)
+Alldata_OtherSupport <- Alldata_OtherSupport[rowSums(!is.na(Alldata_OtherSupport)) > 2, ]
+colnames(Alldata_OtherSupport) <- c('Div', 'Support_Other_score', 'Support_Other', 'Support_Other_score', 'Support_Other','Support_Other_score', 'Support_Other', 'Subdataset')
+Alldata_OtherSupport <- rbind(Alldata_OtherSupport[,c(1,2,3,8)], Alldata_OtherSupport[,c(1,4,5,8)], Alldata_OtherSupport[, c(1,6,7,8)])
+Alldata_OtherSupport <- Alldata_OtherSupport[!is.na(Alldata_OtherSupport$Support_Other),]
 ### Nb of respondents
-nrow(pgrdata_OtherSupport)
+nrow(Alldata_OtherSupport)
 
 ## recode
-pgrdata_OtherSupport$Support_Other_recode[str_detect(pgrdata_OtherSupport$Support_Other, 'Funding')] <- 'Funding'
-pgrdata_OtherSupport$Support_Other_recode[str_detect(pgrdata_OtherSupport$Support_Other, 'find funding')] <- 'Information on how to find funding for publishing in hybrid journal'
-pgrdata_OtherSupport$Support_Other_recode[str_detect(pgrdata_OtherSupport$Support_Other, 'incentives|recruitment practices|university')] <- 'University endorsement, recruitement criteria, and  policies'
-pgrdata_OtherSupport$Support_Other_recode[str_detect(pgrdata_OtherSupport$Support_Other, 'Publishing|publishing')] <- 'Training on how to publish transparent research'
+Alldata_OtherSupport$Support_Other_recode[str_detect(Alldata_OtherSupport$Support_Other, 'Funding')] <- 'Funding'
+Alldata_OtherSupport$Support_Other_recode[str_detect(Alldata_OtherSupport$Support_Other, 'find funding')] <- 'Information on how to find funding for publishing in hybrid journal'
+Alldata_OtherSupport$Support_Other_recode[str_detect(Alldata_OtherSupport$Support_Other, 'incentives|recruitment practices|university')] <- 'University endorsement, recruitement criteria, and  policies'
+Alldata_OtherSupport$Support_Other_recode[str_detect(Alldata_OtherSupport$Support_Other, 'Publishing|publishing')] <- 'Training on how to publish transparent research'
 
-pgrdata_OtherSupport[,c('Div','Support_Other_score', 'Support_Other_recode')]
+Alldata_OtherSupport$Support_Other_score <- factor(Alldata_OtherSupport$Support_Other_score , levels = Support_answers)
 
-pgrdata_OtherSupport$Support_Other_score <- factor(pgrdata_OtherSupport$Support_Other_score , levels = Support_answers)
-
-xtab_OtherSupport <- pgrdata_OtherSupport %>% 
+## split per subdataset
+xtab_OtherSupport <- Alldata_OtherSupport %>% 
   tabyl(Support_Other_recode, Support_Other_score, show_missing_levels = FALSE) %>% 
   arrange(-Essential)
 names(xtab_OtherSupport)[1] <- "" 
+xtab_OtherSupport
 
+pgrdata_xtab_OtherSupport <- Alldata_OtherSupport[Alldata_OtherSupport$Subdataset == 'pgrdata',] %>% 
+  tabyl(Support_Other_recode, Support_Other_score, show_missing_levels = FALSE) %>% 
+  arrange(-Essential)
+names(pgrdata_xtab_OtherSupport)[1] <- "" 
+pgrdata_xtab_OtherSupport
 
-# allstaffdata_OtherSupport 
-## subset and reformat data
-allstaffdata_OtherSupport <- subset_columns_by_pattern(allstaffdata, "^Support_Other")
-allstaffdata_OtherSupport <- allstaffdata_OtherSupport[rowSums(!is.na(allstaffdata_OtherSupport)) > 1, ]
-colnames(allstaffdata_OtherSupport) <- c('Div', 'Support_Other_score', 'Support_Other', 'Support_Other_score', 'Support_Other','Support_Other_score', 'Support_Other')
-allstaffdata_OtherSupport <- rbind(allstaffdata_OtherSupport[,c(1,2,3)], allstaffdata_OtherSupport[,c(1,4,5)], allstaffdata_OtherSupport[, c(1,6,7)])
-allstaffdata_OtherSupport <- allstaffdata_OtherSupport[!is.na(allstaffdata_OtherSupport$Support_Other),]
-### Nb of respondents
-nrow(allstaffdata_OtherSupport)
