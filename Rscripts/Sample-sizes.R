@@ -1,13 +1,13 @@
 
   #source("Rscripts/FormatData.R")
 
-# Descriptive statistics: Numbers of responses per Dpt, survey duration, experience duration
-## during data collection - check coverage across department
-data.frame(pgrdata %>% group_by(Div, Dept) %>% summarise(n = n()))
+# Suring data collection: Descriptive statistics: Numbers of responses per Dpt, survey duration, experience duration
+## Check coverage across department
+data.frame(data_round2 %>% group_by(Div, Dept) %>% summarise(n = n()))
 
 ## Number of years of experience (not used later on - so far)
-summary(pgrdata$Duration)
-data.frame(pgrdata %>% group_by(Div) %>% summarise(minDuration = min(Duration, na.rm=TRUE),
+summary(data_round2$Duration)
+data.frame(data_round2 %>% group_by(Div) %>% summarise(minDuration = min(Duration, na.rm=TRUE),
                                                    medDuration = median(Duration, na.rm=TRUE),
                                                    meanDuration = mean(Duration, na.rm=TRUE),
                                                    maxDuration = max(Duration, na.rm=TRUE),
