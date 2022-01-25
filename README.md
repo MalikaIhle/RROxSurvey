@@ -75,3 +75,5 @@ It calls names of plots and tables created in the Question.R files.
 Saving figures for testing command to plot and ajusting.   
 The Rmd reports recreate the figures and do not use these still images.   
 
+# list of decisions
+- College only staff affiliation replaced to their Division of affinity. if didn't answer that -> data not used.
