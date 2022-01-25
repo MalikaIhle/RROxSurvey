@@ -15,23 +15,25 @@ source(here::here("Rscripts","Functions-and-Parameters.R"))
 # Load data
 data_round1 <- read.csv(here("Data/RealData_20210302-0945.csv"), stringsAsFactors=FALSE)
 #data_round2 <- read.csv(here("Data/SimulatedData_20201214.csv"), stringsAsFactors=FALSE) ## this is simulated data to prep the code for round 2
+data_round2 <- read.csv(here("Data/RealData_20220121-1321.csv"), stringsAsFactors=FALSE)
 surveyindex <- read.csv(here("Data/SurveyIndex.csv"), stringsAsFactors=FALSE)
 targetnumbers <- read.csv(here("Data/TargetNumbers.csv"), stringsAsFactors=FALSE) # only has Total staff in 2019!
 
 # Format data
 data_round1 <- clean_qualtrics_data(data_round1, surveyindex)
-#data_round2 <- clean_qualtrics_data(data_round2, surveyindex) ## this is simulated data to prep the code for round 2
+data_round2 <- clean_qualtrics_data(data_round2, surveyindex)
+data_round12 <- rbind(data_round1, data_round2) # <------------------!!!!!!!!!!!!!!!!!!!!!! Merging both rounds!!!!!!!!!!!!!!!!!!!!!
 rm(surveyindex)
 
 # Split data per respondent type
   ## will we want to bind staff data collected in both rounds or keep them separate (at least keep an ID from when they were collected - date or entry?)
 
-pgrdata <- data_round1[data_round1$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
-allstaffdata <- data_round1[data_round1$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
+pgrdata <- data_round12[data_round12$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
+allstaffdata <- data_round12[data_round12$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
 
-staffdata <- data_round1[data_round1$Role == "Research Staff or Research Fellow",] #staffdata <- rbind(data_round1[data_round1$Role == "Research Staff or Research Fellow",], data_round2)
-supportstaffdata <- data_round1[data_round1$Role == "Research Support Staff",]
-academicdata <- data_round1[data_round1$Role == "Academic",]
+staffdata <- data_round12[data_round12$Role == "Research Staff or Research Fellow",] 
+supportstaffdata <- data_round12[data_round12$Role == "Research Support Staff",]
+academicdata <- data_round12[data_round12$Role == "Academic",]
 
 
 
