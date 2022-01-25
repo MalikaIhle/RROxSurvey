@@ -41,7 +41,8 @@ clean_qualtrics_data <- function(data, surveyindex){
     
     ## Division
     data$Div <- data$DivCol
-    data$Div[data$Div == "College-only staff"] <- data$ColDiv[data$Div == "College-only staff"]
+    data$Div[data$Div == "College-only staff"] <- data$ColDiv[data$Div == "College-only staff"] # replacing College only staff affiliation to their Div of affinity
+    data <- data[!is.na(data$Div),] # removing college only staff who didn't say which Division thair field of research was closed to...
     
     data$Div[data$Div == "Social Sciences Division"] <- "SSD"
     data$Div[data$Div == "Humanities Division"] <- "Hum"
@@ -75,6 +76,9 @@ clean_qualtrics_data <- function(data, surveyindex){
     ### recoding of Dept for otherdept actually in the list
     data$Dept[!is.na(data$OtherDept) & (data$OtherDept == "Wellcome Centre for Human Genetics" |
                                           data$OtherDept == "Experimental Medicine"|
+                                          data$OtherDept == "NDM Experimental Medicine"|
+                                          data$OtherDept == "Nuffield department of medicine"|
+                                          data$OtherDept == "Division of Structural Biology"|
                                           data$OtherDept == "Nuffield Department of Experimental Medicine")] <- "Nuffield Department of Clinical Medicine"
     
     data$Dept[!is.na(data$OtherDept) & str_detect(data$OtherDept, "Oxford Internet Institute")] <- "Oxford Internet Institute"
@@ -786,7 +790,7 @@ prepare_freetext_subdataset <- function(data, pattern){
   # data <- pgrdata
   # pattern <- "^OtherBarriers_"
   subdataset <- subset_columns_by_pattern(data, pattern)
-  subdataset <- subdataset[rowSums(!is.na(subdataset)) > 1, ] # kepp rows with at least one entry in the row
+  subdataset <- subdataset[rowSums(!is.na(subdataset)) > 1, ] # keep rows with at least one entry in the row
   subdataset <- capitalise_all_strings(subdataset)
   colnames(subdataset) <- str_remove(colnames(subdataset), pattern)
   return(subdataset)
