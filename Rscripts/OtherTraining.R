@@ -15,26 +15,29 @@ Alldata_OtherTraining <- Alldata_OtherTraining[rowSums(!is.na(Alldata_OtherTrain
 colnames(Alldata_OtherTraining) <- c('Div', 'Training_Other_score', 'Training_Other', 'Training_Other_score', 'Training_Other','Training_Other_score', 'Training_Other', 'Subdataset')
 Alldata_OtherTraining <- rbind(Alldata_OtherTraining[,c(1,2,3,8)], Alldata_OtherTraining[,c(1,4,5,8)], Alldata_OtherTraining[, c(1,6,7,8)])
 Alldata_OtherTraining <- Alldata_OtherTraining[!is.na(Alldata_OtherTraining$Training_Other),]
+Alldata_OtherTraining$Training_Other <- toupper(Alldata_OtherTraining$Training_Other)
 ### Nb of respondents
 nrow(Alldata_OtherTraining)
 
 ## recode
-Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, "superv")] <- 'How to supervise/mentor/teach/collaborate'
-Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, "employable skill")] <- 'How to ensure that you have acquired employable skill'
-Alldata_OtherTraining$Training_Other_recode[Alldata_OtherTraining$Training_Other == 'How to negotiate with publishers about book publications'] <- 'How to negotiate with publishers about book publications'
-Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'diversity|Diverse|Social Justice')] <- 'How to foster diversity and social justice'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, "SUPERV")] <- 'How to supervise/mentor/teach/collaborate'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, "EMPLOYABLE SKILL")] <- 'How to ensure that you have acquired employable skill'
+Alldata_OtherTraining$Training_Other_recode[Alldata_OtherTraining$Training_Other == 'HOW TO NEGOTIATE WITH PUBLISHERS ABOUT BOOK PUBLICATIONS'] <- 'How to negotiate with publishers about book publications'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'DIVERSITY|DIVERSE|SOCIAL JUSTICE')] <- 'How to foster diversity and social justice'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'APPROPRIATENESS|CAN AND CAN\'T BE SHARED')] <- 'Guidance on what can and cannot be shared'
 
-
+Alldata_OtherTraining$Training_Other_recode[!is.na(Alldata_OtherTraining$Training_Other) & is.na(Alldata_OtherTraining$Training_Other_recode)] <- 'Not categorised'
+Alldata_OtherTraining[!is.na(Alldata_OtherTraining$Training_Other) & Alldata_OtherTraining$Training_Other_recode == 'Not categorised',]
 Alldata_OtherTraining$Training_Other_score <- factor(Alldata_OtherTraining$Training_Other_score , levels = Training_answers)
 
 ## split per subdataset
-xtab_OtherTraining <- Alldata_OtherTraining %>% 
+xtab_OtherTraining <- Alldata_OtherTraining[Alldata_OtherTraining$Training_Other_recode != 'Not categorised',] %>% 
   tabyl(Training_Other_recode, Training_Other_score, show_missing_levels = FALSE) %>% 
   arrange(-`Written guidance and workshop-led training`)
 names(xtab_OtherTraining)[1] <- "" 
 xtab_OtherTraining
 
-pgrdata_xtab_OtherTraining <- Alldata_OtherTraining[Alldata_OtherTraining$Subdataset == 'pgrdata',] %>% 
+pgrdata_xtab_OtherTraining <- Alldata_OtherTraining[Alldata_OtherTraining$Subdataset == 'pgrdata' & Alldata_OtherTraining$Training_Other_recode != 'Not categorised',] %>% 
   tabyl(Training_Other_recode, Training_Other_score, show_missing_levels = FALSE) %>% 
   arrange(-`Written guidance and workshop-led training`)
 names(pgrdata_xtab_OtherTraining)[1] <- "" 
