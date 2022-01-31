@@ -79,3 +79,28 @@ quadrupleplot_Training <- annotate_figure(quadrupleplot_Training,
 quadrupleplot_Training
 #ggsave("Figures/quadrupleplot_Training.png", width = 10, height = 13, bg = "white")
 
+## all data pooled across Div and target pop
+All_Data_Training <- rbind(
+  pgrdata_Training,
+  staffdata_Training,
+  supportstaffdata_Training,
+  academicdata_Training)
+
+All_Split_Training_for_plotting <- prepare_data_for_plotting(Trainings, All_Data_Training, Training_answers, Training_columns)
+All_Grouped_Training_for_plotting <- regroup_all_data(All_Split_Training_for_plotting)
+
+title_plot_All_Training <- paste ("Training of ORPs
+(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Training"])+
+                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Training"])+
+                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Training"])+
+                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Training"])),
+                         ")" , sep="")
+
+
+All_Grouped_Training_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Training_for_plotting, 
+                                                                          Trainings, 
+                                                                           Training_answers, 
+                                                                           Training_colors, 
+                                                                           title_plot = title_plot_All_Training, 
+                                                                           legend_position = "bottom")
+All_Grouped_Training_plot

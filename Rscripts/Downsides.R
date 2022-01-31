@@ -57,3 +57,31 @@ quadrupleplot_Downsides <- annotate_figure(quadrupleplot_Downsides,
                                                         face = "bold", size = 14))
 quadrupleplot_Downsides
 #ggsave("Figures/quadrupleplot_Downsides-per-ORP.png", width = 10, height = 10, bg = "white")
+
+
+## all data pooled across Div and target pop
+All_Data_Downsides <- rbind(
+  pgrdata_Downsides,
+  staffdata_Downsides,
+  supportstaffdata_Downsides,
+  academicdata_Downsides)
+
+All_Split_Downsides_for_plotting <- prepare_data_for_plotting(Measures, All_Data_Downsides, Downsides_answers, Downsides_columns)
+All_Grouped_Downsides_for_plotting <- regroup_all_data(All_Split_Downsides_for_plotting)
+
+title_plot_All_Downsides <- paste ("Downsides of ORPs
+(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Downsides"])+
+                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Downsides"])+
+                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Downsides"])+
+                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Downsides"])),
+                         ")" , sep="")
+
+
+All_Grouped_Downsides_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Downsides_for_plotting, 
+                                                                        Measures, 
+                                                                        Downsides_answers, 
+                                                                        Downsides_colors, 
+                                                                        title_plot = title_plot_All_Downsides, 
+                                                                        legend_position = "bottom")
+All_Grouped_Downsides_plot
+

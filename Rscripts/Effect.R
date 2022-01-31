@@ -58,3 +58,30 @@ quadrupleplot_Effect
 #ggsave("Figures/quadrupleplot_Effect-per-ORP.png", width = 10, height = 10, bg = "white")
 
 
+
+## all data pooled across Div and target pop
+All_Data_Effect <- rbind(
+  pgrdata_Effect,
+  staffdata_Effect,
+  supportstaffdata_Effect,
+  academicdata_Effect)
+
+All_Split_Effect_for_plotting <- prepare_data_for_plotting(Measures, All_Data_Effect, Effect_answers, Effect_columns)
+All_Grouped_Effect_for_plotting <- regroup_all_data(All_Split_Effect_for_plotting)
+
+title_plot_All_Effect <- paste ("Effect of ORPs
+(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Effect"])+
+                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Effect"])+
+                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Effect"])+
+                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Effect"])),
+                         ")" , sep="")
+
+
+All_Grouped_Effect_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Effect_for_plotting, 
+                                                                           Measures, 
+                                                                           Effect_answers, 
+                                                                           Effect_colors, 
+                                                                           title_plot = title_plot_All_Effect, 
+                                                                           legend_position = "bottom")
+All_Grouped_Effect_plot
+

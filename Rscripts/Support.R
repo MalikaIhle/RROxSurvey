@@ -78,3 +78,28 @@ quadrupleplot_Support <- annotate_figure(quadrupleplot_Support,
 quadrupleplot_Support
 #ggsave("Figures/quadrupleplot_Support.png", width = 10, height = 13, bg = "white")
 
+## all data pooled across Div and target pop
+All_Data_Support <- rbind(
+  pgrdata_Support,
+  staffdata_Support,
+  supportstaffdata_Support,
+  academicdata_Support)
+
+All_Split_Support_for_plotting <- prepare_data_for_plotting(Supports, All_Data_Support, Support_answers, Support_columns)
+All_Grouped_Support_for_plotting <- regroup_all_data(All_Split_Support_for_plotting)
+
+title_plot_All_Support <- paste ("Support of ORPs
+(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Support"])+
+                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Support"])+
+                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Support"])+
+                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Support"])),
+                         ")" , sep="")
+
+
+All_Grouped_Support_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Support_for_plotting, 
+                                                                          Supports, 
+                                                                          Support_answers, 
+                                                                          Support_colors, 
+                                                                          title_plot = title_plot_All_Support, 
+                                                                          legend_position = "bottom")
+All_Grouped_Support_plot

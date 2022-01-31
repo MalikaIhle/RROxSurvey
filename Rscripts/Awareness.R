@@ -36,7 +36,7 @@ title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academi
 pgrdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Awareness_for_plotting, Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_pgr)
 allstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Awareness_for_plotting, Measures,Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = "Researchers")
 staffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Awareness_for_plotting, Measures,Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Awareness_for_plotting,Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+supportstaffdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Awareness_for_plotting, Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
 academicdata_Awareness_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Awareness_for_plotting, Measures, Awareness_answers, Awareness_colors, title_legend = NULL, title_plot = title_plot_academic)
 
 
@@ -59,3 +59,28 @@ quadrupleplot_Awareness <- annotate_figure(quadrupleplot_Awareness,
 quadrupleplot_Awareness
 #ggsave("Figures/quadrupleplot_Awareness-per-ORP.png", width = 10, height = 10, bg = "white")
 
+## all data pooled across Div and target pop
+All_Data_Awareness <- rbind(
+  pgrdata_Awareness,
+  staffdata_Awareness,
+  supportstaffdata_Awareness,
+  academicdata_Awareness)
+
+All_Split_Awareness_for_plotting <- prepare_data_for_plotting(Measures, All_Data_Awareness, Awareness_answers, Awareness_columns)
+All_Grouped_Awareness_for_plotting <- regroup_all_data(All_Split_Awareness_for_plotting)
+
+title_plot_All_Awareness <- paste ("Awareness of ORPs
+(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Awareness"])+
+                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Awareness"])+
+                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Awareness"])+
+                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Awareness"])),
+                         ")" , sep="")
+
+
+All_Grouped_Awareness_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Awareness_for_plotting, 
+                                                                                    Measures, 
+                                                                                    Awareness_answers, 
+                                                                                    Awareness_colors, 
+                                                                                    title_plot = title_plot_All_Awareness, 
+                                                                                    legend_position = "bottom")
+All_Grouped_Awareness_plot
