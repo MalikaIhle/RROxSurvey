@@ -22,18 +22,20 @@ targetnumbers <- read.csv(here("Data/TargetNumbers.csv"), stringsAsFactors=FALSE
 # Format data
 data_round1 <- clean_qualtrics_data(data_round1, surveyindex)
 data_round2 <- clean_qualtrics_data(data_round2, surveyindex)
-data_round12 <- rbind(data_round1, data_round2) # <------------------!!!!!!!!!!!!!!!!!!!!!! Merging both rounds!!!!!!!!!!!!!!!!!!!!!
+data_round12 <- rbind(data_round1, data_round2) # merging both rounds
 rm(surveyindex)
 
 # Split data per respondent type
   ## will we want to bind staff data collected in both rounds or keep them separate (at least keep an ID from when they were collected - date or entry?)
 
-pgrdata <- data_round12[data_round12$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
-allstaffdata <- data_round12[data_round12$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
+data <- data_round12 # <------------------!!!!!!!!!!!!!!!!!!!!!! decide which dataset to use !!!!!!!!!!!!!!!!!!!!!
 
-staffdata <- data_round12[data_round12$Role == "Research Staff or Research Fellow",] 
-supportstaffdata <- data_round12[data_round12$Role == "Research Support Staff",]
-academicdata <- data_round12[data_round12$Role == "Academic",]
+pgrdata <- data[data$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
+allstaffdata <- data[data$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
+
+staffdata <- data[data$Role == "Research Staff or Research Fellow",] 
+supportstaffdata <- data[data$Role == "Research Support Staff",]
+academicdata <- data[data$Role == "Academic",]
 
 
 

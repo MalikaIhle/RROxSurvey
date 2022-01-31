@@ -42,7 +42,7 @@ clean_qualtrics_data <- function(data, surveyindex){
     ## Division
     data$Div <- data$DivCol
     data$Div[data$Div == "College-only staff"] <- data$ColDiv[data$Div == "College-only staff"] # replacing College only staff affiliation to their Div of affinity
-    data <- data[!is.na(data$Div),] # removing college only staff who didn't say which Division thair field of research was closed to...
+    #data <- data[!is.na(data$Div),] # removing college only staff who didn't say which Division their field of research was closed to...
     
     data$Div[data$Div == "Social Sciences Division"] <- "SSD"
     data$Div[data$Div == "Humanities Division"] <- "Hum"
