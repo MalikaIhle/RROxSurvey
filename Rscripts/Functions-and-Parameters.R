@@ -9,7 +9,7 @@ Criteria <- c('Number of publications','Prestige of publication outlet','Quality
 Criteria_short <- c("PubNub","PubPrestige","PubQual","Authorship","Citation","Grant","Impact", "Teaching","Supervision","Service","Citizenship",
                     "Reputation","Collaboration","OpenResearch")
 
-Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd", "GLAM")
+Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd", "GLAM", "College")
 
 #Questions <- c("Awareness","Effect", "Barriers", "Downsides", "CurrentRecruitment", "FutureRecruitment", "Training", "Support")
 Questions <- c(expr(Awareness),expr(Effect), expr(Barriers), expr(Downsides), expr(CurrentRecruitment), 
@@ -42,7 +42,7 @@ clean_qualtrics_data <- function(data, surveyindex){
     ## Division
     data$Div <- data$DivCol
     data$Div[data$Div == "College-only staff"] <- data$ColDiv[data$Div == "College-only staff"] # replacing College only staff affiliation to their Div of affinity
-    #data <- data[!is.na(data$Div),] # removing college only staff who didn't say which Division their field of research was closed to...
+    data$Div[is.na(data$Div)] <- 'College' # removing college only staff who didn't say which Division their field of research was closed to...
     
     data$Div[data$Div == "Social Sciences Division"] <- "SSD"
     data$Div[data$Div == "Humanities Division"] <- "Hum"
@@ -261,7 +261,7 @@ circular_plot_function <- function(data, Question, answers, title_plot, answers_
   # title_plot <- 'Awareness'
   # answers_colors <- Awareness_colors
   
-  data <-data[data$Div != "GLAM",] # plot below was designed without GLAM (i.e. missing aestethics e.g. hjust if included)
+  data <-data[data$Div != "GLAM" & data$Div != "College",] # plot below was designed without GLAM (i.e. missing aestethics e.g. hjust if included)
   
   #name_data_argument <- deparse(substitute(data)) # get the name of the dataset to apply if statement below to move label around depending on plot
   
@@ -407,7 +407,10 @@ horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_co
   # answers_colors <- Awareness_colors
   # title_legend <- "PGR students"
   # title_plot <- NULL
-  
+  data <- data[data$Div != "College",] # do not plot college data (where college only staff haven't picked a Division for related field)
+  # data$Div[data$Div == 'ContEd' | data$Div == 'GLAM'] <- 'Hum' # merge ContEd and GLAM data to Hum data
+  # data <- data[data$Div != "ContEd"& data$Div != 'GLAM',] # excluding them for plotting means the sample size indicated on plot (taken from script sample sizes) would be off by a few numbers (thos excluded)
+    
   data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
   data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
   
