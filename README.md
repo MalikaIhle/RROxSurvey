@@ -76,6 +76,7 @@ Saving figures for testing command to plot and ajusting.
 The Rmd reports recreate the figures and do not use these still images.   
 
 # list of decisions
-- College only staff affiliation replaced to their Division of affinity. if didn't answer that -> data not shown unless all data pooled.
+- College only staff affiliation replaced by their Division of affinity. if didn't answer that -> data not shown in plots unless all data pooled.
+- horizontal bar plot function merges ContEd and GLAM data to Hum data
 - if one item not scored in a grid, I remove those NAs for calculation of percentage for each responses for that item. (i.e. like if items were independents)
 - for Barriers: select items if at least one answer is not NA to calculate percentages (like if items were independents)
