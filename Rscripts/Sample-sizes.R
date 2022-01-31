@@ -124,7 +124,6 @@ ss_allstaffdata <- allstaffdata_Consent_Affiliation_Role_ss %>%
   full_join(allstaffdata_Support_ss,  by = 'Div') %>% 
   full_join(targetnumbers[,c('Div', 'AllStaffTotal2019')],  by = 'Div') ### need updating !!
 
-ss_allstaffdata[is.na(ss_allstaffdata)] <- 0
 ss_allstaffdata <- rbind(ss_allstaffdata, c("Total", colSums(ss_allstaffdata[,-1], na.rm = TRUE)))
 
 ss_allstaffdata$PercRepresentativeness <- round(as.numeric(ss_allstaffdata$Consent_Affiliation_Role)*100/as.numeric(ss_allstaffdata$AllStaffTotal2019),1)
@@ -153,12 +152,12 @@ ss_staffdata <- staffdata_Consent_Affiliation_Role_ss %>%
   full_join(staffdata_FutureRecruitment_ss,  by = 'Div') %>% 
   full_join(staffdata_Training_ss,  by = 'Div') %>% 
   full_join(staffdata_Support_ss,  by = 'Div') %>% 
-  full_join(targetnumbers[,c('Div', 'ResearchStaffTotal2019')],  by = 'Div') ### need updating !!
+  full_join(targetnumbers[,c('Div', 'ResearchStaffTotal2020')],  by = 'Div') ### need updating !!
 
-ss_staffdata[is.na(ss_staffdata)] <- 0
 ss_staffdata <- rbind(ss_staffdata, c("Total", colSums(ss_staffdata[,-1], na.rm = TRUE)))
+ss_staffdata <- ss_staffdata[!ss_staffdata$ResearchStaffTotal2020 == 0,] # remove ContEd since no staff
 
-ss_staffdata$PercRepresentativeness <- round(as.numeric(ss_staffdata$Consent_Affiliation_Role)*100/as.numeric(ss_staffdata$ResearchStaffTotal2019),1)
+ss_staffdata$PercRepresentativeness <- round(as.numeric(ss_staffdata$Consent_Affiliation_Role)*100/as.numeric(ss_staffdata$ResearchStaffTotal2020),1)
 ss_staffdata[,2:ncol(ss_staffdata)] <- sapply(ss_staffdata[,2:ncol(ss_staffdata)], as.integer) # needed for the apply function to work
 ss_staffdata$TotalDrop <- apply(ss_staffdata[,2:10], 1, max) - apply(ss_staffdata[,2:10], 1, min)
 ss_staffdata$PercDrop <- round(ss_staffdata$TotalDrop/apply(ss_staffdata[,2:10], 1, max)*100,1)
@@ -186,7 +185,7 @@ ss_supportstaffdata <- supportstaffdata_Consent_Affiliation_Role_ss %>%
   full_join(supportstaffdata_Support_ss,  by = 'Div') %>% 
   full_join(targetnumbers[,c('Div', 'ResearchSupportTotal2019')],  by = 'Div') ### need updating !!
 
-ss_supportstaffdata[is.na(ss_supportstaffdata)] <- 0
+ss_supportstaffdata[is.na(ss_supportstaffdata)] <- 0 # because ContEd has NA 
 ss_supportstaffdata <- rbind(ss_supportstaffdata, c("Total", colSums(ss_supportstaffdata[,-1], na.rm = TRUE)))
 
 ss_supportstaffdata$PercRepresentativeness <- round(as.numeric(ss_supportstaffdata$Consent_Affiliation_Role)*100/as.numeric(ss_supportstaffdata$ResearchSupportTotal2019),1)
@@ -217,7 +216,6 @@ ss_academicdata <- academicdata_Consent_Affiliation_Role_ss %>%
   full_join(academicdata_Support_ss,  by = 'Div') %>% 
   full_join(targetnumbers[,c('Div', 'AcademicTotal2019')],  by = 'Div') ### need updating !!
 
-ss_academicdata[is.na(ss_academicdata)] <- 0
 ss_academicdata <- rbind(ss_academicdata, c("Total", colSums(ss_academicdata[,-1], na.rm = TRUE)))
 
 ss_academicdata$PercRepresentativeness <- round(as.numeric(ss_academicdata$Consent_Affiliation_Role)*100/as.numeric(ss_academicdata$AcademicTotal2019),1)
