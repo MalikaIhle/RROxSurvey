@@ -14,6 +14,10 @@ allstaffdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criter
 staffdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, staffdata_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
 supportstaffdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, supportstaffdata_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
 academicdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, academicdata_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
+alldata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, data_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
+
+All_Data_But_Academic_CurrentRecruitment_for_plotting <- rbind(pgrdata_CurrentRecruitment_for_plotting,allstaffdata_CurrentRecruitment_for_plotting)
+
 
 # regroup data split per Division for overall plot
 All_pgrdata_CurrentRecruitment_for_plotting <- regroup_all_data(pgrdata_CurrentRecruitment_for_plotting)
@@ -23,19 +27,46 @@ All_supportstaffdata_CurrentRecruitment_for_plotting <- regroup_all_data(support
 All_academicdata_CurrentRecruitment_for_plotting <- regroup_all_data(academicdata_CurrentRecruitment_for_plotting)
 
 # Horizontal stacked barplot
-title_plot_pgr <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "CurrentRecruitment"], ")" , sep="")
-title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "CurrentRecruitment"], ")" , sep="")
-title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "CurrentRecruitment"], ")" , sep="")
-title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "CurrentRecruitment"], ")" , sep="")
+Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
+title_plot_Current_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                                                   as.numeric(sst_staffdata[sst_staffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                                                   as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                                                   as.numeric(sst_academicdata[sst_academicdata$Question == "CurrentRecruitment", Plotted_Div ])),")" , sep="")
+title_plot_Current_allbutacademic <- paste ("Non-Academics (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "CurrentRecruitment", Plotted_Div ]),
+                                                    as.numeric(sst_pgrdata[sst_pgrdata$Question == "CurrentRecruitment", Plotted_Div ])), ")" , sep="")
 
-temp <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_pgr, legend_position = "bottom")
+
+
+temp <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_pgr, legend_position = "bottom")
 shared_legend <- extract_legend(temp)
 rm(temp)
 
-All_pgrdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_pgr, legend_position = "none")
-All_staffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_staffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_staff)
-All_supportstaffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_supportstaff)
-All_academicdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_academic)
+All_pgrdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_pgr, legend_position = "none")
+All_allstaffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_allstaffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_allstaff)
+All_staffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_staffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_staff)
+All_supportstaffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_supportstaff)
+All_academicdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_academic)
+
+doubleplot_All_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
+                                                     All_allstaffdata_CurrentRecruitment_plot, 
+                                                     nrow=1)
+
+doubleplot_All_CurrentRecruitement_with_legend <- ggpubr::ggarrange(doubleplot_All_CurrentRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+
+doubleplot_All_CurrentRecruitement_with_legend <- annotate_figure(doubleplot_All_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
+                                                                                                                                        face = "bold", size = 14))
+
+doubleplot_All_CurrentRecruitement_with_legend
+# ggsave("Figures/Round12_Double_AllDiv_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
+
 
 quadrupleplot_All_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
                                                All_staffdata_CurrentRecruitment_plot, 
@@ -48,8 +79,8 @@ quadrupleplot_All_CurrentRecruitement_with_legend <- ggpubr::ggarrange(quadruple
 quadrupleplot_All_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_All_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
                                                                      face = "bold", size = 14))
 
-
-#ggsave("Figures/quadrupleplot_All_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
+quadrupleplot_All_CurrentRecruitement_with_legend
+#ggsave("Figures/Round12_Quadruple_AllDiv_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
 
 
 
@@ -59,12 +90,37 @@ quadrupleplot_All_CurrentRecruitement_with_legend <- annotate_figure(quadruplepl
 # plot regrouped data 
 ## All_pgrdata_CurrentRecruitment_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors)
 
-# Horizontal stacked barplot per ORP
-pgrdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_CurrentRecruitment_for_plotting,Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(staffdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
-academicdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(academicdata_CurrentRecruitment_for_plotting, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_academic)
+# Horizontal stacked barplot 
+pgrdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_CurrentRecruitment_for_plotting, Plotted_Div, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_pgr)
+allstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_CurrentRecruitment_for_plotting, Plotted_Div, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_allstaff)
+staffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(staffdata_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_staff)
+supportstaffdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_supportstaff)
+academicdata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(academicdata_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_academic)
+All_Data_But_Academic_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(All_Data_But_Academic_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_allbutacademic)
+
+alldata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(alldata_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
+# ggsave("Figures/Round12_Single_splitDiv_CurrentRecruitment.png", width = 6, height = 20, bg = "white")
+
+doubleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP,
+                                          allstaffdata_CurrentRecruitment_perORP,
+                                          ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_CurrentRecruitment <- annotate_figure(doubleplot_CurrentRecruitment,
+                                        top = text_grob("Perceived current recruitment criteria",
+                                                        face = "bold", size = 14))
+doubleplot_CurrentRecruitment
+# ggsave("Figures/Round12_Double_splitDiv_CurrentRecruitment.png", width = 12, height = 20, bg = "white")
+
+
+doubleplotAcademicvsNonAc_CurrentRecruitment <- ggpubr::ggarrange(All_Data_But_Academic_CurrentRecruitment_perORP,
+                                                                  academicdata_CurrentRecruitment_perORP,
+                                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplotAcademicvsNonAc_CurrentRecruitment <- annotate_figure(doubleplotAcademicvsNonAc_CurrentRecruitment,
+                                                 top = text_grob("Perceived current recruitment criteria",
+                                                                 face = "bold", size = 14))
+doubleplotAcademicvsNonAc_CurrentRecruitment
+# ggsave("Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png", width = 12, height = 20, bg = "white")
+
+
 
 quadrupleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP,
                                   staffdata_CurrentRecruitment_perORP,
@@ -75,4 +131,27 @@ quadrupleplot_CurrentRecruitment <- annotate_figure(quadrupleplot_CurrentRecruit
                                         top = text_grob("Perceived current recruitment criteria",
                                                         face = "bold", size = 14))
 quadrupleplot_CurrentRecruitment
-#ggsave("Figures/quadruple_CurrentRecruitment.png", width = 12, height = 20, bg = "white")
+# ggsave("Figures/Round12_Quadruple_splitDiv_CurrentRecruitment.png", width = 12, height = 20, bg = "white")
+
+
+
+
+# Horizontal stacked barplot for ORP only
+All_Data_But_Academic_CurrentRecruitment_forORP <- horizontal_stack_barplot_per_ORP(All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                                   ,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_allbutacademic)
+academicdata_CurrentRecruitment_forORP <- horizontal_stack_barplot_per_ORP(academicdata_CurrentRecruitment_for_plotting[academicdata_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                          , Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_academic)
+
+
+
+doubleplotAcademicvsNonAc_CurrentRecruitment_forORP <- ggpubr::ggarrange(All_Data_But_Academic_CurrentRecruitment_forORP,
+                                                                        academicdata_CurrentRecruitment_forORP,
+                                                                        ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplotAcademicvsNonAc_CurrentRecruitment_forORP <- annotate_figure(doubleplotAcademicvsNonAc_CurrentRecruitment_forORP,
+                                                                      top = text_grob("Perceived current recruitment criteria",
+                                                                                      face = "bold", size = 14))
+doubleplotAcademicvsNonAc_CurrentRecruitment_forORP
+# ggsave("Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment_forORP.png", width = 10, height = 4, bg = "white")
+
+
+

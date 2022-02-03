@@ -28,24 +28,29 @@ All_academicstaffdata_Downsides_for_plotting <- regroup_all_data(academicdata_Do
 ## All_pgrdata_Downsides_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors)
 
 # Horizontal stacked barplot per ORP
-title_plot_pgr <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "Downsides"], ")" , sep="")
-title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "Downsides"], ")" , sep="")
-title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Downsides"], ")" , sep="")
-title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Downsides"], ")" , sep="")
+Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
+title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Downsides", Plotted_Div ]),
+                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Downsides", Plotted_Div ]),
+                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
+title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
+title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
+title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
 
-pgrdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
-academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Downsides_for_plotting, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_academic)
+pgrdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Downsides_for_plotting, Plotted_Div, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Downsides_for_plotting, Plotted_Div, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_allstaff)
+staffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Downsides_for_plotting, Plotted_Div, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Downsides_for_plotting, Plotted_Div, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
+academicdata_Downsides_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Downsides_for_plotting,Plotted_Div, Measures, Downsides_answers, Downsides_colors, title_legend = NULL, title_plot = title_plot_academic)
 
-# doubleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
-#                                   allstaffdata_Downsides_perORP, 
-#                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-# doubleplot_Downsides <- annotate_figure(doubleplot_Downsides, 
-#                                         top = text_grob("Downsides of ORPs", 
-#                                                         face = "bold", size = 14))
-# ggsave("Figures/Downsides-per-ORP.png", width = 10, height = 9, bg = "white")
+doubleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP,
+                                  allstaffdata_Downsides_perORP,
+                                  ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_Downsides <- annotate_figure(doubleplot_Downsides,
+                                        top = text_grob("Downsides of ORPs",
+                                                        face = "bold", size = 14))
+doubleplot_Downsides
+# ggsave("Figures/Round12_Double_Downsides-per-ORP.png", width = 10, height = 9, bg = "white")
 
 quadrupleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
                                   staffdata_Downsides_perORP, 
@@ -56,7 +61,7 @@ quadrupleplot_Downsides <- annotate_figure(quadrupleplot_Downsides,
                                         top = text_grob("Any downsides of ORPs", 
                                                         face = "bold", size = 14))
 quadrupleplot_Downsides
-#ggsave("Figures/quadrupleplot_Downsides-per-ORP.png", width = 10, height = 10, bg = "white")
+# ggsave("Figures/Round12_Quadruple_Downsides-per-ORP.png", width = 10, height = 10, bg = "white")
 
 
 ## all data pooled across Div and target pop
@@ -84,4 +89,5 @@ All_Grouped_Downsides_plot <- horizontal_stacked_barplot_on_regrouped_data(All_G
                                                                         title_plot = title_plot_All_Downsides, 
                                                                         legend_position = "bottom")
 All_Grouped_Downsides_plot
+# ggsave("Figures/Round12_Single_Downsides-per-ORP.png", width = 10, height = 4, bg = "white")
 

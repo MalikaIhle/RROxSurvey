@@ -27,24 +27,29 @@ All_academicstaffdata_Effect_for_plotting <- regroup_all_data(academicdata_Effec
 ## All_pgrdata_Effect_plot <- stacked_barplot_on_regrouped_data(All_pgrdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors)
 
 # Horizontal stacked barplot per ORP
-title_plot_pgr <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "Effect"], ")" , sep="")
-title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "Effect"], ")" , sep="")
-title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Effect"], ")" , sep="")
-title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Effect"], ")" , sep="")
+Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
+title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Effect", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Effect", Plotted_Div ]),
+                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Effect", Plotted_Div ]),
+                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Effect", Plotted_Div ])), ")" , sep="")
+title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Effect", Plotted_Div ])), ")" , sep="")
+title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Effect", Plotted_Div ])), ")" , sep="")
+title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Effect", Plotted_Div ])), ")" , sep="")
 
-pgrdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
-academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effect_for_plotting, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_academic)
+pgrdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Effect_for_plotting, Plotted_Div, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Effect_for_plotting, Plotted_Div, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_allstaff)
+staffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Effect_for_plotting, Plotted_Div, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Effect_for_plotting, Plotted_Div, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot =title_plot_supportstaff)
+academicdata_Effect_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Effect_for_plotting, Plotted_Div, Measures, Effect_answers, Effect_colors, title_legend = NULL, title_plot = title_plot_academic)
 
-# doubleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
-#                                   allstaffdata_Effect_perORP, 
-#                                   ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-# doubleplot_Effect <- annotate_figure(doubleplot_Effect, 
-#                                         top = text_grob("Effect of ORPs", 
-#                                                         face = "bold", size = 14))
-# ggsave("Figures/Effect-per-ORP.png", width = 10, height = 9, bg = "white")
+doubleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP,
+                                  allstaffdata_Effect_perORP,
+                                  ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_Effect <- annotate_figure(doubleplot_Effect,
+                                        top = text_grob("Effect of ORPs",
+                                                        face = "bold", size = 14))
+doubleplot_Effect
+#ggsave("Figures/Round12_Double_Effect-per-ORP.png", width = 10, height = 9, bg = "white")
 
 quadrupleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
                                      staffdata_Effect_perORP, 
@@ -55,7 +60,7 @@ quadrupleplot_Effect <- annotate_figure(quadrupleplot_Effect,
                                            top = text_grob("Overall effect of widespread adoption of ORPs", 
                                                            face = "bold", size = 14))
 quadrupleplot_Effect
-#ggsave("Figures/quadrupleplot_Effect-per-ORP.png", width = 10, height = 10, bg = "white")
+#ggsave("Figures/Round12_Quadruple_Effect-per-ORP.png", width = 10, height = 10, bg = "white")
 
 
 
@@ -84,4 +89,5 @@ All_Grouped_Effect_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grou
                                                                            title_plot = title_plot_All_Effect, 
                                                                            legend_position = "bottom")
 All_Grouped_Effect_plot
+#ggsave("Figures/Round12_Single_Effect-per-ORP.png", width = 10, height = 4, bg = "white")
 
