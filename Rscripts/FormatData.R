@@ -28,7 +28,14 @@ rm(surveyindex)
 # Split data per respondent type
   ## will we want to bind staff data collected in both rounds or keep them separate (at least keep an ID from when they were collected - date or entry?)
 
+
+
+
 data <- data_round12 # <------------------!!!!!!!!!!!!!!!!!!!!!! decide which dataset to use !!!!!!!!!!!!!!!!!!!!!
+
+
+
+
 
 pgrdata <- data[data$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
 allstaffdata <- data[data$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
@@ -85,6 +92,15 @@ academicdata_CurrentRecruitment <- subset_columns_by_pattern(academicdata, "^Cur
 academicdata_FutureRecruitment <- subset_columns_by_pattern(academicdata, "^FutureRecruitment")
 academicdata_Training <- subset_columns_by_pattern(academicdata, "^Training")
 academicdata_Support <- subset_columns_by_pattern(academicdata, "^Support")
+
+data_Awareness <- subset_columns_by_pattern(data, "^Awareness")
+data_Effect <- subset_columns_by_pattern(data, "^Effect")
+data_Barriers <- subset_columns_by_pattern(data, "^Barriers")
+data_Downsides <- subset_columns_by_pattern(data, "^Downsides")
+data_CurrentRecruitment <- subset_columns_by_pattern(data, "^CurrentRecruitment")
+data_FutureRecruitment <- subset_columns_by_pattern(data, "^FutureRecruitment")
+data_Training <- subset_columns_by_pattern(data, "^Training")
+data_Support <- subset_columns_by_pattern(data, "^Support")
 
 # typos to correct 
 ## (doesn't work on simulated data for reasons I do not find - and if applied to data_round, it changes all columns to characters...)
