@@ -3,7 +3,9 @@
 
 # Suring data collection: Descriptive statistics: Numbers of responses per Dpt, survey duration, experience duration
 ## Check coverage across department
-data.frame(data_round2 %>% group_by(Div, Dept) %>% summarise(n = n()))
+pt <- data.frame(data_round2 %>% group_by(Div, Role, Dept) %>% summarise(n = n()))
+# write.csv(pt,"Dept20220202perroles.csv", row.names = FALSE)
+
 
 ## Number of years of experience (not used later on - so far)
 summary(data_round2$Duration)
@@ -231,3 +233,43 @@ sst_academicdata$Question <- colnames(ss_academicdata)[-1]
 rownames(sst_academicdata) <- NULL
 sst_academicdata <- sst_academicdata[,c(ncol(sst_academicdata), 1:(ncol(sst_academicdata)-1))]
 sst_academicdata
+
+## all combined
+### for all data
+data_Consent_Affiliation_Role_ss <- data %>% group_by(Div) %>% summarise (Consent_Affiliation_Role=n())
+data_Awareness_ss <- sample_size_perQ(data_Awareness, Awareness)
+data_Effect_ss <- sample_size_perQ(data_Effect, Effect)
+data_Barriers_ss <- sample_size_perQ(data_Barriers, Barriers)
+data_Downsides_ss <- sample_size_perQ(data_Downsides, Downsides)
+data_CurrentRecruitment_ss <- sample_size_perQ(data_CurrentRecruitment, CurrentRecruitment)
+data_FutureRecruitment_ss <- sample_size_perQ(data_FutureRecruitment, FutureRecruitment)
+data_Training_ss <- sample_size_perQ(data_Training, Training)
+data_Support_ss <- sample_size_perQ(data_Support, Support)
+
+ss_data <- data_Consent_Affiliation_Role_ss %>%
+  full_join(data_Awareness_ss,  by = 'Div') %>% 
+  full_join(data_Effect_ss,  by = 'Div') %>% 
+  full_join(data_Barriers_ss,  by = 'Div') %>% 
+  full_join(data_Downsides_ss,  by = 'Div') %>% 
+  full_join(data_CurrentRecruitment_ss,  by = 'Div') %>% 
+  full_join(data_FutureRecruitment_ss,  by = 'Div') %>% 
+  full_join(data_Training_ss,  by = 'Div') %>% 
+  full_join(data_Support_ss,  by = 'Div') %>% 
+  full_join(targetnumbers[,c('Div', 'Researchers2022')],  by = 'Div') ### need updating !!
+
+ss_data <- rbind(ss_data, c("Total", colSums(ss_data[,-1], na.rm = TRUE)))
+
+ss_data$PercRepresentativeness <- round(as.numeric(ss_data$Consent_Affiliation_Role)*100/as.numeric(ss_data$Researchers2022),1)
+ss_data[,2:ncol(ss_data)] <- sapply(ss_data[,2:ncol(ss_data)], as.integer) # needed for the apply function to work
+ss_data$TotalDrop <- apply(ss_data[,2:10], 1, max) - apply(ss_data[,2:10], 1, min)
+ss_data$PercDrop <- round(ss_data$TotalDrop/apply(ss_data[,2:10], 1, max)*100,1)
+
+ss_data <- data.frame(ss_data)
+sst_data <- transpose(ss_data)
+colnames(sst_data) <- sst_data[1,]
+sst_data <- sst_data[-1,]
+sst_data$Question <- colnames(ss_data)[-1]
+rownames(sst_data) <- NULL
+sst_data <- sst_data[,c(ncol(sst_data), 1:(ncol(sst_data)-1))]
+sst_data
+
