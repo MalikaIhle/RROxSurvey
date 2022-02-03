@@ -399,7 +399,7 @@ stacked_barplot_on_regrouped_data <- function(All_data, Question, answers, answe
   
 }  
 
-horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot){
+horizontal_stack_barplot_per_ORP <- function(data, divisions, Question, answers, answers_colors, title_legend, title_plot){
   
   # example to test function
   # data <- pgrdata_Awareness_for_plotting
@@ -407,10 +407,9 @@ horizontal_stack_barplot_per_ORP <- function(data, Question, answers, answers_co
   # answers_colors <- Awareness_colors
   # title_legend <- "PGR students"
   # title_plot <- NULL
-  data <- data[data$Div != "College",] # do not plot college data (where college only staff haven't picked a Division for related field)
-  # data$Div[data$Div == 'ContEd' | data$Div == 'GLAM'] <- 'Hum' # merge ContEd and GLAM data to Hum data
-  # data <- data[data$Div != "ContEd"& data$Div != 'GLAM',] # excluding them for plotting means the sample size indicated on plot (taken from script sample sizes) would be off by a few numbers (thos excluded)
-    
+  
+  data <- data[data$Div %in% Plotted_Div,]
+  
   data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
   data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
   
@@ -753,8 +752,10 @@ barriers_horizontal_stack_barplot_per_ORP <- function(data, Question, answers, a
   
 }
 
-barriers_horizontal_dodge_barplot_per_ORP <- function(data, Question, answers, answers_colors, title_legend, title_plot, plot_ylim){
+barriers_horizontal_dodge_barplot_per_ORP <- function(data, divisions, Question, answers, answers_colors, title_legend, title_plot, plot_ylim){
 
+  data <- data[data$Div %in% Plotted_Div,]
+  
   data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
   data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the answers
   data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
