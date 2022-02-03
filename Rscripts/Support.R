@@ -23,11 +23,11 @@ All_academicdata_Support_for_plotting <- regroup_all_data(academicdata_Support_f
 # circular plot per Division
 ## pgrdata_Support_plot <- circular_plot_function(pgrdata_Support_for_plotting, Supports, Support_answers, title_plot = 'Support', Support_colors)
 
-
-title_plot_pgr <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "Support"], ")" , sep="")
-title_plot_staff <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "Support"], ")" , sep="")
-title_plot_supportstaff <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Support"], ")" , sep="")
-title_plot_academic <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Support"], ")" , sep="")
+Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
+title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Support", Plotted_Div ])), ")" , sep="")
+title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Support", Plotted_Div ])), ")" , sep="")
+title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Support", Plotted_Div ])), ")" , sep="")
+title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Support", Plotted_Div ])), ")" , sep="")
 
 # plot regrouped data 
 temp <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_pgr, legend_position = "bottom")
