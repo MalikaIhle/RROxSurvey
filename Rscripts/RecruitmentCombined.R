@@ -66,57 +66,73 @@ Combined_Recruitment_Doubleplot
 
 
 
-## combined plot for ORP
-All_Data_But_Academic_CurrentRecruitment_forORP <- horizontal_stack_barplot_per_ORP(All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-                                                                                    ,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_allbutacademic)
-academicdata_CurrentRecruitment_forORP <- horizontal_stack_barplot_per_ORP(academicdata_CurrentRecruitment_for_plotting[academicdata_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-                                                                           , Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_academic)
+## combined plot for just ORP
+academicCurrent <- academicdata_CurrentRecruitment_for_plotting[academicdata_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+academicFuture <-academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+AllbutacademicCurrent <- All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+AllbutacademicFuture <-All_Data_But_Academic_FutureRecruitment_for_plotting[All_Data_But_Academic_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
 
-All_Data_But_Academic_FutureRecruitment_forORP <- horizontal_stack_barplot_per_ORP(All_Data_But_Academic_FutureRecruitment_for_plotting[All_Data_But_Academic_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-                                                                                   ,  Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_Future_allbutacademic)
-academicdata_FutureRecruitment_forORP <- horizontal_stack_barplot_per_ORP(academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-                                                                          , Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_Future_academic)
+NacademicCurrent <- academicCurrent[academicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NacademicCurrent <- sum(NacademicCurrent$N)
+NacademicFuture <- academicFuture[academicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NacademicFuture <- sum(NacademicFuture$N)
+NallbutacademicCurrent <- AllbutacademicCurrent[AllbutacademicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NallbutacademicCurrent <- sum(NallbutacademicCurrent$N)
+NallbutacademicFuture <- AllbutacademicFuture[AllbutacademicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NallbutacademicFuture <- sum(NallbutacademicFuture$N)
+
+title_plot_Current_academic_ORP <- paste ("Academics (N=", NacademicCurrent, ")" , sep="")
+title_plot_Current_allbutacademic_ORP <- paste ("Non-Academics (N=",NallbutacademicCurrent, ")" , sep="")
+title_plot_Future_academic_ORP <- paste ("Academics (N=", NacademicFuture, ")" , sep="")
+title_plot_Future_allbutacademic_ORP <- paste ("Non-Academics (N=",NallbutacademicFuture, ")" , sep="")
+
+
+All_Data_But_Academic_CurrentRecruitment_forORP <- horizontal_stack_barplot_for_ORP(All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                                    , Plotted_Div, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL 
+                                                                                    , title_plot = title_plot_Current_allbutacademic_ORP
+                                                                                    , legend_position = "none", axis_position = "bottom")
+academicdata_CurrentRecruitment_forORP <- horizontal_stack_barplot_for_ORP(academicdata_CurrentRecruitment_for_plotting[academicdata_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                           , Plotted_Div, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors
+                                                                           , title_legend = NULL, title_plot = title_plot_Current_academic_ORP
+                                                                           , legend_position = "none", axis_position = "bottom")
+
+All_Data_But_Academic_FutureRecruitment_forORP <- horizontal_stack_barplot_for_ORP(All_Data_But_Academic_FutureRecruitment_for_plotting[All_Data_But_Academic_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                                   ,  Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL
+                                                                                   , title_plot = title_plot_Future_allbutacademic_ORP
+                                                                                   , legend_position = "none", axis_position = "top")
+academicdata_FutureRecruitment_forORP <- horizontal_stack_barplot_for_ORP(academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                          , Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL
+                                                                          , title_plot = title_plot_Future_academic_ORP
+                                                                          , legend_position = "none", axis_position = "top")
 
 
 doubleplotAcademicvsNonAc_CurrentRecruitment_forORP <- ggpubr::ggarrange(All_Data_But_Academic_CurrentRecruitment_forORP,
                                                                          academicdata_CurrentRecruitment_forORP,
-                                                                         ncol=1, nrow=2, common.legend = TRUE, legend="bottom")
+                                                                         ncol=1, nrow=2)
 doubleplotAcademicvsNonAc_CurrentRecruitment_forORP <- annotate_figure(doubleplotAcademicvsNonAc_CurrentRecruitment_forORP,
-                                                                       top = text_grob("Perceived current recruitment criteria",
+                                                                       top = text_grob("Perceived current recruitment",
                                                                                        face = "bold", size = 14))
-doubleplotAcademicvsNonAc_CurrentRecruitment_forORP
-
-
 
 doubleplotAcademicvsNonAc_FutureRecruitment_forORP <- ggpubr::ggarrange(All_Data_But_Academic_FutureRecruitment_forORP,
                                                                         academicdata_FutureRecruitment_forORP,
-                                                                        ncol=1, nrow=2, common.legend = TRUE, legend="bottom")
+                                                                        ncol=1, nrow=2)
 doubleplotAcademicvsNonAc_FutureRecruitment_forORP <- annotate_figure(doubleplotAcademicvsNonAc_FutureRecruitment_forORP,
-                                                                      top = text_grob("Desired future recruitment criteria",
+                                                                      top = text_grob("Desired future recruitment",
                                                                                       face = "bold", size = 14))
-doubleplotAcademicvsNonAc_FutureRecruitment_forORP
+
+QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP <- egg::ggarrange(doubleplotAcademicvsNonAc_CurrentRecruitment_forORP,
+                                                                        doubleplotAcademicvsNonAc_FutureRecruitment_forORP,
+                                                                        ncol=2, nrow=1)
+
+QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP <- ggpubr::ggarrange(QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP
+                                                                                   , shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+
+QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP <- annotate_figure(QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP
+                                                                                 , top = text_grob("Open research practices" 
+                                                                                  , face = "bold", size = 14))
+
+QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP
+# ggsave("Figures/Round12_Combined_Recruitment_ORP.png", width = 13, height = 7, bg = "white")
 
 
 
-QuadrupleplotAcademicvsNonAc_FutureRecruitment_forORP <-  ggpubr::ggarrange(doubleplotAcademicvsNonAc_CurrentRecruitment_forORP,
-                                                                            doubleplotAcademicvsNonAc_FutureRecruitment_forORP,
-                                                                            ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-QuadrupleplotAcademicvsNonAc_FutureRecruitment_forORP
-
-QuadrupleplotAcademicvsNonAc_FutureRecruitment_forORP <-  ggpubr::ggarrange(All_Data_But_Academic_CurrentRecruitment_forORP,
-                                                                            All_Data_But_Academic_FutureRecruitment_forORP,
-                                                                            academicdata_CurrentRecruitment_forORP,
-                                                                            academicdata_FutureRecruitment_forORP,
-                                                                            ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
-QuadrupleplotAcademicvsNonAc_FutureRecruitment_forORP
-
-
-
-#### sample size slightly off because in sample size script count 1 respondent for the question if answered any of the item
-### a few didn't actually answer the ORP item
-academicCurrent <- academicdata_CurrentRecruitment_for_plotting[academicdata_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-academicFuture <-academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-
-
-academicCurrent %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
-academicFuture %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))

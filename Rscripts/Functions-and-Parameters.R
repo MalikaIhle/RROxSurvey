@@ -532,6 +532,53 @@ extract_legend <- function(my_ggp) {
   return(step3)
 }
 
+horizontal_stack_barplot_for_ORP <- function(data, divisions, Question, answers, answers_colors, title_legend, title_plot, legend_position, axis_position){
+  
+  # example to test function
+  # data <- All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+  # divisions <- Plotted_Div
+  # Question <- Criteria
+  # answers <- CurrentRecruitment_answers
+  # answers_colors <- CurrentRecruitment_colors
+  # title_legend <- NULL
+  # title_plot <- title_plot_Current_allbutacademic_ORP
+  # legend_position <- "bottom"
+  # axis_position <- "top"
+  
+  data <- data[data$Div %in% Plotted_Div,]
+  
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
+  
+  count_by_answer_and_div_and_orp <- data %>% 
+    group_by(Answer, Div, LabelIndiv) %>%
+    #summarise(num_respondents = sum(n, na.rm = TRUE)) %>% 
+    mutate(Answer = factor(Answer, levels = answers))
+  
+  count_by_answer_and_div_and_orp %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "fill") +
+    scale_fill_manual(values = (answers_colors),
+                      breaks = rev(answers), 
+                      labels = rev(answers), 
+                      drop = FALSE) +
+    scale_x_discrete(position = axis_position)+
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip() +
+    theme_minimal() +
+    scale_y_continuous(labels = scales::percent) +
+    theme(legend.position=legend_position
+          #, legend.title = element_blank()
+          , strip.text.x = element_blank()
+          ) + 
+    labs(x = "", y = "")+
+    guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
+
+
 # Plotting functions for barriers
 barriers_circular_plot_function <- function(data){
   data$LabelIndiv <- factor(data$LabelIndiv, levels = Measures) # this will determine order of the bars
