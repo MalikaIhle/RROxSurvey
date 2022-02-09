@@ -55,32 +55,32 @@ All_staffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped
 All_supportstaffdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_supportstaff)
 All_academicdata_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_CurrentRecruitment_for_plotting, Criteria, CurrentRecruitment_answers, CurrentRecruitment_colors, title_plot = title_plot_Current_academic)
 
-doubleplot_All_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
+doubleplot_All_CurrentRecruitment <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
                                                      All_allstaffdata_CurrentRecruitment_plot, 
                                                      nrow=1)
 
-doubleplot_All_CurrentRecruitement_with_legend <- ggpubr::ggarrange(doubleplot_All_CurrentRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+doubleplot_All_CurrentRecruitment_with_legend <- ggpubr::ggarrange(doubleplot_All_CurrentRecruitment, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 
-doubleplot_All_CurrentRecruitement_with_legend <- annotate_figure(doubleplot_All_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
+doubleplot_All_CurrentRecruitment_with_legend <- annotate_figure(doubleplot_All_CurrentRecruitment_with_legend, top = text_grob("Perceived current recruitment criteria", 
                                                                                                                                         face = "bold", size = 14))
 
-doubleplot_All_CurrentRecruitement_with_legend
-# ggsave("Figures/Round12_Double_AllDiv_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
+doubleplot_All_CurrentRecruitment_with_legend
+# ggsave("Figures/Round12_Double_AllDiv_CurrentRecruitment.png", width = 15, height = 10, bg = "white")
 
 
-quadrupleplot_All_CurrentRecruitement <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
+quadrupleplot_All_CurrentRecruitment <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
                                                All_staffdata_CurrentRecruitment_plot, 
                                                All_supportstaffdata_CurrentRecruitment_plot,
                                                All_academicdata_CurrentRecruitment_plot,
                                                nrow=1)
 
-quadrupleplot_All_CurrentRecruitement_with_legend <- ggpubr::ggarrange(quadrupleplot_All_CurrentRecruitement, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+quadrupleplot_All_CurrentRecruitment_with_legend <- ggpubr::ggarrange(quadrupleplot_All_CurrentRecruitment, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 
-quadrupleplot_All_CurrentRecruitement_with_legend <- annotate_figure(quadrupleplot_All_CurrentRecruitement_with_legend, top = text_grob("Perceived current recruitment criteria", 
+quadrupleplot_All_CurrentRecruitment_with_legend <- annotate_figure(quadrupleplot_All_CurrentRecruitment_with_legend, top = text_grob("Perceived current recruitment criteria", 
                                                                      face = "bold", size = 14))
 
-quadrupleplot_All_CurrentRecruitement_with_legend
-#ggsave("Figures/Round12_Quadruple_AllDiv_CurrentRecruitement.png", width = 15, height = 10, bg = "white")
+quadrupleplot_All_CurrentRecruitment_with_legend
+#ggsave("Figures/Round12_Quadruple_AllDiv_CurrentRecruitment.png", width = 15, height = 10, bg = "white")
 
 
 
