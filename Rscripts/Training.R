@@ -26,6 +26,9 @@ All_academicdata_Training_for_plotting <- regroup_all_data(academicdata_Training
 ## pgrdata_Training_plot <- circular_plot_function(pgrdata_Training_for_plotting, Trainings, Training_answers, title_plot = 'Training', Training_colors)
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Training", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ]),
+                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ]),
+                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])), ")" , sep="")
@@ -35,9 +38,23 @@ temp <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_Training_for_pl
 shared_legend <- extract_legend(temp)
 
 All_pgrdata_Training_plot <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_Training_for_plotting, Trainings, Training_answers, Training_colors, title_plot = title_plot_pgr, legend_position = "none")
+All_allstaffdata_Training_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_allstaffdata_Training_for_plotting, Trainings, Training_answers, Training_colors, title_plot = title_plot_allstaff)
 All_staffdata_Training_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_staffdata_Training_for_plotting, Trainings, Training_answers, Training_colors, title_plot = title_plot_staff)
 All_supportstaffdata_Training_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_Training_for_plotting, Trainings, Training_answers, Training_colors, title_plot = title_plot_supportstaff)
 All_academicdata_Training_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_Training_for_plotting, Trainings, Training_answers, Training_colors, title_plot = title_plot_academic)
+
+
+doubleplot_All_Training <- egg::ggarrange(All_pgrdata_Training_plot, 
+                                                    All_allstaffdata_Training_plot, 
+                                                    nrow=1)
+
+doubleplot_All_Training_with_legend <- ggpubr::ggarrange(doubleplot_All_Training, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+
+doubleplot_All_Training_with_legend <- annotate_figure(doubleplot_All_Training_with_legend, top = text_grob("Training needs", face = "bold", size = 14))
+
+doubleplot_All_Training_with_legend
+# ggsave("Figures/Round12_Double_AllDiv_Training.png", width = 15, height = 10, bg = "white")
+
 
 quadrupleplot_All_Training <- egg::ggarrange(All_pgrdata_Training_plot, 
                                             All_staffdata_Training_plot, 
@@ -48,36 +65,8 @@ quadrupleplot_All_Training <- egg::ggarrange(All_pgrdata_Training_plot,
 quadrupleplot_All_Training_with_legend <- ggpubr::ggarrange(quadrupleplot_All_Training, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 quadrupleplot_All_Training_with_legend <- annotate_figure(quadrupleplot_All_Training_with_legend, top = text_grob("Training needs", face = "bold", size = 14))
 quadrupleplot_All_Training_with_legend
-#ggsave("Figures/quadrupleplot_All_Training.png", width = 12, height = 4, bg = "white")
+# ggsave("Figures/Round12_Quadruple_AllDiv_Training.png", width = 12, height = 4, bg = "white")
 
-# Horizontal stacked barplot per ORP
-pgrdata_Training_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Training_for_plotting,Trainings, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_pgr)
-allstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = "Researchers")
-staffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_staff)
-supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
-academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
-
-
-# doubleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP, 
-#                                allstaffdata_Training_perORP, 
-#                                ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-# doubleplot_Training <- annotate_figure(doubleplot_Training, 
-#                                      top = text_grob("Training needs", 
-#                                                      face = "bold", size = 14))
-#ggsave("Figures/Training.png", width = 10, height = 13, bg = "white")
-
-
-
-quadrupleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP, 
-                                     staffdata_Training_perORP, 
-                                     supportstaffdata_Training_perORP,
-                                     academicdata_Training_perORP,
-                                     ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
-quadrupleplot_Training <- annotate_figure(quadrupleplot_Training, 
-                                           top = text_grob("Training needs", 
-                                                           face = "bold", size = 14))
-quadrupleplot_Training
-#ggsave("Figures/quadrupleplot_Training.png", width = 10, height = 13, bg = "white")
 
 ## all data pooled across Div and target pop
 All_Data_Training <- rbind(
@@ -99,8 +88,42 @@ title_plot_All_Training <- paste ("Training of ORPs
 
 All_Grouped_Training_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Training_for_plotting, 
                                                                           Trainings, 
-                                                                           Training_answers, 
-                                                                           Training_colors, 
-                                                                           title_plot = title_plot_All_Training, 
-                                                                           legend_position = "bottom")
+                                                                          Training_answers, 
+                                                                          Training_colors, 
+                                                                          title_plot = title_plot_All_Training, 
+                                                                          legend_position = "bottom")
 All_Grouped_Training_plot
+#ggsave("Figures/Round12_Single_Training.png", width = 10, height = 4, bg = "white")
+
+
+
+# Horizontal stacked barplot per ORP, Div split
+pgrdata_Training_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Training_for_plotting, Plotted_Div, Trainings, Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_pgr)
+allstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_allstaff)
+staffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_staff)
+supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
+academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
+
+
+doubleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP,
+                               allstaffdata_Training_perORP,
+                               ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_Training <- annotate_figure(doubleplot_Training,
+                                     top = text_grob("Training needs",
+                                                     face = "bold", size = 14))
+doubleplot_Training
+# ggsave("Figures/Round12_Double_SplitDiv_Training.png", width = 10, height = 15, bg = "white")
+
+
+
+quadrupleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP, 
+                                     staffdata_Training_perORP, 
+                                     supportstaffdata_Training_perORP,
+                                     academicdata_Training_perORP,
+                                     ncol=4, nrow=1, common.legend = TRUE, legend="bottom")
+quadrupleplot_Training <- annotate_figure(quadrupleplot_Training, 
+                                           top = text_grob("Training needs", 
+                                                           face = "bold", size = 14))
+quadrupleplot_Training
+# ggsave("Figures/Round12_Quadruple_SplitDiv_Training.png", width = 10, height = 13, bg = "white")
+
