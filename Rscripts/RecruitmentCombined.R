@@ -16,10 +16,10 @@ All_Grouped_CurrentRecruitment_for_plotting <- regroup_all_data(All_Split_Curren
 
 title_plot_All_CurrentRecruitment <- paste ("Perceived current recruitment criteria
 (all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "CurrentRecruitment"])+
-                                                                     as.numeric(sst_staffdata$Total[sst_staffdata$Question == "CurrentRecruitment"])+
-                                                                     as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "CurrentRecruitment"])+
-                                                                     as.numeric(sst_academicdata$Total[sst_academicdata$Question == "CurrentRecruitment"])),
-                                              ")" , sep="")
+                       as.numeric(sst_staffdata$Total[sst_staffdata$Question == "CurrentRecruitment"])+
+                       as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "CurrentRecruitment"])+
+                       as.numeric(sst_academicdata$Total[sst_academicdata$Question == "CurrentRecruitment"])),
+                       ")" , sep="")
 
 
 All_Grouped_CurrentRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_CurrentRecruitment_for_plotting, 
@@ -44,10 +44,10 @@ All_Grouped_FutureRecruitment_for_plotting <- regroup_all_data(All_Split_FutureR
 
 title_plot_All_FutureRecruitment <- paste ("Desired future recruitment criteria
 (all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "FutureRecruitment"])+
-                                                                     as.numeric(sst_staffdata$Total[sst_staffdata$Question == "FutureRecruitment"])+
-                                                                     as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "FutureRecruitment"])+
-                                                                     as.numeric(sst_academicdata$Total[sst_academicdata$Question == "FutureRecruitment"])),
-                                            ")" , sep="")
+                       as.numeric(sst_staffdata$Total[sst_staffdata$Question == "FutureRecruitment"])+
+                       as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "FutureRecruitment"])+
+                       as.numeric(sst_academicdata$Total[sst_academicdata$Question == "FutureRecruitment"])),
+                       ")" , sep="")
 
 
 All_Grouped_FutureRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_Grouped_FutureRecruitment_for_plotting, 
@@ -72,14 +72,14 @@ academicFuture <-academicdata_FutureRecruitment_for_plotting[academicdata_Future
 AllbutacademicCurrent <- All_Data_But_Academic_CurrentRecruitment_for_plotting[All_Data_But_Academic_CurrentRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
 AllbutacademicFuture <-All_Data_But_Academic_FutureRecruitment_for_plotting[All_Data_But_Academic_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
 
-NacademicCurrent <- academicCurrent[academicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
-NacademicCurrent <- sum(NacademicCurrent$N)
-NacademicFuture <- academicFuture[academicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
-NacademicFuture <- sum(NacademicFuture$N)
-NallbutacademicCurrent <- AllbutacademicCurrent[AllbutacademicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
-NallbutacademicCurrent <- sum(NallbutacademicCurrent$N)
-NallbutacademicFuture <- AllbutacademicFuture[AllbutacademicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
-NallbutacademicFuture <- sum(NallbutacademicFuture$N)
+NacademicCurrent_perDiv <- academicCurrent[academicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NacademicCurrent <- sum(NacademicCurrent_perDiv$N)
+NacademicFuture_perDiv <- academicFuture[academicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NacademicFuture <- sum(NacademicFuture_perDiv$N)
+NallbutacademicCurrent_perDiv <- AllbutacademicCurrent[AllbutacademicCurrent$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NallbutacademicCurrent <- sum(NallbutacademicCurrent_perDiv$N)
+NallbutacademicFuture_perDiv <- AllbutacademicFuture[AllbutacademicFuture$Div %in% Plotted_Div,] %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE))
+NallbutacademicFuture <- sum(NallbutacademicFuture_perDiv$N)
 
 title_plot_Current_academic_ORP <- paste ("Academics (N=", NacademicCurrent, ")" , sep="")
 title_plot_Current_allbutacademic_ORP <- paste ("Non-Academics (N=",NallbutacademicCurrent, ")" , sep="")
@@ -100,8 +100,9 @@ All_Data_But_Academic_FutureRecruitment_forORP <- horizontal_stack_barplot_for_O
                                                                                    ,  Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL
                                                                                    , title_plot = title_plot_Future_allbutacademic_ORP
                                                                                    , legend_position = "none", axis_position = "top")
-academicdata_FutureRecruitment_forORP <- horizontal_stack_barplot_for_ORP(academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
-                                                                          , Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL
+academicdata_FutureRecruitment_forORP <- horizontal_stack_barplot_for_ORP_with_sample_size(academicdata_FutureRecruitment_for_plotting[academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices',]
+                                                                          , Plotted_Div, NacademicFuture_perDiv
+                                                                          , Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL
                                                                           , title_plot = title_plot_Future_academic_ORP
                                                                           , legend_position = "none", axis_position = "top")
 
@@ -133,6 +134,4 @@ QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP <- annotate_figure
 
 QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP
 # ggsave("Figures/Round12_Combined_Recruitment_ORP.png", width = 13, height = 7, bg = "white")
-
-
 
