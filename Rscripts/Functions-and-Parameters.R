@@ -10,6 +10,7 @@ Criteria_short <- c("PubNub","PubPrestige","PubQual","Authorship","Citation","Gr
                     "Reputation","Collaboration","OpenResearch")
 
 Divisions <- c("MSD", "MPLS","SSD", "Hum", "ContEd", "GLAM", "College")
+Roles <- c('PGR Student','Research Staff', 'Research Support Staff', 'Academic')
 
 #Questions <- c("Awareness","Effect", "Barriers", "Downsides", "CurrentRecruitment", "FutureRecruitment", "Training", "Support")
 Questions <- c(expr(Awareness),expr(Effect), expr(Barriers), expr(Downsides), expr(CurrentRecruitment), 
@@ -97,7 +98,11 @@ clean_qualtrics_data <- function(data, surveyindex){
     data$StudentStaff <- data$Role == "Student on a postgraduate research programme"
     data$StudentStaff[data$StudentStaff == TRUE] <- "Student"
     data$StudentStaff[data$StudentStaff == FALSE] <- "Staff"
-  }
+  
+    data$Role[data$Role == "Student on a postgraduate research programme"] <- "PGR Student"
+    data$Role[data$Role == "Research Staff or Research Fellow"] <- "Research Staff"
+    data$Role <- factor(data$Role, levels = Roles)
+    }
   
   # Years of Experience
   data$Duration <- as.numeric(data$Duration)
