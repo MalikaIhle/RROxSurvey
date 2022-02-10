@@ -1,21 +1,50 @@
 
   #source("Rscripts/FormatData.R")
 
-# Suring data collection: Descriptive statistics: Numbers of responses per Dpt, survey duration, experience duration
+# During data collection
 ## Check coverage across department
 pt <- data.frame(data_round2 %>% group_by(Div, Role, Dept) %>% summarise(n = n()))
 # write.csv(pt,"Dept20220202perroles.csv", row.names = FALSE)
 
+# Sample sizes of participants for each round
+N1 <- data_round1 %>% group_by( Role) %>% summarise ("Round 1" = n())
+N2 <- data_round2 %>% group_by( Role) %>% summarise ("Round 2" = n())
+N <- cbind(N1,N2[,2])
+rownames(N) <-N[,1]
+N <- N[,-1]
+N <- mutate_all(N, function(x) as.numeric(as.character(x)))
+N <- cbind(N, "min N" = abs(N[,1] - N[,2]))
+N <- cbind(N, 'max N' = N[,1] + N[,2])
+N <- cbind(N, "Target" = c(
+sum(targetnumbers[,c('StudentTotal2021')]),
+sum(targetnumbers[,c('ResearchStaffTotal2020')]),
+sum(targetnumbers[,c('ResearchSupportTotal2019')]),
+sum(targetnumbers[,c('AcademicTotal2019')])))
+N <- rbind (N, "Total" = colSums(N))
+N <- cbind(N, '% max N' = round(((N[,"max N"] / N[,"Target"])*100),1))
+N$Role <- rownames(N)
+rownames(N) <- NULL
+N <- cbind( 'Role' = N[,ncol(N)] , N[,-ncol(N)])
+N
 
-## Number of years of experience (not used later on - so far)
-summary(data_round2$Duration)
-data.frame(data_round2 %>% group_by(Div) %>% summarise(minDuration = min(Duration, na.rm=TRUE),
-                                                   medDuration = median(Duration, na.rm=TRUE),
-                                                   meanDuration = mean(Duration, na.rm=TRUE),
-                                                   maxDuration = max(Duration, na.rm=TRUE),
-                                                   n = n(),
-                                                   NADuration = sum(is.na(Duration))))
-# Sample sizes 
+# Sample size for both round combined - split per Divisions
+N_div <- data.frame(data_round12 %>% group_by(Div) %>% summarise ("Both round" = n())) 
+N_div <- merge(N_div, targetnumbers[,c('Div', 'Researchers2022')],  by = 'Div' , all.x = TRUE) 
+names(N_div)[names(N_div) == 'Researchers2022'] <- 'Target'
+N_div$'% N' <- round(((N_div[,2] / N_div[,3])*100),1)
+N_div <- N_div %>% arrange(desc(Both.round))
+N_div
+
+# Sample size for both round combined - split per Divisions and roles
+N_div_role <- data.frame(data_round12 %>% group_by(Div, Role) %>% summarise ("Both round" = n())) 
+pt <- PivotTable$new()
+pt$addData(data_round12)
+pt$addColumnDataGroups("Role")
+pt$addRowDataGroups("Div")
+pt$defineCalculation(calculationName="Total", summariseExpression="n()")
+pt$renderPivot()
+
+# Detailed Sample sizes on the dataset chosen in 'FormatData.R' ---
 ## sample sizes by questions (is.not NA)
 ### for pgr data
 pgrdata_Consent_Affiliation_Role_ss <- pgrdata %>% group_by(Div) %>% summarise (Consent_Affiliation_Role=n())

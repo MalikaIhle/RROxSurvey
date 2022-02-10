@@ -7,14 +7,14 @@ library(egg) # for function egg:: ggarrange (next package overwrites it because 
 library(ggpubr) # for function ggarrange for grid ggplot. this one create common legend
 library(arsenal) # for function comparedf (to compare dataset created by hand and output of function)
 library(data.table) # for transpose(df) 
-library(reshape2) # for making pivot tables
+library(reshape2) # for making pivot tables (function 'dcast' in functions and parameter .R)
+library(pivottabler) # for making other pivot tables (function 'PivotTable' in sample size .R)
 
 # Functions
 source(here::here("Rscripts","Functions-and-Parameters.R"))
 
 # Load data
 data_round1 <- read.csv(here("Data/RealData_20210302-0945.csv"), stringsAsFactors=FALSE)
-#data_round2 <- read.csv(here("Data/SimulatedData_20201214.csv"), stringsAsFactors=FALSE) ## this is simulated data to prep the code for round 2
 data_round2 <- read.csv(here("Data/RealData_20220202-0952.csv"), stringsAsFactors=FALSE)
 surveyindex <- read.csv(here("Data/SurveyIndex.csv"), stringsAsFactors=FALSE)
 targetnumbers <- read.csv(here("Data/TargetNumbers.csv"), stringsAsFactors=FALSE) # only has Total staff in 2019!
@@ -40,13 +40,23 @@ data <- data_round12 # <------------------!!!!!!!!!!!!!!!!!!!!!! decide which da
 pgrdata <- data[data$StudentStaff == "Student",] # will possibly need to rbind pgrdata collected during round2
 allstaffdata <- data[data$StudentStaff == "Staff",] # all research staff + support staff + academic pooled
 
-staffdata <- data[data$Role == "Research Staff or Research Fellow",] 
+staffdata <- data[data$Role == "Research Staff",] 
 supportstaffdata <- data[data$Role == "Research Support Staff",]
 academicdata <- data[data$Role == "Academic",]
 
 
 
 # Split data per question
+## Number of years of experience (not used later on so far)
+summary(data$Duration)
+data.frame(data %>% group_by(Div) %>% summarise(minDuration = min(Duration, na.rm=TRUE),
+                                                       medDuration = median(Duration, na.rm=TRUE),
+                                                       meanDuration = mean(Duration, na.rm=TRUE),
+                                                       maxDuration = max(Duration, na.rm=TRUE),
+                                                       n = n(),
+                                                       NADuration = sum(is.na(Duration))))
+
+## Other questions
 pgrdata_Duration <- pgrdata[, c( "Div", "Duration")] # currently only used for sample size - should probably correlate this to other measures
 pgrdata_Awareness <- subset_columns_by_pattern(pgrdata, "^Awareness")
 pgrdata_Effect <- subset_columns_by_pattern(pgrdata, "^Effect")
