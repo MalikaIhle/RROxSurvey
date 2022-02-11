@@ -50,7 +50,8 @@ doubleplot_Awareness <- annotate_figure(doubleplot_Awareness,
                                         top = text_grob("Awareness of ORPs", 
                                                         face = "bold", size = 14))
 doubleplot_Awareness
-# ggsave("Figures/Round12_Double_Awareness-per-ORP.png", width = 10, height = 9, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_Awareness-per-ORP.png"), width = 10, height = 9, bg = "white")
+
 
 quadrupleplot_Awareness <- ggpubr::ggarrange(pgrdata_Awareness_perORP, 
                                      staffdata_Awareness_perORP, 
@@ -61,7 +62,7 @@ quadrupleplot_Awareness <- annotate_figure(quadrupleplot_Awareness,
                                         top = text_grob("Awareness of ORPs", 
                                                         face = "bold", size = 14))
 quadrupleplot_Awareness
-# ggsave("Figures/Round12_Quadruple_Awareness-per-ORP.png", width = 10, height = 10, bg = "white")
+ggsave(here::here("Figures", "Round12_Quadruple_Awareness-per-ORP.png"), width = 10, height = 10, bg = "white")
 
 ## all data pooled across Div and target pop
 All_Data_Awareness <- rbind(
@@ -88,4 +89,4 @@ All_Grouped_Awareness_plot <- horizontal_stacked_barplot_on_regrouped_data(All_G
                                                                                     title_plot = title_plot_All_Awareness, 
                                                                                     legend_position = "bottom")
 All_Grouped_Awareness_plot
-#ggsave("Figures/Round12_Single_Awareness-per-ORP.png", width = 10, height = 4, bg = "white")
+ggsave(here::here("Figures", "Round12_Single_Awareness-per-ORP.png"), width = 10, height = 4, bg = "white")

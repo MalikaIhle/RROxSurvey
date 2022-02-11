@@ -55,7 +55,7 @@ doubleplot_Barriers <- annotate_figure(doubleplot_Barriers,
                                         top = text_grob("Barriers of ORPs",
                                                         face = "bold", size = 14))
 doubleplot_Barriers
-# ggsave("Figures/Round12_Double_AllDiv_Barriers-per-ORP.png", width = 10, height = 9, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_AllDiv_Barriers-per-ORP.png"), width = 10, height = 9, bg = "white")
 
 
 quadrupleplot_All_Barriers <- ggarrange(All_pgrdata_Barriers_dodgeplot, All_staffdata_Barriers_dodgeplot, All_supportstaffdata_Barriers_dodgeplot, All_academicdata_Barriers_dodgeplot,
@@ -64,7 +64,7 @@ quadrupleplot_All_Barriers <- annotate_figure(quadrupleplot_All_Barriers,
                                            top = text_grob("Barriers to adoption of ORPs (non-mutually exclusive)", 
                                                            face = "bold", size = 14))
 quadrupleplot_All_Barriers
-#ggsave("Figures/Round12_Quadruple_AllDiv_Barriers.png", width = 13, height = 9, bg = "white")
+ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Barriers.png"), width = 13, height = 9, bg = "white")
 
 # plot merged accross Div and target groups
 All_Data_Barriers <- rbind(
@@ -87,7 +87,7 @@ title_plot_All_Barriers <- paste ("Barriers to adoption of ORPs
 
 All_Grouped_Barriers_dodgeplot <- horizontal_dodged_barplot_on_barriers_regrouped_data(All_Grouped_Barriers_for_plotting, Measures, Barriers_answers,title_plot_All_Barriers , 50)
 All_Grouped_Barriers_dodgeplot
-#ggsave("Figures/Round12_Single_AllDiv_Barriers.png", width = 5, height = 7, bg = "white")
+ggsave(here::here("Figures", "Round12_Single_AllDiv_Barriers.png"), width = 5, height = 7, bg = "white")
 
 
 # Horizontal stacked barplot per ORP 
@@ -115,7 +115,7 @@ quadrupleplot_Barriers <- annotate_figure(quadrupleplot_Barriers,
                                         top = text_grob("Barriers to adoption of ORPs",
                                                         face = "bold", size = 14))
 quadrupleplot_Barriers
-#ggsave("Figures/Round12_Quadruple_Barriers.png", width = 10, height = 25, bg = "white")
+ggsave(here::here("Figures", "Round12_Quadruple_Barriers.png"), width = 10, height = 25, bg = "white")
 
 
   

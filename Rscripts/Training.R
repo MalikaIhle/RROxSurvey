@@ -56,7 +56,7 @@ doubleplot_All_Training_with_legend <- ggpubr::ggarrange(doubleplot_All_Training
 doubleplot_All_Training_with_legend <- annotate_figure(doubleplot_All_Training_with_legend, top = text_grob("Training needs", face = "bold", size = 14))
 
 doubleplot_All_Training_with_legend
-# ggsave("Figures/Round12_Double_AllDiv_Training.png", width = 15, height = 10, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_AllDiv_Training.png"), width = 15, height = 10, bg = "white")
 
 
 quadrupleplot_All_Training <- egg::ggarrange(All_pgrdata_Training_plot, 
@@ -68,7 +68,7 @@ quadrupleplot_All_Training <- egg::ggarrange(All_pgrdata_Training_plot,
 quadrupleplot_All_Training_with_legend <- ggpubr::ggarrange(quadrupleplot_All_Training, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 quadrupleplot_All_Training_with_legend <- annotate_figure(quadrupleplot_All_Training_with_legend, top = text_grob("Training needs", face = "bold", size = 14))
 quadrupleplot_All_Training_with_legend
-# ggsave("Figures/Round12_Quadruple_AllDiv_Training.png", width = 12, height = 4, bg = "white")
+ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Training.png"), width = 12, height = 4, bg = "white")
 
 
 ## all data pooled across Div and target pop
@@ -96,7 +96,7 @@ All_Grouped_Training_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Gr
                                                                           title_plot = title_plot_All_Training, 
                                                                           legend_position = "bottom")
 All_Grouped_Training_plot
-#ggsave("Figures/Round12_Single_Training.png", width = 10, height = 4, bg = "white")
+ggsave(here::here("Figures", "Round12_Single_Training.png"), width = 10, height = 4, bg = "white")
 
 
 
@@ -123,7 +123,7 @@ academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Tr
 
 alldata_Training_perORP <- horizontal_stack_barplot_per_ORP(alldata_Training_for_plotting,  Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
 alldata_Training_perORP
-# ggsave("Figures/Round12_Single_splitDiv_Training.png", width = 8, height = 20, bg = "white")
+ggsave(here::here("Figures", "Round12_Single_splitDiv_Training.png"), width = 8, height = 20, bg = "white")
 
 
 doubleplot_Training <- ggpubr::ggarrange(pgrdata_Training_perORP,
@@ -133,7 +133,7 @@ doubleplot_Training <- annotate_figure(doubleplot_Training,
                                      top = text_grob("Training needs",
                                                      face = "bold", size = 14))
 doubleplot_Training
-# ggsave("Figures/Round12_Double_SplitDiv_Training.png", width = 10, height = 15, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_SplitDiv_Training.png"), width = 10, height = 15, bg = "white")
 
 
 
@@ -146,5 +146,5 @@ quadrupleplot_Training <- annotate_figure(quadrupleplot_Training,
                                            top = text_grob("Training needs", 
                                                            face = "bold", size = 14))
 quadrupleplot_Training
-# ggsave("Figures/Round12_Quadruple_SplitDiv_Training.png", width = 10, height = 13, bg = "white")
+ggsave(here::here("Figures", "Round12_Quadruple_SplitDiv_Training.png"), width = 10, height = 13, bg = "white")
 
