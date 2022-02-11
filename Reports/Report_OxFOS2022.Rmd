@@ -46,11 +46,11 @@ options(dplyr.summarise.inform = FALSE) # Suppress summarise info 'summarise() h
 
 <br>
 
-Broadly, open research (also called 'open scholarship' or, in some disciplines, 'open science') refers to efforts to ensure that different elements of the research process are transparent and accessible. 
+Broadly, open research (also called 'open scholarship' or, in some disciplines, 'open science') refers to efforts to ensure that different elements of the research process are transparent and accessible.
 
 ### Open research practices
 
-What Reproducible Research Oxford has been promoting so far are practices like Open Access publication, Data, Code, and Material best sharing practices, the use of Preprint, Preregistration and Registered Reports. Definitions of relevant terms vary across fields of research and contexts, so here are the definitions we propose: 
+What Reproducible Research Oxford has been promoting so far are practices like Open Access publishing, Data, Code, and Material sharing, and use of Preprint, Preregistration, and Registered Reports. Definitions of relevant terms vary across fields of research and contexts, so here are the definitions we propose:
 
 **Open Access publication** An article, book chapter, book, or other scholarly work that is released with unrestricted access (i.e. available to the public to view online, or download, without registration, payment, or approval). This includes all forms of open access, such as 'green' (i.e. the accepted version of the work, after peer review, is shared by the author(s) in a repository), and 'gold' (i.e. the version processed by the publisher is released openly on the publisher's system upon publication).
 
@@ -70,10 +70,10 @@ What Reproducible Research Oxford has been promoting so far are practices like O
 
 We developed a survey to assess the views of Oxford researchers on those **open research practices**, related **training needs and provision**, as well as on **recruitment criteria**.
 
-The first round was aimed at post-graduate research (PGR) students based in any Divisions of the University and was administered between 12 January 2021 and 1 March 2021. The second round was administered between 12 January 2022 and 1 March 2022 and targeted all researchers in all Divisions and Colleges, i.e.  
-- **Students of post-graduate research programme** (PGR, e.g. MSc by Research; MPhil; DPhil; EPSRC CDT; NERC DTP; BBSRC DTP; DClinPsych);  
-- **Research Staff or Research Fellow** (e.g. Clinical Researcher; Postdoctoral Researcher; Postdoctoral Research Assistant; Research Associate; Research Council Fellow [Senior, Advanced, Postdoctoral]; Research Fellow; Royal Society Fellow; Royal Society Research Professor; Clinical Research Fellow; Wellcome Trust Fellow);  
-- **Research Support Staff** (e.g. Academic Clinical Trials Coordinator; Bioinformatician; Data Analyst; Statistician; Clinical Research Coordinator; Clinical Trials Coordinator/Officer/Manager; Knowledge Exchange Fellow/Officer; Laboratory Manager; Programme Manager; Research Analysis Officer; Research Project Manager; Research Coordinator; Research Facilitator; Science Liaison Officer; Science Officer; Theme Coordinator)
+The first round was aimed at post-graduate research (PGR) students based in any Divisions of the University and was administered between 12 January 2021 and 1 March 2021. The second round was administered between 12 January 2022 and 1 March 2022 and targeted all researchers in all Divisions and Colleges, i.e.\
+- **Students of post-graduate research programme** (PGR, e.g. MSc by Research; MPhil; DPhil; EPSRC CDT; NERC DTP; BBSRC DTP; DClinPsych);\
+- **Research Staff or Research Fellow** (e.g. Clinical Researcher; Postdoctoral Researcher; Postdoctoral Research Assistant; Research Associate; Research Council Fellow [Senior, Advanced, Postdoctoral]; Research Fellow; Royal Society Fellow; Royal Society Research Professor; Clinical Research Fellow; Wellcome Trust Fellow);\
+- **Research Support Staff** (e.g. Academic Clinical Trials Coordinator; Bioinformatician; Data Analyst; Statistician; Clinical Research Coordinator; Clinical Trials Coordinator/Officer/Manager; Knowledge Exchange Fellow/Officer; Laboratory Manager; Programme Manager; Research Analysis Officer; Research Project Manager; Research Coordinator; Research Facilitator; Science Liaison Officer; Science Officer; Theme Coordinator);\
 - **Academic** (e.g. Associate Professor; Clinical Academic Staff; Clinical Lecturer; Departmental Lecturer; Professor; Reader; Head of Division).
 
 ### Sample sizes
@@ -82,13 +82,9 @@ The first round was aimed at post-graduate research (PGR) students based in any 
 source(here::here("Rscripts","FormatData.R"))
 ```
 
-Participation in the survey was voluntary and all responses were anonymous. This means that, while the survey was advertised in all departmental newsletters (as well as other channels), people self-selected to participate; and biases in favour of people already aware of these practices and possibly favourable towards them can be expected. In addition, respondents anonymity also means that we are unable to know whether some researchers (partiularly PGR students) participated in the survey in both years. 
+Participation in the survey was voluntary and all responses were anonymous. This means that, while the survey was advertised in all departmental newsletters (as well as other channels), people self-elected to participate; and biases in favour of people already aware of these practices and possibly favourable towards them can be expected. In addition, respondents anonymity also means that we are unable to know whether some researchers (particularly PGR students) participated in the survey in both years.
 
-Table \@ref(tab:tabSS) shows the number of respondents per round given their role, as well as the range (minimum and maximum) of the unique numbers of respondents over both years. The table also shows the census of each researcher group as extracted from the 2019 official census (with numbers unofficially revised and communicated by Divisional graduate student coordinators in 2021 for PGR students, and by the Researcher Hub in 2022 for research staff and fellows). The last column is the percentage of researchers per categories, and pooled over both years, that participated in the survey.
-
-Given that the total number of researchers that had the opportunity to engage with the survey, the proportion of respondents, it is unlikely that all students that responded in the second year also responded in the first year. In addition, PGR students patterns of responses in the second year looked similar as in the first year. Therefore, the data was pooled across both years, and the cumulative sample size (max N) will be used. 
-
-Note that we have rather low coverage for research support staff so while their responses will contribute to the total results, they will not be displayed in isolation as this could be misleading, especially when the results are also split per Divisions.
+Table \@ref(tab:tabSS) shows the number of respondents per round given their role, as well as the range (minimum and maximum) of the possible unique numbers of respondents over both years (i.e. assuming all or none of the respondents participated in both years). The table also shows the census of each researcher group as extracted from the 2019 official census (with numbers unofficially revised and communicated by Divisional graduate student coordinators in 2021 for PGR students, and by the Researcher Hub in 2020 for research staff and fellows). The last column is the percentage of researchers per categories, and pooled over both years, that participated in the survey.
 
 ```{r, echo = FALSE, include = TRUE}
 N %>% flextable() %>% 
@@ -97,9 +93,11 @@ N %>% flextable() %>%
                 autonum = run_autonum(seq_id = "tab", bkm = "tabSS"))
 ```
 
-We had responses in each of the Divisions (Humanities abbreviated by 'Hum'; Mathematical, Physical, and Life Sciences by 'MPLS'; Medical Sciences by 'MSD'; Social Sciences by 'SSD'; Department for Continuing Education by 'ContEd'; Gardens, Libraries, and Museums, by 'GLAM'), as well as responses from College-only staff. College-only staff were  asked to select the Division their field of research was the closest too, so if they did so, they were added to the tally from each Division.
+Given that the total number of researchers that had the opportunity to engage with the survey, and the proportion of respondents, it is unlikely that all students that responded in the second year also responded in the first year. In addition, PGR students patterns of responses in the second year looked similar as in the first year. <!--# this needs checking again and for all questions at the end of data collection. --> Therefore, the data was pooled across both years, and the cumulative sample size (max N) will be used.
 
-We had most responses from MPLS and MSD, then somewhere between a half or a third of that in SSD and Hum, and then a few responses from GLAM, ContEd, and College-only staff that did not associate with a Division. All of the data will be used for overall results, but when showing plots with the data split per Division, only the data of the 4 main academic Divisions will be used.
+Note that we have rather low coverage for research support staff so while their responses will contribute to the total results, they will not be displayed in isolation as this could be misleading, especially when the results are also split per Divisions.
+
+Table \@ref(tab:tabSSdiv) shows the number of responses in each of the Divisions (Humanities abbreviated by '**Hum**'; Mathematical, Physical, and Life Sciences by '**MPLS**'; Medical Sciences by '**MSD**'; Social Sciences by '**SSD**'; Department for Continuing Education by '**ContEd**'; Gardens, Libraries, and Museums, by '**GLAM**'), as well as responses from **College-only staff**. College-only staff that also selected the Division their field of research is the closest too, were added to the tally from each Division.
 
 ```{r, echo = FALSE, include = TRUE}
 N_div %>% flextable() %>% 
@@ -108,13 +106,18 @@ N_div %>% flextable() %>%
                 autonum = run_autonum(seq_id = "tab", bkm = "tabSSdiv"))
 ```
 
-All these numbers are the number of participants that answered the two mandatory questions: Role and Affiliation, and we kept respondents answers whether they completed the survey or not. This means sample size slightly decline question after questions. Attrition rates did not depends on participants' Divisions. 
+We had most responses from MPLS and MSD, then somewhere between a half or a third of that in SSD and Hum, and then a few responses from GLAM, ContEd, and College-only staff that did not associate with a Division. All of the data will be used for overall results, but when showing plots with the data split per Division, only the data of the 4 main academic Divisions will be used.
+
+All the numbers presented so far are the number of participants that answered the two mandatory questions: Role and Affiliation. As we kept respondents answers whether they completed the survey or not, this means sample size will slightly decline question after questions. Attrition rates did not depends on participants' Divisions. <!--# this needs checking again at the end of data collection. -->
 
 ```{r, echo = FALSE, include = FALSE}
 sst_data
+sst_data[c(1:9, 12,13),c(1,9)]
 ```
 
 ### Awareness of open research practices
+
+The first question asked, after respondents' affiliation and role, was:
 
 "**Which of the following research practices are you aware of, and which do you have experience with?** 'Aware only' indicates that the practice is applicable to your discipline, but you do not have direct experience with it. 'Accessing/using only' refers to resources made available by others. 'Practising myself' relates to implementation of the practice in your own research (in addition to, or instead of, accessing/using resources made available by others)."
 
@@ -122,23 +125,16 @@ sst_data
 source(here::here("Rscripts","Awareness.R"))
 ```
 
+![](../Figures/Fig1.png)
+
+
 Overall, **Open Access** publishing was indicated to be the most practiced a **we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA)**.
-
-```{}
-```
-
-```{}
-```
 
 **Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice
 
 ## Overall effect of open research practices
 
-
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
-
-```{}
-```
 
 ### Barriers to adoption of open research practices
 
@@ -154,48 +150,19 @@ Time may be perceived as an additional factor contributing to adoption of a prac
 - the existence of norms in the community, which mitigate the burden on the researcher;\
 - the presence of incentives, or policy, which reward and/or mandate the practice in the researcher's field or institution.
 
-
 "**Do you face any barriers in adopting the following practices and, if so, what are they?** Tick all that apply and/or provide a brief description for any others."
 
-```{#a %>% knitr::kable()}
-```
-
-```{}
-```
-
-```{}
-```
-
-```{}
-```
-
-```{}
-```
+`{#a %>% knitr::kable()}`
 
 ### Downsides to widespread adoption of open research practices
 
 "**In your view, are there any downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
 
-```{}
-```
-
-```{}
-```
-
-```{}
-```
-
 #### what downsides
-
-```{}
-```
 
 ### Training needs
 
 "**For which of the following topics do you think more guidance is necessary?** 'No guidance needed' indicates that sufficient guidance on the topic is available. 'No guidance wanted' indicates that you do not see the net benefit of engaging with the topic. Please list any additional topics in the empty boxes below."
-
-```{}
-```
 
 The topics listed were:\
 How to publish open access articles, theses, or monographs [labelled **Open Access**]\
@@ -207,6 +174,3 @@ How to prepare materials for sharing (e.g. in a digital repository that assigns 
 How to prepare preregistrations and/or registered reports (including experimental design, statistics, data simulation) [labelled **Preregistration**]\
 Guidance on sharing preprints (e.g. selection of appropriate repository, consideration of publisher's rights, ethical considerations) [labelled **Preprint**]\
 How to assess job applications responsibly, fairly, and transparently [labelled ]
-
-```{}
-```
