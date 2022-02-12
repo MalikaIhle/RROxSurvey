@@ -125,8 +125,13 @@ The first question asked, after respondents' affiliation and role, was:
 source(here::here("Rscripts","Awareness.R"))
 ```
 
-![](../Figures/Fig1.png)
+![(\#fig:Awareness) Distribution of responses for awareness of ORPs across Divisions.](../Figures/Round12_Double_Awareness-per-ORP.png)
 
+```{r fig-awareness, echo = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses for awareness of ORPs across Divisions. N = ", sst_data$Total[1], sep = "")}
+doubleplot_Awareness
+```
+
+On the left of Figure \@ref(fig:Awareness)
 
 Overall, **Open Access** publishing was indicated to be the most practiced a **we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA)**.
 
