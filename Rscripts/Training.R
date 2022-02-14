@@ -29,9 +29,7 @@ All_academicdata_Training_for_plotting <- regroup_all_data(academicdata_Training
 # Horizontal stack bar plot on regrouped data (all div)
 
 title_plot_pgr_regrouped <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "Training"], ")" , sep="")
-title_plot_allstaff_regrouped <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Training"]),
-                                                    as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Training"]),
-                                                    as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Training"])), ")" , sep="")
+title_plot_allstaff_regrouped <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata$Total[sst_allstaffdata$Question == "Training"])), ")" , sep="")
 title_plot_staff_regrouped <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "Training"], ")" , sep="")
 title_plot_supportstaff_regrouped <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Training"], ")" , sep="")
 title_plot_academic_regrouped <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Training"], ")" , sep="")
@@ -82,11 +80,7 @@ All_Split_Training_for_plotting <- prepare_data_for_plotting(Trainings, All_Data
 All_Grouped_Training_for_plotting <- regroup_all_data(All_Split_Training_for_plotting)
 
 title_plot_All_Training <- paste ("Training of ORPs
-(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Training"])+
-                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Training"])+
-                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Training"])+
-                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Training"])),
-                         ")" , sep="")
+(all researchers, N=",(as.numeric(sst_data$Total[sst_data$Question == "Training"])), ")" , sep="")
 
 
 All_Grouped_Training_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Training_for_plotting, 
@@ -103,9 +97,7 @@ ggsave(here::here("Figures", "Round12_Single_Training.png"), width = 10, height 
 # Horizontal stacked barplot per ORP, Div split
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Training", Plotted_Div ])), ")" , sep="")
-title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ]),
-                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ]),
-                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[sst_allstaffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])), ")" , sep="")

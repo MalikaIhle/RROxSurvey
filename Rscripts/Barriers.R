@@ -30,9 +30,7 @@ All_academicdata_Barriers_for_plotting <- regroup_all_barriers_data(academicdata
 
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
-title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Barriers", Plotted_Div ]),
-                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Barriers", Plotted_Div ]),
-                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[sst_allstaffdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Barriers", Plotted_Div ])), ")" , sep="")
@@ -79,11 +77,7 @@ All_Grouped_Barriers_for_plotting <- regroup_all_barriers_data(All_Split_Barrier
 max(All_Grouped_Barriers_for_plotting$perc)
 
 title_plot_All_Barriers <- paste ("Barriers to adoption of ORPs
-(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Barriers"])+
-                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Barriers"])+
-                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Barriers"])+
-                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Barriers"])),
-                         ")" , sep="")
+(all researchers, N=",as.numeric(sst_data$Total[sst_data$Question == "Barriers"]),")" , sep="")
 
 All_Grouped_Barriers_dodgeplot <- horizontal_dodged_barplot_on_barriers_regrouped_data(All_Grouped_Barriers_for_plotting, Measures, Barriers_answers,title_plot_All_Barriers , 50)
 All_Grouped_Barriers_dodgeplot

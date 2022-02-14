@@ -30,9 +30,7 @@ All_academicstaffdata_Downsides_for_plotting <- regroup_all_data(academicdata_Do
 # Horizontal stacked barplot per ORP
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
-title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Downsides", Plotted_Div ]),
-                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Downsides", Plotted_Div ]),
-                                                    as.numeric(sst_academicdata[sst_academicdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[sst_allstaffdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Downsides", Plotted_Div ])), ")" , sep="")
@@ -75,11 +73,7 @@ All_Split_Downsides_for_plotting <- prepare_data_for_plotting(Measures, All_Data
 All_Grouped_Downsides_for_plotting <- regroup_all_data(All_Split_Downsides_for_plotting)
 
 title_plot_All_Downsides <- paste ("Downsides of ORPs
-(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Downsides"])+
-                         as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Downsides"])+
-                         as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Downsides"])+
-                         as.numeric(sst_academicdata$Total[sst_academicdata$Question == "Downsides"])),
-                         ")" , sep="")
+(all researchers, N=",(as.numeric(sst_data$Total[sst_data$Question == "Downsides"])), ")" , sep="")
 
 
 All_Grouped_Downsides_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grouped_Downsides_for_plotting, 

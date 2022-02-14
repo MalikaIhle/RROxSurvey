@@ -43,11 +43,7 @@ All_Grouped_FutureRecruitment_for_plotting <- regroup_all_data(All_Split_FutureR
 
 
 title_plot_All_FutureRecruitment <- paste ("Desired future recruitment criteria
-(all researchers, N=",(as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "FutureRecruitment"])+
-                       as.numeric(sst_staffdata$Total[sst_staffdata$Question == "FutureRecruitment"])+
-                       as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "FutureRecruitment"])+
-                       as.numeric(sst_academicdata$Total[sst_academicdata$Question == "FutureRecruitment"])),
-                       ")" , sep="")
+(all researchers, N=",(as.numeric(sst_data$Total[sst_data$Question == "FutureRecruitment"])),")" , sep="")
 
 
 All_Grouped_FutureRecruitment_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_Grouped_FutureRecruitment_for_plotting, 

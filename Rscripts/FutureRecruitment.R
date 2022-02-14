@@ -34,9 +34,7 @@ All_academicdata_FutureRecruitment_for_plotting <- regroup_all_data(academicdata
 
 # Horizontal stacked barplot on regrouped data (All Div)
 title_plot_Current_pgr_regrouped <- paste ("PGR students (N=",sst_pgrdata$Total[sst_pgrdata$Question == "FutureRecruitment"], ")" , sep="")
-title_plot_Current_allstaff_regrouped <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata$Total[sst_staffdata$Question == "FutureRecruitment"]),
-                                                                      as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "FutureRecruitment"]),
-                                                                      as.numeric(sst_academicdata$Total[sst_academicdata$Question == "FutureRecruitment"])), ")" , sep="")
+title_plot_Current_allstaff_regrouped <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata$Total[sst_allstaffdata$Question == "FutureRecruitment"])), ")" , sep="")
 title_plot_Current_staff_regrouped <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "FutureRecruitment"], ")" , sep="")
 title_plot_Current_supportstaff_regrouped <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "FutureRecruitment"], ")" , sep="")
 title_plot_Current_academic_regrouped <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "FutureRecruitment"], ")" , sep="")
@@ -87,16 +85,11 @@ ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_FutureRecruitment.png"), 
 
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_Current_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
-title_plot_Current_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "FutureRecruitment", Plotted_Div ]),
-                                                            as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "FutureRecruitment", Plotted_Div ]),
-                                                            as.numeric(sst_academicdata[sst_academicdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
+title_plot_Current_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[sst_allstaffdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
 title_plot_Current_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
 title_plot_Current_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
 title_plot_Current_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")
-title_plot_Current_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "FutureRecruitment", Plotted_Div ]),
-                                                                                         as.numeric(sst_staffdata[sst_staffdata$Question == "FutureRecruitment", Plotted_Div ]),
-                                                                                         as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "FutureRecruitment", Plotted_Div ]),
-                                                                                         as.numeric(sst_academicdata[sst_academicdata$Question == "FutureRecruitment", Plotted_Div ])),")" , sep="")
+title_plot_Current_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_data[sst_data$Question == "FutureRecruitment", Plotted_Div ])),")" , sep="")
 title_plot_Current_allbutacademic <- paste ("Non-Academics (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "FutureRecruitment", Plotted_Div ]),
                                                                     as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "FutureRecruitment", Plotted_Div ]),
                                                                     as.numeric(sst_pgrdata[sst_pgrdata$Question == "FutureRecruitment", Plotted_Div ])), ")" , sep="")

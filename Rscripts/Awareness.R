@@ -30,9 +30,7 @@ All_academicdata_Awareness_for_plotting <- regroup_all_data(academicdata_Awarene
 # Horizontal stacked barplot per ORP
 Plotted_Div <- c("MSD", "MPLS","SSD", "Hum")
 title_plot_pgr <- paste ("PGR students (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
-title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Awareness", Plotted_Div ]),
-                                                       as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Awareness", Plotted_Div ]),
-                                                       as.numeric(sst_academicdata[sst_academicdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
+title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[sst_allstaffdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Awareness", Plotted_Div ])), ")" , sep="")
