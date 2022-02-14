@@ -125,21 +125,56 @@ The first question asked, after respondents' affiliation and role, was:
 source(here::here("Rscripts","Awareness.R"))
 ```
 
-![(\#fig:Awareness) Distribution of responses for awareness of ORPs across Divisions.](../Figures/Round12_Double_Awareness-per-ORP.png)
+Figure \@ref(fig:awareness) shows awareness and usage of open research practices (ORPs) for PGR students and researchers, i.e. research staff or fellow, research support staff, and academics combined. Researchers were pooled because research staff and academics results show similar patterns (and that we only had very low sample sizes for research support staff).
 
-```{r fig-awareness, echo = FALSE, fig.width=7, fig.height=9, fig.align = "center", fig.cap = paste("Distribution of responses for awareness of ORPs across Divisions. N = ", sst_data$Total[1], sep = "")}
-doubleplot_Awareness
-```
+In this figure we can see that the practice of each ORPs (in green) shows similar pattern across Divisions between PGR students and researchers, but with researchers practicing them a lot more - which is rather trivial if we consider e.g. first year DPhil student's opportunity to have practiced them.
 
-On the left of Figure \@ref(fig:Awareness)
+![(\#fig:awareness) Distribution of responses for awareness of ORPs across Divisions for PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academcis). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Awareness" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Awareness" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Awareness"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Awareness"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Awareness" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Awareness" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Awareness"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Awareness"]`](../Figures/Round12_Double_Awareness-per-ORP.png)
 
-Overall, **Open Access** publishing was indicated to be the most practiced a **we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA)**.
+Overall, Open Access publishing was indicated to be the most practiced among PGR students and only FIXME% of the respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work (see Figure \@ref(fig:awareness)). However, there was a large proportion (FIXME%) of respondents who were aware or accessing open access publications but who did not practice it themselves. Analyses of barriers to this practice (see details below) reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).
 
-**Open Data**, **Open Code**, **Open Materials**, and **Preprint** shared relatively similar level of practice
+Preprinting and sharing of data was the next most practiced. We had large disparities between Divisions for code sharing practices. And overall, preregistration and registered report were the least well-known ORPs.
 
 ## Overall effect of open research practices
 
+```{r, echo = FALSE, include = FALSE}
+source(here::here("Rscripts","Effect.R"))
+```
+
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
+
+
+In Figure \@ref(fig:effect-single), we can see that the vast majority of respondents (on average FIXME%, ranging from FIX% to FIXME%) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average FIXME%, ranging from FIXME% to FIXME%). Lower levels of favorable opinions did not correspond to a higher level of unfavorable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect a widespread adoption of open research practices would be. This pattern of 'uncertainty' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports.
+
+![(\#fig:effect-single) Distribution of responses regarding the presumed overall effect of ORPs widespread adoption on the field of research of the respondent pooled across all types of researchers and Divisions](../Figures/Round12_Single_Effect-per-ORP.png)
+
+When looking at Divisions separately in Figure \@ref(fig:effect-double), the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial while lower level of favourable opinions were only corresponding to higher level of uncertainty (whose patterns matched the patterns seen in the awareness question) rather than unfavorable opinions.
+Open Access publishing was judged detrimental by FIXME% of the researchers in the Humanities; and Preprint was judged the most detrimental practice with FIXME% PGR students and researchers from the Humanities. 
+
+![(\#fig:effect-double) Distribution of responses regarding the presumed overall effect of ORPs widespread adoption on the field of research of PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academcis). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Effect" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Effect"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Effect"]`](../Figures/Round12_Double_Effect-per-ORP.png)
+
+### Downsides to widespread adoption of open research practices
+
+We later asked:
+"**In your view, are there any downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
+
+to understand why people think a specific ORP was overall detrimental, and to include any downsides other people may find for a specific ORP, even if overall judged beneficial. 
+
+We do indeed see more detrimental sides in Figure \@ref(fig:effect-double) when asking about any downsides, as expected. 
+
+![(\#fig:downside-single) Distribution of responses on whether ORPS have any downsides, with responses pooled across all types of researchers and Divisions](../Figures/Round12_Single_Downsides-per-ORP.png)
+
+In Figure \@ref(fig:effect-double), we can see larger amounts of downsides in Open Access publishing, and the sharing of data. 
+
+![(\#fig:downside-double) Distribution of responses regarding possible downsides of ORPs as judged by PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academcis). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Downsides" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Downsides" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Downsides"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Downsides"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Downsides" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Downsides == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Downsides"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Downsides"]`](../Figures/Round12_Double_Downsides-per-ORP.png)
+
+So what are these downsides across all ORPS?
+
+## What Downsides 
+FIX ME
+
+
+Overall, despite these downsides, people seemed to think these ORPS are quite favorable, so why aren't they more practices? Are they any barriers to adoptions?
 
 ### Barriers to adoption of open research practices
 
@@ -159,9 +194,6 @@ Time may be perceived as an additional factor contributing to adoption of a prac
 
 `{#a %>% knitr::kable()}`
 
-### Downsides to widespread adoption of open research practices
-
-"**In your view, are there any downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
 
 #### what downsides
 
