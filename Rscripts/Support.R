@@ -77,7 +77,7 @@ All_Data_Support <- rbind(
 All_Split_Support_for_plotting <- prepare_data_for_plotting(Supports, All_Data_Support, Support_answers, Support_columns)
 All_Grouped_Support_for_plotting <- regroup_all_data(All_Split_Support_for_plotting)
 
-title_plot_All_Support <- paste ("Support of ORPs
+title_plot_All_Support <- paste ("Support needed for adoption of ORPs
 (all researchers, N=",(as.numeric(sst_data$Total[sst_data$Question == "Support"])), ")" , sep="")
 
 

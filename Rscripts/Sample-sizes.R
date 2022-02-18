@@ -33,6 +33,7 @@ N_div <- merge(N_div, targetnumbers[,c('Div', 'Researchers2022')],  by = 'Div' ,
 names(N_div)[names(N_div) == 'Researchers2022'] <- 'Target'
 N_div$'% N' <- round(((N_div[,2] / N_div[,3])*100),1)
 N_div <- N_div %>% arrange(desc(Both.round))
+N_div <- rbind(N_div, c('Total', sum(N_div$Both.round), sum(N_div$Target, na.rm = TRUE), round((sum(N_div$Both.round)/sum(N_div$Target, na.rm = TRUE)*100), 1)))
 N_div
 
 # Sample size for both round combined - split per Divisions and roles

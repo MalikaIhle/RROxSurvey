@@ -101,7 +101,7 @@ title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])), ")" , sep="")
-title_plot_Current_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Training", Plotted_Div ]),
+title_plot_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_pgrdata[sst_pgrdata$Question == "Training", Plotted_Div ]),
                                                                                          as.numeric(sst_staffdata[sst_staffdata$Question == "Training", Plotted_Div ]),
                                                                                          as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Training", Plotted_Div ]),
                                                                                          as.numeric(sst_academicdata[sst_academicdata$Question == "Training", Plotted_Div ])),")" , sep="")
@@ -113,7 +113,7 @@ staffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Training
 supportstaffdata_Training_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
 academicdata_Training_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Training_for_plotting, Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot =title_plot_academic)
 
-alldata_Training_perORP <- horizontal_stack_barplot_per_ORP(alldata_Training_for_plotting,  Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
+alldata_Training_perORP <- horizontal_stack_barplot_per_ORP(alldata_Training_for_plotting,  Plotted_Div, Trainings,Training_answers, Training_colors, title_legend = NULL, title_plot = title_plot_alldata)
 alldata_Training_perORP
 ggsave(here::here("Figures", "Round12_Single_splitDiv_Training.png"), width = 8, height = 20, bg = "white")
 
