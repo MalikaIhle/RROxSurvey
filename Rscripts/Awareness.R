@@ -88,3 +88,49 @@ All_Grouped_Awareness_plot <- horizontal_stacked_barplot_on_regrouped_data(All_G
                                                                                     legend_position = "bottom")
 All_Grouped_Awareness_plot
 ggsave(here::here("Figures", "Round12_Single_Awareness-per-ORP.png"), width = 10, height = 4, bg = "white")
+
+
+
+## plot for academics awareness only, all ORPs combined.
+academicdata_Awareness_acrossORP <- academicdata_Awareness[academicdata_Awareness$Div %in% Plotted_Div,]
+academicdata_Awareness_acrossORP <- academicdata_Awareness_acrossORP[complete.cases(academicdata_Awareness_acrossORP), ]
+
+academicdata_Awareness_acrossORP <- data.frame(rbind(cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_OA), 
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_Data), 
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_Code), 
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_Materials),
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_Preprint),
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_Prereg), 
+                                                     cbind(academicdata_Awareness_acrossORP$Div, academicdata_Awareness_acrossORP$Awareness_RegRep)))
+colnames(academicdata_Awareness_acrossORP) <- c("Div", "Answer")
+
+academicdata_Awareness_acrossORP_for_plotting <- academicdata_Awareness_acrossORP  %>% group_by(Div,Answer) %>% summarise (n = n()) %>% 
+  mutate(perc = n / sum(n) * 100 ) 
+academicdata_Awareness_acrossORP_for_plotting$ID <- paste(academicdata_Awareness_acrossORP_for_plotting$Div, academicdata_Awareness_acrossORP_for_plotting$Answer)
+academicdata_Awareness_acrossORP_for_plotting$Div <- factor(academicdata_Awareness_acrossORP_for_plotting$Div, levels = rev(Divisions))
+academicdata_Awareness_acrossORP_for_plotting$Answer = factor(academicdata_Awareness_acrossORP_for_plotting$Answer, levels = Awareness_answers)
+
+Nacademic_awareness_perDiv <- academicdata_Awareness_acrossORP_for_plotting %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE)/7) # divided by 7 because all responses for all 7 measures were pooled
+Nacademic_awareness <- sum(Nacademic_awareness_perDiv$N)
+
+title_plot <- paste('Average awareness accross all ORPs
+Academics (N = ', Nacademic_awareness,")" , sep="")
+
+academicdata_Awareness_acrossORP_for_plotting %>% 
+  ggplot() +
+  geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "fill") +
+   scale_fill_manual(values = (Awareness_colors),
+                     breaks = rev(Awareness_answers), 
+                     labels = rev(Awareness_answers), 
+                     drop = FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position="right", legend.title = element_blank()) +
+  labs(x = "", y = "")+
+  guides(fill=guide_legend())+
+  ggtitle(title_plot) + 
+  theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+
+ggsave(here::here("Figures", "Round12_Single_Awareness_Academic_accross_ORP.png"), width = 7, height = 3, bg = "white")
+
