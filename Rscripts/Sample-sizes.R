@@ -1,6 +1,4 @@
 
-  #source("Rscripts/FormatData.R")
-
 # During data collection
 ## Check coverage across department
 pt <- data.frame(data_round2 %>% group_by(Div, Role, Dept) %>% summarise(n = n()))
@@ -28,16 +26,16 @@ N <- cbind( 'Role' = N[,ncol(N)] , N[,-ncol(N)])
 N
 
 # Sample size for both round combined - split per Divisions
-N_div <- data.frame(data_round12 %>% group_by(Div) %>% summarise ("Both round" = n())) 
+N_div <- data.frame(data_round12 %>% group_by(Div) %>% summarise ("BothRounds" = n())) 
 N_div <- merge(N_div, targetnumbers[,c('Div', 'Researchers2022')],  by = 'Div' , all.x = TRUE) 
 names(N_div)[names(N_div) == 'Researchers2022'] <- 'Target'
 N_div$'% N' <- round(((N_div[,2] / N_div[,3])*100),1)
-N_div <- N_div %>% arrange(desc(Both.round))
-N_div <- rbind(N_div, c('Total', sum(N_div$Both.round), sum(N_div$Target, na.rm = TRUE), round((sum(N_div$Both.round)/sum(N_div$Target, na.rm = TRUE)*100), 1)))
+N_div <- N_div %>% arrange(desc(BothRounds))
+N_div <- rbind(N_div, c('Total', sum(N_div$BothRounds), sum(N_div$Target, na.rm = TRUE), round((sum(N_div$BothRounds)/sum(N_div$Target, na.rm = TRUE)*100), 1)))
 N_div
 
 # Sample size for both round combined - split per Divisions and roles
-N_div_role <- data.frame(data_round12 %>% group_by(Div, Role) %>% summarise ("Both round" = n())) 
+N_div_role <- data.frame(data_round12 %>% group_by(Div, Role) %>% summarise ("BothRounds" = n())) 
 pt <- PivotTable$new()
 pt$addData(data_round12)
 pt$addColumnDataGroups("Role")
