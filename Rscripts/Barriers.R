@@ -132,9 +132,10 @@ ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers.png"), width = 8,
 alldata_Barriers_for_plotting_forOA <- alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access' & alldata_Barriers_for_plotting$Div %in% Plotted_Div,]
 Nalldata_Barriers_forOA_perDiv <- alldata_Barriers_for_plotting_forOA %>% group_by(Div) %>% summarise(N = sum(unique(NbRespondents), na.rm=TRUE))
 sumNalldata_Barriers_forOA_perDiv <- sum(Nalldata_Barriers_forOA_perDiv$N)
-title_plot_alldata_for_OA <- paste ("PGR students and all researchers combined (N=",sumNalldata_Barriers_forOA_perDiv,")" , sep="")
+title_plot_alldata_for_OA <- paste ("Barriers to adoption of Open Access publishing
+(PGR students and all researchers combined, N=",sumNalldata_Barriers_forOA_perDiv,")" , sep="")
 
-alldata_Barriers_perORP_for_OA <- barriers_horizontal_dodge_barplot_per_ORP(alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access',],  Plotted_Div, Measures,Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_alldata_for_OA, 50)
+alldata_Barriers_perORP_for_OA <- barriers_horizontal_dodge_barplot_for_one_ORP(alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access',],  Plotted_Div, Measures,Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_alldata_for_OA, 50)
 alldata_Barriers_perORP_for_OA
 ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers_for_OA.png"), width = 6, height = 7, bg = "white")
 
