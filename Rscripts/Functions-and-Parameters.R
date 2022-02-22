@@ -885,6 +885,40 @@ barriers_horizontal_dodge_barplot_per_ORP <- function(data, divisions, Question,
   
 }
 
+barriers_horizontal_dodge_barplot_for_one_ORP <- function(data, divisions, Question, answers, answers_colors, title_legend, title_plot, plot_ylim){
+  
+  # data <- alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access',]
+  # title_legend <- NULL
+  # title_plot <- title_plot_alldata_for_OA
+  # plot_ylim <- 50
+  # 
+  
+  data <- data[data$Div %in% Plotted_Div,]
+  
+  data$Div <- factor(data$Div, levels = rev(Divisions)) # this will determine order of the bars
+  data$Answer <- factor(data$Answer, levels = answers) # this will determine order of the answers
+  data$LabelIndiv <- factor(data$LabelIndiv, levels = Question) # this will determine order of the bars
+  
+  data %>% 
+    ggplot() +
+    geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "dodge") +
+    scale_fill_manual(values = c("black", "#666666", "#E31A1C", "#FC4E2A", "#FD8D3C", "#FEB24C", "#FED976", "#FFEDA0", "#B8E186"), # https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/
+                      breaks=c("NA", "NotSure", "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None"),
+                      labels =c("Not applicable", "Not sure",  "Infrastructure", "Training", "Norms" , "Incentives", "Policy", "Other", "None")
+                      , drop = FALSE)+
+    facet_wrap(~LabelIndiv, scales = "free_x", ncol = 1) +
+    coord_flip(ylim = c(0, plot_ylim)) +
+    theme_minimal() +
+    theme(legend.position="bottom",
+          #legend.title = element_blank(),
+          strip.text.x = element_blank()) +
+    labs(x = "", y = "")+
+   guides(fill=guide_legend(title=title_legend))+
+    ggtitle(title_plot) + 
+    theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+  
+}
+
 
 ## analyse text
 capitalise_all_strings <- function(data){
