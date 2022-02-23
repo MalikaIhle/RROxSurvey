@@ -13,6 +13,7 @@ staffdata_Support_for_plotting <- prepare_data_for_plotting(Supports, staffdata_
 supportstaffdata_Support_for_plotting <- prepare_data_for_plotting(Supports, supportstaffdata_Support, Support_answers, Support_columns)
 academicdata_Support_for_plotting <- prepare_data_for_plotting(Supports, academicdata_Support, Support_answers, Support_columns)
 alldata_Support_for_plotting <- prepare_data_for_plotting(Supports, data_Support, Support_answers, Support_columns)
+alldata_but_academic_Support_for_plotting <- rbind(pgrdata_Support_for_plotting,staffdata_Support_for_plotting,supportstaffdata_Support_for_plotting)
 
 # regroup data split per Division for overall plot
 All_pgrdata_Support_for_plotting <- regroup_all_data(pgrdata_Support_for_plotting)
@@ -20,6 +21,7 @@ All_allstaffdata_Support_for_plotting <- regroup_all_data(allstaffdata_Support_f
 All_staffdata_Support_for_plotting <- regroup_all_data(staffdata_Support_for_plotting)
 All_supportstaffdata_Support_for_plotting <- regroup_all_data(supportstaffdata_Support_for_plotting)
 All_academicdata_Support_for_plotting <- regroup_all_data(academicdata_Support_for_plotting)
+All_alldata_but_academic_Support_for_plotting <- regroup_all_data(alldata_but_academic_Support_for_plotting)
 
 # circular plot per Division
 ## pgrdata_Support_plot <- circular_plot_function(pgrdata_Support_for_plotting, Supports, Support_answers, title_plot = 'Support', Support_colors)
@@ -31,6 +33,9 @@ title_plot_allstaff_regrouped <- paste ("Researchers (N=",sum(as.numeric(sst_all
 title_plot_staff_regrouped <- paste ("Research staff (N=",sst_staffdata$Total[sst_staffdata$Question == "Support"], ")" , sep="")
 title_plot_supportstaff_regrouped <- paste ("Research support staff (N=",sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Support"], ")" , sep="")
 title_plot_academic_regrouped <- paste ("Academics (N=",sst_academicdata$Total[sst_academicdata$Question == "Support"], ")" , sep="")
+title_plot_nonacademic_regrouped <- paste ("Non-Academics (N=",sum(as.numeric(sst_staffdata$Total[sst_staffdata$Question == "Support"]),
+                                                                   as.numeric(sst_supportstaffdata$Total[sst_supportstaffdata$Question == "Support"]),
+                                                                   as.numeric(sst_pgrdata$Total[sst_pgrdata$Question == "Support"])), ")" , sep="")
 
 # plot regrouped data 
 temp <- horizontal_stacked_barplot_on_regrouped_data(All_pgrdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_pgr_regrouped, legend_position = "bottom")
@@ -41,6 +46,8 @@ All_allstaffdata_Support_plot <- horizontal_stacked_barplot_on_regrouped_data_wi
 All_staffdata_Support_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_staffdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_staff_regrouped)
 All_supportstaffdata_Support_plot <- horizontal_stacked_barplot_on_regrouped_data_without_axis_text(All_supportstaffdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_supportstaff_regrouped)
 All_academicdata_Support_plot <- horizontal_stacked_barplot_on_regrouped_data_x_right(All_academicdata_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_academic_regrouped)
+All_nonacademicdata_Support_plot <- horizontal_stacked_barplot_on_regrouped_data(All_alldata_but_academic_Support_for_plotting, Supports, Support_answers, Support_colors, title_plot = title_plot_nonacademic_regrouped, legend_position = "none")
+
 
 
 doubleplot_All_Support <- egg::ggarrange(All_pgrdata_Support_plot, 
@@ -53,6 +60,21 @@ doubleplot_All_Support_with_legend <- annotate_figure(doubleplot_All_Support_wit
 
 doubleplot_All_Support_with_legend
 ggsave(here::here("Figures", "Round12_Double_AllDiv_Support.png"), width = 15, height = 10, bg = "white")
+
+
+
+doubleplot_All_AcademicvsNonAcademic_Support <- egg::ggarrange(All_nonacademicdata_Support_plot, 
+                                                               All_academicdata_Support_plot, nrow=1)
+
+doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- ggpubr::ggarrange(doubleplot_All_AcademicvsNonAcademic_Support, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
+
+doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- annotate_figure(doubleplot_All_AcademicvsNonAcademic_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
+
+doubleplot_All_AcademicvsNonAcademic_Support_with_legend
+ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
+
+
+
 
 
 quadrupleplot_All_Support <- egg::ggarrange(All_pgrdata_Support_plot, 
@@ -99,7 +121,10 @@ title_plot_allstaff <- paste ("Researchers (N=",sum(as.numeric(sst_allstaffdata[
 title_plot_staff <- paste ("Research staff (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Support", Plotted_Div ])), ")" , sep="")
 title_plot_supportstaff <- paste ("Research support staff (N=",sum(as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Support", Plotted_Div ])), ")" , sep="")
 title_plot_academic <- paste ("Academics (N=",sum(as.numeric(sst_academicdata[sst_academicdata$Question == "Support", Plotted_Div ])), ")" , sep="")
-title_plot_Current_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_data[sst_data$Question == "Support", Plotted_Div ])),")" , sep="")
+title_plot_alldata <- paste ("PGR students and all researchers combined (N=",sum(as.numeric(sst_data[sst_data$Question == "Support", Plotted_Div ])),")" , sep="")
+title_plot_allbutacademic <- paste ("Non-Academics (N=",sum(as.numeric(sst_staffdata[sst_staffdata$Question == "Support", Plotted_Div ]),
+                                                                    as.numeric(sst_supportstaffdata[sst_supportstaffdata$Question == "Support", Plotted_Div ]),
+                                                                    as.numeric(sst_pgrdata[sst_pgrdata$Question == "Support", Plotted_Div ])), ")" , sep="")
 
 
 pgrdata_Support_perORP <- horizontal_stack_barplot_per_ORP(pgrdata_Support_for_plotting, Plotted_Div, Supports, Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_pgr)
@@ -107,10 +132,11 @@ allstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(allstaffdata_Sup
 staffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(staffdata_Support_for_plotting, Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_staff)
 supportstaffdata_Support_perORP <- horizontal_stack_barplot_per_ORP(supportstaffdata_Support_for_plotting, Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_supportstaff)
 academicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(academicdata_Support_for_plotting, Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot =title_plot_academic)
+nonacademicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(alldata_but_academic_Support_for_plotting,  Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_allbutacademic)
 
-alldata_Support_perORP <- horizontal_stack_barplot_per_ORP(alldata_Support_for_plotting,  Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
+alldata_Support_perORP <- horizontal_stack_barplot_per_ORP(alldata_Support_for_plotting,  Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_alldata)
 alldata_Support_perORP
-ggsave(here::here("Figures", "Round12_Single_splitDiv_Support.png"), width = 8, height = 20, bg = "white")
+ggsave(here::here("Figures", "Round12_Single_splitDiv_Support.png"), width = 6, height = 10, bg = "white")
 
 
 doubleplot_Support <- ggpubr::ggarrange(pgrdata_Support_perORP,
@@ -120,7 +146,20 @@ doubleplot_Support <- annotate_figure(doubleplot_Support,
                                        top = text_grob("Support needs",
                                                        face = "bold", size = 14))
 doubleplot_Support
-ggsave(here::here("Figures", "Round12_Double_SplitDiv_Support.png"), width = 10, height = 15, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_SplitDiv_Support.png"), width = 10, height = 10, bg = "white")
+
+
+
+doubleplot_Support_ac_vs_non_ac <- ggpubr::ggarrange(nonacademicdata_Support_perORP,
+                                                     academicdata_Support_perORP,
+                                        ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+doubleplot_Support_ac_vs_non_ac <- annotate_figure(doubleplot_Support_ac_vs_non_ac,
+                                      top = text_grob("Support needs",
+                                                      face = "bold", size = 14))
+doubleplot_Support_ac_vs_non_ac
+ggsave(here::here("Figures", "Round12_Double_SplitDiv_Academic_vs_NonAcademic_Support.png"), width = 10, height = 10, bg = "white")
+
+
 
 
 
