@@ -108,12 +108,16 @@ N_div %>% flextable() %>%
 
 We had the most responses from MPLS and MSD in terms of absolute numbers, then somewhere between a half or a third of that in SSD and Hum, and then a few responses from GLAM, ContEd, and College-only staff that did not associate with a Division. All of the data will be used for overall results, but when showing plots with the data split per Division, only the data of the 4 main academic Divisions will be used.
 
-In total, we had `r N_div$BothRounds[N_div$Div == 'Total']` participants in the survey. More precisely, this is the number of participants that answered the two mandatory questions: Role and Affiliation. We kept respondents' answers whether they completed the survey or not. This means sample size slightly decline question after questions. The attrition rate (the percentage of participants dropping out of the survey after the first 2 mandatory questions and up to the last question) was `r sst_data$Total[sst_data$Question == 'PercDrop']`% on average, and did not depend on participants' Divisions. <!--# this needs checking again at the end of data collection. -->
+In total, we had **`r N_div$BothRounds[N_div$Div == 'Total']`** participants in the survey. More precisely, this is the number of participants that answered the two mandatory questions: Role and Affiliation. We kept respondents' answers whether they completed the survey or not. This means sample size slightly decline question after questions. The attrition rate (the percentage of participants dropping out of the survey after the first 2 mandatory questions and up to the last question) was `r sst_data$Total[sst_data$Question == 'PercDrop']`% on average, and increased from MSD, to MPLS, SSD, and the Humanities Division (see Table \@ref(tab:tabSSdivQ)). <!--# this needs checking again at the end of data collection. --> By the final question, we had **`r sst_data$Total[sst_data$Question == 'Support']`** remaining respondents (Table \@ref(tab:tabSSdivQ)).
 
-```{r, echo = FALSE, include = FALSE}
-sst_data
-sst_data[c(1:9, 12,13),c(1,9)]
+```{r, echo = FALSE, include = TRUE}
+sst_data[c(1:9, 12,13),c(1,7,6,8,5,9)] %>% flextable() %>% 
+    set_caption(caption = "Number of survey participants per Division and per question",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tabSSdivQ"))
 ```
+
+
 
 ### Awareness of open research practices
 
@@ -168,6 +172,7 @@ When looking at Divisions separately in Figure \@ref(fig:effect-double), the pre
 Notably, Open Access publishing and Preprinting were judged detrimental by `r Hum_OA_Detrimental`% and `r Hum_Preprint_Detrimental`% of the researchers (i.e. research staff, support staff, and academics) in the Humanities, respectively.
 
 ![(\#fig:effect-double) Presumed overall effect of ORPs widespread adoption on the field of research of respondents; PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Effect" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Effect"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Effect"]`](../Figures/Round12_Double_Effect-per-ORP.png)
+
 
 ### Downsides to widespread adoption of open research practices
 
@@ -249,7 +254,7 @@ Responses from students, research staff, and academics show overall similar patt
 
 Open access publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (see Figure \@ref(fig:barrier-single-OA)). In the Social sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select other barriers to adoption of OA publishing, including a lack of Infrastructure.<!--# FIXME NUMBERS-->
 
-![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png)
+![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width=400px}
 
 Training, norms, and incentives, then followed by policy, seem to be the major barriers perceived for all the other ORPs and across Divisions (see Figure \@ref(fig:barrier-single)). <!--# FIXME NUMBERS? -->
 
@@ -362,9 +367,9 @@ Patterns or responses were similar between PGR students, research staff or fello
 
 There are lots of interesting results that I'm happy to provide the DORA implementation team but I don't have time to go into details now. For instance, they are differences between Divisions regarding the importance of citation, etc.
 
-![(\#fig:recruitment-current) Perceived current recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Current`, MPLS = `r Nnonacademic_MPLS_Current`, SSD = `r Nnonacademic_SSD_Current`, Hum = `r Nnonacademic_Hum_Current`; Academics: MSD = `r Nacademic_MSD_Current`, MPLS = `r Nacademic_MPLS_Current`, SSD = `r Nacademic_SSD_Current`, Hum = `r Nacademic_Hum_Current`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png)
+![(\#fig:recruitment-current) Perceived current recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Current`, MPLS = `r Nnonacademic_MPLS_Current`, SSD = `r Nnonacademic_SSD_Current`, Hum = `r Nnonacademic_Hum_Current`; Academics: MSD = `r Nacademic_MSD_Current`, MPLS = `r Nacademic_MPLS_Current`, SSD = `r Nacademic_SSD_Current`, Hum = `r Nacademic_Hum_Current`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png){height=800px}
 
-![(\#fig:recruitment-future) Future desired recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Future`, MPLS = `r Nnonacademic_MPLS_Future`, SSD = `r Nnonacademic_SSD_Future`, Hum = `r Nnonacademic_Hum_Future`; Academics: MSD = `r Nacademic_MSD_Future`, MPLS = `r Nacademic_MPLS_Future`, SSD = `r Nacademic_SSD_Future`, Hum = `r Nacademic_Hum_Future`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png)
+![(\#fig:recruitment-future) Future desired recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Future`, MPLS = `r Nnonacademic_MPLS_Future`, SSD = `r Nnonacademic_SSD_Future`, Hum = `r Nnonacademic_Hum_Future`; Academics: MSD = `r Nacademic_MSD_Future`, MPLS = `r Nacademic_MPLS_Future`, SSD = `r Nacademic_SSD_Future`, Hum = `r Nacademic_Hum_Future`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png){height=800px}
 
 Figure \@ref(fig:recruitment-combined-ORP) shows a closer look at the open research practices criteria, one of the criteria that shows the most differences between Divisions. Both the majority of non-academics, and academics thinks that the use of ORPs isn't currently considered for recruitment <!--# FIXME NUMBERS -->, while a large proportion thing it *should* be considered at least slightly <!--# FIXME NUMBERS -->. Academics across Divisions shows widely different opinions, with only <!--# FIXME NUMBERS --> MSD academics suggesting that ORP should not be considered at all, while on average <!--# FIXME NUMBERS --> academics in the other Divisions thought so.
 
@@ -372,11 +377,33 @@ Figure \@ref(fig:recruitment-combined-ORP) shows a closer look at the open resea
 
 <!--# FIXME perspective of opinion on ORPs by academic on recruitment criteria with their average awareness of ORPs presented in this survey -->
 
-![(\#fig:academic-awareness-across-ORP). Academic awareness of ORPs averaged across all ORPs MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png)
+![(\#fig:academic-awareness-across-ORP). Academic awareness of ORPs averaged across all ORPs MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png){width=400px}
 
 <!--# FIXME in recommendation section? -->
 
 Focus group with academics to discuss possible change in recruitment criteria, especially with regards to ORPs, and in context of teams (to not just keep adding criteria on single individuals)
+
+#### Other recruitment criteria
+
+```{r, echo = FALSE, include = FALSE}
+source(here::here("Rscripts","OtherCurrentCriteria.R"))
+source(here::here("Rscripts","OtherFutureCriteria.R"))
+```
+
+```{r, echo = FALSE, include = TRUE}
+xtab_OtherCurrentRecruitment %>% flextable() %>% 
+    set_caption(caption = "Other perceived current recruitment criteria",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tblothercurrent"))
+```
+
+```{r, echo = FALSE, include = TRUE}
+xtab_OtherFutureRecruitment %>% flextable() %>% 
+    set_caption(caption = "Other desired future recruitment criteria",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tblotherfuture"))
+```
+
 
 ### Training needs
 
@@ -384,7 +411,7 @@ Focus group with academics to discuss possible change in recruitment criteria, e
 source(here::here("Rscripts","Training.R"))
 ```
 
-"**For which of the following topics do you think more guidance is necessary?** 'No guidance needed' indicates that sufficient guidance on the topic is available. 'No guidance wanted' indicates that you do not see the net benefit of engaging with the topic. Please list any additional topics in the empty boxes below."
+"**For which of the following topics do you think more guidance is necessary?** 'No guidance needed' indicates that sufficient guidance on the topic is available. 'No guidance wanted' indicates that you do not see the net benefit of engaging with the topic (e.g. it may be applicable to your field but you are not interested in the topic). Please list any additional topics in the empty boxes below."
 
 The topics listed were:
 
@@ -392,30 +419,45 @@ The topics listed were:
 
 -   How to prepare data management plans [labelled **Data Management Plan**]
 
--   How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled **Open data**]
+-   How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled **FAIR data**]
 
--   How to prepare ethics applications that allow archiving of anonymised data in a public repository [lablled **Ethics**]
+-   How to prepare ethics applications that allow archiving of anonymised data in a public repository [labelled **Ethics**]
 
 -   How to write good quality code (including unit testing, version control, reproducible documentation) and share it publicly (e.g. selection of a repository that assigns a DOI) [labelled **Open Code**]
 
--   How to prepare materials for sharing (e.g. in a digital repository that assigns a DOI, or in a physical repository) How to choose and apply licences for sharing resources (e.g. data, materials, and/or code) and navigate relevant legislation (including copyright law, privacy and GDPR law, commercial law, and institutional regulations) [labelled **Licences**]
+-   How to prepare materials for sharing (e.g. in a digital repository that assigns a DOI, or in a physical repository) [labelled **Open Meterial**]
+
+-   How to choose and apply licences for sharing resources (e.g. data, materials, and/or code) and navigate relevant legislation (including copyright law, privacy and GDPR law, commercial law, and institutional regulations) [labelled **Licences**]
 
 -   How to prepare preregistrations and/or registered reports (including experimental design, statistics, data simulation) [labelled **Preregistration**]
 
 -   Guidance on sharing preprints (e.g. selection of appropriate repository, consideration of publisher's rights, ethical considerations) [labelled **Preprint**]
 
--   How to assess job applications responsibly, fairly, and transparently [labelled ]
+-   How to assess job applications responsibly, fairly, and transparently [labelled **Recruitment**]
 
-Students and other researchers show similar patterns of demand for training, with students requesting more workshop-led training (in red) than written guidance (Figure \@ref(fig:training-double-splitDiv)
 
-![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions (PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_splitDiv_Training.png)
+Overall, the demand for training, especially workshop-led training (in red) is really high (see Figure \@ref(fig:training-single)).
 
-![(\#fig:training-double-allDiv) Training needs for all PGR students vs all other researchers across Divisions](../Figures/Round12_Double_AllDiv_Training.png)
+![(\#fig:training-single) Training needs for all PGR students and other researchers across Divisions](../Figures/Round12_Single_Training.png)
 
-For some ORPs, the Humanities, and the Social Sciences Division have less of a demand for training, which only correspond to a higher selection of the 'not applicable' option. So overall, the demand for training is really high.
+Students and other researchers show similar patterns of demand for training, but with students requesting more workshop-led training (in red) than written guidance (in orange; Figure \@ref(fig:training-double-splitDiv)
 
-#### extra training requested
+![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height=800px}
 
+For some training topics, the Humanities and the Social Sciences Division have less of a demand, which only correspond to a higher selection of the 'not applicable' option. 
+
+#### Extra training requested
+
+```{r, echo = FALSE, include = FALSE}
+source(here::here("Rscripts","OtherTraining.R"))
+```
+
+```{r, echo = FALSE, include = TRUE}
+xtab_OtherTraining %>% flextable() %>% 
+    set_caption(caption = "Other training requested",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tbltraining"))
+```
 <!--# FIXME -->
 
 ### Support
@@ -426,9 +468,24 @@ source(here::here("Rscripts","Support.R"))
 
 "**What additional support would you find useful to implement open research practices?**" Please list any additional means of support in the empty boxes below
 
-![(\#fig:support-single) Support needs](../Figures/Round12_Single_Support.png)
+For this question, academics had different patterns of responses than all the other types of researchers, as a larger proportion of academics found the type of support presented not useful <!--# FIXME average number for ac vs non ac-->. While <!--# FIXME almost 50% --> of academics and non-academics, on average, found online resources to be essential resource, results differ for the other types of support proposed. Specifically, <!--# FIXME more than 25% --> of PGR students and research staff found mentoring and supports networks to be essential, followed by coaching and seminars.
+
+![(\#fig:support-double-ac-vs-non-ac) Support needs](../Figures/Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png)
+
+
 
 #### Extra support requested
+
+```{r, echo = FALSE, include = FALSE}
+source(here::here("Rscripts","OtherSupports.R"))
+```
+
+```{r, echo = FALSE, include = TRUE}
+xtab_OtherSupport %>% flextable() %>% 
+    set_caption(caption = "Other support requested",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tblsupport"))
+```
 
 <!--# FIXME -->
 
