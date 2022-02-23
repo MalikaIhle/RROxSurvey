@@ -1,7 +1,7 @@
 
   #source("Rscripts/FormatData.R")
 
-Trainings <- c('Open Access', 'Data Management', 'FAIR Data','Ethics','Open Code', 'Open Materials', 'Licences', 'Preprint', 'Preregistration', 'Recruitement')
+Trainings <- c('Open Access', 'Data Management', 'FAIR Data','Ethics','Open Code', 'Open Materials', 'Licences', 'Preprint', 'Preregistration', 'Recruitment')
 Training_columns <- c(expr(Training_OA), expr(Training_DMP), expr(Training_FAIR), expr(Training_Ethics),
                       expr(Training_Code),expr(Training_Materials),expr(Training_Licences), 
                        expr(Training_Preprint), expr(Training_Prereg), expr(Training_Recruitement))
@@ -79,7 +79,7 @@ All_Data_Training <- rbind(
 All_Split_Training_for_plotting <- prepare_data_for_plotting(Trainings, All_Data_Training, Training_answers, Training_columns)
 All_Grouped_Training_for_plotting <- regroup_all_data(All_Split_Training_for_plotting)
 
-title_plot_All_Training <- paste ("Training of ORPs
+title_plot_All_Training <- paste ("Training needs
 (all researchers, N=",(as.numeric(sst_data$Total[sst_data$Question == "Training"])), ")" , sep="")
 
 

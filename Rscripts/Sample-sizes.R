@@ -112,8 +112,8 @@ academicdata_Support_ss <- sample_size_perQ(academicdata_Support, Support)
 
 ## prepare table with sample sizes for pgrdata
 ss_pgrdata <- pgrdata_Consent_Affiliation_Role_ss %>%
-  full_join(pgrdata_Awareness_ss,  by = 'Div') %>% 
   full_join(pgrdata_Duration_ss,  by = 'Div') %>% 
+  full_join(pgrdata_Awareness_ss,  by = 'Div') %>% 
   full_join(pgrdata_Effect_ss,  by = 'Div') %>% 
   full_join(pgrdata_Barriers_ss,  by = 'Div') %>% 
   full_join(pgrdata_Downsides_ss,  by = 'Div') %>% 
@@ -143,8 +143,8 @@ sst_pgrdata
 
 ## prepare table with sample sizes for allstaffdata
 ss_allstaffdata <- allstaffdata_Consent_Affiliation_Role_ss %>%
-  full_join(allstaffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(allstaffdata_Duration_ss,  by = 'Div') %>% 
+  full_join(allstaffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(allstaffdata_Effect_ss,  by = 'Div') %>% 
   full_join(allstaffdata_Barriers_ss,  by = 'Div') %>% 
   full_join(allstaffdata_Downsides_ss,  by = 'Div') %>% 
@@ -173,8 +173,8 @@ sst_allstaffdata
 
 ## prepare table with sample sizes for staffdata
 ss_staffdata <- staffdata_Consent_Affiliation_Role_ss %>%
-  full_join(staffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(staffdata_Duration_ss,  by = 'Div') %>% 
+  full_join(staffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(staffdata_Effect_ss,  by = 'Div') %>% 
   full_join(staffdata_Barriers_ss,  by = 'Div') %>% 
   full_join(staffdata_Downsides_ss,  by = 'Div') %>% 
@@ -204,8 +204,8 @@ sst_staffdata
 
 ## prepare table with sample sizes for support staff data
 ss_supportstaffdata <- supportstaffdata_Consent_Affiliation_Role_ss %>%
-  full_join(supportstaffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(supportstaffdata_Duration_ss,  by = 'Div') %>% 
+  full_join(supportstaffdata_Awareness_ss,  by = 'Div') %>% 
   full_join(supportstaffdata_Effect_ss,  by = 'Div') %>% 
   full_join(supportstaffdata_Barriers_ss,  by = 'Div') %>% 
   full_join(supportstaffdata_Downsides_ss,  by = 'Div') %>% 
@@ -235,8 +235,8 @@ sst_supportstaffdata
 
 ## prepare table with sample sizes for academic data
 ss_academicdata <- academicdata_Consent_Affiliation_Role_ss %>%
+  full_join(academicdata_Duration_ss,  by = 'Div') %>%   
   full_join(academicdata_Awareness_ss,  by = 'Div') %>% 
-  full_join(academicdata_Duration_ss,  by = 'Div') %>% 
   full_join(academicdata_Effect_ss,  by = 'Div') %>% 
   full_join(academicdata_Barriers_ss,  by = 'Div') %>% 
   full_join(academicdata_Downsides_ss,  by = 'Div') %>% 
