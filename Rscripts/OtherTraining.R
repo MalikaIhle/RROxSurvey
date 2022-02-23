@@ -25,6 +25,12 @@ Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Tra
 Alldata_OtherTraining$Training_Other_recode[Alldata_OtherTraining$Training_Other == 'HOW TO NEGOTIATE WITH PUBLISHERS ABOUT BOOK PUBLICATIONS'] <- 'How to negotiate with publishers about book publications'
 Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'DIVERSITY|DIVERSE|SOCIAL JUSTICE')] <- 'How to foster diversity and social justice'
 Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'APPROPRIATENESS|CAN AND CAN\'T BE SHARED')] <- 'Guidance on what can and cannot be shared'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'JOB APPLICATIONS')] <- 'How to prepare job application to highligth contribution to open-science, mentorship, etc'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'ASSESS PUBLICATIONS')] <- 'How to assess publication without making IF the primary indicator'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'TISSUE BANKS')] <- 'How to prepare sample or access samples from tissue banks'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'PAY FOR OPEN ACCESS')] <- 'How to pay for open access'
+Alldata_OtherTraining$Training_Other_recode[str_detect(Alldata_OtherTraining$Training_Other, 'DIGITAL PRESERVATION')] <- 'Guidance on data migration and digital preservation'
+
 
 Alldata_OtherTraining$Training_Other_recode[!is.na(Alldata_OtherTraining$Training_Other) & is.na(Alldata_OtherTraining$Training_Other_recode)] <- 'Not categorised'
 Alldata_OtherTraining[!is.na(Alldata_OtherTraining$Training_Other) & Alldata_OtherTraining$Training_Other_recode == 'Not categorised',]
@@ -34,7 +40,7 @@ Alldata_OtherTraining$Training_Other_score <- factor(Alldata_OtherTraining$Train
 xtab_OtherTraining <- Alldata_OtherTraining[Alldata_OtherTraining$Training_Other_recode != 'Not categorised',] %>% 
   tabyl(Training_Other_recode, Training_Other_score, show_missing_levels = FALSE) %>% 
   arrange(-`Written guidance and workshop-led training`)
-names(xtab_OtherTraining)[1] <- "" 
+names(xtab_OtherTraining)[1] <- "Training topics" 
 xtab_OtherTraining
 
 pgrdata_xtab_OtherTraining <- Alldata_OtherTraining[Alldata_OtherTraining$Subdataset == 'pgrdata' & Alldata_OtherTraining$Training_Other_recode != 'Not categorised',] %>% 

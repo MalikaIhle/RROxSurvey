@@ -20,33 +20,40 @@ Alldata_OtherFutureRecruitment$FutureRecruitment_Other <- toupper(Alldata_OtherF
 nrow(Alldata_OtherFutureRecruitment)
 
 ## recode
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'REFERENCE|CONNECTION|WHO YOU KNOW|KNOWING PEOPLE|NETWORK*|ALUMNI|AWARDING INSTITUTION|REFEREES|REPUTATION OF FORMER SUPERVISOR')] <- 'Personal connections (e.g. people from the hiring department)'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'PUBLIC ENGAGEMENT|SOCIAL MEDIA')] <- 'Public engagement'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'DIVERSITY|SOCIAL JUSTICE')] <- 'Diversity'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'FIELDWORK PROJECTS')] <- 'Leading major fieldwork projects'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'INNOVATION|ORIGINALITY|IDEAS|VISION|CREATIVE|PROPOSAL STRENGTH|AMBITION')] <- 'Originality, strenght, or ambition of research'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'COMMUNICATION SKILLS')] <- 'Communication skills (explaining their research)'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'BEING MATES|REFERENCE|CONNECTION|WHO YOU KNOW|KNOWING PEOPLE|NETWORK*|ALUMNI|AWARDING INSTITUTION|PRESTIGE OF PAST INSTITUTION|REFEREES|REPUTATION OF FORMER SUPERVISOR|WITH A SENIOR MEMBER OF THE DEPARTMENT')] <- 'Personal connections to hiring department and prestige of former connections'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'SOCIAL MEDIA|ALTMETRICS')] <- 'Social media presence'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'PUBLIC ENGAGEMENT|OUTREACH|PASTORAL ABILITIES')] <- 'Public engagement and outreach' # need this one to be below social media to overwrite one entry
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'INNOVATION|UNDERSERVED|NOVELTY|INTERESTS IN COMMON|COMPLEMENTARITY|ORIGINALITY|RESEARCH MOTIVATION AND INTEREST|IDEAS|CREATIVE THINKING|QUESTION THE STATUS QUO')] <- 'Having novel, underserved, or complementary expertise from the department'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'PAST EXPERIENCE|SPECIFIC TECHNICAL SKILLS|TECHNICAL SKILLS|RESEARCH ABILITY|ABILITY TO TEACH THE LANGUAGE|ABILITY TO TEACH IN THE LANGUAGE|KNOWLEDGE OF FIELD|GOOD UNDERSTANDING|FIELDWORK PROJECTS')] <- 'Specific skills, knowledge, or experience'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'RESEARCH PROPOSAL STRENGTH|VISION|FITNESS|AMBITION|RIGOUR')] <- 'Research proposal strength and vision'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'BEING A WHITE MALE|GENDER|DIVERSITY|PERSONAL BIAS*|CHILD CARE|CITIZIENSHIP|CITIZENSHIP|SOCIAL JUSTICE')] <- 'Diversity in personal demographics (need to reverse response for citizenship)'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'EXTERNAL ACADEMICS|STUDIED PREVIOUSLY AT OXFORD')] <- 'Being an internal or external candidate (both direction)'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'ECONOMIC VALUE|INDUSTRIAL/NON-ACADEMIC|PRACTICAL APPLICATIONS')] <- 'Industrial impact'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'INTER-DISIPLINARITY|INTERDISCIPLINARITY')] <- 'Interdisciplinarity'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'PEER-REVIEWING')] <- 'Peer-reviewing'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'COMMUNICATION SKILLS|PERFORMANCE IN THE INTERVIEW')] <- 'Communication skill, performance during interview'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'CONFERENCE')] <- 'Conference speaking'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'RESPECTFUL ENGAGEMENT WITH RESEARCH COMMUNITIES')] <- 'Respectful engagement with community researched'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'MOTIVATION')] <- 'Motivation'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'TEAM WORK RECORD')] <- 'Collaborative skills'
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'MEDICAL IMPACT')] <- 'Medical impact'
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'AVAILABILITY OF TEACHING IN PREVIOUS CAREER')] <- 'Availability of teaching in previous career'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'CONFERENCE')] <- 'Conference speaking'
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'REPLICATION')] <- 'Number of successful replications'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'INTERDISCIPLINARITY')] <- 'Interdisciplinarity'
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'BUTTONS|PARKING|DIFFICULT TO EVALUATE')] <- 'Not categorised'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'TEAM WORK RECORD')] <- 'Collaborative skills'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'ABILITY TO TEACH IN THE LANGUAGE')] <- 'Specfic skills or knowledge'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'PERFORMANCE IN THE INTERVIEW')] <- 'Performance during the interview'
-Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'MOTIVATION')] <- 'Motivation'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'COMMITMENT TO INCLUSIVITY|EQUITABLE RESEARCH|KINDNESS')] <- 'Commitment to inclusivity'
+Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[str_detect(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, 'LIFE EXPERIENCE|ROLES OUTSIDE')] <- 'Commitment to inclusivity'
+
 
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[!is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other) & is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode)] <- 'Not categorised'
-
+Alldata_OtherFutureRecruitment[!is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other) & Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode == 'Not categorised',]
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score <- factor(Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score , levels = Criteria_answers)
 
 
 ## split per subdataset
 
-xtab_OtherFutureRecruitment <- Alldata_OtherFutureRecruitment %>% 
+xtab_OtherFutureRecruitment <- Alldata_OtherFutureRecruitment[Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode != 'Not categorised',]  %>% 
   tabyl(FutureRecruitment_Other_recode, FutureRecruitment_Other_score, show_missing_levels = FALSE) %>% 
   arrange(-Considerably)
-names(xtab_OtherFutureRecruitment)[1] <- "" 
+names(xtab_OtherFutureRecruitment)[1] <- "Other desired future recruitment criteria" 
 xtab_OtherFutureRecruitment
 
