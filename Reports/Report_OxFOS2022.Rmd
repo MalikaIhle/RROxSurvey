@@ -216,7 +216,15 @@ source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 
 <!--# FIXME -->
 
-Overall, despite these downsides, people seemed to think ORPS are quite favourable, so why aren't they more practised? Are they any barriers to adoptions?
+```{r, echo = FALSE, include = TRUE}
+Alldata_WD_table %>% flextable() %>% 
+    set_caption(caption = "What downsides to adoption of ORPs",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tblotherdownsides"))
+```
+
+
+Overall, despite these numerous downsides, people seemed to think ORPS are quite favourable, so why aren't they more practised? Are they any barriers to adoptions?
 
 ### Barriers to adoption of open research practices
 
@@ -266,7 +274,14 @@ source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 
 Other barriers indicated by respondents were <!--# FIXME -->
 
-The strongest barriers to adoptions of ORPs were incentives, training and norms.
+```{r, echo = FALSE, include = TRUE}
+a <- Alldata_OB_table %>% flextable() %>% 
+    set_caption(caption = "Other barriers to adoption of ORPs",
+                style = "Table Caption", 
+                autonum = run_autonum(seq_id = "tab", bkm = "tblotherbarriers")) 
+```
+
+Besides these additions, the strongest barriers to adoptions of ORPs were incentives, training and norms.
 
 ### Recruitment criteria
 

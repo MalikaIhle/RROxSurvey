@@ -942,8 +942,8 @@ prepare_freetext_subdataset <- function(data, pattern){
 create_list_for_checking_cat <- function (data){
   
   #example to test function
-  #data <- pgrdata_OB
-  #data <- pgrdata_WD
+  #data <- Alldata_OB
+  #data <- subset(Alldata_WD,select=c(-Subdataset))
   
   data <- add_column(data, ID = 1:nrow(data), .before = 1)
   
@@ -957,28 +957,34 @@ create_list_for_checking_cat <- function (data){
   a_1 <- cbind(a_values_1, a_cat_1[,c('Category')])
   
   # add all the extra columns for values that were cat 2 or 3 
+  a_values_OA2 <- pivot_longer(data[!is.na(data$OA_cat2),c('ID', 'Div','OA')], -c(ID, Div), values_to = "Value", names_to = "Measure")
   a_values_data2 <- pivot_longer(data[!is.na(data$Data_cat2),c('ID', 'Div','Data')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_code2 <- pivot_longer(data[!is.na(data$Code_cat2),c('ID', 'Div','Code')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_preprint2 <- pivot_longer(data[!is.na(data$Preprint_cat2),c('ID', 'Div','Preprint')], -c(ID, Div), values_to = "Value", names_to = "Measure")
+  a_values_preprint3 <- pivot_longer(data[!is.na(data$Preprint_cat3),c('ID', 'Div','Preprint')], -c(ID, Div), values_to = "Value", names_to = "Measure")
   a_values_prereg2 <- pivot_longer(data[!is.na(data$Prereg_cat2),c('ID', 'Div','Prereg')], -c(ID, Div), values_to = "Value", names_to = "Measure")
   a_values_regrep2 <- pivot_longer(data[!is.na(data$RegRep_cat2),c('ID', 'Div','RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
   a_values_regrep3 <- pivot_longer(data[!is.na(data$RegRep_cat3),c('ID', 'Div','RegRep')], -c(ID, Div), values_to = "Value", names_to = "Measure")
-  a_values_preprint2 <- pivot_longer(data[!is.na(data$Preprint_cat2),c('ID', 'Div','Preprint')], -c(ID, Div), values_to = "Value", names_to = "Measure")
   
+  a_OA2 <- cbind(a_values_OA2, Category = data$OA_cat2[!is.na(data$OA_cat2)])
   a_data2 <- cbind(a_values_data2, Category = data$Data_cat2[!is.na(data$Data_cat2)])
+  a_code2 <- cbind(a_values_code2, Category = data$Code_cat2[!is.na(data$Code_cat2)])
+  a_preprint2 <- cbind(a_values_preprint2, Category = data$Preprint_cat2[!is.na(data$Preprint_cat2)])
+  a_preprint3 <- cbind(a_values_preprint3, Category = data$Preprint_cat3[!is.na(data$Preprint_cat3)])
   a_prereg2 <- cbind(a_values_prereg2, Category = data$Prereg_cat2[!is.na(data$Prereg_cat2)])
   a_regrep2 <- cbind(a_values_regrep2, Category = data$RegRep_cat2[!is.na(data$RegRep_cat2)])
   a_regrep3 <- cbind(a_values_regrep3, Category = data$RegRep_cat3[!is.na(data$RegRep_cat3)])
-  a_preprint2 <- cbind(a_values_preprint2, Category = data$Preprint_cat2[!is.na(data$Preprint_cat2)])
   
-  a <- rbind(a_1, a_data2, a_prereg2, a_regrep2, a_regrep3,a_preprint2)
+  a <- rbind(a_1, a_OA2, a_data2, a_code2, a_preprint2, a_preprint3, a_prereg2, a_regrep2, a_regrep3)
   a <- a[!is.na(a["Value"]),]
   a <- a[with(a,order(a$ID,a$Measure)),]
-  rm(a_values_1,a_cat_1, a_1, a_values_data2, a_values_prereg2, a_values_regrep2, a_values_regrep3, a_values_preprint2,
-     a_data2, a_prereg2,a_regrep2, a_regrep3, a_preprint2,
+  rm(a_values_1,a_cat_1, a_1, a_OA2, a_data2, a_code2, a_preprint2, a_preprint3, a_prereg2, a_regrep2, a_regrep3,
      colnameswithcat_all, colnameswithcat_1, colnameswithcat_23)
-  return(a)
-  } # to update if more cat2 and cat3
   
-create_pivot_table_from_list_for_checking_cat <- function (a){
+  return(a[a$Category != 'Not categorised',])
+  } # to update if more cat2 and cat3 created
+  
+create_pivot_table_from_list_for_checking_cat <- function (a, title_table){
   
   #example to test function
   #a <- a_allstaffdata_OB
@@ -1018,7 +1024,7 @@ create_pivot_table_from_list_for_checking_cat <- function (a){
   
   c[is.na(c)] <- '-'
   d <- c[c$Category != 'Not categorised',]
-  colnames(d)[colnames(d) == 'Category'] <- ''
+  colnames(d)[colnames(d) == 'Category'] <- title_table
   rownames(d) <- NULL
   pivot_table <- d
   rm(a,b,c,d)
