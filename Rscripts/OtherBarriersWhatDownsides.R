@@ -119,7 +119,7 @@ Alldata_OB$Materials_cat[!is.na(Alldata_OB$Materials) & is.na(Alldata_OB$Materia
 Alldata_OB$Materials[!is.na(Alldata_OB$Materials) & Alldata_OB$Materials_cat == 'Not categorised']
 # View(Alldata_OB[,c('Materials','Materials_cat')])
 
-quote_OB_Material_1 <- tolower("I FIND IT HARD TO FIND TIME TO CATALOGUE MATERIAL FOR DISCOVERABLE STORAGE WITH ALL OTHER DUTIES.")
+quote_OB_Materials_1 <- tolower("I FIND IT HARD TO FIND TIME TO CATALOGUE MATERIAL FOR DISCOVERABLE STORAGE WITH ALL OTHER DUTIES.")
 
 table(Alldata_OB$Materials_cat)
 
@@ -299,11 +299,10 @@ Alldata_WD$Data[!is.na(Alldata_WD$Data) & Alldata_WD$Data_cat == 'Not categorise
 quote_WD_Data_1 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"THE PROBLEM WITH WIDESPREAD ADOPTION")==TRUE])
 quote_WD_Data_2 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTION AND DATA CLEANING TAKES EFFORT AND TIME")==TRUE])
 quote_WD_Data_3 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"WE ARE SOLELY GRANT FUNDED")==TRUE])
-quote_WD_Data_4 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"WE ARE SOLELY GRANT FUNDED")==TRUE])
-quote_WD_Data_5 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"AS A QUALITATIVE RESEARCHER, DATA SHARING OF FIELDNOTES")==TRUE])
-quote_WD_Data_6 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA THAT WERE ONCE CONSIDERED ANONYMOUS ARE FREQUENTLY")==TRUE])
-quote_WD_Data_7 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA WITHOUT CURATION AND STANDARDS HAS MUCH LESS VALUE TO OTHERS")==TRUE]) 
-quote_WD_Data_8 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTORS ARE NOT APPROPRIATELY CITED OR COMPENSATED FOR THEIR CONTRIBUTIONS")==TRUE]) 
+quote_WD_Data_4 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"AS A QUALITATIVE RESEARCHER, DATA SHARING OF FIELDNOTES")==TRUE])
+quote_WD_Data_5 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA THAT WERE ONCE CONSIDERED ANONYMOUS ARE FREQUENTLY")==TRUE])
+quote_WD_Data_6 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA WITHOUT CURATION AND STANDARDS HAS MUCH LESS VALUE TO OTHERS")==TRUE]) 
+quote_WD_Data_7 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTORS ARE NOT APPROPRIATELY CITED OR COMPENSATED FOR THEIR CONTRIBUTIONS")==TRUE]) 
 
 table(c(Alldata_WD$Data_cat, Alldata_WD$Data_cat2))
 #View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
@@ -386,14 +385,14 @@ Alldata_WD$Preprint_cat2[!is.na(Alldata_WD$Preprint_cat2) & Alldata_WD$Preprint_
 Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & Alldata_WD$Preprint_cat == 'Not categorised']
 
 
-quote_WD_Preprint_1 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"OUR FIELD HAS SEEN A EXPONENTIAL GROWTH")==TRUE])
-quote_WD_Preprint_2 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"DOUBLE BLIND PEER REVIEW ")==TRUE])
-quote_WD_Preprint_3 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"NOT ALL WORKING PAPERS ARE SUITABLE FOR UNRESTRICTED ACCESS ")==TRUE])
-quote_WD_Preprint_4 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"HAVING MULTIPLE VERSIONS OF THE SAME DOCUMENT")==TRUE])
-quote_WD_Preprint_5 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"AS SEEN DURING THE COVID-19 PANDEMIC")==TRUE])
-quote_WD_Preprint_6 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"PREPRINTS HAVE NOT YET BEEN PEER REVIEWED, SO COULD BE MISLEADING, BUT")==TRUE])
-quote_WD_Preprint_7 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"PRE-PRINTS ARE OF COURSE")==TRUE]) # association with open peer review for archive?
-quote_WD_Preprint_7 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"WHILE USEFUL, THE LACK OF PEER REVIEW IN PRE-PRINTS IS A POSSIBLE DOWNSIDE IN THE LONG-RUN")==TRUE])
+quote_WD_Preprint_1 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"OUR FIELD HAS SEEN A EXPONENTIAL GROWTH")==TRUE])
+quote_WD_Preprint_2 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"DOUBLE BLIND PEER REVIEW ")==TRUE])
+quote_WD_Preprint_3 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"NOT ALL WORKING PAPERS ARE SUITABLE FOR UNRESTRICTED ACCESS ")==TRUE])
+quote_WD_Preprint_4 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"HAVING MULTIPLE VERSIONS OF THE SAME DOCUMENT")==TRUE])
+quote_WD_Preprint_5 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"AS SEEN DURING THE COVID-19 PANDEMIC")==TRUE])
+quote_WD_Preprint_6 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PREPRINTS HAVE NOT YET BEEN PEER REVIEWED, SO COULD BE MISLEADING, BUT")==TRUE])
+quote_WD_Preprint_7 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PRE-PRINTS ARE OF COURSE")==TRUE]) # association with open peer review for archive?
+quote_WD_Preprint_8 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"WHILE USEFUL, THE LACK OF PEER REVIEW IN PRE-PRINTS IS A POSSIBLE DOWNSIDE IN THE LONG-RUN")==TRUE])
 
 table(c(Alldata_WD$Preprint_cat, Alldata_WD$Preprint_cat2))
 #View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
@@ -419,7 +418,7 @@ quote_WD_Prereg_4 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & start
 quote_WD_Prereg_5 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"AT LEAST IN POLITICAL SCIENCE")==TRUE])
 quote_WD_Prereg_6 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"IN ECOLOGY")==TRUE])
 quote_WD_Prereg_7 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"IF EXPLORATORY RESEARCH (NO PREREGISTRATION) CAME TO BE REGARDED AS INFERIOR")==TRUE])
-quote_WD_Prereg_7 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"RESEARCHERS SHOULD NOT CLAIM IDEAS")==TRUE]) 
+quote_WD_Prereg_8 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"RESEARCHERS SHOULD NOT CLAIM IDEAS")==TRUE]) 
                                                                                       
 Alldata_WD$Prereg_cat[!is.na(Alldata_WD$Prereg) & is.na(Alldata_WD$Prereg_cat)] <- 'Not categorised'
 Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & Alldata_WD$Prereg_cat == 'Not categorised']
@@ -448,7 +447,7 @@ quote_WD_RegRep_2 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & start
 quote_WD_RegRep_3 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"I'M NOT SURE THAT REGISTERED REPORTS PRODUCE BETTER RESEARCH THAN RIGOROUS PRE-REGISTRATION")==TRUE])
 quote_WD_RegRep_4 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"IF EXPLORATORY RESEARCH")==TRUE])
 quote_WD_RegRep_5 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"FOR LARGE-SCALE PSYCHOLOGY/IMAGING/BEHAVIOURAL")==TRUE])
-quote_WD_RegRep_5 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"SCIENCE IS NOT LINEAR")==TRUE])
+quote_WD_RegRep_6 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"SCIENCE IS NOT LINEAR")==TRUE])
 
 
 Alldata_WD$RegRep_cat[!is.na(Alldata_WD$RegRep) & is.na(Alldata_WD$RegRep_cat)] <- 'Not categorised'

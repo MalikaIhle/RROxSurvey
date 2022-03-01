@@ -33,7 +33,7 @@ library(officer)
 library(bookdown)
 
 set_flextable_defaults(
-  table.layout = "autofit",
+  #table.layout = "autofit",
   digits = 1,
   font.color = "black",
   font.family = "Calibri", 
@@ -90,10 +90,10 @@ Table \@ref(tab:tabSS) shows the number of respondents per round given their rol
 N %>% flextable() %>% 
     set_caption(caption = "Number of survey participants per round",
                 style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tabSS"))
+                autonum = run_autonum(seq_id = "tab", bkm = "tabSS")) %>% autofit()
 ```
 
-Given that the total number of researchers that had the opportunity to engage with the survey, and the proportion of respondents, it is unlikely that e.g. all students that responded in the second year also responded in the first year. In addition, PGR students patterns of responses in the second year looked similar to those in the first year. <!--# this needs checking again and for all questions at the end of data collection. --> Therefore, the data was pooled across both years, and the cumulative sample size (max N) will be used.
+Given the total number of researchers that had the opportunity to engage with the survey, and the proportion of respondents, it is unlikely that e.g. all students that responded in the second year also responded in the first year. In addition, PGR students patterns of responses in the second year looked similar to those in the first year. <!--# this needs checking again and for all questions at the end of data collection. --> Therefore, the data was pooled across both years, and the cumulative sample size (max N) will be used.
 
 Note that we have rather low absolute numbers for research support staff so while their responses will contribute to the total results, they will not be displayed in isolation as this could be misleading, especially when the results are also split per Divisions.
 
@@ -103,7 +103,7 @@ Table \@ref(tab:tabSSdiv) shows the number of responses in each of the Divisions
 N_div %>% flextable() %>% 
     set_caption(caption = "Number of survey participants per Division",
                 style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tabSSdiv"))
+                autonum = run_autonum(seq_id = "tab", bkm = "tabSSdiv")) %>% autofit()
 ```
 
 We had the most responses from MPLS and MSD in terms of absolute numbers, then somewhere between a half or a third of that in SSD and Hum, and then a few responses from GLAM, ContEd, and College-only staff that did not associate with a Division. All of the data will be used for overall results, but when showing plots with the data split per Division, only the data of the 4 main academic Divisions will be used.
@@ -114,10 +114,10 @@ In total, we had **`r N_div$BothRounds[N_div$Div == 'Total']`** participants in 
 sst_data[c(1:9, 12,13),c(1,7,6,8,5,9)] %>% flextable() %>% 
     set_caption(caption = "Number of survey participants per Division and per question",
                 style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tabSSdivQ"))
+                autonum = run_autonum(seq_id = "tab", bkm = "tabSSdivQ")) %>% autofit()
 ```
 
-
+<br>
 
 ### Awareness of open research practices
 
@@ -136,15 +136,13 @@ researchers_aware_dont_practice_OA <- round(All_allstaffdata_Awareness_for_plott
 
 Figure \@ref(fig:awareness) shows awareness and usage of open research practices (ORPs) for PGR students vs all other researchers, i.e. research staff or fellow, research support staff, and academics combined. These researchers were pooled because research staff and academics results show similar patterns (and that we only had very low sample sizes for research support staff).
 
-In this figure we can see that the practice of each ORPs (in green) shows similar patterns between PGR students and researchers, but with researchers practicing them a lot more - which is rather trivial if we consider e.g. first year DPhil student's opportunity to have practised them.
+In this figure we can see that the practice of each ORPs (in green) shows roughly similar patterns between PGR students and researchers, but with researchers practicing them a lot more - which is rather trivial if we consider e.g. first year DPhil student's opportunity to have practised them.
 
 ![(\#fig:awareness) Distribution of responses for awareness of ORPs across Divisions for PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Awareness" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Awareness" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Awareness"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Awareness"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Awareness" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Awareness" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Awareness"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Awareness"]`](../Figures/Round12_Double_Awareness-per-ORP.png)
 
 Overall, Open Access publishing was indicated to be the most practised among PGR students and researchers, and only `r all_not_aware_OA`% of all respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was still a significant proportion of respondents, even in researchers with the opportunity to practice OA (`r researchers_aware_dont_practice_OA`% of researchers), who were aware (in orange) or accessing (in yellow) open access publications but who did not practice it themselves.
 
-<!--# FIXME -->
-
-Preprinting and sharing of data was the next most practised ORPs. We had large disparities between Divisions for code sharing practices. And overall, preregistration and registered report were the least well-known ORPs.
+<!--# FIXME -->Preprinting and sharing of data was the next most practised ORPs. We had large disparities between Divisions for code sharing practices. And overall, preregistration and registered report were the least well-known ORPs.
 
 ## Overall effect of open research practices
 
@@ -163,15 +161,17 @@ The next question we asked was:
 
 "**In your opinion, what would be the overall effect of widespread adoption of the following practices in your field of research?**"
 
-In Figure \@ref(fig:effect-single), we can see that the vast majority of respondents (on average `r beneficial_all[4]`%, ranging from `r beneficial_all[1]`% to `r beneficial_all[6]`%) found that the overall effect of a widespread adoption of open research practices would be beneficial, while very few found that it would be overall detrimental (on average `r detrimental_all[4]`%, ranging from `r detrimental_all[1]`% to `r detrimental_all[6]`%). Lower levels of favourable opinions did not correspond to a higher level of unfavourable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect the widespread adoption of a specific open research practice would be. This pattern of 'uncertainty' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports. <!--# this is just comparing the 2 plots; not within individual correlation -->
+In Figure \@ref(fig:effect-single), we can see that the vast majority of respondents (on average `r beneficial_all[4]`%, ranging from `r beneficial_all[1]`% to `r beneficial_all[6]`%) found that the overall effect of the widespread adoption of these open research practices would be beneficial, while very few found that it would be overall detrimental (on average `r detrimental_all[4]`%, ranging from `r detrimental_all[1]`% to `r detrimental_all[6]`%). Lower levels of favourable opinions did not correspond to a higher level of unfavourable opinions but to a large proportion of respondent who indicated they were unsure about what the overall effect the widespread adoption of a specific open research practice would be. This pattern of 'uncertainty' from respondents matches well the patterns of lower awareness shown for measures such as Preregistration and Registered Reports. <!--# this is just comparing the 2 plots; not within individual correlation -->
 
-![(\#fig:effect-single) Presumed overall effect of ORPs widespread adoption in the field of research of the respondent (pooled across Division and all researchers and students)](../Figures/Round12_Single_Effect-per-ORP.png)
+![(\#fig:effect-single) Presumed overall effect of ORPs widespread adoption in the field of research of the respondent (pooled across all students and researchers across Divisions)](../Figures/Round12_Single_Effect-per-ORP.png)
 
 When looking at Divisions separately in Figure \@ref(fig:effect-double), the previous observations still prevails: respondents were largely thinking that the overall effect of widespread adoption would be beneficial, unless they were unaware of the practice and therefore unsure about its effect (as seems to indicate the pattern match between these results and the results of the awareness question).
 
-Notably, Open Access publishing and Preprinting were judged detrimental by `r Hum_OA_Detrimental`% and `r Hum_Preprint_Detrimental`% of the researchers (i.e. research staff, support staff, and academics) in the Humanities, respectively.
+Notable patters are that Open Access publishing and Preprinting were judged detrimental by `r Hum_OA_Detrimental`% and `r Hum_Preprint_Detrimental`% of the research staffs and academics (and support staff) in the Humanities, respectively.
 
-![(\#fig:effect-double) Presumed overall effect of ORPs widespread adoption on the field of research of respondents; PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Effect" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Effect"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Effect"]`](../Figures/Round12_Double_Effect-per-ORP.png)
+![(\#fig:effect-double) Presumed overall effect of ORPs widespread adoption on the field of research of respondents; PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics).  
+PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`;  
+Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Effect" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Effect"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Effect"]`](../Figures/Round12_Double_Effect-per-ORP.png)
 
 
 ### Downsides to widespread adoption of open research practices
@@ -194,7 +194,7 @@ science_researchers_Data_downsides <- round(summary(allstaffdata_Downsides_for_p
                                                                                              allstaffdata_Downsides_for_plotting$Answer == 'Yes']), 1)
 ```
 
-Later on, to understand why people thought a specific ORP was overall detrimental, and to include any downsides other people may find for a specific ORP, even if they judged it overall beneficial, we asked:
+Later on<!--# i.e. dowsnides question came after barriers questions; the rational was to reduce amount of respondent listing barriers in downsides question -->, to understand why people thought a specific ORP was overall detrimental, and to include any downsides other people may find for a specific ORP, even if they judged it overall beneficial, we asked:
 
 "**In your view, are there *any* downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
 
@@ -202,9 +202,9 @@ In Figure \@ref(fig:downside-single), we see more occurrences of detrimental asp
 
 ![(\#fig:downside-single) Existence of any downsides with the widespread adoption of each ORP, as judged by all students and researchers across Divisions](../Figures/Round12_Single_Downsides-per-ORP.png)
 
-In Figure \@ref(fig:downside-double), we can see that the ORPs that were judged by most respondents to have any downsides if widely adopted were Open Access publishing and the sharing of data. Specifically, `r science_researchers_OA_downsides[4]`% of researchers on average in the three science Divisions, and `r hum_researchers_OA_downsides`% in the Humanities thought OA publishing had downsides; and `r science_researchers_Data_downsides[4]`% of researchers on average in the three science Divisions thought the sharing of data had downsides.
+In Figure \@ref(fig:downside-double), we can see that the ORPs that were judged by most respondents to have downsides (if they were to be widely adopted) were Open Access publishing and the sharing of data. Specifically, `r science_researchers_OA_downsides[4]`% of researchers on average in the three science Divisions, and `r hum_researchers_OA_downsides`% in the Humanities thought OA publishing had downsides; and `r science_researchers_Data_downsides[4]`% of researchers on average in the three science Divisions thought the sharing of data had downsides.
 
-![(\#fig:downside-double) Existence of any downsides with the adoption of each ORP, as judged by PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Downsides" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Downsides" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Downsides"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Downsides"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Downsides" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Downsides == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Downsides"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Downsides"]`](../Figures/Round12_Double_Downsides-per-ORP.png)
+![(\#fig:downside-double) Existence of any downsides with the adoption of each ORP, as judged by PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff, and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Downsides" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Downsides" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Downsides"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Downsides"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Downsides" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Downsides == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Downsides"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Downsides"]`](../Figures/Round12_Double_Downsides-per-ORP.png)
 
 So what are these downsides?
 
@@ -214,13 +214,89 @@ So what are these downsides?
 source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 ```
 
+Free text boxes opened for each ORP a respondent selected to have downsides. Their responses were roughly categorised, counted, and sorted in order of frequency in \@ref(tab:tblotherdownsides). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whetehr some automatisation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply accross ORPs for a better read of the table summarising the counts of downsides for each ORPs; I haven't revised my categories this year to do the same regrouping work so it's a bit all over the place...-->
+
+Downsides to **Open Access** publications were the extreme cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on whether they have or do not have access to funding to publish with Gold OA. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews, or peer-review in general given the quantity or articles submitted and sent for review to generate income for publishers, and therefore, to lower the quality of research being published. Relatedly, some respondents thought they were less prestigious journal options that published OA<!--# more of a barrier, mentioned again there?-->. Finally, some respondents were concerns about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.   
+
+Some quotes:  
+1. "*`r quote_WD_OA_1`*"   
+2. "*`r quote_WD_OA_5`*"  
+3. "*`r quote_WD_OA_6`*"  
+4. "*`r quote_WD_OA_7`*"  
+
+
+Downsides to **Data sharing** were concerns over ethics, safety, or security (e.g. to preserve human participants anonymity, etc.) and the inability to control the validity of reuse, or the misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if there were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, as well as the lack of metadata standards to make data sharing usable (FAIR), and the fact that some data can be in proprietary format only, both of which making data sharing less useful or even irrelevant.  
+
+Some quotes:  
+1. "*`r quote_WD_Data_1`*"   
+2. "*`r quote_WD_Data_2`*"  
+3. "*`r quote_WD_Data_3`*"  
+4. "*`r quote_WD_Data_4`*"  
+5. "*`r quote_WD_Data_5`*"  
+6. "*`r quote_WD_Data_6`*"  
+  
+
+Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact academic output that isn't credited or recognised, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given currently research software aren't reviewed, having them available for reuse could lower the quality of research. Less frequent, but worth noting, one or two respondents mentioned the psychological toll of having their code scrutinised and criticized. 
+
+Some quotes:  
+1. "*`r quote_WD_Code_1`*"   
+2. "*`r quote_WD_Code_2`*"  
+3. "*`r quote_WD_Code_3`*"  
+4. "*`r quote_WD_Code_4`*"  
+
+Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly law against it<!--# more of a barrier, mentioned again there?-->), IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood of providing equitable access to all.
+
+Some quotes highlighting some specific problems with Material sharing:  
+1. "`r quote_WD_Materials_1`"   
+2. "`r quote_WD_Materials_2`"  
+3. "`r quote_WD_Materials_3`"  
+4. "`r quote_WD_Materials_4`"  
+
+Downsides to **Preprints** were <!--# FIXME -->
+Some quotes:  quote_WD_Preprint_1
+1. "`r quote_WD_Preprint_1`"   
+2. "`r quote_WD_Preprint_2`"  
+3. "`r quote_WD_Preprint_3`"  
+4. "`r quote_WD_Preprint_4`"  
+5. "`r quote_WD_Preprint_5`"  
+6. "`r quote_WD_Preprint_6`"  
+7. "`r quote_WD_Preprint_7`"  
+8. "`r quote_WD_Preprint_8`"  
+
+Downsides to **Preregistration** were <!--# FIXME -->
+Some quotes:  
+1. "`r quote_WD_Prereg_1`"   
+2. "`r quote_WD_Prereg_2`"  
+3. "`r quote_WD_Prereg_3`"  
+4. "`r quote_WD_Prereg_4`"  
+5. "`r quote_WD_Prereg_5`"  
+6. "`r quote_WD_Prereg_6`"  
+7. "`r quote_WD_Prereg_7`"  
+8. "`r quote_WD_Prereg_8`"  
+
+Downsides to **Registered Reports** were <!--# FIXME -->
+Some quotes:  
+1. "`r quote_WD_RegRep_1`"   
+2. "`r quote_WD_RegRep_2`"  
+3. "`r quote_WD_RegRep_3`"  
+4. "`r quote_WD_RegRep_4`"  
+5. "`r quote_WD_RegRep_5`"  
+6. "`r quote_WD_RegRep_6`"  
+
 <!--# FIXME -->
 
 ```{r, echo = FALSE, include = TRUE}
-Alldata_WD_table %>% flextable() %>% 
+tblotherdownsides <- Alldata_WD_table %>% flextable() %>%
     set_caption(caption = "What downsides to adoption of ORPs",
-                style = "Table Caption", 
+                style = "Table Caption",
                 autonum = run_autonum(seq_id = "tab", bkm = "tblotherdownsides"))
+tblotherdownsides <- width(tblotherdownsides, j = c(1, 2:9), width = c(8, 1,1,1,1,1,1,1,1), unit = "cm")
+tblotherdownsides <- flextable::rotate(tblotherdownsides, j = 2:9, rotation = "btlr", align = "center", part = "header")
+tblotherdownsides <- valign(tblotherdownsides, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblotherdownsides, part = "header")$widths )
+tblotherdownsides <- height(tblotherdownsides, height = h_header * 1.1, part = "header")
+tblotherdownsides <- hrule(tblotherdownsides, i = 1, rule = "exact", part = "header")
+tblotherdownsides
 ```
 
 
@@ -272,13 +348,53 @@ Training, norms, and incentives, then followed by policy, seem to be the major b
 source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 ```
 
-Other barriers indicated by respondents were <!--# FIXME -->
+Other barriers indicated by respondents were <!--# FIXME -->  
+
+Barriers to Open Access publications were <!--# FIXME -->  
+
+Some quotes:  
+1. "`r quote_OB_OA_1`"  
+2. "`r quote_OB_OA_2`"  
+3. "`r quote_OB_OA_3`"  
+
+Barriers to Data sharing were <!--# FIXME -->  
+Some quotes: 
+1. "`r quote_OB_Data_1`"  
+2. "`r quote_OB_Data_2`"  
+
+Barriers to Code sharing were <!--# FIXME -->   
+Some quotes:  
+1. "`r quote_OB_Code_1`"  
+
+Barriers to Material sharing were <!--# FIXME -->  
+Some quotes:  
+1. "`r quote_OB_Materials_1`"  
+
+Barriers to Preprints were <!--# FIXME -->  
+Some quotes:  
+1. "`r quote_OB_Preprint_1`"  
+
+Barriers to Preregistration were <!--# FIXME -->  
+Some quotes:  
+1. "`r quote_OB_Prereg_1`"  
+
+Barriers to Registered Reports were <!--# FIXME -->  
+Some quotes:  
+1. "`r quote_OB_RegRep_1`"  
+
 
 ```{r, echo = FALSE, include = TRUE}
-a <- Alldata_OB_table %>% flextable() %>% 
+tblotherbarriers <- Alldata_OB_table %>% flextable() %>%
     set_caption(caption = "Other barriers to adoption of ORPs",
-                style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tblotherbarriers")) 
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblotherbarriers"))
+tblotherbarriers <- width(tblotherbarriers, j = c(1, 2:9), width = c(8, 1,1,1,1,1,1,1,1), unit = "cm")
+tblotherbarriers <- flextable::rotate(tblotherbarriers, j = 2:9, rotation = "btlr", align = "center", part = "header")
+tblotherbarriers <- valign(tblotherbarriers, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblotherbarriers, part = "header")$widths )
+tblotherbarriers <- height(tblotherbarriers, height = h_header * 1.1, part = "header")
+tblotherbarriers <- hrule(tblotherbarriers, i = 1, rule = "exact", part = "header")
+tblotherbarriers
 ```
 
 Besides these additions, the strongest barriers to adoptions of ORPs were incentives, training and norms.
@@ -406,17 +522,33 @@ source(here::here("Rscripts","OtherFutureCriteria.R"))
 ```
 
 ```{r, echo = FALSE, include = TRUE}
-xtab_OtherCurrentRecruitment %>% flextable() %>% 
+tblothercurrent <- xtab_OtherCurrentRecruitment %>% flextable() %>%
     set_caption(caption = "Other perceived current recruitment criteria",
-                style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tblothercurrent"))
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblothercurrent")) 
+
+tblothercurrent <- width(tblothercurrent, j = c(1, 2:6), width = c(9, 1,1,1,1,1), unit = "cm")
+tblothercurrent <- flextable::rotate(tblothercurrent, j = 2:6, rotation = "btlr", align = "center", part = "header")
+tblothercurrent <- valign(tblothercurrent, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblothercurrent, part = "header")$widths )
+tblothercurrent <- height(tblothercurrent, height = h_header * 1.1, part = "header")
+tblothercurrent <- hrule(tblothercurrent, i = 1, rule = "exact", part = "header")
+tblothercurrent
 ```
 
 ```{r, echo = FALSE, include = TRUE}
-xtab_OtherFutureRecruitment %>% flextable() %>% 
+tblotherfuture <- xtab_OtherFutureRecruitment %>% flextable() %>%
     set_caption(caption = "Other desired future recruitment criteria",
-                style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tblotherfuture"))
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblotherfuture")) 
+
+tblotherfuture <- width(tblotherfuture, j = c(1, 2:6), width = c(9, 1,1,1,1,1), unit = "cm")
+tblotherfuture <- flextable::rotate(tblotherfuture, j = 2:6, rotation = "btlr", align = "center", part = "header")
+tblotherfuture <- valign(tblotherfuture, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblotherfuture, part = "header")$widths )
+tblotherfuture <- height(tblotherfuture, height = h_header * 1.1, part = "header")
+tblotherfuture <- hrule(tblotherfuture, i = 1, rule = "exact", part = "header")
+tblotherfuture
 ```
 
 
@@ -468,10 +600,18 @@ source(here::here("Rscripts","OtherTraining.R"))
 ```
 
 ```{r, echo = FALSE, include = TRUE}
-xtab_OtherTraining %>% flextable() %>% 
+tblothertraining <- xtab_OtherTraining %>% flextable() %>%
     set_caption(caption = "Other training requested",
-                style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tbltraining"))
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblothertraining"))
+
+tblothertraining <- width(tblothertraining, j = c(1, 2:3), width = c(10, 1,1), unit = "cm")
+tblothertraining <- flextable::rotate(tblothertraining, j = 2:3, rotation = "btlr", align = "center", part = "header")
+tblothertraining <- valign(tblothertraining, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblothertraining, part = "header")$widths )
+tblothertraining <- height(tblothertraining, height = h_header * 1.1, part = "header")
+tblothertraining <- hrule(tblothertraining, i = 1, rule = "exact", part = "header")
+tblothertraining
 ```
 <!--# FIXME -->
 
@@ -496,10 +636,18 @@ source(here::here("Rscripts","OtherSupports.R"))
 ```
 
 ```{r, echo = FALSE, include = TRUE}
-xtab_OtherSupport %>% flextable() %>% 
+tblothersupport <- xtab_OtherSupport %>% flextable() %>%
     set_caption(caption = "Other support requested",
-                style = "Table Caption", 
-                autonum = run_autonum(seq_id = "tab", bkm = "tblsupport"))
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblothersupport"))
+
+tblothersupport <- width(tblothersupport, j = c(1, 2:3), width = c(10, 1,1), unit = "cm")
+tblothersupport <- flextable::rotate(tblothersupport, j = 2:3, rotation = "btlr", align = "center", part = "header")
+tblothersupport <- valign(tblothersupport, valign = "center", part = "header")
+h_header <- max( dim_pretty(tblothersupport, part = "header")$widths )
+tblothersupport <- height(tblothersupport, height = h_header * 1.1, part = "header")
+tblothersupport <- hrule(tblothersupport, i = 1, rule = "exact", part = "header")
+tblothersupport
 ```
 
 <!--# FIXME -->
