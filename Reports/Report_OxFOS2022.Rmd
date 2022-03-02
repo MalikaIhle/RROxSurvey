@@ -108,7 +108,7 @@ N_div %>% flextable() %>%
 
 We had the most responses from MPLS and MSD in terms of absolute numbers, then somewhere between a half or a third of that in SSD and Hum, and then a few responses from GLAM, ContEd, and College-only staff that did not associate with a Division. All of the data will be used for overall results, but when showing plots with the data split per Division, only the data of the 4 main academic Divisions will be used.
 
-In total, we had **`r N_div$BothRounds[N_div$Div == 'Total']`** participants in the survey. More precisely, this is the number of participants that answered the two mandatory questions: Role and Affiliation. We kept respondents' answers whether they completed the survey or not. This means sample size slightly decline question after questions. The attrition rate (the percentage of participants dropping out of the survey after the first 2 mandatory questions and up to the last question) was `r sst_data$Total[sst_data$Question == 'PercDrop']`% on average, and increased from MSD, to MPLS, SSD, and the Humanities Division (see Table \@ref(tab:tabSSdivQ)). <!--# this needs checking again at the end of data collection. --> By the final question, we had **`r sst_data$Total[sst_data$Question == 'Support']`** remaining respondents (Table \@ref(tab:tabSSdivQ)).
+In total, we had **`r N_div$BothRounds[N_div$Div == 'Total']`** participants in the survey. More precisely, this is the number of participants that answered the two mandatory questions: Role and Affiliation. We kept respondents' answers whether they completed the survey or not. This means sample size slightly decline question after questions. The attrition rate (the percentage of participants dropping out of the survey after the first 2 mandatory questions and up to the last question) was `r sst_data$Total[sst_data$Question == 'PercDrop']`% on average, and increased from MSD, to MPLS, SSD, and the Humanities Division (see Table \@ref(tab:tabSSdivQ)). By the final question, we had **`r sst_data$Total[sst_data$Question == 'Support']`** remaining respondents (Table \@ref(tab:tabSSdivQ)).
 
 ```{r, echo = FALSE, include = TRUE}
 sst_data[c(1:9, 12,13),c(1,7,6,8,5,9)] %>% flextable() %>% 
@@ -142,7 +142,9 @@ In this figure we can see that the practice of each ORPs (in green) shows roughl
 
 Overall, Open Access publishing was indicated to be the most practised among PGR students and researchers, and only `r all_not_aware_OA`% of all respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was still a significant proportion of respondents, even in researchers with the opportunity to practice OA (`r researchers_aware_dont_practice_OA`% of researchers), who were aware (in orange) or accessing (in yellow) open access publications but who did not practice it themselves.
 
-<!--# FIXME -->Preprinting and sharing of data was the next most practised ORPs. We had large disparities between Divisions for code sharing practices. And overall, preregistration and registered report were the least well-known ORPs.
+<!--# FIXME -->
+
+Preprinting and sharing of data was the next most practised ORPs. We had large disparities between Divisions for code sharing practices. And overall, preregistration and registered report were the least well-known ORPs.
 
 ## Overall effect of open research practices
 
@@ -169,10 +171,9 @@ When looking at Divisions separately in Figure \@ref(fig:effect-double), the pre
 
 Notable patters are that Open Access publishing and Preprinting were judged detrimental by `r Hum_OA_Detrimental`% and `r Hum_Preprint_Detrimental`% of the research staffs and academics (and support staff) in the Humanities, respectively.
 
-![(\#fig:effect-double) Presumed overall effect of ORPs widespread adoption on the field of research of respondents; PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics).  
-PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`;  
+![(\#fig:effect-double) Presumed overall effect of ORPs widespread adoption on the field of research of respondents; PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff and academics).\
+PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Effect" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Effect" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Effect"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Effect"]`;\
 Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Effect" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Effect"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Effect"]`](../Figures/Round12_Double_Effect-per-ORP.png)
-
 
 ### Downsides to widespread adoption of open research practices
 
@@ -204,7 +205,7 @@ In Figure \@ref(fig:downside-single), we see more occurrences of detrimental asp
 
 In Figure \@ref(fig:downside-double), we can see that the ORPs that were judged by most respondents to have downsides (if they were to be widely adopted) were Open Access publishing and the sharing of data. Specifically, `r science_researchers_OA_downsides[4]`% of researchers on average in the three science Divisions, and `r hum_researchers_OA_downsides`% in the Humanities thought OA publishing had downsides; and `r science_researchers_Data_downsides[4]`% of researchers on average in the three science Divisions thought the sharing of data had downsides.
 
-![(\#fig:downside-double) Existence of any downsides with the adoption of each ORP, as judged by PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff, and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Downsides" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Downsides" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Downsides"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Downsides"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Downsides" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Downsides == "Effect" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Downsides"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Downsides"]`](../Figures/Round12_Double_Downsides-per-ORP.png)
+![(\#fig:downside-double) Existence of any downsides with the adoption of each ORP, as judged by PGR students vs all other researchers combined (i.e. research staff and fellows, research support staff, and academics). PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Downsides" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Downsides" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Downsides"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Downsides"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Downsides" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Downsides" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Downsides"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Downsides"]`](../Figures/Round12_Double_Downsides-per-ORP.png)
 
 So what are these downsides?
 
@@ -214,79 +215,81 @@ So what are these downsides?
 source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 ```
 
-Free text boxes opened for each ORP a respondent selected to have downsides. Their responses were roughly categorised, counted, and sorted in order of frequency in \@ref(tab:tblotherdownsides). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whetehr some automatisation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply accross ORPs for a better read of the table summarising the counts of downsides for each ORPs; I haven't revised my categories this year to do the same regrouping work so it's a bit all over the place...-->
+Free text boxes opened for each ORP a respondent selected to have downsides. Their responses were roughly categorised, counted, and sorted in order of frequency in \@ref(tab:tblotherdownsides). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whether some automatisation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply accross ORPs for a better read of the table summarising the counts of downsides for each ORP; I haven't revised my categories this year to do the same regrouping work so it's a bit all over the place...-->
 
-Downsides to **Open Access** publications were the extreme cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on whether they have or do not have access to funding to publish with Gold OA. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews, or peer-review in general given the quantity or articles submitted and sent for review to generate income for publishers, and therefore, to lower the quality of research being published. Relatedly, some respondents thought they were less prestigious journal options that published OA<!--# more of a barrier, mentioned again there?-->. Finally, some respondents were concerns about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.   
+Downsides to **Open Access** publications were the extreme cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on whether they have or do not have access to funding to publish with Gold OA. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews (or less invested peer-review in general given the quantity or articles submitted and sent for review to generate income for publishers), and therefore, to lower the quality of research being published. Some respondents also thought they were less prestigious journal options that published OA<!--# more of a barrier, mentioned again there?-->. Finally, some respondents were concerned about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.
 
-Some quotes:  
-1. "*`r quote_WD_OA_1`*"   
-2. "*`r quote_WD_OA_5`*"  
-3. "*`r quote_WD_OA_6`*"  
-4. "*`r quote_WD_OA_7`*"  
-5. "*`r quote_OB_OA_4`*" 
-6. "*`r quote_WD_OA_8`*"
+Some quotes:\
+1. "*`r quote_WD_OA_1`*"\
+2. "*`r quote_WD_OA_5`*"\
+3. "*`r quote_WD_OA_6`*"\
+4. "*`r quote_WD_OA_7`*"\
+5. "*`r quote_OB_OA_4`*"\
+6. "*`r quote_WD_OA_8`*"\
 
+Downsides to **Data sharing** were concerns over ethics, safety, or security (e.g. to preserve human participants anonymity, etc.) and the inability to control the validity of reuse, or the misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if there were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, as well as the lack of metadata standards to make data sharing usable and the fact that some data can be in proprietary format only, both of which making data sharing less useful or even irrelevant.
 
-Downsides to **Data sharing** were concerns over ethics, safety, or security (e.g. to preserve human participants anonymity, etc.) and the inability to control the validity of reuse, or the misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if there were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, as well as the lack of metadata standards to make data sharing usable (FAIR), and the fact that some data can be in proprietary format only, both of which making data sharing less useful or even irrelevant.  
+Some quotes:\
+1. "*`r quote_WD_Data_1`*"\
+2. "*`r quote_WD_Data_2`*"\
+3. "*`r quote_WD_Data_3`*"\
+4. "*`r quote_WD_Data_4`*"\
+5. "*`r quote_WD_Data_5`*"\
+6. "*`r quote_WD_Data_6`*"\
 
-Some quotes:  
-1. "*`r quote_WD_Data_1`*"   
-2. "*`r quote_WD_Data_2`*"  
-3. "*`r quote_WD_Data_3`*"  
-4. "*`r quote_WD_Data_4`*"  
-5. "*`r quote_WD_Data_5`*"  
-6. "*`r quote_WD_Data_6`*"  
-  
+Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact that such academic output aren't credited or recognised if reused by others, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given that, currently, research software aren't reviewed, having them available for reuse could lower the quality of follow-up research. Less frequent, but worth noting, one or two respondents mentioned the psychological toll of having their code scrutinised and criticized.
 
-Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact academic output that isn't credited or recognised, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given currently research software aren't reviewed, having them available for reuse could lower the quality of research. Less frequent, but worth noting, one or two respondents mentioned the psychological toll of having their code scrutinised and criticized. 
-
-Some quotes:  
-1. "*`r quote_WD_Code_1`*"   
-2. "*`r quote_WD_Code_2`*"  
-3. "*`r quote_WD_Code_3`*"  
-4. "*`r quote_WD_Code_4`*"  
+Some quotes:\
+1. "*`r quote_WD_Code_1`*"\
+2. "*`r quote_WD_Code_2`*"\
+3. "*`r quote_WD_Code_3`*"\
+4. "*`r quote_WD_Code_4`*"
 
 Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly law against it<!--# more of a barrier, mentioned again there?-->), IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood of providing equitable access to all.
 
-Some quotes highlighting some specific problems with Material sharing:  
-1. "*`r quote_WD_Materials_1`*"   
-2. "*`r quote_WD_Materials_2`*"  
-3. "*`r quote_WD_Materials_3`*"  
-4. "*`r quote_WD_Materials_4`*"  
+Some quotes highlighting some specific problems with Material sharing:\
+1. "*`r quote_WD_Materials_1`*"\
+2. "*`r quote_WD_Materials_2`*"\
+3. "*`r quote_WD_Materials_3`*"\
+4. "*`r quote_WD_Materials_4`*"
 
-The main downsides to **Preprints** were the fact that they are disseminated and potentially used for policies or further research, etc. while not being peer-reviewed. In lesser frequency but worth noting, downsides listed were fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation (given duplicate versions) <!--# FIXME -->
+The main downsides to **Preprints** were the fact that they are disseminated and potentially used for policies or further research, while not being peer-reviewed. In lesser frequency but worth noting, downsides listed were fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation (given duplicate versions) <!--# FIXME -->
 
-Some quotes:  
-1. "*`r quote_WD_Preprint_1`*"   
-2. "*`r quote_WD_Preprint_2`*"  
-3. "*`r quote_WD_Preprint_3`*" <!--# not working?? -->
-4. "*`r quote_WD_Preprint_4`*"  
-5. "*`r quote_WD_Preprint_5`*"  
-6. "*`r quote_WD_Preprint_6`*"  
-7. "*`r quote_WD_Preprint_7`*"  
-8. "*`r quote_WD_Preprint_8`*"  
+Some quotes:\
+1. "*`r quote_WD_Preprint_1`*"\
+2. "*`r quote_WD_Preprint_2`*"\
+3. "*`r quote_WD_Preprint_3`*"\
+4. "*`r quote_WD_Preprint_4`*"\
+5. "*`r quote_WD_Preprint_5`*"\
+6. "*`r quote_WD_Preprint_6`*"\
+7. "*`r quote_WD_Preprint_7`*"\
+8. "*`r quote_WD_Preprint_8`*"\
 
-Downsides to **Preregistration** were <!--# FIXME -->
-Some quotes:  
-1. "`r quote_WD_Prereg_1`"   
-2. "`r quote_WD_Prereg_2`"  
-3. "`r quote_WD_Prereg_3`"  
-4. "`r quote_WD_Prereg_4`"  
-5. "`r quote_WD_Prereg_5`"  
-6. "`r quote_WD_Prereg_6`"  
-7. "`r quote_WD_Prereg_7`"  
-8. "`r quote_WD_Prereg_8`"  
+Regarding **Preregistration**, some respondents thought it would impede exploratory research, impede flexibility in protocols while the research is conducted, and that this practice is not applicable to all fields of research (e.g. does not align with iterative development of research questions in e.g. social sciences) . In lesser frequency but worth noting, respondents mentioned that there need to be a corresponding increase in respect for null findings, and that if preregistration are made public before publication, it may deter unknowing replication.
 
-Downsides to **Registered Reports** were <!--# FIXME -->
-Some quotes:  
-1. "`r quote_WD_RegRep_1`"   
-2. "`r quote_WD_RegRep_2`"  
-3. "`r quote_WD_RegRep_3`"  
-4. "`r quote_WD_RegRep_4`"  
-5. "`r quote_WD_RegRep_5`"  
-6. "`r quote_WD_RegRep_6`"  
+Some quotes:\
+1. "`r quote_WD_Prereg_1`"\
+2. "`r quote_WD_Prereg_2`"\
+3. "`r quote_WD_Prereg_3`"\
+4. "`r quote_WD_Prereg_4`"\
+5. "`r quote_WD_Prereg_5`"\
+6. "`r quote_WD_Prereg_6`"\
+7. "`r quote_WD_Prereg_7`"\
+8. "`r quote_WD_Prereg_8`"
 
-<!--# FIXME -->
+Downsides to **Registered Reports** were the same as those for preregistration. In addition, some respondents noted that it delays the start of data collection.
+
+Some quotes:\
+1. "`r quote_WD_RegRep_1`"\
+2. "`r quote_WD_RegRep_2`"\
+3. "`r quote_WD_RegRep_3`"\
+4. "`r quote_WD_RegRep_4`"\
+5. "`r quote_WD_RegRep_5`"\
+6. "`r quote_WD_RegRep_6`"
+
+For both **Preregistration** and **Registered Reports**, given this quotes and others (also in 'Barriers'), and the fact that awareness of these practices were overall very low and that we know that training is extremely limited around the University for these practices, I wonder, whether fields (particularly experimental fields) where preregistration was judged not applicable, or to have downsides such as 'impeding flexibility in protocol', do in fact operate under the same framework (Ho testing, alpha = 0.05) as fields who have judged that preregistration is necessary to prevent insight bias, confirmation bias, and insidious ways of p-hacking leading to drastic increases in the likelihood of obtaining being false-positive results. Do fields rejecting preregistration have the same ideal but simply don't have the right research environment (sometimes in very practical terms) to be able to practice preregistration, or is it that these fields approach are different and preregistration isn't relevant, e.g. if the research process resemble valid iterative processes as seen in some social sciences. I think there may be both type of responses in the survey. As a reminder, when one conducts an experiment, one state that they have an a priori hypothesis, and that a specifically designed manipulation will explain differences observed between groups (e.g. treatment vs control groups), I see no logical reasons (there may be very real practical barriers though) to not want to limit the flexibility in protocol or to not declare those deviation in order for readers to be able to assess the likelihood of each finding to be a false positive result (each decision of conducting a statistical test based on the p value of a first test will mathematically increase the chances of the second test to be a false positive finding, over the 5% tolerated and declared rate).
+
+Perhaps further consultation, such as focus groups following an introduction to preregistration would be needed to know whether such responses constitute barriers over actual downsides . <!--# FIXME -->
 
 ```{r, echo = FALSE, include = TRUE}
 tblotherdownsides <- Alldata_WD_table %>% flextable() %>%
@@ -302,8 +305,7 @@ tblotherdownsides <- hrule(tblotherdownsides, i = 1, rule = "exact", part = "hea
 tblotherdownsides
 ```
 
-
-Overall, despite these numerous downsides, people seemed to think ORPS are quite favourable, so why aren't they more practised? Are they any barriers to adoptions?
+Overall, despite these numerous downsides, remember that people seemed to think ORPs were largely favourable. So why aren't they more practised? Are they any barriers to adoptions?
 
 ### Barriers to adoption of open research practices
 
@@ -335,13 +337,13 @@ In light of this, we asked:
 
 "**Do you face any barriers in adopting the following practices and, if so, what are they?** Tick all that apply and/or provide a brief description for any others."
 
-Responses from students, research staff, and academics show overall similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). <!--# this needs checking again at the end of data collection. -->
+Responses from students, research staff, and academics show overall similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). <!--# this needs checking again at the end of data collection. mmmmhhhh not if split per Division, bur if merged Division, then true enough (final data 20220302). Plot split per Division is horrible to look at...-->
 
 ![(\#fig:barrier-single) Barriers to adoptions of ORPs (non-mutually exclusive), with responses pooled across all Divisions, students and researchers.](../Figures/Round12_Single_AllDiv_Barriers.png)
 
 Open access publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (see Figure \@ref(fig:barrier-single-OA)). In the Social sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select other barriers to adoption of OA publishing, including a lack of Infrastructure.<!--# FIXME NUMBERS-->
 
-![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width=400px}
+![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width="400px"}
 
 Training, norms, and incentives, then followed by policy, seem to be the major barriers perceived for all the other ORPs and across Divisions (see Figure \@ref(fig:barrier-single)). <!--# FIXME NUMBERS? -->
 
@@ -351,40 +353,38 @@ Training, norms, and incentives, then followed by policy, seem to be the major b
 source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 ```
 
-Other barriers indicated by respondents were <!--# FIXME -->  
+Other barriers indicated by respondents were <!--# FIXME -->
 
-Barriers to Open Access publications were <!--# FIXME -->  
+Barriers to Open Access publications were <!--# FIXME -->
 
-Some quotes:  
-1. "`r quote_OB_OA_1`"  
-2. "`r quote_OB_OA_2`"  
-3. "`r quote_OB_OA_3`"  
+Some quotes:\
+1. "`r quote_OB_OA_1`"\
+2. "`r quote_OB_OA_2`"\
+3. "`r quote_OB_OA_3`"
 
-Barriers to Data sharing were <!--# FIXME -->  
-Some quotes: 
-1. "`r quote_OB_Data_1`"  
-2. "`r quote_OB_Data_2`"  
+Barriers to Data sharing were <!--# FIXME -->\
+Some quotes: 1. "`r quote_OB_Data_1`"\
+2. "`r quote_OB_Data_2`"
 
-Barriers to Code sharing were <!--# FIXME -->   
-Some quotes:  
-1. "`r quote_OB_Code_1`"  
+Barriers to Code sharing were <!--# FIXME -->\
+Some quotes:\
+1. "`r quote_OB_Code_1`"
 
-Barriers to Material sharing were <!--# FIXME -->  
-Some quotes:  
-1. "`r quote_OB_Materials_1`"  
+Barriers to Material sharing were <!--# FIXME -->\
+Some quotes:\
+1. "`r quote_OB_Materials_1`"
 
-Barriers to Preprints were <!--# FIXME -->  
-Some quotes:  
-1. "`r quote_OB_Preprint_1`"  
+Barriers to Preprints were <!--# FIXME -->\
+Some quotes:\
+1. "`r quote_OB_Preprint_1`"
 
-Barriers to Preregistration were <!--# FIXME -->  
-Some quotes:  
-1. "`r quote_OB_Prereg_1`"  
+Barriers to Preregistration were <!--# FIXME -->\
+Some quotes:\
+1. "`r quote_OB_Prereg_1`"
 
-Barriers to Registered Reports were <!--# FIXME -->  
-Some quotes:  
-1. "`r quote_OB_RegRep_1`"  
-
+Barriers to Registered Reports were <!--# FIXME --> delays the start of data collection, which does not allow ECRs on short time contract to engage with the practice <!--# more of a barrier, mentioned again there?-->\
+Some quotes:\
+1. "`r quote_OB_RegRep_1`"
 
 ```{r, echo = FALSE, include = TRUE}
 tblotherbarriers <- Alldata_OB_table %>% flextable() %>%
@@ -501,9 +501,9 @@ Patterns or responses were similar between PGR students, research staff or fello
 
 There are lots of interesting results that I'm happy to provide the DORA implementation team but I don't have time to go into details now. For instance, they are differences between Divisions regarding the importance of citation, etc.
 
-![(\#fig:recruitment-current) Perceived current recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Current`, MPLS = `r Nnonacademic_MPLS_Current`, SSD = `r Nnonacademic_SSD_Current`, Hum = `r Nnonacademic_Hum_Current`; Academics: MSD = `r Nacademic_MSD_Current`, MPLS = `r Nacademic_MPLS_Current`, SSD = `r Nacademic_SSD_Current`, Hum = `r Nacademic_Hum_Current`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png){height=800px}
+![(\#fig:recruitment-current) Perceived current recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Current`, MPLS = `r Nnonacademic_MPLS_Current`, SSD = `r Nnonacademic_SSD_Current`, Hum = `r Nnonacademic_Hum_Current`; Academics: MSD = `r Nacademic_MSD_Current`, MPLS = `r Nacademic_MPLS_Current`, SSD = `r Nacademic_SSD_Current`, Hum = `r Nacademic_Hum_Current`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png){height="800px"}
 
-![(\#fig:recruitment-future) Future desired recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Future`, MPLS = `r Nnonacademic_MPLS_Future`, SSD = `r Nnonacademic_SSD_Future`, Hum = `r Nnonacademic_Hum_Future`; Academics: MSD = `r Nacademic_MSD_Future`, MPLS = `r Nacademic_MPLS_Future`, SSD = `r Nacademic_SSD_Future`, Hum = `r Nacademic_Hum_Future`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png){height=800px}
+![(\#fig:recruitment-future) Future desired recruitment criteria. Non-Academics: MSD = `r Nnonacademic_MSD_Future`, MPLS = `r Nnonacademic_MPLS_Future`, SSD = `r Nnonacademic_SSD_Future`, Hum = `r Nnonacademic_Hum_Future`; Academics: MSD = `r Nacademic_MSD_Future`, MPLS = `r Nacademic_MPLS_Future`, SSD = `r Nacademic_SSD_Future`, Hum = `r Nacademic_Hum_Future`](../Figures/Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png){height="800px"}
 
 Figure \@ref(fig:recruitment-combined-ORP) shows a closer look at the open research practices criteria, one of the criteria that shows the most differences between Divisions. Both the majority of non-academics, and academics thinks that the use of ORPs isn't currently considered for recruitment <!--# FIXME NUMBERS -->, while a large proportion thing it *should* be considered at least slightly <!--# FIXME NUMBERS -->. Academics across Divisions shows widely different opinions, with only <!--# FIXME NUMBERS --> MSD academics suggesting that ORP should not be considered at all, while on average <!--# FIXME NUMBERS --> academics in the other Divisions thought so.
 
@@ -511,7 +511,7 @@ Figure \@ref(fig:recruitment-combined-ORP) shows a closer look at the open resea
 
 <!--# FIXME perspective of opinion on ORPs by academic on recruitment criteria with their average awareness of ORPs presented in this survey -->
 
-![(\#fig:academic-awareness-across-ORP). Academic awareness of ORPs averaged across all ORPs MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png){width=400px}
+![(\#fig:academic-awareness-across-ORP). Academic awareness of ORPs averaged across all ORPs MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png){width="400px"}
 
 <!--# FIXME in recommendation section? -->
 
@@ -554,7 +554,6 @@ tblotherfuture <- hrule(tblotherfuture, i = 1, rule = "exact", part = "header")
 tblotherfuture
 ```
 
-
 ### Training needs
 
 ```{r, echo = FALSE, include = FALSE}
@@ -585,16 +584,15 @@ The topics listed were:
 
 -   How to assess job applications responsibly, fairly, and transparently [labelled **Recruitment**]
 
-
 Overall, the demand for training, especially workshop-led training (in red) is really high (see Figure \@ref(fig:training-single)).
 
 ![(\#fig:training-single) Training needs for all PGR students and other researchers across Divisions](../Figures/Round12_Single_Training.png)
 
 Students and other researchers show similar patterns of demand for training, but with students requesting more workshop-led training (in red) than written guidance (in orange; Figure \@ref(fig:training-double-splitDiv)
 
-![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height=800px}
+![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height="800px"}
 
-For some training topics, the Humanities and the Social Sciences Division have less of a demand, which only correspond to a higher selection of the 'not applicable' option. 
+For some training topics, the Humanities and the Social Sciences Division have less of a demand, which only correspond to a higher selection of the 'not applicable' option.
 
 #### Extra training requested
 
@@ -616,6 +614,7 @@ tblothertraining <- height(tblothertraining, height = h_header * 1.1, part = "he
 tblothertraining <- hrule(tblothertraining, i = 1, rule = "exact", part = "header")
 tblothertraining
 ```
+
 <!--# FIXME -->
 
 ### Support
@@ -629,8 +628,6 @@ source(here::here("Rscripts","Support.R"))
 For this question, academics had different patterns of responses than all the other types of researchers, as a larger proportion of academics found the type of support presented not useful <!--# FIXME average number for ac vs non ac-->. While <!--# FIXME almost 50% --> of academics and non-academics, on average, found online resources to be essential resource, results differ for the other types of support proposed. Specifically, <!--# FIXME more than 25% --> of PGR students and research staff found mentoring and supports networks to be essential, followed by coaching and seminars.
 
 ![(\#fig:support-double-ac-vs-non-ac) Support needs](../Figures/Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png)
-
-
 
 #### Extra support requested
 
