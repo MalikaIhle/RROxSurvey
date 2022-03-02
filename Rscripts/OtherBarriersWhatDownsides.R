@@ -48,13 +48,14 @@ Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, "INDUSTRY")] <- 'Resource not owned'
 Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, c("EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES|AFFORD|APC"))] <- 'Financial cost'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "JOURNAL QUALITY|MORE PRESTIGIOUS|OFTEN SEEN AS WORSE|HIGH IMPACT JOURNALS|HIGH QUALITY JOURNALS|HIGH IMPACT FACTOR")] <- 'Lower quality or less prestigious journal'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "NOT POSSIBLE IN ALL JOURNALS|FITS THE REMIT OF THE JOURNAL|JOURNALS NOT SUPPORTING|JOURNAL BY WHAT WOULD LOOK GOOD")] <- 'Not possible in all journals'
-Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, "HTTP://OPENACCESS.OX.AC.UK/")] <- 'University website unclear, it takes time to find out which journals is OA'
+Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, "HTTP://OPENACCESS.OX.AC.UK/|BUREAUCRACY")] <- 'University website unclear, it takes time to find out which journals is OA'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "ADMIN PEOPLE|CONFUSION OVER POLICY EXPECTATIONS")] <- 'Policy changing rapidly, confusion, University administration unaware of researchers needs'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "BOOK PUBLISHER FOR SALES LOST")] <- 'Book publishers sales loss'
 
 quote_OB_OA_1 <- tolower("FUNDING FOR OPEN ACCESS PUBLISHING IS INSUFFICIENT, OPAQUE AND WITH PATCHY COVERAGE. THERE IS ONLY HALF A POLICY - THAT WE MUST PUBLISH BY OPEN ACCESS, BUT WITHOUT THE OTHER HALF THAT WOULD ACTUALLY RESOURCE THOSE OPEN ACCESS FEES. THIS LEAVES WEALTHY UNIVERSITIES, DEPARTMENTS, GROUPS AND EVEN INDIVIDUALS AT A COMPETITIVE ADVANTAGE OVER OTHERS ACTING AS A BIAS OVER WHAT IS ABLE TO BE FORMALLY PUBLISHED.") 
 quote_OB_OA_2 <- tolower("THE COST OF OPEN ACCESS PUBLISHING IS AN ADDITIONAL BARRIER, AS IS THE CULTURE OF PUBLISHING IN TOP JOURNALS, WHICH TEND TO ONLY BE OPEN ACCESS IF A LARGE FEE IS PAID.")
 quote_OB_OA_3 <- tolower("EVEN CO-CALLED 'ACADEMIC PUBLISHERS' (LIKE THE APS OR IOP) NOW CHARGE THE AUTHORS LARGE SUMS FOR MAKING PUBLICATIONS OA - AND THE UNIVERSITY/RESEARCH COUNCILS ARE COMPLICIT IN SUPPORTING SUCH PROFIT-MAKING PRACTICES. NEW NON-PROFIT OA JOURNALS SET UP BY ACADEMICS FOR ACADEMICS WHICH SIMPLY ASK FOR THE ACTUAL, NOMINAL COSTS OF PUBLISHING ARE NOT PRIORITISED FOR SUPPORT.") 
+quote_OB_OA_4 <- tolower(Alldata_OB$OA[!is.na(Alldata_OB$OA) & startsWith(Alldata_OB$OA,"OPEN ACCESS, WHILE BENEFICIAL FOR USERS ")==TRUE]) # more of a downside
 
 Alldata_OB$OA_cat[!is.na(Alldata_OB$OA) & is.na(Alldata_OB$OA_cat)] <- 'Not categorised'
 Alldata_OB$OA[!is.na(Alldata_OB$OA_cat) & Alldata_OB$OA_cat == 'Not categorised']
@@ -68,7 +69,7 @@ table(c(Alldata_OB$OA_cat, Alldata_OB$OA_cat2))
 
 ## Data
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "MANAGING DATA|TB OF DATA")] <- 'Difficult resource management and lack of metadata standards'
-Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|ETHICAL REGULATIONS|MUST NOT BE SHARED|CONFIDENTIALITY|IDENTIFIABILITY|CONSENT")] <- 'Ethical concerns'
+Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|ETHICAL REGULATIONS|MUST NOT BE SHARED|CONFIDENTIALITY|IDENTIFIABILITY|CONSENT|PATIENTS INFORMATION")] <- 'Ethical concerns'
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "AUTHORITY|INDUSTRY|COMMERCIAL*|PARTNERS|POLITICS")] <- 'Resource not owned'
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "OEUVERS")] <- 'Resource not always digital'
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "FUNDING FOR DATA CLEANING|ALLOCATION OF RELEVANT RESEARCHERS|EFFORT OF COLLECTING AND PROCESSING THE DATA IS IGNORED")] <- 'Support/funding for preparing resource to share'
@@ -79,6 +80,8 @@ Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "USER-UNFRIENDLY")] <- 'Reposito
 
 quote_OB_Data_1 <- tolower("IT IS NOT TRIVIAL TO RECONCILE INFORMATION GOVERNANCE, DATA LAW AND ETHICAL APPROVAL WITH OPEN PUBLICATION OF DATA.  THE CURRENT LEGAL DEFINITION OF 'ANONYMISED' DATA IS AN UNREACHABLY HIGH STANDARD.")
 quote_OB_Data_2 <- tolower("LACK OF NORMS ON AN APPROPRIATE EMBARGO PERIOD FOR NEWLY COLLECTED DATA")
+quote_OB_Data_3 <- tolower(Alldata_OB$Data[!is.na(Alldata_OB$Data) & startsWith(Alldata_OB$Data,"ETHNOGRAPHIC FIELDNOTES CANNOT")==TRUE]) # more of a downside
+
 
 Alldata_OB$Data_cat[!is.na(Alldata_OB$Data) & is.na(Alldata_OB$Data_cat)] <- 'Not categorised'
 Alldata_OB$Data[!is.na(Alldata_OB$Data_cat) & Alldata_OB$Data_cat == 'Not categorised']
@@ -114,6 +117,7 @@ Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "TIME IT TAKES FOR IT 
 Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "USER-UNFRIENDLY")] <- 'Repositories not user-friendly'
 Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "NO BENEFIT|HOW USEFUL")] <- 'Not useful'
 Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "STORING CRYO")] <- 'Funding to store resource'
+Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "AUTHORITY|INDUSTRY|COMMERCIAL*|PARTNERS|POLITICS")] <- 'Resource not owned'
 
 Alldata_OB$Materials_cat[!is.na(Alldata_OB$Materials) & is.na(Alldata_OB$Materials_cat)] <- 'Not categorised'
 Alldata_OB$Materials[!is.na(Alldata_OB$Materials) & Alldata_OB$Materials_cat == 'Not categorised']
@@ -251,11 +255,11 @@ Alldata_WD$RegRep_cat3 <- NA
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "HARM*|INAPPROPRIATE")] <- 'No control over validity of reuse, misrepresentation, misuse'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "EXPENSIVE|FEE*|COST*|MONEY|FUND*|FINANC*|PAY|CHARGES|EXPENSE")] <- 'Financial cost' # need to be first to ahve a couple of overwrites below
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "DUPLICATION|PLAGIA*|COMMERC*|PATENT*|APPROVAL")] <- 'Intellectual property concerns' # including plagiarism, duplication of research, difficulty with navigating copyright, and loss of payment to author or commercialisation
-Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "JOURNAL INCOME|PRODUCTION|INCOME FROM JOURNAL SUBSCRIPTIONS|DAMAGING TO PUBLISHERS|DISINCENTIVE FOR PUBLISHERS|LEARNED SOCIETIES|PUBLISHERS KEEP TELLING US|DISINCENTIVISES PURCHASES OF PRINT|THREATENS THE FINANCING OF PUBLISHERS|OUT OF BUSINESS")] <- "Loss of scholarly societies, authors, or publishers' income (e.g. for books)" # need to find other means of journal production"
+Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "JOURNAL INCOME|PRODUCTION|INCOME FROM JOURNAL SUBSCRIPTIONS|DAMAGING TO PUBLISHERS|DISINCENTIVE FOR PUBLISHERS|LEARNED SOCIETIES|PUBLISHERS KEEP TELLING US|DISINCENTIVISES PURCHASES OF PRINT|THREATENS THE FINANCING OF PUBLISHERS|OUT OF BUSINESS|DRIVING OUT PUBLISHERS OF MONOGRAPHS|ACADEMIC BOOK PUBLISHING")] <- "Loss of scholarly societies, authors, or publishers' income (e.g. for books)" # need to find other means of journal production"
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "REDUCTION IN OVERALL QUALITY|NOT ALWAYS OF PARTICULARLY HIGH QUALITY|QUALITY OF PUBLICATION|RIGOR*|POOR-QUALITY|LACK OF QUALITY CONTROL|REDUCE THE QUALITY OF PEER REVIEW IN JOURNALS|LOWERING THE QUALITY|MAY REDUCE EDITORIAL INPUT")] <- 'Lowers quality' # reduce quality of peer review if journal paid
-Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "OPTIONS|LIMITS THE JOURNALS|IMPORTANT JOURNALS|REPUTABLE PRESSES|LESS PRESTIGIOUS")] <- 'Fewer (prestigious) journal options'
+Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "OPTIONS|LIMITS THE JOURNALS|IMPORTANT JOURNALS|REPUTABLE PRESSES|LESS PRESTIGIOUS|INABILITY TO WORK WITH TOP PUBLISHERS")] <- 'Fewer (prestigious) journal options'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "OPINION|HARMFUL APPLICATIONS|HARASSMENT")] <- 'Ethical, safety, or security concerns'
-Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "ADMINISTRATIVE|SLOW DOWN PUBLICATIONS")] <- 'Too much administrative time'
+Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "ADMINISTRATIVE|SLOW DOWN PUBLICATIONS|TOO MUCH OF A BURDEN")] <- 'Too much administrative time'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREDATORY|USE THIS TREND AS AN OPPORTUNITY TO INCREASE THEIR REVENUE|A WAY TO GET MORE MONEY|PUBLISHERS HAVE CARTE BLANCHE|PUBLISH TOO MANY PAPERS")] <- 'Creates predatory behaviours'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "FUNDING AVAILABILITY COULD BECOME MORE IMPORTANT THAN QUALITY|EXCLUSI*|EXCLUD*|INEQUALIT*|POORER|PEOPLE WITH LOTS OF MONEY|LOW INCOME REGIONS|WEALTHY|WHEALTIER|MORE AFFLUENT INSTITUTIONS GET PREFERENTIAL|COMPETITIVE ADVANTAGE|DEVELOPING COUNTRIES OUT|DETRIMENTAL FOR DIVERSITY|RESOURCE-LIMITED RESEARCHERS|MANY RESEARCHERS CANNOT AFFORD|MINORITISED GROUPS|OTHERS WITHOUT DEDICATED FUNDING|RESEARCHERS WITHOUT FUNDING|ONLY THOSE WITH FUNDING|HARDER FOR THOSE|MIDDLE-INCOME|TO SOME GROUPS|ONLY FAVOURS|POORLY|DISCRIMINATES|THIS IMPACTS MORE|HISTORICALLY DISADVANTAGED AREAS|DETRIMENTAL TO SUCH FIELDS")] <- 'Creates inequalities between researchers/fields/institutions with/without access to funding for APC'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREFER HAVING THE HARD COPY OF A BOOK")] <- 'OA requires electronical versions, prefer hard copy of books'
@@ -267,6 +271,8 @@ quote_WD_OA_4 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldat
 quote_WD_OA_5 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"IF THE FOCUS IS ON GOLD OA")==TRUE])
 quote_WD_OA_6 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"I WORK IN A FIELD THAT DOES NOT ATTRACT A LOT OF EXTERNAL RESEARCH FUNDING, NOR DOES IT ESPECIALLY NEED IT")==TRUE])
 quote_WD_OA_7 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"OPEN ACCESS PUBLICATION IS A LAUDABLE GOAL")==TRUE])
+quote_OB_OA_4 <- tolower(Alldata_OB$OA[!is.na(Alldata_OB$OA) & startsWith(Alldata_OB$OA,"OPEN ACCESS, WHILE BENEFICIAL FOR USERS ")==TRUE]) # more of a downside
+quote_WD_OA_8 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"AUTHOR-PAYS FUNDING MODEL")==TRUE])
 
 Alldata_WD$OA_cat[!is.na(Alldata_WD$OA) & is.na(Alldata_WD$OA_cat)] <- 'Not categorised'
 Alldata_WD$OA[!is.na(Alldata_WD$OA) & Alldata_WD$OA_cat == 'Not categorised']
@@ -278,7 +284,7 @@ table(Alldata_WD$OA_cat)
 ## Data --- not very well done, many answers could have fall within several of the categories created here. 
 Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "MORE WORK|WORKLOAD|OVERHEAD|BURDEN|NOT WITHIN THE SCOPE")] <- 'Time investment' # more work, not valued for career, significant burden for qualitative researchers
 Alldata_WD$Data_cat2[str_detect(Alldata_WD$Data, "CONTINUITY")] <- 'Challenges around continuity of ownership (e.g. for longitudinal dataset)'
-Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "ANONYM*|SENSITIVE DATA|PRIVA*|PARTICIPANT DATA|DATA PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA|LOOTING OF ARCHAEOLOGICAL SITES|SENSITIVE INFORMATION|INFORMED CONSENT|BETRAYING THE TRUST|SENSITIVE NATURE|SENSITIVE MATERIAL|MUST NOT BE SHARED")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
+Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "ANONYM*|SENSITIVE DATA|PRIVA*|PARTICIPANT DATA|DATA PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|TRICKY|DPA|LOOTING OF ARCHAEOLOGICAL SITES|SENSITIVE INFORMATION|INFORMED CONSENT|BETRAYING THE TRUST|SENSITIVE NATURE|SENSITIVE MATERIAL|MUST NOT BE SHARED|PATIENTS INFORMATION")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
 Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "LICENCES|LICENSES|FORMATS|PROGRAMMES FOR ACQUIRING DATA")] <- 'Proprietary file format'
 Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "HARMFUL|MALICIOUS|MISUSE|MALIGN|FALSE REPORTING OF RESULTS|MIS-INTERPRETED|MISINTERPRETATION|INAPPROPRIATE ANALYSIS|OUT OF CONTEXT")] <- 'No control over validity of reuse, misrepresentation, misuse'
 Alldata_WD$Data_cat[str_detect(Alldata_WD$Data, "PIPPED|STEALING|SCOOPED|PRE-EMPTIVELY USED|ACADEMIC COPYING")] <- 'Fear of scooping'
@@ -303,9 +309,10 @@ quote_WD_Data_4 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(
 quote_WD_Data_5 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA THAT WERE ONCE CONSIDERED ANONYMOUS ARE FREQUENTLY")==TRUE])
 quote_WD_Data_6 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA WITHOUT CURATION AND STANDARDS HAS MUCH LESS VALUE TO OTHERS")==TRUE]) 
 quote_WD_Data_7 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTORS ARE NOT APPROPRIATELY CITED OR COMPENSATED FOR THEIR CONTRIBUTIONS")==TRUE]) 
+quote_OB_Data_3 <- tolower(Alldata_OB$Data[!is.na(Alldata_OB$Data) & startsWith(Alldata_OB$Data,"ETHNOGRAPHIC FIELDNOTES CANNOT")==TRUE]) # more of a downside
 
 table(c(Alldata_WD$Data_cat, Alldata_WD$Data_cat2))
-#View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
+# View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
 
 
 ## Code
@@ -334,7 +341,7 @@ Alldata_WD$Code_cat2[!is.na(Alldata_WD$Code_cat2) & Alldata_WD$Code_cat == Allda
 Alldata_WD$Code[!is.na(Alldata_WD$Code) & Alldata_WD$Code_cat == 'Not categorised']
 
 table(c(Alldata_WD$Code_cat, Alldata_WD$Code_cat2))
-#View(Alldata_WD[!is.na(Alldata_WD$Code), c('Code', 'Code_cat', 'Code_cat2')])
+# View(Alldata_WD[!is.na(Alldata_WD$Code), c('Code', 'Code_cat', 'Code_cat2')])
 
 ## Materials
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|RADIOACTIVE|MUST NOT BE SHARED|DANGEROUS")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
@@ -360,7 +367,7 @@ quote_WD_Materials_4 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials
 
 Alldata_WD$Materials_cat[!is.na(Alldata_WD$Materials) & is.na(Alldata_WD$Materials_cat)] <- 'Not categorised'
 Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & Alldata_WD$Materials_cat == 'Not categorised']
-#View(Alldata_WD[!is.na(Alldata_WD$Materials), c('Materials', 'Materials_cat')])
+# View(Alldata_WD[!is.na(Alldata_WD$Materials), c('Materials', 'Materials_cat')])
 
 table(Alldata_WD$Materials_cat) 
 
@@ -395,7 +402,7 @@ quote_WD_Preprint_7 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) &
 quote_WD_Preprint_8 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"WHILE USEFUL, THE LACK OF PEER REVIEW IN PRE-PRINTS IS A POSSIBLE DOWNSIDE IN THE LONG-RUN")==TRUE])
 
 table(c(Alldata_WD$Preprint_cat, Alldata_WD$Preprint_cat2))
-#View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
+# View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
 
 
 ## Preregistration
@@ -404,7 +411,7 @@ Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "MORE TIME|SLOW DOWN|TIME FO
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "NO EXPERIMENTATION|NOT RELEVANT|NOT A USEFUL PRACTISE|I CAN SEE THIS BEING APPLICABLE|IRRELEVANT|NOT ALL WORK WELL SUITED|SOME METHODOLOGIES")] <- 'Not relevant for all fields' # (e.g. theoretical, mathematical research where biases are not present or in the humanities that do not follow a scientific process)' 
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "EXPLORATORY|BLUE SKIES|INDUCTIVE LED DISCOVERIES")] <- 'Impedes exploratory research' 
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "NULL FINDINGS|DON'T PUBLISH NEGATIVE FINDINGS")] <- 'Needs corresponding increase in respect for null findings' 
-Alldata_WD$Prereg_cat2[str_detect(Alldata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE|LIMITED FLEXIBILITY|LACK OF FLEXIBILITY|TAKES AWAY THE FLEXIBILITY|LIKELY TO CHANGE OVER TIME")] <- 'Impedes flexibility in protocols'
+Alldata_WD$Prereg_cat2[str_detect(Alldata_WD$Prereg, "EVOLVING|HYPOTHESES CHANGE|WIGGLE ROOM|UPDATE PROTOCOL|ADAPT TO UNFORESEEN|FORTUITOUS AND UNPREDICTABLE|LIMITED FLEXIBILITY|LACK OF FLEXIBILITY|TAKES AWAY THE FLEXIBILITY|LIKELY TO CHANGE OVER TIME|LIMIT FLEXIBILITY")] <- 'Impedes flexibility in protocols'
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "REDUCE THE SCIENTIFIC PROCESS")] <- 'Reduce scientific process to simple binary hypothesis' 
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "IMPOSSIBLE TO ACCOUNT FOR ALL THE COMPLEXITIES OF BIG DATA ANALYSES UNTIL ONE SEES THE DATA")] <- 'Too difficult to prepare statistical plan in advance'
 Alldata_WD$Prereg_cat2[str_detect(Alldata_WD$Prereg, "DETER OTHER RESEARCHERS FROM ATTEMPTING TO ADDRESS|ACTUALLY REDUCING REPRODUCTION OF THE SCIENCE")] <- 'Deter unknowing replication'
@@ -427,7 +434,7 @@ Alldata_WD$Prereg_cat2[!is.na(Alldata_WD$Prereg_cat2) & Alldata_WD$Prereg_cat ==
 Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & Alldata_WD$Prereg_cat == 'Not categorised']
 
 table(c(Alldata_WD$Prereg_cat,Alldata_WD$Prereg_cat2))
-#View(Alldata_WD[!is.na(Alldata_WD$Prereg), c('Prereg', 'Prereg_cat', 'Prereg_cat2')])
+# View(Alldata_WD[!is.na(Alldata_WD$Prereg), c('Prereg', 'Prereg_cat', 'Prereg_cat2')])
 
 
 
@@ -460,7 +467,7 @@ Alldata_WD$RegRep_cat3[!is.na(Alldata_WD$RegRep_cat3) & Alldata_WD$RegRep_cat ==
 Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & Alldata_WD$RegRep_cat == 'Not categorised']
 
 table(c(Alldata_WD$RegRep_cat, Alldata_WD$RegRep_cat2, Alldata_WD$RegRep_cat3))
-#View(Alldata_WD[!is.na(Alldata_WD$RegRep), c('RegRep', 'RegRep_cat', 'RegRep_cat2','RegRep_cat3')])
+# View(Alldata_WD[!is.na(Alldata_WD$RegRep), c('RegRep', 'RegRep_cat', 'RegRep_cat2','RegRep_cat3')])
 
 
 
