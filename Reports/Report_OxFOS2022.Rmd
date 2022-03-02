@@ -223,6 +223,8 @@ Some quotes:
 2. "*`r quote_WD_OA_5`*"  
 3. "*`r quote_WD_OA_6`*"  
 4. "*`r quote_WD_OA_7`*"  
+5. "*`r quote_OB_OA_4`*" 
+6. "*`r quote_WD_OA_8`*"
 
 
 Downsides to **Data sharing** were concerns over ethics, safety, or security (e.g. to preserve human participants anonymity, etc.) and the inability to control the validity of reuse, or the misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if there were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, as well as the lack of metadata standards to make data sharing usable (FAIR), and the fact that some data can be in proprietary format only, both of which making data sharing less useful or even irrelevant.  
@@ -247,21 +249,22 @@ Some quotes:
 Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly law against it<!--# more of a barrier, mentioned again there?-->), IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood of providing equitable access to all.
 
 Some quotes highlighting some specific problems with Material sharing:  
-1. "`r quote_WD_Materials_1`"   
-2. "`r quote_WD_Materials_2`"  
-3. "`r quote_WD_Materials_3`"  
-4. "`r quote_WD_Materials_4`"  
+1. "*`r quote_WD_Materials_1`*"   
+2. "*`r quote_WD_Materials_2`*"  
+3. "*`r quote_WD_Materials_3`*"  
+4. "*`r quote_WD_Materials_4`*"  
 
-Downsides to **Preprints** were <!--# FIXME -->
-Some quotes:  quote_WD_Preprint_1
-1. "`r quote_WD_Preprint_1`"   
-2. "`r quote_WD_Preprint_2`"  
-3. "`r quote_WD_Preprint_3`"  
-4. "`r quote_WD_Preprint_4`"  
-5. "`r quote_WD_Preprint_5`"  
-6. "`r quote_WD_Preprint_6`"  
-7. "`r quote_WD_Preprint_7`"  
-8. "`r quote_WD_Preprint_8`"  
+The main downsides to **Preprints** were the fact that they are disseminated and potentially used for policies or further research, etc. while not being peer-reviewed. In lesser frequency but worth noting, downsides listed were fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation (given duplicate versions) <!--# FIXME -->
+
+Some quotes:  
+1. "*`r quote_WD_Preprint_1`*"   
+2. "*`r quote_WD_Preprint_2`*"  
+3. "*`r quote_WD_Preprint_3`*" <!--# not working?? -->
+4. "*`r quote_WD_Preprint_4`*"  
+5. "*`r quote_WD_Preprint_5`*"  
+6. "*`r quote_WD_Preprint_6`*"  
+7. "*`r quote_WD_Preprint_7`*"  
+8. "*`r quote_WD_Preprint_8`*"  
 
 Downsides to **Preregistration** were <!--# FIXME -->
 Some quotes:  
