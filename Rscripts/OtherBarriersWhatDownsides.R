@@ -394,7 +394,7 @@ Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & Alldata_WD$Preprint_cat == 'No
 
 quote_WD_Preprint_1 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"OUR FIELD HAS SEEN A EXPONENTIAL GROWTH")==TRUE])
 quote_WD_Preprint_2 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"DOUBLE BLIND PEER REVIEW ")==TRUE])
-quote_WD_Preprint_3 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"NOT ALL WORKING PAPERS ARE SUITABLE FOR UNRESTRICTED ACCESS ")==TRUE])
+quote_WD_Preprint_3 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"NOT ALL WORKING PAPERS ARE SUITABLE")==TRUE])
 quote_WD_Preprint_4 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"HAVING MULTIPLE VERSIONS OF THE SAME DOCUMENT")==TRUE])
 quote_WD_Preprint_5 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"AS SEEN DURING THE COVID-19 PANDEMIC")==TRUE])
 quote_WD_Preprint_6 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PREPRINTS HAVE NOT YET BEEN PEER REVIEWED, SO COULD BE MISLEADING, BUT")==TRUE])
