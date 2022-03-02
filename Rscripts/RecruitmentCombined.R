@@ -55,7 +55,7 @@ All_Grouped_FutureRecruitment_plot
 # combine
 Combined_Recruitment_Doubleplot <- ggpubr::ggarrange(All_Grouped_CurrentRecruitment_plot,All_Grouped_FutureRecruitment_plot, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 Combined_Recruitment_Doubleplot
-ggsave(here::here("Figures", "Round12_Single_AllDiv_Combined_Recruitment.png"), width = 13, height = 7, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_AllDiv_Combined_Recruitment.png"), width = 13, height = 7, bg = "white")
 
 
 
@@ -128,5 +128,5 @@ QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP <- annotate_figure
                                                                                   , face = "bold", size = 14))
 
 QuadrupleplotAcademicvsNonAc_Current_FutureRecruitment_forORP
-ggsave(here::here("Figures", "Round12_Combined_Recruitment_ORP.png"), width = 13, height = 7, bg = "white")
+#ggsave(here::here("Figures", "Round12_Combined_Recruitment_ORP.png"), width = 13, height = 7, bg = "white")
 

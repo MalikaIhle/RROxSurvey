@@ -62,7 +62,7 @@ quadrupleplot_All_Barriers <- annotate_figure(quadrupleplot_All_Barriers,
                                            top = text_grob("Barriers to adoption of ORPs (non-mutually exclusive)", 
                                                            face = "bold", size = 14))
 quadrupleplot_All_Barriers
-ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Barriers.png"), width = 13, height = 9, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Barriers.png"), width = 13, height = 9, bg = "white")
 
 # plot merged accross Div and target groups
 All_Data_Barriers <- rbind(
@@ -81,7 +81,7 @@ title_plot_All_Barriers <- paste ("Barriers to adoption of ORPs
 
 All_Grouped_Barriers_dodgeplot <- horizontal_dodged_barplot_on_barriers_regrouped_data(All_Grouped_Barriers_for_plotting, Measures, Barriers_answers,title_plot_All_Barriers , 50)
 All_Grouped_Barriers_dodgeplot
-ggsave(here::here("Figures", "Round12_Single_AllDiv_Barriers.png"), width = 5, height = 7, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_AllDiv_Barriers.png"), width = 5, height = 7, bg = "white")
 
 
 # Horizontal stacked barplot per ORP 
@@ -121,12 +121,12 @@ quadrupleplot_Barriers <- annotate_figure(quadrupleplot_Barriers,
                                         top = text_grob("Barriers to adoption of ORPs",
                                                         face = "bold", size = 14))
 quadrupleplot_Barriers
-ggsave(here::here("Figures", "Round12_Quadruple_Barriers.png"), width = 10, height = 25, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_Barriers.png"), width = 10, height = 25, bg = "white")
 
 
 alldata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(alldata_Barriers_for_plotting,  Plotted_Div, Measures,Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_alldata, 70)
 alldata_Barriers_perORP
-ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers.png"), width = 8, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers.png"), width = 8, height = 20, bg = "white")
 
 # just for OA which seems to look different accross divisions:
 alldata_Barriers_for_plotting_forOA <- alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access' & alldata_Barriers_for_plotting$Div %in% Plotted_Div,]
@@ -137,7 +137,7 @@ title_plot_alldata_for_OA <- paste ("Barriers to adoption of Open Access publish
 
 alldata_Barriers_perORP_for_OA <- barriers_horizontal_dodge_barplot_for_one_ORP(alldata_Barriers_for_plotting[alldata_Barriers_for_plotting$LabelIndiv == 'Open Access',],  Plotted_Div, Measures,Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_alldata_for_OA, 50)
 alldata_Barriers_perORP_for_OA
-ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers_for_OA.png"), width = 6, height = 7, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_splitDiv_Barriers_for_OA.png"), width = 6, height = 7, bg = "white")
 
 
 

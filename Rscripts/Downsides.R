@@ -48,7 +48,7 @@ doubleplot_Downsides <- annotate_figure(doubleplot_Downsides,
                                         top = text_grob("Downsides of ORPs",
                                                         face = "bold", size = 14))
 doubleplot_Downsides
-ggsave(here::here("Figures", "Round12_Double_Downsides-per-ORP.png"), width = 10, height = 9, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_Downsides-per-ORP.png"), width = 10, height = 9, bg = "white")
 
 quadrupleplot_Downsides <- ggpubr::ggarrange(pgrdata_Downsides_perORP, 
                                   staffdata_Downsides_perORP, 
@@ -59,7 +59,7 @@ quadrupleplot_Downsides <- annotate_figure(quadrupleplot_Downsides,
                                         top = text_grob("Any downsides of ORPs", 
                                                         face = "bold", size = 14))
 quadrupleplot_Downsides
-ggsave(here::here("Figures", "Round12_Quadruple_Downsides-per-ORP.png"), width = 10, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_Downsides-per-ORP.png"), width = 10, height = 10, bg = "white")
 
 
 ## all data pooled across Div and target pop
@@ -83,5 +83,5 @@ All_Grouped_Downsides_plot <- horizontal_stacked_barplot_on_regrouped_data(All_G
                                                                         title_plot = title_plot_All_Downsides, 
                                                                         legend_position = "bottom")
 All_Grouped_Downsides_plot
-ggsave(here::here("Figures", "Round12_Single_Downsides-per-ORP.png"), width = 10, height = 4, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Downsides-per-ORP.png"), width = 10, height = 4, bg = "white")
 

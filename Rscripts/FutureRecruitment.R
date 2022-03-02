@@ -61,7 +61,7 @@ doubleplot_All_FutureRecruitment_with_legend <- annotate_figure(doubleplot_All_F
                                                                                                                                 face = "bold", size = 14))
 
 doubleplot_All_FutureRecruitment_with_legend
-ggsave(here::here("Figures", "Round12_Double_AllDiv_FutureRecruitment.png"), width = 15, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_FutureRecruitment.png"), width = 15, height = 10, bg = "white")
 
 
 quadrupleplot_All_FutureRecruitment <- egg::ggarrange(All_pgrdata_FutureRecruitment_plot, 
@@ -76,7 +76,7 @@ quadrupleplot_All_FutureRecruitment_with_legend <- annotate_figure(quadrupleplot
                                                                                                                                       face = "bold", size = 14))
 
 quadrupleplot_All_FutureRecruitment_with_legend
-ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_FutureRecruitment.png"), width = 15, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_FutureRecruitment.png"), width = 15, height = 10, bg = "white")
 
 
 
@@ -104,7 +104,7 @@ All_Data_But_Academic_FutureRecruitment_perORP <- horizontal_stack_barplot_per_O
 
 alldata_FutureRecruitment_perORP <- horizontal_stack_barplot_per_ORP(alldata_FutureRecruitment_for_plotting,  Plotted_Div, Criteria,FutureRecruitment_answers, FutureRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
 alldata_FutureRecruitment_perORP
-ggsave(here::here("Figures", "Round12_Single_splitDiv_FutureRecruitment.png"), width = 6, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_splitDiv_FutureRecruitment.png"), width = 6, height = 20, bg = "white")
 
 doubleplot_FutureRecruitment <- ggpubr::ggarrange(pgrdata_FutureRecruitment_perORP,
                                                    allstaffdata_FutureRecruitment_perORP,
@@ -113,7 +113,7 @@ doubleplot_FutureRecruitment <- annotate_figure(doubleplot_FutureRecruitment,
                                                  top = text_grob("Desired future recruitment criteria",
                                                                  face = "bold", size = 14))
 doubleplot_FutureRecruitment
-ggsave(here::here("Figures", "Round12_Double_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")
 
 
 doubleplotAcademicvsNonAc_FutureRecruitment <- ggpubr::ggarrange(All_Data_But_Academic_FutureRecruitment_perORP,
@@ -123,7 +123,7 @@ doubleplotAcademicvsNonAc_FutureRecruitment <- annotate_figure(doubleplotAcademi
                                                                 top = text_grob("Desired future recruitment criteria",
                                                                                 face = "bold", size = 14))
 doubleplotAcademicvsNonAc_FutureRecruitment
-ggsave(here::here("Figures", "Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_DoubleAcademicvsNonAcademic_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")
 
 
 
@@ -136,4 +136,4 @@ quadrupleplot_FutureRecruitment <- annotate_figure(quadrupleplot_FutureRecruitme
                                                     top = text_grob("Desired future recruitment criteria",
                                                                     face = "bold", size = 14))
 quadrupleplot_FutureRecruitment
-ggsave(here::here("Figures", "Round12_Quadruple_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_splitDiv_FutureRecruitment.png"), width = 12, height = 20, bg = "white")

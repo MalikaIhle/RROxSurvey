@@ -47,7 +47,7 @@ doubleplot_Effect <- annotate_figure(doubleplot_Effect,
                                         top = text_grob("Effect of ORPs",
                                                         face = "bold", size = 14))
 doubleplot_Effect
-ggsave(here::here("Figures", "Round12_Double_Effect-per-ORP.png"), width = 10, height = 9, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_Effect-per-ORP.png"), width = 10, height = 9, bg = "white")
 
 quadrupleplot_Effect <- ggpubr::ggarrange(pgrdata_Effect_perORP, 
                                      staffdata_Effect_perORP, 
@@ -58,7 +58,7 @@ quadrupleplot_Effect <- annotate_figure(quadrupleplot_Effect,
                                            top = text_grob("Overall effect of widespread adoption of ORPs", 
                                                            face = "bold", size = 14))
 quadrupleplot_Effect
-ggsave(here::here("Figures", "Round12_Quadruple_Effect-per-ORP.png"), width = 10, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_Effect-per-ORP.png"), width = 10, height = 10, bg = "white")
 
 
 
@@ -83,5 +83,5 @@ All_Grouped_Effect_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grou
                                                                            title_plot = title_plot_All_Effect, 
                                                                            legend_position = "bottom")
 All_Grouped_Effect_plot
-ggsave(here::here("Figures", "Round12_Single_Effect-per-ORP.png"), width = 10, height = 4, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Effect-per-ORP.png"), width = 10, height = 4, bg = "white")
 

@@ -59,7 +59,7 @@ doubleplot_All_Support_with_legend <- ggpubr::ggarrange(doubleplot_All_Support, 
 doubleplot_All_Support_with_legend <- annotate_figure(doubleplot_All_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
 
 doubleplot_All_Support_with_legend
-ggsave(here::here("Figures", "Round12_Double_AllDiv_Support.png"), width = 15, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_Support.png"), width = 15, height = 10, bg = "white")
 
 
 
@@ -71,7 +71,7 @@ doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- ggpubr::ggarrange(do
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- annotate_figure(doubleplot_All_AcademicvsNonAcademic_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
 
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend
-ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
 
 
 
@@ -86,7 +86,7 @@ quadrupleplot_All_Support <- egg::ggarrange(All_pgrdata_Support_plot,
 quadrupleplot_All_Support_with_legend <- ggpubr::ggarrange(quadrupleplot_All_Support, shared_legend, nrow = 2, heights = c(10, 1)) # https://statisticsglobe.com/add-common-legend-to-combined-ggplot2-plots-in-r/
 quadrupleplot_All_Support_with_legend <- annotate_figure(quadrupleplot_All_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
 quadrupleplot_All_Support_with_legend
-ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Support.png"), width = 12, height = 4, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_Support.png"), width = 12, height = 4, bg = "white")
 
 
 ## all data pooled across Div and target pop
@@ -110,7 +110,7 @@ All_Grouped_Support_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Gro
                                                                           title_plot = title_plot_All_Support, 
                                                                           legend_position = "bottom")
 All_Grouped_Support_plot
-ggsave(here::here("Figures", "Round12_Single_Support.png"), width = 10, height = 4, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Support.png"), width = 10, height = 4, bg = "white")
 
 
 
@@ -136,7 +136,7 @@ nonacademicdata_Support_perORP <- horizontal_stack_barplot_per_ORP(alldata_but_a
 
 alldata_Support_perORP <- horizontal_stack_barplot_per_ORP(alldata_Support_for_plotting,  Plotted_Div, Supports,Support_answers, Support_colors, title_legend = NULL, title_plot = title_plot_alldata)
 alldata_Support_perORP
-ggsave(here::here("Figures", "Round12_Single_splitDiv_Support.png"), width = 6, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_splitDiv_Support.png"), width = 6, height = 10, bg = "white")
 
 
 doubleplot_Support <- ggpubr::ggarrange(pgrdata_Support_perORP,
@@ -146,7 +146,7 @@ doubleplot_Support <- annotate_figure(doubleplot_Support,
                                        top = text_grob("Support needs",
                                                        face = "bold", size = 14))
 doubleplot_Support
-ggsave(here::here("Figures", "Round12_Double_SplitDiv_Support.png"), width = 10, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_SplitDiv_Support.png"), width = 10, height = 10, bg = "white")
 
 
 
@@ -157,7 +157,7 @@ doubleplot_Support_ac_vs_non_ac <- annotate_figure(doubleplot_Support_ac_vs_non_
                                       top = text_grob("Support needs",
                                                       face = "bold", size = 14))
 doubleplot_Support_ac_vs_non_ac
-ggsave(here::here("Figures", "Round12_Double_SplitDiv_Academic_vs_NonAcademic_Support.png"), width = 10, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_SplitDiv_Academic_vs_NonAcademic_Support.png"), width = 10, height = 10, bg = "white")
 
 
 
@@ -172,5 +172,5 @@ quadrupleplot_Support <- annotate_figure(quadrupleplot_Support,
                                           top = text_grob("Support needs", 
                                                           face = "bold", size = 14))
 quadrupleplot_Support
-ggsave(here::here("Figures", "Round12_Quadruple_SplitDiv_Support.png"), width = 10, height = 13, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_SplitDiv_Support.png"), width = 10, height = 13, bg = "white")
 

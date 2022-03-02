@@ -61,7 +61,7 @@ doubleplot_All_CurrentRecruitment_with_legend <- annotate_figure(doubleplot_All_
                                                                                                                                         face = "bold", size = 14))
 
 doubleplot_All_CurrentRecruitment_with_legend
-ggsave(here::here("Figures", "Round12_Double_AllDiv_CurrentRecruitment.png"), width = 15, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_CurrentRecruitment.png"), width = 15, height = 10, bg = "white")
 
 
 quadrupleplot_All_CurrentRecruitment <- egg::ggarrange(All_pgrdata_CurrentRecruitment_plot, 
@@ -76,7 +76,7 @@ quadrupleplot_All_CurrentRecruitment_with_legend <- annotate_figure(quadrupleplo
                                                                      face = "bold", size = 14))
 
 quadrupleplot_All_CurrentRecruitment_with_legend
-ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_CurrentRecruitment.png"), width = 15, height = 10, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_AllDiv_CurrentRecruitment.png"), width = 15, height = 10, bg = "white")
 
 
 
@@ -104,7 +104,7 @@ All_Data_But_Academic_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_
 
 alldata_CurrentRecruitment_perORP <- horizontal_stack_barplot_per_ORP(alldata_CurrentRecruitment_for_plotting,  Plotted_Div, Criteria,CurrentRecruitment_answers, CurrentRecruitment_colors, title_legend = NULL, title_plot = title_plot_Current_alldata)
 alldata_CurrentRecruitment_perORP
-ggsave(here::here("Figures", "Round12_Single_splitDiv_CurrentRecruitment.png"), width = 6, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_splitDiv_CurrentRecruitment.png"), width = 6, height = 20, bg = "white")
 
 doubleplot_CurrentRecruitment <- ggpubr::ggarrange(pgrdata_CurrentRecruitment_perORP,
                                           allstaffdata_CurrentRecruitment_perORP,
@@ -113,7 +113,7 @@ doubleplot_CurrentRecruitment <- annotate_figure(doubleplot_CurrentRecruitment,
                                         top = text_grob("Perceived current recruitment criteria",
                                                         face = "bold", size = 14))
 doubleplot_CurrentRecruitment
-ggsave(here::here("Figures", "Round12_Double_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
 
 
 doubleplotAcademicvsNonAc_CurrentRecruitment <- ggpubr::ggarrange(All_Data_But_Academic_CurrentRecruitment_perORP,
@@ -123,7 +123,7 @@ doubleplotAcademicvsNonAc_CurrentRecruitment <- annotate_figure(doubleplotAcadem
                                                  top = text_grob("Perceived current recruitment criteria",
                                                                  face = "bold", size = 14))
 doubleplotAcademicvsNonAc_CurrentRecruitment
-ggsave(here::here("Figures", "Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_DoubleAcademicvsNonAcademic_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
 
 
 
@@ -136,5 +136,5 @@ quadrupleplot_CurrentRecruitment <- annotate_figure(quadrupleplot_CurrentRecruit
                                         top = text_grob("Perceived current recruitment criteria",
                                                         face = "bold", size = 14))
 quadrupleplot_CurrentRecruitment
-ggsave(here::here("Figures", "Round12_Quadruple_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_splitDiv_CurrentRecruitment.png"), width = 12, height = 20, bg = "white")
 
