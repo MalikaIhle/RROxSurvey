@@ -46,14 +46,14 @@ All_supportstaffdata_Barriers_dodgeplot <-horizontal_dodged_barplot_on_barriers_
 All_academicdata_Barriers_dodgeplot <-horizontal_dodged_barplot_on_barriers_regrouped_data(All_academicdata_Barriers_for_plotting,  Measures, Barriers_answers, title_plot_academic_regrouped, 60)
 
 
-doubleplot_Barriers <- ggpubr::ggarrange(All_pgrdata_Barriers_dodgeplot,
+doubleplot_All_Barriers <- ggpubr::ggarrange(All_pgrdata_Barriers_dodgeplot,
                                          All_allstaffdata_Barriers_dodgeplot,
                                           ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
-doubleplot_Barriers <- annotate_figure(doubleplot_Barriers,
+doubleplot_All_Barriers <- annotate_figure(doubleplot_All_Barriers,
                                         top = text_grob("Barriers of ORPs",
                                                         face = "bold", size = 14))
-doubleplot_Barriers
-ggsave(here::here("Figures", "Round12_Double_AllDiv_Barriers-per-ORP.png"), width = 10, height = 9, bg = "white")
+doubleplot_All_Barriers
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_Barriers-per-ORP.png"), width = 10, height = 9, bg = "white")
 
 
 quadrupleplot_All_Barriers <- ggarrange(All_pgrdata_Barriers_dodgeplot, All_staffdata_Barriers_dodgeplot, All_supportstaffdata_Barriers_dodgeplot, All_academicdata_Barriers_dodgeplot,
@@ -110,6 +110,7 @@ pgrdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(pgrdata_Bar
 staffdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(staffdata_Barriers_for_plotting, Plotted_Div, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_staff, 100)
 supportstaffdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(supportstaffdata_Barriers_for_plotting,Plotted_Div,  Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_supportstaff, 100)
 academicdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(academicdata_Barriers_for_plotting, Plotted_Div, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_academic, 100)
+allstaffdata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(allstaffdata_Barriers_for_plotting, Plotted_Div, Measures, Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_allstaff, 100)
 
 
 quadrupleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP,
@@ -121,7 +122,17 @@ quadrupleplot_Barriers <- annotate_figure(quadrupleplot_Barriers,
                                         top = text_grob("Barriers to adoption of ORPs",
                                                         face = "bold", size = 14))
 quadrupleplot_Barriers
-#ggsave(here::here("Figures", "Round12_Quadruple_Barriers.png"), width = 10, height = 25, bg = "white")
+#ggsave(here::here("Figures", "Round12_Quadruple_splitDiv_Barriers.png"), width = 10, height = 25, bg = "white")
+
+
+doubleplot_Barriers <- ggpubr::ggarrange(pgrdata_Barriers_perORP,
+                                            allstaffdata_Barriers_perORP,
+                                            ncol=2, nrow=1, common.legend = TRUE, legend="right")
+doubleplot_Barriers <- annotate_figure(doubleplot_Barriers,
+                                          top = text_grob("Barriers to adoption of ORPs",
+                                                          face = "bold", size = 14))
+doubleplot_Barriers
+#ggsave(here::here("Figures", "Round12_Double_splitDiv_Barriers.png"), width = 10, height = 25, bg = "white")
 
 
 alldata_Barriers_perORP <- barriers_horizontal_dodge_barplot_per_ORP(alldata_Barriers_for_plotting,  Plotted_Div, Measures,Barriers_answers, Barriers_colors, title_legend = NULL, title_plot = title_plot_alldata, 70)
