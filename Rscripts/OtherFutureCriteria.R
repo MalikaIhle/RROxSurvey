@@ -48,6 +48,10 @@ Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode[!is.na(Alldata_Oth
 Alldata_OtherFutureRecruitment[!is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other) & Alldata_OtherFutureRecruitment$FutureRecruitment_Other_recode == 'Not categorised',]
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score <- factor(Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score , levels = Criteria_answers)
 
+#View(Alldata_OtherFutureRecruitment[,c('FutureRecruitment_Other','FutureRecruitment_Other_recode', 'FutureRecruitment_Other_score')])
+quote_Recruitement_2 <- tolower(Alldata_OtherFutureRecruitment$FutureRecruitment_Other[!is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other) & startsWith(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, "COMMITMENT TO INCLUSIVITY")])
+
+
 
 ## split per subdataset
 

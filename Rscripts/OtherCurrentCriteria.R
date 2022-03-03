@@ -40,7 +40,10 @@ Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_recode[!is.na(Alldata_O
 Alldata_OtherCurrentRecruitment[!is.na(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other) & Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_recode == 'Not categorised',]
 Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_score <- factor(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_score , levels = Criteria_answers)
 
+#View(Alldata_OtherCurrentRecruitment[,c('CurrentRecruitment_Other','CurrentRecruitment_Other_recode', 'CurrentRecruitment_Other_score')])
 
+quote_Recruitement_1 <- tolower(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other[!is.na(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other) & startsWith(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other, "GENDER (MOST DEPARTMENTS")])
+        
 ## split per subdataset
 
 xtab_OtherCurrentRecruitment <- Alldata_OtherCurrentRecruitment[Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_recode != 'Not categorised',]  %>% 
