@@ -52,10 +52,11 @@ Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, "HTTP://OPENACCESS.OX.AC.UK/|BUREAUC
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "ADMIN PEOPLE|CONFUSION OVER POLICY EXPECTATIONS")] <- 'Policy changing rapidly, confusion, University administration unaware of researchers needs'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "BOOK PUBLISHER FOR SALES LOST")] <- 'Book publishers sales loss'
 
-quote_OB_OA_1 <- tolower("FUNDING FOR OPEN ACCESS PUBLISHING IS INSUFFICIENT, OPAQUE AND WITH PATCHY COVERAGE. THERE IS ONLY HALF A POLICY - THAT WE MUST PUBLISH BY OPEN ACCESS, BUT WITHOUT THE OTHER HALF THAT WOULD ACTUALLY RESOURCE THOSE OPEN ACCESS FEES. THIS LEAVES WEALTHY UNIVERSITIES, DEPARTMENTS, GROUPS AND EVEN INDIVIDUALS AT A COMPETITIVE ADVANTAGE OVER OTHERS ACTING AS A BIAS OVER WHAT IS ABLE TO BE FORMALLY PUBLISHED.") 
-quote_OB_OA_2 <- tolower("THE COST OF OPEN ACCESS PUBLISHING IS AN ADDITIONAL BARRIER, AS IS THE CULTURE OF PUBLISHING IN TOP JOURNALS, WHICH TEND TO ONLY BE OPEN ACCESS IF A LARGE FEE IS PAID.")
-quote_OB_OA_3 <- tolower("EVEN CO-CALLED 'ACADEMIC PUBLISHERS' (LIKE THE APS OR IOP) NOW CHARGE THE AUTHORS LARGE SUMS FOR MAKING PUBLICATIONS OA - AND THE UNIVERSITY/RESEARCH COUNCILS ARE COMPLICIT IN SUPPORTING SUCH PROFIT-MAKING PRACTICES. NEW NON-PROFIT OA JOURNALS SET UP BY ACADEMICS FOR ACADEMICS WHICH SIMPLY ASK FOR THE ACTUAL, NOMINAL COSTS OF PUBLISHING ARE NOT PRIORITISED FOR SUPPORT.") 
-quote_OB_OA_4 <- tolower(Alldata_OB$OA[!is.na(Alldata_OB$OA) & startsWith(Alldata_OB$OA,"OPEN ACCESS, WHILE BENEFICIAL FOR USERS ")==TRUE]) # more of a downside
+quote_OB_OA_1 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Funding for Open Access publishing is insufficient, opaque")==TRUE]
+quote_OB_OA_2 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "The cost of open access publishing is an additional barrier")==TRUE]
+quote_OB_OA_3 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Even co-called")==TRUE]
+quote_OB_OA_4 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Open Access, while beneficial for users")==TRUE]
+
 
 Alldata_OB$OA_cat[!is.na(Alldata_OB$OA) & is.na(Alldata_OB$OA_cat)] <- 'Not categorised'
 Alldata_OB$OA[!is.na(Alldata_OB$OA_cat) & Alldata_OB$OA_cat == 'Not categorised']
@@ -78,9 +79,9 @@ Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "ENABLE STORAGE OF DATA")] <- 'F
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "HOW USEFUL")] <- 'Not useful, no reusability'
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "USER-UNFRIENDLY")] <- 'Repositories not user-friendly'
 
-quote_OB_Data_1 <- tolower("IT IS NOT TRIVIAL TO RECONCILE INFORMATION GOVERNANCE, DATA LAW AND ETHICAL APPROVAL WITH OPEN PUBLICATION OF DATA.  THE CURRENT LEGAL DEFINITION OF 'ANONYMISED' DATA IS AN UNREACHABLY HIGH STANDARD.")
-quote_OB_Data_2 <- tolower("LACK OF NORMS ON AN APPROPRIATE EMBARGO PERIOD FOR NEWLY COLLECTED DATA")
-quote_OB_Data_3 <- tolower(Alldata_OB$Data[!is.na(Alldata_OB$Data) & startsWith(Alldata_OB$Data,"ETHNOGRAPHIC FIELDNOTES CANNOT")==TRUE]) # more of a downside
+quote_OB_Data_1 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "It is not trivial to reconcile")==TRUE]
+quote_OB_Data_2 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Lack of norms on an appropriate embargo period")==TRUE]
+quote_OB_Data_3 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Ethnographic fieldnotes cannot")==TRUE]
 
 
 Alldata_OB$Data_cat[!is.na(Alldata_OB$Data) & is.na(Alldata_OB$Data_cat)] <- 'Not categorised'
@@ -100,7 +101,8 @@ Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "TIME|LOT OF WORK")] <- 'Time in
 Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "NO BENEFIT|HOW USEFUL")] <- 'Not useful'
 Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "USER-UNFRIENDLY")] <- 'Repositories not user-friendly'
 
-quote_OB_Code_1 <- tolower("THE MAIN BARRIER IS TIME NEEDED TO LEARN HOW TO BEST SET IT UP. ESPECIALLY GIVEN THE LACK OF INCENTIVES TO DO SO (I.E. TAKES THE TIME AWAY FROM PAPER AND GRANT WRITING THAT ARE MUCH MORE VALUED IN CAREER PROGRESSION).")
+quote_OB_Code_1 <- data$OtherBarriers_Code[!is.na(data$OtherBarriers_Code) & startsWith(data$OtherBarriers_Code, "The main barrier is time needed to learn")==TRUE]
+
 
 Alldata_OB$Code_cat[!is.na(Alldata_OB$Code) & is.na(Alldata_OB$Code_cat)] <- 'Not categorised'
 Alldata_OB$Code[!is.na(Alldata_OB$Code) & Alldata_OB$Code_cat == 'Not categorised']
@@ -123,7 +125,7 @@ Alldata_OB$Materials_cat[!is.na(Alldata_OB$Materials) & is.na(Alldata_OB$Materia
 Alldata_OB$Materials[!is.na(Alldata_OB$Materials) & Alldata_OB$Materials_cat == 'Not categorised']
 # View(Alldata_OB[,c('Materials','Materials_cat')])
 
-quote_OB_Materials_1 <- tolower("I FIND IT HARD TO FIND TIME TO CATALOGUE MATERIAL FOR DISCOVERABLE STORAGE WITH ALL OTHER DUTIES.")
+quote_OB_Materials_1 <- data$OtherBarriers_Materials[!is.na(data$OtherBarriers_Materials) & startsWith(data$OtherBarriers_Materials, "I find it hard to find time")==TRUE]
 
 table(Alldata_OB$Materials_cat)
 
@@ -146,7 +148,8 @@ Alldata_OB$Preprint_cat3[!is.na(Alldata_OB$Preprint_cat3) & Alldata_OB$Preprint_
 Alldata_OB$Preprint[!is.na(Alldata_OB$Preprint) & Alldata_OB$Preprint_cat == 'Not categorised']
 # View(Alldata_OB[,c('Preprint','Preprint_cat','Preprint_cat2', 'Preprint_cat3')])
 
-quote_OB_Preprint_1 <- tolower("NOT SURE WHEN IT IS A PROBLEM FOR A JOURNAL AND WHEN CAUSES NO PROBLEMS")
+quote_OB_Preprint_1 <- data$OtherBarriers_Preprint[!is.na(data$OtherBarriers_Preprint) & startsWith(data$OtherBarriers_Preprint, "Not sure when it is a problem for a journal")==TRUE]
+
 
 table(Alldata_OB$Preprint_cat)
 
@@ -157,7 +160,8 @@ Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "PILOT")] <- 'Lack of fundin
 Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "SHOULD NOT BE APPLIED UNIVERSALLY|DISCIPLINE|NOT ALL WORK IS WELL SUITED|HARD|UNREALISTIC|MADNESS")] <- 'Not applicable to all disciplines, or difficult'
 Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "FUNDING")] <- 'Depend on funding body'
 
-quote_OB_Prereg_1 <- tolower("IN MY FIELD WE HAVE TO APPLY FOR BEAM TIME AT VERY LARGE FACILITIES. THIS INVOLVES GETTING THE EXPERIMENT APPROVED BY AN ACCESS PANEL, STATING CLEAR OBJECTIVES ETC. HOWEVER, WHEN IT COMES TO THE EXPERIMENT ITSELF THE REALITY IS OFTEN RATHER DIFFERENT (THINGS DON'T WORK, SAMPLES ARE NOT READY, THE FACILITY DOES NOT PERFORM AS IT SHOULD, THE PROPOSED METHOD IS TOO DIFFICULT IN PRACTICE, OR THE RESULTS LOOK VERY DIFFERENT FROM EXPECTATIONS. IN SUCH CASES -- WHICH OCCUR MORE OFTEN THAN NOT -- WE HAVE TO FOLLOW OUR NOSE, AND CHANGE THE OBJECTIVES AND METHODS AS THE EXPERIMENT PROGRESSES. IT WOULD BE MADNESS TO DO ANYTHING ELSE -- AND EXPENSIVE TOO, WHEN THE EXPERIMENTS COST AROUND £0.5M TO RUN.")
+quote_OB_Prereg_1 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "In my field we have to apply for beam time")==TRUE]
+quote_OB_Prereg_2 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "funding to run a pilot study prior")==TRUE]
 
 Alldata_OB$Prereg_cat[!is.na(Alldata_OB$Prereg) & is.na(Alldata_OB$Prereg_cat)] <- 'Not categorised'
 Alldata_OB$Prereg[!is.na(Alldata_OB$Prereg) & Alldata_OB$Prereg_cat == 'Not categorised']
@@ -180,7 +184,8 @@ Alldata_OB$RegRep_cat[!is.na(Alldata_OB$RegRep) & is.na(Alldata_OB$RegRep_cat)] 
 Alldata_OB$RegRep[!is.na(Alldata_OB$RegRep) & Alldata_OB$RegRep_cat == 'Not categorised']
 # View(Alldata_OB[,c('RegRep','RegRep_cat')])
 
-quote_OB_RegRep_1 <- tolower(Alldata_OB$RegRep[!is.na(Alldata_OB$RegRep) & startsWith(Alldata_OB$RegRep,"IN MY FIELD (EXPERIMENTAL MOLECULAR BIOLOGY) FOR")==TRUE])
+quote_OB_RegRep_1 <- data$OtherBarriers_RegRep[!is.na(data$OtherBarriers_RegRep) & startsWith(data$OtherBarriers_RegRep, "In my field (experimental molecular biology)")==TRUE]
+quote_OB_RegRep_2 <- data$OtherBarriers_RegRep[!is.na(data$OtherBarriers_RegRep) & startsWith(data$OtherBarriers_RegRep, "Imagine having more work")==TRUE]
 
 table(Alldata_OB$RegRep_cat)
 
@@ -264,15 +269,16 @@ Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREDATORY|USE THIS TREND AS AN OPPO
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "FUNDING AVAILABILITY COULD BECOME MORE IMPORTANT THAN QUALITY|EXCLUSI*|EXCLUD*|INEQUALIT*|POORER|PEOPLE WITH LOTS OF MONEY|LOW INCOME REGIONS|WEALTHY|WHEALTIER|MORE AFFLUENT INSTITUTIONS GET PREFERENTIAL|COMPETITIVE ADVANTAGE|DEVELOPING COUNTRIES OUT|DETRIMENTAL FOR DIVERSITY|RESOURCE-LIMITED RESEARCHERS|MANY RESEARCHERS CANNOT AFFORD|MINORITISED GROUPS|OTHERS WITHOUT DEDICATED FUNDING|RESEARCHERS WITHOUT FUNDING|ONLY THOSE WITH FUNDING|HARDER FOR THOSE|MIDDLE-INCOME|TO SOME GROUPS|ONLY FAVOURS|POORLY|DISCRIMINATES|THIS IMPACTS MORE|HISTORICALLY DISADVANTAGED AREAS|DETRIMENTAL TO SUCH FIELDS")] <- 'Creates inequalities between researchers/fields/institutions with/without access to funding for APC'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREFER HAVING THE HARD COPY OF A BOOK")] <- 'OA requires electronical versions, prefer hard copy of books'
 
-quote_WD_OA_1 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"JOURNALS HAVE PASSED TRULY EXCESSIVE COSTS OF PUBLICATION ON TO RESEARCHERS. THIS DIVERTS")==TRUE])
-quote_WD_OA_2 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"LOWERS BARRIER TO ARTICLE SUBMISSION (IF PEOPLE JUST PUBLISH TO OPEN ACCESS WEBSITES E.G. ARXIV)")==TRUE])
-quote_WD_OA_3 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"GOLD OPEN ACCESS ARTICLES ARE READ AND CITED MORE")==TRUE])
-quote_WD_OA_4 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"THE MOVE TOWARDS OPEN SCIENCE PUBLICATIONS")==TRUE])
-quote_WD_OA_5 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"IF THE FOCUS IS ON GOLD OA")==TRUE])
-quote_WD_OA_6 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"I WORK IN A FIELD THAT DOES NOT ATTRACT A LOT OF EXTERNAL RESEARCH FUNDING, NOR DOES IT ESPECIALLY NEED IT")==TRUE])
-quote_WD_OA_7 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"OPEN ACCESS PUBLICATION IS A LAUDABLE GOAL")==TRUE])
-quote_OB_OA_4 <- tolower(Alldata_OB$OA[!is.na(Alldata_OB$OA) & startsWith(Alldata_OB$OA,"OPEN ACCESS, WHILE BENEFICIAL FOR USERS ")==TRUE]) # more of a downside
-quote_WD_OA_8 <- tolower(Alldata_WD$OA[!is.na(Alldata_WD$OA) & startsWith(Alldata_WD$OA,"AUTHOR-PAYS FUNDING MODEL")==TRUE])
+quote_WD_OA_1 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Journals have passed truly excessive costs")==TRUE]
+quote_WD_OA_2 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Lowers barrier to article submission")==TRUE]
+quote_WD_OA_3 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Gold open access articles are read and cited more")==TRUE]
+quote_WD_OA_4 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "The move towards open science publications")==TRUE]
+quote_WD_OA_5 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "If the focus is on gold OA")==TRUE]
+quote_WD_OA_6 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "I work in a field that does not attract a lot")==TRUE]
+quote_WD_OA_7 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Open Access publication is a laudable goal")==TRUE]
+quote_OB_OA_4 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Open Access, while beneficial for users")==TRUE]
+quote_WD_OA_8 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Author-pays funding model")==TRUE]
+
 
 Alldata_WD$OA_cat[!is.na(Alldata_WD$OA) & is.na(Alldata_WD$OA_cat)] <- 'Not categorised'
 Alldata_WD$OA[!is.na(Alldata_WD$OA) & Alldata_WD$OA_cat == 'Not categorised']
@@ -301,15 +307,15 @@ Alldata_WD$Data_cat[!is.na(Alldata_WD$Data_cat2) & Alldata_WD$Data_cat == 'Not c
 Alldata_WD$Data_cat2[!is.na(Alldata_WD$Data_cat2) & Alldata_WD$Data_cat == Alldata_WD$Data_cat2] <- NA
 Alldata_WD$Data[!is.na(Alldata_WD$Data) & Alldata_WD$Data_cat == 'Not categorised']
 
+quote_WD_Data_1 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "The problem with widespread adoption")==TRUE]
+quote_WD_Data_2 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data collection and data cleaning")==TRUE]
+quote_WD_Data_3 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "We are solely grant funded")==TRUE]
+quote_WD_Data_4 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "As a qualitative researcher, data sharing of fieldnotes")==TRUE]
+quote_WD_Data_5 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data that were once considered anonymous")==TRUE]
+quote_WD_Data_6 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data without curation and standards")==TRUE]
+quote_WD_Data_7 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data collectors are not appropriately")==TRUE]
+quote_OB_Data_3 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Ethnographic fieldnotes cannot")==TRUE]
 
-quote_WD_Data_1 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"THE PROBLEM WITH WIDESPREAD ADOPTION")==TRUE])
-quote_WD_Data_2 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTION AND DATA CLEANING TAKES EFFORT AND TIME")==TRUE])
-quote_WD_Data_3 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"WE ARE SOLELY GRANT FUNDED")==TRUE])
-quote_WD_Data_4 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"AS A QUALITATIVE RESEARCHER, DATA SHARING OF FIELDNOTES")==TRUE])
-quote_WD_Data_5 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA THAT WERE ONCE CONSIDERED ANONYMOUS ARE FREQUENTLY")==TRUE])
-quote_WD_Data_6 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA WITHOUT CURATION AND STANDARDS HAS MUCH LESS VALUE TO OTHERS")==TRUE]) 
-quote_WD_Data_7 <- tolower(Alldata_WD$Data[!is.na(Alldata_WD$Data) & startsWith(Alldata_WD$Data,"DATA COLLECTORS ARE NOT APPROPRIATELY CITED OR COMPENSATED FOR THEIR CONTRIBUTIONS")==TRUE]) 
-quote_OB_Data_3 <- tolower(Alldata_OB$Data[!is.na(Alldata_OB$Data) & startsWith(Alldata_OB$Data,"ETHNOGRAPHIC FIELDNOTES CANNOT")==TRUE]) # more of a downside
 
 table(c(Alldata_WD$Data_cat, Alldata_WD$Data_cat2))
 # View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
@@ -329,10 +335,12 @@ Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "USEABLE BY OTHERS|LESS USE")] <
 Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "PIPPED|STEALING|SCOOPED|PRE-EMPTIVELY USED|ACADEMIC COPYING")] <- 'Fear of scooping'
 Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "NO NORM FOR CITATION|FORMALLY CITABLE|APPROPRIATELY CITED|LACK OF ACKNOWLEDGEMENT")] <- 'No norm for citation'
 
-quote_WD_Code_1 <- tolower(Alldata_WD$Code[!is.na(Alldata_WD$Code) & startsWith(Alldata_WD$Code,"NEED TO DEVELOP SYSTEM FOR ENSURING APPROPRIATE CREDIT")==TRUE])
-quote_WD_Code_2 <- tolower(Alldata_WD$Code[!is.na(Alldata_WD$Code) & startsWith(Alldata_WD$Code,"FLAWED CODE COULD GET REUSED")==TRUE])
-quote_WD_Code_3 <- tolower(Alldata_WD$Code[!is.na(Alldata_WD$Code) & startsWith(Alldata_WD$Code,"CONSIDERABLE EXTRA WORK IN MAKING")==TRUE])
-quote_WD_Code_4 <- tolower(Alldata_WD$Code[!is.na(Alldata_WD$Code) & startsWith(Alldata_WD$Code,"IT IS MY IMPRESSION THAT THE CODING COMMUNITY")==TRUE])
+
+quote_WD_Code_1 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Need to develop system for ensuring")==TRUE]
+quote_WD_Code_2 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Flawed code could get reused")==TRUE]
+quote_WD_Code_3 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Considerable extra work in making")==TRUE]
+quote_WD_Code_4 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "It is my impression that the coding community")==TRUE]
+
 
 Alldata_WD$Code_cat[!is.na(Alldata_WD$Code) & is.na(Alldata_WD$Code_cat)] <- 'Not categorised'
 Alldata_WD$Code[!is.na(Alldata_WD$Code) & Alldata_WD$Code_cat == 'Not categorised']
@@ -360,10 +368,11 @@ Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ONLY POSSIBLE FOR LAR
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ANONYM*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|HARMFUL|MUST NOT BE SHARED|ATTACKING|BETRAYING THE TRUST")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "STANDARD WITHIN THE FIELD|FORMAT THAT IS USEFUL|ALONG WITH STANDARDS")] <- 'Lack of metadata standards'
 
-quote_WD_Materials_1 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"SHARING MATERIAL IS DIFFERENT FROM SHARING INFORMATION")==TRUE])
-quote_WD_Materials_2 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"BIOLOGICAL / SCIENTIFIC SAMPLES")==TRUE])
-quote_WD_Materials_3 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"PROVIDING STANDARDISED RESEARCH MATERIALS FREELY")==TRUE])
-quote_WD_Materials_4 <- tolower(Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & startsWith(Alldata_WD$Materials,"AGAIN, THE OWNERSHIP OF THE INFRASTRUCTURE IS VITAL")==TRUE])
+quote_WD_Materials_1 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Sharing material is different")==TRUE]
+quote_WD_Materials_2 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Biological / scientific samples")==TRUE]
+quote_WD_Materials_3 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Providing standardised")==TRUE]
+quote_WD_Materials_4 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Again, the ownership")==TRUE]
+
 
 Alldata_WD$Materials_cat[!is.na(Alldata_WD$Materials) & is.na(Alldata_WD$Materials_cat)] <- 'Not categorised'
 Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & Alldata_WD$Materials_cat == 'Not categorised']
@@ -401,6 +410,16 @@ quote_WD_Preprint_6 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) &
 quote_WD_Preprint_7 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PRE-PRINTS ARE OF COURSE")==TRUE]) # association with open peer review for archive?
 quote_WD_Preprint_8 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"WHILE USEFUL, THE LACK OF PEER REVIEW IN PRE-PRINTS IS A POSSIBLE DOWNSIDE IN THE LONG-RUN")==TRUE])
 
+quote_WD_Preprint_1 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Our field has seen a exponential growth")==TRUE]
+quote_WD_Preprint_2 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Double blind peer review")==TRUE]
+quote_WD_Preprint_3 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Not all working papers are suitable")==TRUE]
+quote_WD_Preprint_4 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Having multiple versions of the same document")==TRUE]
+quote_WD_Preprint_5 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "As seen during the COVID-19 pandemic")==TRUE]
+quote_WD_Preprint_6 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Preprints have not yet been peer reviewed")==TRUE]
+quote_WD_Preprint_7 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Pre-prints are of course")==TRUE]
+quote_WD_Preprint_8 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "While useful, the lack of peer review")==TRUE]
+
+
 table(c(Alldata_WD$Preprint_cat, Alldata_WD$Preprint_cat2))
 # View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
 
@@ -418,15 +437,17 @@ Alldata_WD$Prereg_cat2[str_detect(Alldata_WD$Prereg, "DETER OTHER RESEARCHERS FR
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "ITERATIVE DEVELOPMENT|IT IS ITERATIVE AND CUMULATIVE")] <- 'Iterative development of the research question in social sciences'
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "NO CLEAR FORMAT OR STANDARD")] <- 'No clear format or standards'
 
-quote_WD_Prereg_1 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"CURRENT PREREGISTRATION FORMATS CAN ENCOURAGE")==TRUE])
-quote_WD_Prereg_2 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"I THINK THIS IS FINE FOR CONTROLLED TRIALS")==TRUE])
-quote_WD_Prereg_3 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"IF DONE THOUGHTFULLY")==TRUE])
-quote_WD_Prereg_4 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"PRE-REGISTRATION IS NOT USEFUL IN SOCIAL SCIENCES")==TRUE])
-quote_WD_Prereg_5 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"AT LEAST IN POLITICAL SCIENCE")==TRUE])
-quote_WD_Prereg_6 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"IN ECOLOGY")==TRUE])
-quote_WD_Prereg_7 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"IF EXPLORATORY RESEARCH (NO PREREGISTRATION) CAME TO BE REGARDED AS INFERIOR")==TRUE])
-quote_WD_Prereg_8 <- tolower(Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & startsWith(Alldata_WD$Prereg,"RESEARCHERS SHOULD NOT CLAIM IDEAS")==TRUE]) 
-                                                                                      
+ 
+quote_WD_Prereg_1 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Current preregistration formats")==TRUE]
+quote_WD_Prereg_2 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "I think this is fine for controlled trials")==TRUE]
+quote_WD_Prereg_3 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If done thoughtfully")==TRUE]
+quote_WD_Prereg_4 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Pre-registration is not useful in")==TRUE]
+quote_WD_Prereg_5 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "At least in political science")==TRUE]
+quote_WD_Prereg_6 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "In ecology")==TRUE]
+quote_WD_Prereg_7 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If exploratory research (no prereg")==TRUE]
+quote_WD_Prereg_8 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Researchers should not claim ideas")==TRUE]
+
+                                                                                 
 Alldata_WD$Prereg_cat[!is.na(Alldata_WD$Prereg) & is.na(Alldata_WD$Prereg_cat)] <- 'Not categorised'
 Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & Alldata_WD$Prereg_cat == 'Not categorised']
 Alldata_WD$Prereg_cat[!is.na(Alldata_WD$Prereg_cat2) & Alldata_WD$Prereg_cat == 'Not categorised'] <- Alldata_WD$Prereg_cat2[!is.na(Alldata_WD$Prereg_cat2) & Alldata_WD$Prereg_cat == 'Not categorised']
@@ -449,12 +470,12 @@ Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "EXPLORATORY|BLUE SKIES")] <
 Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "ARE INDEPENDENT OF THE VALIDITY OF THE UNDERLYING SCIENTIFIC")] <- 'Publishing of unclear results because the study does not work despite validity of method'
 Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "NOT ALL PEER REVIEWERS ARE CORRECT")] <- 'Poor peer review comments, if opened to public, can potentially damage the paper'
 
-quote_WD_RegRep_1 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"QUALITATIVE RESEARCH DIFFERS")==TRUE])
-quote_WD_RegRep_2 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"DELAY IN FEEDBACK FROM PEER REVIEWERS CAN DELAY DATA COLLECTION")==TRUE])
-quote_WD_RegRep_3 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"I'M NOT SURE THAT REGISTERED REPORTS PRODUCE BETTER RESEARCH THAN RIGOROUS PRE-REGISTRATION")==TRUE])
-quote_WD_RegRep_4 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"IF EXPLORATORY RESEARCH")==TRUE])
-quote_WD_RegRep_5 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"FOR LARGE-SCALE PSYCHOLOGY/IMAGING/BEHAVIOURAL")==TRUE])
-quote_WD_RegRep_6 <- tolower(Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & startsWith(Alldata_WD$RegRep,"SCIENCE IS NOT LINEAR")==TRUE])
+quote_WD_RegRep_1 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Qualitative research differs")==TRUE]
+quote_WD_RegRep_2 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Delay in feedback")==TRUE]
+quote_WD_RegRep_3 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "I'm not sure that")==TRUE]
+quote_WD_RegRep_4 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "If exploratory research")==TRUE]
+quote_WD_RegRep_5 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "For large-scale psychology")==TRUE]
+quote_WD_RegRep_6 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Science is not linear")==TRUE]
 
 
 Alldata_WD$RegRep_cat[!is.na(Alldata_WD$RegRep) & is.na(Alldata_WD$RegRep_cat)] <- 'Not categorised'
