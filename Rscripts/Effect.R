@@ -85,3 +85,49 @@ All_Grouped_Effect_plot <- horizontal_stacked_barplot_on_regrouped_data(All_Grou
 All_Grouped_Effect_plot
 #ggsave(here::here("Figures", "Round12_Single_Effect-per-ORP.png"), width = 10, height = 4, bg = "white")
 
+
+
+## plot for academics only, all ORPs combined.
+academicdata_Effect_acrossORP <- academicdata_Effect[academicdata_Effect$Div %in% Plotted_Div,]
+academicdata_Effect_acrossORP <- academicdata_Effect_acrossORP[complete.cases(academicdata_Effect_acrossORP), ]
+
+academicdata_Effect_acrossORP <- data.frame(rbind(cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_OA), 
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_Data), 
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_Code), 
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_Materials),
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_Preprint),
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_Prereg), 
+                                                     cbind(academicdata_Effect_acrossORP$Div, academicdata_Effect_acrossORP$Effect_RegRep)))
+colnames(academicdata_Effect_acrossORP) <- c("Div", "Answer")
+
+academicdata_Effect_acrossORP_for_plotting <- academicdata_Effect_acrossORP  %>% group_by(Div,Answer) %>% summarise (n = n()) %>% 
+  mutate(perc = n / sum(n) * 100 ) 
+academicdata_Effect_acrossORP_for_plotting$ID <- paste(academicdata_Effect_acrossORP_for_plotting$Div, academicdata_Effect_acrossORP_for_plotting$Answer)
+academicdata_Effect_acrossORP_for_plotting$Div <- factor(academicdata_Effect_acrossORP_for_plotting$Div, levels = rev(Divisions))
+academicdata_Effect_acrossORP_for_plotting$Answer = factor(academicdata_Effect_acrossORP_for_plotting$Answer, levels = Effect_answers)
+
+Nacademic_Effect_perDiv <- academicdata_Effect_acrossORP_for_plotting %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE)/7) # divided by 7 because all responses for all 7 measures were pooled
+Nacademic_Effect <- sum(Nacademic_Effect_perDiv$N)
+
+title_plot <- paste('Effect of widespread adoption averaged accross all ORPs
+Academics (N = ', Nacademic_Effect,")" , sep="")
+
+academicdata_Effect_acrossORP_for_plotting %>% 
+  ggplot() +
+  geom_bar(aes(x = Div, y = perc, fill = Answer), stat = "identity", position = "fill") +
+  scale_fill_manual(values = (Effect_colors),
+                    breaks = rev(Effect_answers), 
+                    labels = rev(Effect_answers), 
+                    drop = FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position="right", legend.title = element_blank()) +
+  labs(x = "", y = "")+
+  guides(fill=guide_legend())+
+  ggtitle(title_plot) + 
+  theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
+
+#ggsave(here::here("Figures", "Round12_Single_Effect_Academic_accross_ORP.png"), width = 10, height = 3, bg = "white")
+
+
