@@ -362,7 +362,7 @@ Some quotes:\
 3. "*`r quote_OB_OA_3`*"
 
 Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original cost of collecting primary data isn't recognised nor protected from scooping, and the fact that repositories aren't user-friendly.\
-Some quotes:
+Some quotes:\
 1. "*`r quote_OB_Data_1`*"\
 2. "*`r quote_OB_Data_2`*"
 
@@ -639,8 +639,6 @@ tblothertraining <- hrule(tblothertraining, i = 1, rule = "exact", part = "heade
 tblothertraining
 ```
 
-
-
 ### Support
 
 ```{r, echo = FALSE, include = FALSE}
@@ -678,7 +676,34 @@ tblothersupport <- hrule(tblothersupport, i = 1, rule = "exact", part = "header"
 tblothersupport
 ```
 
+## Inventory
 
+```{r, echo = FALSE, include = FALSE}
+source(here::here("Rscripts","Inventory.R"))
+```
+
+Our very last question related to open research that is *already* available at Oxford, with the aim to find out about all initiatives at Oxford, so that we can promote them to relevant groups.
+
+For this, we asked:
+
+**Please provide information to help us identify initiatives at Oxford that relate to open research (e.g. courses, workshops, summer schools, working groups, study groups, meet-ups).** You can add as many initiatives as you like by clicking the '+' symbol.
+
+after mentioning that those we are currently aware of were listed here: <https://ox.ukrn.org/resources/> <https://ox.ukrn.org/events/#initiatives>
+
+Free text boxes were available for respondents to indicate any initiative they were aware of. Their responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblinventory). Unfortunately, there were very few initiative we weren't already aware of.
+
+```{r, echo = FALSE, include = TRUE}
+Table_Inventory %>% arrange(-count) %>% flextable() %>%
+    set_caption(caption = "Inventory of initiatives",
+                style = "Table Caption",
+                autonum = run_autonum(seq_id = "tab", bkm = "tblinventory")) %>% autofit()
+```
+
+Some respondents provided unsolicited general comments in this final question, some of which were quite contrasted, which, at least, suggested we captured the responses of some researchers who are *not* in favour of ORPs.<!--# in future iteration of the survey, would be best to ahve a final question asking for any remaining comment left... -->
+
+Some quotes:\
+1."*`r Quote_Inventory_1`*"\
+2."*`r Quote_Inventory_2`*"\
 
 ## Recommendations
 
