@@ -74,7 +74,7 @@ Alldata_Inventory$initiative_cat[str_detect(Alldata_Inventory$initiative,
                                             c("WELLCOME STRATEGY"))] <- 'Wellcome Trust'
 
 Alldata_Inventory$initiative_cat[is.na(Alldata_Inventory$initiative_cat)] <- "Not categorized"
-View(Alldata_Inventory[Alldata_Inventory$initiative_cat == "Not categorized",])
+#View(Alldata_Inventory[Alldata_Inventory$initiative_cat == "Not categorized",])
 
 
 Table_Inventory <- data.frame(table(Alldata_Inventory$initiative_cat[Alldata_Inventory$initiative_cat != "Not categorized"]))

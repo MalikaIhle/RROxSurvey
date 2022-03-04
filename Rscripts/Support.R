@@ -75,7 +75,7 @@ doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- ggpubr::ggarrange(do
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- annotate_figure(doubleplot_All_AcademicvsNonAcademic_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
 
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend
-ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
+#ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
 
 
 
