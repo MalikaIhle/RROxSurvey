@@ -16,7 +16,8 @@ supportstaffdata_FutureRecruitment_for_plotting <- prepare_data_for_plotting(Cri
 academicdata_FutureRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, academicdata_FutureRecruitment, FutureRecruitment_answers, FutureRecruitment_columns)
 alldata_FutureRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, data_FutureRecruitment, FutureRecruitment_answers, FutureRecruitment_columns)
 
-All_Data_But_Academic_FutureRecruitment_for_plotting <- rbind(pgrdata_FutureRecruitment_for_plotting,staffdata_FutureRecruitment_for_plotting,supportstaffdata_FutureRecruitment_for_plotting)
+x <- rbind(pgrdata_FutureRecruitment,staffdata_FutureRecruitment,supportstaffdata_FutureRecruitment,academicdata_FutureRecruitment)
+All_Data_But_Academic_FutureRecruitment_for_plotting <-  prepare_data_for_plotting(Criteria, x, FutureRecruitment_answers, FutureRecruitment_columns)
 
 
 # regroup data split per Division for overall plot

@@ -16,7 +16,9 @@ supportstaffdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Cr
 academicdata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, academicdata_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
 alldata_CurrentRecruitment_for_plotting <- prepare_data_for_plotting(Criteria, data_CurrentRecruitment, CurrentRecruitment_answers, CurrentRecruitment_columns)
 
-All_Data_But_Academic_CurrentRecruitment_for_plotting <- rbind(pgrdata_CurrentRecruitment_for_plotting,staffdata_CurrentRecruitment_for_plotting, supportstaffdata_CurrentRecruitment_for_plotting)
+x <- rbind(pgrdata_CurrentRecruitment,staffdata_CurrentRecruitment,supportstaffdata_CurrentRecruitment,academicdata_CurrentRecruitment)
+All_Data_But_Academic_CurrentRecruitment_for_plotting <-  prepare_data_for_plotting(Criteria, x, CurrentRecruitment_answers, CurrentRecruitment_columns)
+
 
 
 # regroup data split per Division for overall plot

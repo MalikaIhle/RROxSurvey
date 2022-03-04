@@ -13,7 +13,11 @@ staffdata_Support_for_plotting <- prepare_data_for_plotting(Supports, staffdata_
 supportstaffdata_Support_for_plotting <- prepare_data_for_plotting(Supports, supportstaffdata_Support, Support_answers, Support_columns)
 academicdata_Support_for_plotting <- prepare_data_for_plotting(Supports, academicdata_Support, Support_answers, Support_columns)
 alldata_Support_for_plotting <- prepare_data_for_plotting(Supports, data_Support, Support_answers, Support_columns)
-alldata_but_academic_Support_for_plotting <- rbind(pgrdata_Support_for_plotting,staffdata_Support_for_plotting,supportstaffdata_Support_for_plotting)
+
+x <- rbind(pgrdata_Support,staffdata_Support,supportstaffdata_Support,academicdata_Support)
+alldata_but_academic_Support_for_plotting <-  prepare_data_for_plotting(Supports, x, Support_answers, Support_columns)
+
+
 
 # regroup data split per Division for overall plot
 All_pgrdata_Support_for_plotting <- regroup_all_data(pgrdata_Support_for_plotting)
@@ -71,7 +75,7 @@ doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- ggpubr::ggarrange(do
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend <- annotate_figure(doubleplot_All_AcademicvsNonAcademic_Support_with_legend, top = text_grob("Support needs", face = "bold", size = 14))
 
 doubleplot_All_AcademicvsNonAcademic_Support_with_legend
-#ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
+ggsave(here::here("Figures", "Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png"), width = 10, height = 3, bg = "white")
 
 
 
