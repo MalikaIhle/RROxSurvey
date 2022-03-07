@@ -68,6 +68,8 @@ What Reproducible Research Oxford has been promoting so far are practices like O
 
 The purpose of the last two practices is to provide a transparent documentation, for instance, of the evolution of one's positionality  <!-- LF I don't know what this means... --> for qualitative research; but in the case of quantitative research, the main reason to engage with this practice <!-- FIXME which? --> is to be able to distinguish between a priori confirmatory analyses, which test hypotheses and have a declared alpha of usually 5%, i.e. we tolerate to have a 5% chance for a statistical test to result in a false-positive finding, vs exploratory analyses that have a higher rate of false-positive results but have the advantages of generating hypotheses. <!-- LF not sure statistical details are necessary here... -->
 
+<!-- FIXME add link to survey materials in Zenodo -->
+
 ### Survey administration
 
 We developed a survey to assess the views of Oxford researchers on these **open research practices**, related **training needs and provision**, as well as on **recruitment criteria**.
@@ -144,7 +146,7 @@ In this figure we can see that the practice of each ORPs (in green) shows roughl
 
 Overall, **Open Access** publishing was indicated to be the most practised among PGR students and researchers, and only `r all_not_aware_OA`% of all respondents indicated that they were not aware of it or not sure whether this practice was applicable to their work. However, there was still a significant proportion of respondents, even among researchers with the opportunity to practice OA (`r researchers_aware_dont_practice_OA`% of researchers), who were aware (in orange) or accessing (in yellow) open access publications but who did not practice it.
 
-**Preprinting** and **sharing of data** was the next most practised ORPs. We had large disparities between Divisions for **code sharing** practices. And overall, **preregistration** and **registered report** were the least well-known ORPs.<!--# FIXME should I say anything more? add numbers?-->
+**Preprinting** and **sharing of data** were the next most practised ORPs. We had large disparities between Divisions for **code sharing** practices. And overall, **preregistration** and **registered report** were the least well-known ORPs.<!--# FIXME should I say anything more? add numbers?-->
 
 ### Overall effect of open research practices
 
@@ -193,7 +195,7 @@ science_researchers_Data_downsides <- round(summary(allstaffdata_Downsides_for_p
                                                                                              allstaffdata_Downsides_for_plotting$Answer == 'Yes']), 1)
 ```
 
-Later on<!--# i.e. dowsnides question came after barriers questions; the rational was to reduce amount of respondent listing barriers in downsides question -->, to understand why respondents thought a specific ORP was overall detrimental, and to include any downsides other respondents may find for a specific ORP, even if they judged it overall beneficial, we asked:
+Later on<!--# i.e. downsides question came after barriers questions; the rationale was to reduce amount of respondents listing barriers in downsides question -->, to understand why respondents thought a specific ORP was overall detrimental, and to include any downsides other respondents may find for a specific ORP, even if they judged it overall beneficial, we asked:
 
 "**In your view, are there *any* downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
 
@@ -215,15 +217,17 @@ source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 
 A free text box opened for each ORP a respondent had selected to have downsides. Their responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblotherdownsides). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whether some automation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply across ORPs for a better read of the table summarising the counts of downsides for each ORP; I haven't revised my categories this year yet to do the same regrouping work so it's a bit all over the place...--> A selection of representative quotes, or to the contrary, original quotes that I subjectively thought were relevant, are also included below.
 
-The main downside to **Open Access** publications frequently mentioned by respondents was the extreme cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on whether they have or do not have access to funding. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews (or even less invested peer-review in general given the quantity or articles submitted and sent for review to generate income for publishers), and therefore, to possibly lower the quality of research being published. Some respondents also thought they were less options of prestigious journals that published OA<!--# more of an infrastructure barrier, mentioned again there?-->. Finally, some respondents were concerned about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.
+The main downside to **Open Access** publications frequently mentioned by respondents was the cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on access to funding. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask for high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews (or even less invested peer-review in general given the quantity of articles submitted and sent for review to generate income for publishers), and therefore, to possibly lower the quality of the research being published. Some respondents also thought there were fewer options of prestigious journals that published OA<!--# more of an infrastructure barrier, mentioned again there?-->. Finally, some respondents were concerned about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.
 
 Some quotes:\
 1. "*`r quote_WD_OA_1`*"\
 2. "*`r quote_WD_OA_5`*"\
 3. "*`r quote_WD_OA_6`*"\
-4. "*`r str_replace(quote_WD_OA_7, "\n\n", " ")`*" <!--# shorten quote with "[...]"--> 5. "*`r quote_OB_OA_4`*" <!--# cut?--> 6. "*`r quote_WD_OA_8`*"\
+4. "*`r str_replace(quote_WD_OA_7, "\n\n", " ")`*" <!--# shorten quote with "[...]"-->\
+5. "*`r quote_OB_OA_4`*" <!--# cut?-->\
+6. "*`r quote_WD_OA_8`*"\
 
-Downsides to **Data sharing** were many concerns over ethics, safety, or security (e.g. to preserve human participants anonymity) and the inability to control the validity of reuse, or the possible misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if there were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a lack of norm barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, a lack of metadata standards to make data sharing usable, and the fact that some data can be in proprietary format only; both of latter making data sharing less useful or even irrelevant.
+Downsides to **Data sharing** were many <!--LF do you mean "mainly" --> concerns over ethics, safety, or security (e.g. to preserve human participants anonymity) and the inability to control the validity of reuse, or the possible misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if they were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a lack of norm barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, a lack of metadata standards to make data sharing usable, and the fact that some data can be in proprietary format only; both of latter making data sharing less useful or even irrelevant. <!-- LF do you mean "the latter two"? -->
 
 Some quotes:\
 1. "*`r quote_WD_Data_1`*"\
@@ -233,7 +237,7 @@ Some quotes:\
 5. "*`r quote_WD_Data_5`*"\
 6. "*`r quote_WD_Data_6`*"\
 
-Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact that such academic outputs aren't credited or recognised if reused by others, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given that currently, research software aren't reviewed, having them available for reuse could lower the quality of follow-up research. Less frequent, but worth noting, some respondents mentioned the psychological toll of having their code scrutinised and criticized by the community.
+Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact that such  outputs may not be credited or recognised if reused by others, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given that currently, research software is not reviewed, making it available for reuse could lower the quality of follow-up research. Less frequent, but worth noting, some respondents mentioned the psychological toll of having their code scrutinised and criticized by the community.
 
 Some quotes:\
 1. "*`r quote_WD_Code_1`*"\
@@ -241,7 +245,7 @@ Some quotes:\
 3. "*`r quote_WD_Code_3`*"\
 4. "*`r quote_WD_Code_4`*"\
 
-Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly including laws against it<!--# more of a barrier, mentioned again there?-->), IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood of being able to provide equitable access to all.
+Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly including laws against it<!--# more of a barrier, mentioned again there?-->), <!-- LF unclear what this relates to --> IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood <!-- FIXME not sure this is a word... --> of being able to provide equitable access to all.
 
 Some original quotes highlighting some specific problems with physical material sharing:\
 1. "*`r quote_WD_Materials_1`*"\
@@ -249,7 +253,7 @@ Some original quotes highlighting some specific problems with physical material 
 3. "*`r quote_WD_Materials_3`*"\
 4. "*`r quote_WD_Materials_4`*" <!--# not sure this one is physical-->
 
-The main downside to **Preprints** was the fact that they are disseminated and potentially used for policies or further research before being peer-reviewed (if they ever get peer-reviewed) and therefore potentially containing errors or misleading readers. In lesser frequency but worth noting, other downsides listed were the fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation (given duplicate versions).
+The main downside to **Preprints** was the fact that they are disseminated and potentially used for policies or further research before being peer-reviewed (if they ever get peer-reviewed) and therefore potentially containing errors or misleading readers. In lesser frequency but worth noting, other downsides listed were the fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation <!-- LF meaning? --> (given duplicate versions).
 
 Some quotes:\
 1. "*`r quote_WD_Preprint_1`*"\
@@ -261,7 +265,7 @@ Some quotes:\
 7. "*`r quote_WD_Preprint_7`*"\
 8. "*`r quote_WD_Preprint_8`*"\
 
-Regarding **Preregistration**, the main downsides described by respondents were that it was thought to impede exploratory research, impede flexibility in protocols while the research is being conducted, and that this practice is not applicable to all fields of research (for isntance, it does not align with iterative development of research questions in e.g. social sciences). In lesser frequency but worth noting, respondents mentioned that there need to be a corresponding increase in respect for null findings, and that if preregistration are made public before publication, it may deter unknowing replication.
+Regarding **Preregistration**, the main downsides described by respondents were that it was thought to impede exploratory research, impede flexibility in protocols while the research is being conducted, and that this practice is not applicable to all fields of research (for instance, it does not align with iterative development of research questions in e.g. social sciences). In lesser frequency but worth noting, respondents mentioned that there need to be a corresponding increase in respect for <!-- FIMXE unclear --> null findings, and that if preregistrations are made public before publication, it may deter unknowing replication. <!-- FIMXE unclear -->
 
 Some quotes:\
 1. "*`r quote_WD_Prereg_1`*"\
@@ -284,9 +288,9 @@ Some quotes:\
 6. "*`r quote_WD_RegRep_6`*"\
 7. "*`r quote_OB_RegRep_1`*"\
 
-For both **Preregistration** and **Registered Reports**, given these quotes and others (also in 'Barriers'), and the fact that awareness of these practices were overall very low and that we know that training is extremely limited around the University for these practices, I wonder, whether fields (particularly experimental fields) where preregistration was judged not applicable or unjustifiably limiting flexibility in protocols, do in fact operate under the same framework (Ho testing, alpha = 0.05) as fields who have judged that preregistration is necessary to prevent insight bias, confirmation bias, and non-intentional insidious ways of p-hacking leading to drastic increases in the likelihood of obtaining false-positive results. Do fields rejecting preregistration have the same ideal but simply don't have the right research environment (sometimes in very practical terms as seen in some quotes) to be able to practice preregistration, or is it that these fields approach are different and preregistration isn't relevant, e.g. if the research process resemble the iterative processes judged as a valid norm in some social sciences. I think there may be both type of responses in the survey. As a reminder, when one conducts an experiment, one state that they have an a priori hypothesis, and that a specifically designed manipulation will explain differences observed between groups (e.g. treatment vs control groups). Even after reading all these replies, I personally still see no logical reasons (there may be very real practical barriers though), for experimental fields to not want to limit the flexibility in protocol or to not declare those deviations in order for readers to be able to assess the likelihood of each finding to be a false positive result (another reminder: each decision of conducting a statistical test based on the p value of a first test will inevitably increase the chances of the second test to be a false positive finding, over the 5% tolerated and declared rate).<!--# FIXME language to not be offensive-->
+For both **Preregistration** and **Registered Reports**, given these quotes and others (also in 'Barriers'), and the fact that awareness of these practices was overall very low and that we know that there is limited related training at the University, I wonder whether fields (particularly experimental fields) where preregistration was judged not applicable or unjustifiably limiting flexibility in protocols, do in fact operate under the same framework (Ho testing, alpha = 0.05) as fields who have judged that preregistration is necessary to prevent insight bias, confirmation bias, and non-intentional insidious ways of p-hacking leading to drastic increases in the likelihood of obtaining false-positive results. <!-- FIMXE unclear --> Do fields rejecting preregistration have the same ideal but simply don't have the right research environment (sometimes in very practical terms as seen in some quotes) to be able to practice preregistration, or is it that in these fields approaches are different and preregistration isn't relevant, e.g. if the research process resembles the iterative processes judged as a valid norm in some social sciences. I think there may be both types of responses in the survey. As a reminder, when one conducts an experiment, one states that they have an a priori hypothesis, and that a specifically designed manipulation will explain differences observed between groups (e.g. treatment vs control groups). Even after reading all these replies, I personally still see no logical reasons (there may be very real practical barriers though), for experimental fields to not want to limit the flexibility in protocol or to not declare those deviations in order for readers to be able to assess the likelihood of each finding to be a false positive result (another reminder: each decision of conducting a statistical test based on the p value of a first test will inevitably increase the chances of the second test to be a false positive finding, over the 5% tolerated and declared rate).<!--# FIXME language to not be offensive--> <!-- possibly rephrase to just say that it would be useful to offer more training to address common misconceptions (e.g. that you cannot do/report exploratory results), and then see if responses change -->
 
-Perhaps further consultations, such as focus groups following an in depth introduction to preregistration would be needed to know whether the inability to create a plan a priori constitute a barrier (e.g. practical impossibility) over an actual downside (e.g. the practice is irrelevance). <!--# FIXME language to not be offensive-->
+Perhaps further consultations, such as focus groups following an in depth introduction to preregistration would be needed to know whether the inability to create a plan a priori constitutes a barrier (e.g. practical impossibility) over an actual downside (e.g. the practice is irrelevant). <!--# FIXME language to not be offensive-->
 
 ```{r, echo = FALSE, include = TRUE}
 tblotherdownsides <- Alldata_WD_table %>% flextable() %>%
@@ -302,7 +306,7 @@ tblotherdownsides <- hrule(tblotherdownsides, i = 1, rule = "exact", part = "hea
 tblotherdownsides
 ```
 
-Overall, despite these numerous downsides, remember that people seemed to think ORPs were largely favourable, at least for those that were known to them. So why aren't they more practised? Are they any barriers to adoptions?
+Overall, despite these numerous downsides, remember that people seemed to think ORPs were largely favourable, <!-- LF do you mean "desirable" instead?--> at least for those that were known to them. So why aren't they more practised? Are there any barriers to the adoption of ORPs?
 
 ### Barriers to adoption of open research practices
 
