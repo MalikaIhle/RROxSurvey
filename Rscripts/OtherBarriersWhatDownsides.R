@@ -52,12 +52,6 @@ Alldata_OB$OA_cat[str_detect(Alldata_OB$OA, "HTTP://OPENACCESS.OX.AC.UK/|BUREAUC
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "ADMIN PEOPLE|CONFUSION OVER POLICY EXPECTATIONS")] <- 'Policy changing rapidly, confusion, University administration unaware of researchers needs'
 Alldata_OB$OA_cat2[str_detect(Alldata_OB$OA, "BOOK PUBLISHER FOR SALES LOST")] <- 'Book publishers sales loss'
 
-quote_OB_OA_1 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Funding for Open Access publishing is insufficient, opaque")==TRUE]
-quote_OB_OA_2 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "The cost of open access publishing is an additional barrier")==TRUE]
-quote_OB_OA_3 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Even co-called")==TRUE]
-quote_OB_OA_4 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Open Access, while beneficial for users")==TRUE]
-
-
 Alldata_OB$OA_cat[!is.na(Alldata_OB$OA) & is.na(Alldata_OB$OA_cat)] <- 'Not categorised'
 Alldata_OB$OA[!is.na(Alldata_OB$OA_cat) & Alldata_OB$OA_cat == 'Not categorised']
 Alldata_OB$OA_cat[!is.na(Alldata_OB$OA_cat2) & Alldata_OB$OA_cat == 'Not categorised'] <-  Alldata_OB$OA_cat2[!is.na(Alldata_OB$OA_cat2) & Alldata_OB$OA_cat == 'Not categorised']
@@ -66,6 +60,20 @@ Alldata_OB$OA[!is.na(Alldata_OB$OA_cat) & Alldata_OB$OA_cat == 'Not categorised'
 # View(Alldata_OB[,c('OA','OA_cat','OA_cat2')])
 
 table(c(Alldata_OB$OA_cat, Alldata_OB$OA_cat2))
+
+quote_OB_OA_1 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Funding for Open Access publishing is insufficient, opaque")==TRUE]
+quote_OB_OA_2 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "The cost of open access publishing is an additional barrier")==TRUE]
+quote_OB_OA_3 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Even co-called")==TRUE]
+quote_OB_OA_4 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Open Access, while beneficial for users")==TRUE]
+
+quote_OB_OA_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_1]), 
+                          data$Div[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_1])
+quote_OB_OA_2_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_2]), 
+                          data$Div[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_2])
+quote_OB_OA_3_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_3]), 
+                          data$Div[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_3])
+quote_OB_OA_4_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_4]), 
+                          data$Div[!is.na(data$OtherBarriers_OA) & data$OtherBarriers_OA == quote_OB_OA_4])
 
 
 ## Data
@@ -79,11 +87,6 @@ Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "ENABLE STORAGE OF DATA")] <- 'F
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "HOW USEFUL")] <- 'Not useful, no reusability'
 Alldata_OB$Data_cat[str_detect(Alldata_OB$Data, "USER-UNFRIENDLY")] <- 'Repositories not user-friendly'
 
-quote_OB_Data_1 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "It is not trivial to reconcile")==TRUE]
-quote_OB_Data_2 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Lack of norms on an appropriate embargo period")==TRUE]
-quote_OB_Data_3 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Ethnographic fieldnotes cannot")==TRUE]
-
-
 Alldata_OB$Data_cat[!is.na(Alldata_OB$Data) & is.na(Alldata_OB$Data_cat)] <- 'Not categorised'
 Alldata_OB$Data[!is.na(Alldata_OB$Data_cat) & Alldata_OB$Data_cat == 'Not categorised']
 Alldata_OB$Data_cat[!is.na(Alldata_OB$Data_cat2) & Alldata_OB$Data_cat == 'Not categorised'] <-  Alldata_OB$Data_cat2[!is.na(Alldata_OB$Data_cat2) & Alldata_OB$Data_cat == 'Not categorised']
@@ -93,6 +96,16 @@ Alldata_OB$Data[!is.na(Alldata_OB$Data_cat) & Alldata_OB$Data_cat == 'Not catego
 
 table(c(Alldata_OB$Data_cat, Alldata_OB$Data_cat2))
 
+quote_OB_Data_1 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "It is not trivial to reconcile")==TRUE]
+quote_OB_Data_2 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Lack of norms on an appropriate embargo period")==TRUE]
+quote_OB_Data_3 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Ethnographic fieldnotes cannot")==TRUE]
+
+quote_OB_Data_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_1]), 
+                          data$Div[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_1])
+quote_OB_Data_2_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_2]), 
+                            data$Div[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_2])
+quote_OB_Data_3_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_3]), 
+                            data$Div[!is.na(data$OtherBarriers_Data) & data$OtherBarriers_Data == quote_OB_Data_3])
 
 ## Code
 Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "PRIOR TO PUBLICATION|BEFORE THE PUBLICATION")] <- 'Fear of scooping'
@@ -101,14 +114,17 @@ Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "TIME|LOT OF WORK")] <- 'Time in
 Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "NO BENEFIT|HOW USEFUL")] <- 'Not useful'
 Alldata_OB$Code_cat[str_detect(Alldata_OB$Code, "USER-UNFRIENDLY")] <- 'Repositories not user-friendly'
 
-quote_OB_Code_1 <- data$OtherBarriers_Code[!is.na(data$OtherBarriers_Code) & startsWith(data$OtherBarriers_Code, "The main barrier is time needed to learn")==TRUE]
-
 
 Alldata_OB$Code_cat[!is.na(Alldata_OB$Code) & is.na(Alldata_OB$Code_cat)] <- 'Not categorised'
 Alldata_OB$Code[!is.na(Alldata_OB$Code) & Alldata_OB$Code_cat == 'Not categorised']
 #View(Alldata_OB[,c('Code', 'Code_cat')])
 
 table(Alldata_OB$Code_cat)
+
+quote_OB_Code_1 <- data$OtherBarriers_Code[!is.na(data$OtherBarriers_Code) & startsWith(data$OtherBarriers_Code, "The main barrier is time needed to learn")==TRUE]
+quote_OB_Code_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Code) & data$OtherBarriers_Code == quote_OB_Code_1]), 
+                            data$Div[!is.na(data$OtherBarriers_Code) & data$OtherBarriers_Code == quote_OB_Code_1])
+
 
 ## Materials
 Alldata_OB$Materials_cat[str_detect(Alldata_OB$Materials, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|ETHICAL REGULATIONS|MUST NOT BE SHARED|CONFIDENTIALITY|IDENTIFIABILITY|CONSENT")] <- 'Ethical concerns'
@@ -125,9 +141,11 @@ Alldata_OB$Materials_cat[!is.na(Alldata_OB$Materials) & is.na(Alldata_OB$Materia
 Alldata_OB$Materials[!is.na(Alldata_OB$Materials) & Alldata_OB$Materials_cat == 'Not categorised']
 # View(Alldata_OB[,c('Materials','Materials_cat')])
 
-quote_OB_Materials_1 <- data$OtherBarriers_Materials[!is.na(data$OtherBarriers_Materials) & startsWith(data$OtherBarriers_Materials, "I find it hard to find time")==TRUE]
-
 table(Alldata_OB$Materials_cat)
+
+quote_OB_Materials_1 <- data$OtherBarriers_Materials[!is.na(data$OtherBarriers_Materials) & startsWith(data$OtherBarriers_Materials, "I find it hard to find time")==TRUE]
+quote_OB_Materials_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Materials) & data$OtherBarriers_Materials == quote_OB_Materials_1]), 
+                            data$Div[!is.na(data$OtherBarriers_Materials) & data$OtherBarriers_Materials == quote_OB_Materials_1])
 
 
 ## Preprint
@@ -148,10 +166,12 @@ Alldata_OB$Preprint_cat3[!is.na(Alldata_OB$Preprint_cat3) & Alldata_OB$Preprint_
 Alldata_OB$Preprint[!is.na(Alldata_OB$Preprint) & Alldata_OB$Preprint_cat == 'Not categorised']
 # View(Alldata_OB[,c('Preprint','Preprint_cat','Preprint_cat2', 'Preprint_cat3')])
 
-quote_OB_Preprint_1 <- data$OtherBarriers_Preprint[!is.na(data$OtherBarriers_Preprint) & startsWith(data$OtherBarriers_Preprint, "Not sure when it is a problem for a journal")==TRUE]
-
-
 table(Alldata_OB$Preprint_cat)
+
+quote_OB_Preprint_1 <- data$OtherBarriers_Preprint[!is.na(data$OtherBarriers_Preprint) & startsWith(data$OtherBarriers_Preprint, "Not sure when it is a problem for a journal")==TRUE]
+quote_OB_Preprint_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Preprint) & data$OtherBarriers_Preprint == quote_OB_Preprint_1]), 
+                                 data$Div[!is.na(data$OtherBarriers_Preprint) & data$OtherBarriers_Preprint == quote_OB_Preprint_1])
+
 
 
 ## Preregistration
@@ -160,14 +180,18 @@ Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "PILOT")] <- 'Lack of fundin
 Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "SHOULD NOT BE APPLIED UNIVERSALLY|DISCIPLINE|NOT ALL WORK IS WELL SUITED|HARD|UNREALISTIC|MADNESS")] <- 'Not applicable to all disciplines, or difficult'
 Alldata_OB$Prereg_cat[str_detect(Alldata_OB$Prereg, "FUNDING")] <- 'Depend on funding body'
 
-quote_OB_Prereg_1 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "In my field we have to apply for beam time")==TRUE]
-quote_OB_Prereg_2 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "funding to run a pilot study prior")==TRUE]
-
 Alldata_OB$Prereg_cat[!is.na(Alldata_OB$Prereg) & is.na(Alldata_OB$Prereg_cat)] <- 'Not categorised'
 Alldata_OB$Prereg[!is.na(Alldata_OB$Prereg) & Alldata_OB$Prereg_cat == 'Not categorised']
 # View(Alldata_OB[,c('Prereg','Prereg_cat')])
 
 table(Alldata_OB$Prereg_cat)
+
+quote_OB_Prereg_1 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "In my field we have to apply for beam time")==TRUE]
+quote_OB_Prereg_2 <- data$OtherBarriers_Prereg[!is.na(data$OtherBarriers_Prereg) & startsWith(data$OtherBarriers_Prereg, "funding to run a pilot study prior")==TRUE]
+quote_OB_Prereg_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Prereg) & data$OtherBarriers_Prereg == quote_OB_Prereg_1]), 
+                                data$Div[!is.na(data$OtherBarriers_Prereg) & data$OtherBarriers_Prereg == quote_OB_Prereg_1])
+quote_OB_Prereg_2_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_Prereg) & data$OtherBarriers_Prereg == quote_OB_Prereg_2]), 
+                              data$Div[!is.na(data$OtherBarriers_Prereg) & data$OtherBarriers_Prereg == quote_OB_Prereg_2])
 
 
 ## Registered Report
@@ -184,10 +208,16 @@ Alldata_OB$RegRep_cat[!is.na(Alldata_OB$RegRep) & is.na(Alldata_OB$RegRep_cat)] 
 Alldata_OB$RegRep[!is.na(Alldata_OB$RegRep) & Alldata_OB$RegRep_cat == 'Not categorised']
 # View(Alldata_OB[,c('RegRep','RegRep_cat')])
 
+table(Alldata_OB$RegRep_cat)
+
 quote_OB_RegRep_1 <- data$OtherBarriers_RegRep[!is.na(data$OtherBarriers_RegRep) & startsWith(data$OtherBarriers_RegRep, "In my field (experimental molecular biology)")==TRUE]
 quote_OB_RegRep_2 <- data$OtherBarriers_RegRep[!is.na(data$OtherBarriers_RegRep) & startsWith(data$OtherBarriers_RegRep, "Imagine having more work")==TRUE]
+quote_OB_RegRep_1_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_RegRep) & data$OtherBarriers_RegRep == quote_OB_RegRep_1]), 
+                              data$Div[!is.na(data$OtherBarriers_RegRep) & data$OtherBarriers_RegRep == quote_OB_RegRep_1])
+quote_OB_RegRep_2_source <- c(as.character(data$Role[!is.na(data$OtherBarriers_RegRep) & data$OtherBarriers_RegRep == quote_OB_RegRep_2]), 
+                              data$Div[!is.na(data$OtherBarriers_RegRep) & data$OtherBarriers_RegRep == quote_OB_RegRep_2])
 
-table(Alldata_OB$RegRep_cat)
+
 
 
 
@@ -269,6 +299,12 @@ Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREDATORY|USE THIS TREND AS AN OPPO
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "FUNDING AVAILABILITY COULD BECOME MORE IMPORTANT THAN QUALITY|EXCLUSI*|EXCLUD*|INEQUALIT*|POORER|PEOPLE WITH LOTS OF MONEY|LOW INCOME REGIONS|WEALTHY|WHEALTIER|MORE AFFLUENT INSTITUTIONS GET PREFERENTIAL|COMPETITIVE ADVANTAGE|DEVELOPING COUNTRIES OUT|DETRIMENTAL FOR DIVERSITY|RESOURCE-LIMITED RESEARCHERS|MANY RESEARCHERS CANNOT AFFORD|MINORITISED GROUPS|OTHERS WITHOUT DEDICATED FUNDING|RESEARCHERS WITHOUT FUNDING|ONLY THOSE WITH FUNDING|HARDER FOR THOSE|MIDDLE-INCOME|TO SOME GROUPS|ONLY FAVOURS|POORLY|DISCRIMINATES|THIS IMPACTS MORE|HISTORICALLY DISADVANTAGED AREAS|DETRIMENTAL TO SUCH FIELDS")] <- 'Creates inequalities between researchers/fields/institutions with/without access to funding for APC'
 Alldata_WD$OA_cat[str_detect(Alldata_WD$OA, "PREFER HAVING THE HARD COPY OF A BOOK")] <- 'OA requires electronical versions, prefer hard copy of books'
 
+Alldata_WD$OA_cat[!is.na(Alldata_WD$OA) & is.na(Alldata_WD$OA_cat)] <- 'Not categorised'
+Alldata_WD$OA[!is.na(Alldata_WD$OA) & Alldata_WD$OA_cat == 'Not categorised']
+# View(Alldata_WD[,c('OA','OA_cat')])
+
+table(Alldata_WD$OA_cat)
+
 quote_WD_OA_1 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Journals have passed truly excessive costs")==TRUE]
 quote_WD_OA_2 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Lowers barrier to article submission")==TRUE]
 quote_WD_OA_3 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Gold open access articles are read and cited more")==TRUE]
@@ -279,12 +315,25 @@ quote_WD_OA_7 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWit
 quote_OB_OA_4 <- data$OtherBarriers_OA[!is.na(data$OtherBarriers_OA) & startsWith(data$OtherBarriers_OA, "Open Access, while beneficial for users")==TRUE]
 quote_WD_OA_8 <- data$WhatDownsides_OA[!is.na(data$WhatDownsides_OA) & startsWith(data$WhatDownsides_OA, "Author-pays funding model")==TRUE]
 
+quote_WD_OA_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_1]), 
+                              data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_1])
+quote_WD_OA_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_2]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_2])
+quote_WD_OA_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_3]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_3])
+quote_WD_OA_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_4]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_4])
+quote_WD_OA_5_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_5]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_5])
+quote_WD_OA_6_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_6]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_6])
+quote_WD_OA_7_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_7]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_7])
+quote_WD_OA_8_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_8]), 
+                          data$Div[!is.na(data$WhatDownsides_OA) & data$WhatDownsides_OA == quote_WD_OA_8])
 
-Alldata_WD$OA_cat[!is.na(Alldata_WD$OA) & is.na(Alldata_WD$OA_cat)] <- 'Not categorised'
-Alldata_WD$OA[!is.na(Alldata_WD$OA) & Alldata_WD$OA_cat == 'Not categorised']
-# View(Alldata_WD[,c('OA','OA_cat')])
 
-table(Alldata_WD$OA_cat)
+
 
 
 ## Data --- not very well done, many answers could have fall within several of the categories created here. 
@@ -307,6 +356,9 @@ Alldata_WD$Data_cat[!is.na(Alldata_WD$Data_cat2) & Alldata_WD$Data_cat == 'Not c
 Alldata_WD$Data_cat2[!is.na(Alldata_WD$Data_cat2) & Alldata_WD$Data_cat == Alldata_WD$Data_cat2] <- NA
 Alldata_WD$Data[!is.na(Alldata_WD$Data) & Alldata_WD$Data_cat == 'Not categorised']
 
+table(c(Alldata_WD$Data_cat, Alldata_WD$Data_cat2))
+# View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
+
 quote_WD_Data_1 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "The problem with widespread adoption")==TRUE]
 quote_WD_Data_2 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data collection and data cleaning")==TRUE]
 quote_WD_Data_3 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "We are solely grant funded")==TRUE]
@@ -316,9 +368,20 @@ quote_WD_Data_6 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & sta
 quote_WD_Data_7 <- data$WhatDownsides_Data[!is.na(data$WhatDownsides_Data) & startsWith(data$WhatDownsides_Data, "Data collectors are not appropriately")==TRUE]
 quote_OB_Data_3 <- data$OtherBarriers_Data[!is.na(data$OtherBarriers_Data) & startsWith(data$OtherBarriers_Data, "Ethnographic fieldnotes cannot")==TRUE]
 
-
-table(c(Alldata_WD$Data_cat, Alldata_WD$Data_cat2))
-# View(Alldata_WD[!is.na(Alldata_WD$Data),c('Data', 'Data_cat','Data_cat2')])
+quote_WD_Data_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_1]), 
+                          data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_1])
+quote_WD_Data_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_2]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_2])
+quote_WD_Data_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_3]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_3])
+quote_WD_Data_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_4]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_4])
+quote_WD_Data_5_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_5]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_5])
+quote_WD_Data_6_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_6]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_6])
+quote_WD_Data_7_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_7]), 
+                            data$Div[!is.na(data$WhatDownsides_Data) & data$WhatDownsides_Data == quote_WD_Data_7])
 
 
 ## Code
@@ -335,13 +398,6 @@ Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "USEABLE BY OTHERS|LESS USE")] <
 Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "PIPPED|STEALING|SCOOPED|PRE-EMPTIVELY USED|ACADEMIC COPYING")] <- 'Fear of scooping'
 Alldata_WD$Code_cat[str_detect(Alldata_WD$Code, "NO NORM FOR CITATION|FORMALLY CITABLE|APPROPRIATELY CITED|LACK OF ACKNOWLEDGEMENT")] <- 'No norm for citation'
 
-
-quote_WD_Code_1 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Need to develop system for ensuring")==TRUE]
-quote_WD_Code_2 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Flawed code could get reused")==TRUE]
-quote_WD_Code_3 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Considerable extra work in making")==TRUE]
-quote_WD_Code_4 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "It is my impression that the coding community")==TRUE]
-
-
 Alldata_WD$Code_cat[!is.na(Alldata_WD$Code) & is.na(Alldata_WD$Code_cat)] <- 'Not categorised'
 Alldata_WD$Code[!is.na(Alldata_WD$Code) & Alldata_WD$Code_cat == 'Not categorised']
 Alldata_WD$Code_cat[!is.na(Alldata_WD$Code_cat2) & Alldata_WD$Code_cat == 'Not categorised'] <- Alldata_WD$Code_cat2[!is.na(Alldata_WD$Code_cat2) & Alldata_WD$Code_cat == 'Not categorised']
@@ -350,6 +406,22 @@ Alldata_WD$Code[!is.na(Alldata_WD$Code) & Alldata_WD$Code_cat == 'Not categorise
 
 table(c(Alldata_WD$Code_cat, Alldata_WD$Code_cat2))
 # View(Alldata_WD[!is.na(Alldata_WD$Code), c('Code', 'Code_cat', 'Code_cat2')])
+
+quote_WD_Code_1 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Need to develop system for ensuring")==TRUE]
+quote_WD_Code_2 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Flawed code could get reused")==TRUE]
+quote_WD_Code_3 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "Considerable extra work in making")==TRUE]
+quote_WD_Code_4 <- data$WhatDownsides_Code[!is.na(data$WhatDownsides_Code) & startsWith(data$WhatDownsides_Code, "It is my impression that the coding community")==TRUE]
+quote_WD_Code_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_1]), 
+                            data$Div[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_1])
+quote_WD_Code_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_2]), 
+                            data$Div[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_2])
+quote_WD_Code_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_3]), 
+                            data$Div[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_3])
+quote_WD_Code_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_4]), 
+                            data$Div[!is.na(data$WhatDownsides_Code) & data$WhatDownsides_Code == quote_WD_Code_4])
+
+
+
 
 ## Materials
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ANONYM*|SENSITIV*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|RADIOACTIVE|MUST NOT BE SHARED|DANGEROUS")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
@@ -368,17 +440,27 @@ Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ONLY POSSIBLE FOR LAR
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "ANONYM*|PRIVA*|PARTICIPANT DATA|PROTECTION|SECURITY|IDENTIF*|ETHIC*|SAFETY|HARMFUL|MUST NOT BE SHARED|ATTACKING|BETRAYING THE TRUST")] <- 'Ethical, safety, or security concerns' # human participants, archeological site, endengered animal/plant species, military information
 Alldata_WD$Materials_cat[str_detect(Alldata_WD$Materials, "STANDARD WITHIN THE FIELD|FORMAT THAT IS USEFUL|ALONG WITH STANDARDS")] <- 'Lack of metadata standards'
 
-quote_WD_Materials_1 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Sharing material is different")==TRUE]
-quote_WD_Materials_2 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Biological / scientific samples")==TRUE]
-quote_WD_Materials_3 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Providing standardised")==TRUE]
-quote_WD_Materials_4 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Again, the ownership")==TRUE]
-
-
 Alldata_WD$Materials_cat[!is.na(Alldata_WD$Materials) & is.na(Alldata_WD$Materials_cat)] <- 'Not categorised'
 Alldata_WD$Materials[!is.na(Alldata_WD$Materials) & Alldata_WD$Materials_cat == 'Not categorised']
 # View(Alldata_WD[!is.na(Alldata_WD$Materials), c('Materials', 'Materials_cat')])
 
 table(Alldata_WD$Materials_cat) 
+
+quote_WD_Materials_1 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Sharing material is different")==TRUE]
+quote_WD_Materials_2 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Biological / scientific samples")==TRUE]
+quote_WD_Materials_3 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Providing standardised")==TRUE]
+quote_WD_Materials_4 <- data$WhatDownsides_Materials[!is.na(data$WhatDownsides_Materials) & startsWith(data$WhatDownsides_Materials, "Again, the ownership")==TRUE]
+quote_WD_Materials_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_1]), 
+                            data$Div[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_1])
+quote_WD_Materials_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_2]), 
+                            data$Div[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_2])
+quote_WD_Materials_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_3]), 
+                            data$Div[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_3])
+quote_WD_Materials_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_4]), 
+                            data$Div[!is.na(data$WhatDownsides_Materials) & data$WhatDownsides_Materials == quote_WD_Materials_4])
+
+
+
 
 
 ## Preprint
@@ -400,15 +482,8 @@ Alldata_WD$Preprint_cat[!is.na(Alldata_WD$Preprint_cat2) & Alldata_WD$Preprint_c
 Alldata_WD$Preprint_cat2[!is.na(Alldata_WD$Preprint_cat2) & Alldata_WD$Preprint_cat == Alldata_WD$Preprint_cat2] <- NA
 Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & Alldata_WD$Preprint_cat == 'Not categorised']
 
-
-quote_WD_Preprint_1 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"OUR FIELD HAS SEEN A EXPONENTIAL GROWTH")==TRUE])
-quote_WD_Preprint_2 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"DOUBLE BLIND PEER REVIEW ")==TRUE])
-quote_WD_Preprint_3 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"NOT ALL WORKING PAPERS ARE SUITABLE")==TRUE])
-quote_WD_Preprint_4 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"HAVING MULTIPLE VERSIONS OF THE SAME DOCUMENT")==TRUE])
-quote_WD_Preprint_5 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"AS SEEN DURING THE COVID-19 PANDEMIC")==TRUE])
-quote_WD_Preprint_6 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PREPRINTS HAVE NOT YET BEEN PEER REVIEWED, SO COULD BE MISLEADING, BUT")==TRUE])
-quote_WD_Preprint_7 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"PRE-PRINTS ARE OF COURSE")==TRUE]) # association with open peer review for archive?
-quote_WD_Preprint_8 <- tolower(Alldata_WD$Preprint[!is.na(Alldata_WD$Preprint) & startsWith(Alldata_WD$Preprint,"WHILE USEFUL, THE LACK OF PEER REVIEW IN PRE-PRINTS IS A POSSIBLE DOWNSIDE IN THE LONG-RUN")==TRUE])
+table(c(Alldata_WD$Preprint_cat, Alldata_WD$Preprint_cat2))
+# View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
 
 quote_WD_Preprint_1 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Our field has seen a exponential growth")==TRUE]
 quote_WD_Preprint_2 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Double blind peer review")==TRUE]
@@ -418,10 +493,24 @@ quote_WD_Preprint_5 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Pre
 quote_WD_Preprint_6 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Preprints have not yet been peer reviewed")==TRUE]
 quote_WD_Preprint_7 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "Pre-prints are of course")==TRUE]
 quote_WD_Preprint_8 <- data$WhatDownsides_Preprint[!is.na(data$WhatDownsides_Preprint) & startsWith(data$WhatDownsides_Preprint, "While useful, the lack of peer review")==TRUE]
+quote_WD_Preprint_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_1]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_1])
+quote_WD_Preprint_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_2]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_2])
+quote_WD_Preprint_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_3]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_3])
+quote_WD_Preprint_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_4]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_4])
+quote_WD_Preprint_5_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_5]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_5])
+quote_WD_Preprint_6_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_6]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_6])
+quote_WD_Preprint_7_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_7]), 
+                            data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_7])
+quote_WD_Preprint_8_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_8]), 
+                                data$Div[!is.na(data$WhatDownsides_Preprint) & data$WhatDownsides_Preprint == quote_WD_Preprint_8])
 
 
-table(c(Alldata_WD$Preprint_cat, Alldata_WD$Preprint_cat2))
-# View(Alldata_WD[!is.na(Alldata_WD$Preprint), c('Preprint', 'Preprint_cat', 'Preprint_cat2')])
 
 
 ## Preregistration
@@ -436,17 +525,6 @@ Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "IMPOSSIBLE TO ACCOUNT FOR A
 Alldata_WD$Prereg_cat2[str_detect(Alldata_WD$Prereg, "DETER OTHER RESEARCHERS FROM ATTEMPTING TO ADDRESS|ACTUALLY REDUCING REPRODUCTION OF THE SCIENCE")] <- 'Deter unknowing replication'
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "ITERATIVE DEVELOPMENT|IT IS ITERATIVE AND CUMULATIVE")] <- 'Iterative development of the research question in social sciences'
 Alldata_WD$Prereg_cat[str_detect(Alldata_WD$Prereg, "NO CLEAR FORMAT OR STANDARD")] <- 'No clear format or standards'
-
- 
-quote_WD_Prereg_1 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Current preregistration formats")==TRUE]
-quote_WD_Prereg_2 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "I think this is fine for controlled trials")==TRUE]
-quote_WD_Prereg_3 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If done thoughtfully")==TRUE]
-quote_WD_Prereg_4 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Pre-registration is not useful in")==TRUE]
-quote_WD_Prereg_5 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "At least in political science")==TRUE]
-quote_WD_Prereg_6 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "In ecology")==TRUE]
-quote_WD_Prereg_7 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If exploratory research (no prereg")==TRUE]
-quote_WD_Prereg_8 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Researchers should not claim ideas")==TRUE]
-
                                                                                  
 Alldata_WD$Prereg_cat[!is.na(Alldata_WD$Prereg) & is.na(Alldata_WD$Prereg_cat)] <- 'Not categorised'
 Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & Alldata_WD$Prereg_cat == 'Not categorised']
@@ -456,6 +534,31 @@ Alldata_WD$Prereg[!is.na(Alldata_WD$Prereg) & Alldata_WD$Prereg_cat == 'Not cate
 
 table(c(Alldata_WD$Prereg_cat,Alldata_WD$Prereg_cat2))
 # View(Alldata_WD[!is.na(Alldata_WD$Prereg), c('Prereg', 'Prereg_cat', 'Prereg_cat2')])
+
+quote_WD_Prereg_1 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Current preregistration formats")==TRUE]
+quote_WD_Prereg_2 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "I think this is fine for controlled trials")==TRUE]
+quote_WD_Prereg_3 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If done thoughtfully")==TRUE]
+quote_WD_Prereg_4 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Pre-registration is not useful in")==TRUE]
+quote_WD_Prereg_5 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "At least in political science")==TRUE]
+quote_WD_Prereg_6 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "In ecology")==TRUE]
+quote_WD_Prereg_7 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "If exploratory research (no prereg")==TRUE]
+quote_WD_Prereg_8 <- data$WhatDownsides_Prereg[!is.na(data$WhatDownsides_Prereg) & startsWith(data$WhatDownsides_Prereg, "Researchers should not claim ideas")==TRUE]
+quote_WD_Prereg_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_1]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_1])
+quote_WD_Prereg_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_2]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_2])
+quote_WD_Prereg_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_3]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_3])
+quote_WD_Prereg_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_4]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_4])
+quote_WD_Prereg_5_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_5]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_5])
+quote_WD_Prereg_6_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_6]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_6])
+quote_WD_Prereg_7_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_7]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_7])
+quote_WD_Prereg_8_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_8]), 
+                                data$Div[!is.na(data$WhatDownsides_Prereg) & data$WhatDownsides_Prereg == quote_WD_Prereg_8])
 
 
 
@@ -470,14 +573,6 @@ Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "EXPLORATORY|BLUE SKIES")] <
 Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "ARE INDEPENDENT OF THE VALIDITY OF THE UNDERLYING SCIENTIFIC")] <- 'Publishing of unclear results because the study does not work despite validity of method'
 Alldata_WD$RegRep_cat[str_detect(Alldata_WD$RegRep, "NOT ALL PEER REVIEWERS ARE CORRECT")] <- 'Poor peer review comments, if opened to public, can potentially damage the paper'
 
-quote_WD_RegRep_1 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Qualitative research differs")==TRUE]
-quote_WD_RegRep_2 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Delay in feedback")==TRUE]
-quote_WD_RegRep_3 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "I'm not sure that")==TRUE]
-quote_WD_RegRep_4 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "If exploratory research")==TRUE]
-quote_WD_RegRep_5 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "For large-scale psychology")==TRUE]
-quote_WD_RegRep_6 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Science is not linear")==TRUE]
-
-
 Alldata_WD$RegRep_cat[!is.na(Alldata_WD$RegRep) & is.na(Alldata_WD$RegRep_cat)] <- 'Not categorised'
 Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & Alldata_WD$RegRep_cat == 'Not categorised']
 Alldata_WD$RegRep_cat[!is.na(Alldata_WD$RegRep_cat2) & Alldata_WD$RegRep_cat == 'Not categorised'] <- Alldata_WD$RegRep_cat2[!is.na(Alldata_WD$RegRep_cat2) & Alldata_WD$RegRep_cat == 'Not categorised']
@@ -489,6 +584,26 @@ Alldata_WD$RegRep[!is.na(Alldata_WD$RegRep) & Alldata_WD$RegRep_cat == 'Not cate
 
 table(c(Alldata_WD$RegRep_cat, Alldata_WD$RegRep_cat2, Alldata_WD$RegRep_cat3))
 # View(Alldata_WD[!is.na(Alldata_WD$RegRep), c('RegRep', 'RegRep_cat', 'RegRep_cat2','RegRep_cat3')])
+
+quote_WD_RegRep_1 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Qualitative research differs")==TRUE]
+quote_WD_RegRep_2 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Delay in feedback")==TRUE]
+quote_WD_RegRep_3 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "I'm not sure that")==TRUE]
+quote_WD_RegRep_4 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "If exploratory research")==TRUE]
+quote_WD_RegRep_5 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "For large-scale psychology")==TRUE]
+quote_WD_RegRep_6 <- data$WhatDownsides_RegRep[!is.na(data$WhatDownsides_RegRep) & startsWith(data$WhatDownsides_RegRep, "Science is not linear")==TRUE]
+quote_WD_RegRep_1_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_1]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_1])
+quote_WD_RegRep_2_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_2]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_2])
+quote_WD_RegRep_3_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_3]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_3])
+quote_WD_RegRep_4_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_4]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_4])
+quote_WD_RegRep_5_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_5]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_5])
+quote_WD_RegRep_6_source <- c(as.character(data$Role[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_6]), 
+                              data$Div[!is.na(data$WhatDownsides_RegRep) & data$WhatDownsides_RegRep == quote_WD_RegRep_6])
+
 
 
 

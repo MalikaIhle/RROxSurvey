@@ -121,7 +121,7 @@ sst_data[c(1:9, 12,13),c(1,7,6,8,5,9)] %>% flextable() %>%
                 autonum = run_autonum(seq_id = "tab", bkm = "tabSSdivQ")) %>% autofit()
 ```
 
-<br>
+For each question, I first looked at a 4-by-4 plot with all types of researchers (PGR students, research staff or fellows, research support staff, and academics) from each Division (MSD, MPLS, SSD, Hum) separated. From this, I decided to merge data with similar patterns for easier visualisation. In most questions, this resulted in splitting PGR students from other researchers (e.g. awareness/usage, training), but for some it resulted in splitting academics from non-academics (e.g. recruitment criteria, support needs).
 
 ### Awareness of open research practices
 
@@ -220,73 +220,73 @@ A free text box opened for each ORP a respondent had selected to have downsides.
 The main downside to **Open Access** publications frequently mentioned by respondents was the cost of Gold OA, and the inequalities between researchers/fields/institutions that it creates depending on access to funding. In addition, the mandates or moves to OA from funders and researchers, and the possibility for publishers to ask for high APCs were believed to generate predatory behaviours from publishing companies, and to possibly lead to less invested editorial reviews (or even less invested peer-review in general given the quantity of articles submitted and sent for review to generate income for publishers), and therefore, to possibly lower the quality of the research being published. Some respondents also thought there were fewer options of prestigious journals that published OA<!--# more of an infrastructure barrier, mentioned again there?-->. Finally, some respondents were concerned about the loss of income for scholarly society, authors, or publishers, if, for instance books or monographs, were available for free online.
 
 Some quotes:\
-1. "*`r quote_WD_OA_1`*"\
-2. "*`r quote_WD_OA_5`*"\
-3. "*`r quote_WD_OA_6`*"\
-4. "*`r str_replace(quote_WD_OA_7, "\n\n", " ")`*" <!--# shorten quote with "[...]"-->\
-5. "*`r quote_OB_OA_4`*" <!--# cut?-->\
-6. "*`r quote_WD_OA_8`*"\
+1. "*`r quote_WD_OA_1`*" - source: `r quote_WD_OA_1_source`.\
+2. "*`r quote_WD_OA_5`*" - source: `r quote_WD_OA_5_source`.\
+3. "*`r quote_WD_OA_6`*" - source: `r quote_WD_OA_6_source`.\
+4. "*`r str_replace(quote_WD_OA_7, "\n\n", " ")`*" <!--# shorten quote with "[...]"-->- source: `r quote_WD_OA_7_source`.\
+5. "*`r quote_OB_OA_4`*" - source: `r quote_WD_OA_4_source`. <!--# cut?-->\
+6. "*`r quote_WD_OA_8`*" - source: `r quote_WD_OA_8_source`.\
 
 Downsides to **Data sharing** were mainly concerns over ethics, safety, or security (e.g. to preserve human participants anonymity) and the inability to control the validity of reuse, or the possible misrepresentation or misuse of the data shared. There were also relatively frequent concerns over intellectual property, fear of scooping, and general lack of recognition for the effort and cost of collecting primary data, especially if they were to be reused before the producing team was able to exploit their dataset fully in terms of article published. Less frequent concerns, but worth noting<!--# more of a lack of norm barrier, mentioned again there?-->, respondents highlighted a lack of norm for dataset citation, a lack of metadata standards to make data sharing usable, and the fact that some data can be in proprietary format only; the latter two making data sharing less useful or even irrelevant. 
 
 Some quotes:\
-1. "*`r quote_WD_Data_1`*"\
-2. "*`r quote_WD_Data_2`*"\
-3. "*`r quote_WD_Data_3`*"\
-4. "*`r quote_WD_Data_4`*"\
-5. "*`r quote_WD_Data_5`*"\
-6. "*`r quote_WD_Data_6`*"\
+1. "*`r quote_WD_Data_1`*" - source: `r quote_WD_Data_1_source`.\
+2. "*`r quote_WD_Data_2`*" - source: `r quote_WD_Data_2_source`.\
+3. "*`r quote_WD_Data_3`*" - source: `r quote_WD_Data_3_source`.\
+4. "*`r quote_WD_Data_4`*" - source: `r quote_WD_Data_4_source`.\
+5. "*`r quote_WD_Data_5`*" - source: `r quote_WD_Data_5_source`.\
+6. "*`r quote_WD_Data_6`*" - source: `r quote_WD_Data_6_source`.\
 
 Downsides to **Code sharing** were, similarly to data sharing, IP concerns, the fact that such  outputs may not be credited or recognised if reused by others, the absence of control over the validity of reuse, and ethical, safety, or security concerns. In addition, respondents mentioned that given that currently, research software is not reviewed, making it available for reuse could lower the quality of follow-up research. Less frequent, but worth noting, some respondents mentioned the psychological toll of having their code scrutinised and criticized by the community.
 
 Some quotes:\
-1. "*`r quote_WD_Code_1`*"\
-2. "*`r quote_WD_Code_2`*"\
-3. "*`r quote_WD_Code_3`*"\
-4. "*`r quote_WD_Code_4`*"\
+1. "*`r quote_WD_Code_1`*" - source: `r quote_WD_Code_1_source`.\
+2. "*`r quote_WD_Code_2`*" - source: `r quote_WD_Code_2_source`.\
+3. "*`r quote_WD_Code_3`*" - source: `r quote_WD_Code_3_source`.\
+4. "*`r quote_WD_Code_4`*" - source: `r quote_WD_Code_4_source`.\
 
 Downsides to **Material sharing** were ethical, safety, or security concerns (and possibly including laws against it<!--# more of a barrier, mentioned again there?-->), <!-- LF unclear what this relates to --> IP concerns, absence of control over the validity of reuse or misuse, scooping and lack of credit/recognition. In addition, respondents mentioned the potential huge cost of maintenance, and the unlikelihood <!-- FIXME not sure this is a word... --> of being able to provide equitable access to all.
 
 Some original quotes highlighting some specific problems with physical material sharing:\
-1. "*`r quote_WD_Materials_1`*"\
-2. "*`r quote_WD_Materials_2`*"\
-3. "*`r quote_WD_Materials_3`*"\
-4. "*`r quote_WD_Materials_4`*" <!--# not sure this one is physical-->\
+1. "*`r quote_WD_Materials_1`*" - source: `r quote_WD_Materials_1_source`.\
+2. "*`r quote_WD_Materials_2`*" - source: `r quote_WD_Materials_2_source`.\
+3. "*`r quote_WD_Materials_3`*" - source: `r quote_WD_Materials_3_source`.\
+4. "*`r quote_WD_Materials_4`*" - source: `r quote_WD_Materials_4_source`.<!--# not sure this one is physical-->\
 
 The main downside to **Preprints** was the fact that they are disseminated and potentially used for policies or further research before being peer-reviewed (if they ever get peer-reviewed) and therefore potentially containing errors or misleading readers. In lesser frequency but worth noting, other downsides listed were the fear of scooping, the race to publish first (possibly lowering the quality of the publication), the fact that it sometimes prevents formal publishing, concerns over the extreme growth of the literature on preprint servers, interference with double-blind peer-reviewing, and problem with updating citation in references manager software (given duplicate versions).
 
 Some quotes:\
-1. "*`r quote_WD_Preprint_1`*"\
-2. "*`r quote_WD_Preprint_2`*"\
-3. "*`r quote_WD_Preprint_3`*"\
-4. "*`r quote_WD_Preprint_4`*"\
-5. "*`r quote_WD_Preprint_5`*"\
-6. "*`r quote_WD_Preprint_6`*"\
-7. "*`r quote_WD_Preprint_7`*"\
-8. "*`r quote_WD_Preprint_8`*"\
+1. "*`r quote_WD_Preprint_1`*" - source: `r quote_WD_Preprint_1_source`.\
+2. "*`r quote_WD_Preprint_2`*" - source: `r quote_WD_Preprint_2_source`.\
+3. "*`r quote_WD_Preprint_3`*" - source: `r quote_WD_Preprint_3_source`.\
+4. "*`r quote_WD_Preprint_4`*" - source: `r quote_WD_Preprint_4_source`.\
+5. "*`r quote_WD_Preprint_5`*" - source: `r quote_WD_Preprint_5_source`.\
+6. "*`r quote_WD_Preprint_6`*" - source: `r quote_WD_Preprint_6_source`.\
+7. "*`r quote_WD_Preprint_7`*" - source: `r quote_WD_Preprint_7_source`.\
+8. "*`r quote_WD_Preprint_8`*" - source: `r quote_WD_Preprint_8_source`.\
 
 Regarding **Preregistration**, the main downsides described by respondents were that it was thought to impede exploratory research, impede flexibility in protocols while the research is being conducted, and that this practice is not applicable to all fields of research (for instance, it does not align with iterative development of research questions in e.g. social sciences). In lesser frequency but worth noting, respondents mentioned that there need to be a corresponding increase in respect for <!-- FIMXE LF: unclear --> null findings <!-- MI: how about this: (i.e. the purpose of preregistration is to limit the occurrence of false-positive finding, hence, preregistered research is possibly more likely than traditional research to lead to null-results. Null results aren't typically thought to be easy to publish in many journals. Therefore, if preregistraion are encouraged, null-result publication should be encouraged too) --> , and that if preregistrations are made public before publication, it may deter unknowing replication. <!-- FIMXE LF: unclear. MI: if preregistration are on open registreries prior to publication (e.g. for clinical research): before starting a study, people could check if this is being done, and give up on doing it if it is-->
 
 Some quotes:\
-1. "*`r quote_WD_Prereg_1`*"\
-2. "*`r quote_WD_Prereg_2`*"\
-3. "*`r quote_WD_Prereg_3`*"\
-4. "*`r quote_WD_Prereg_4`*"\
-5. "*`r quote_WD_Prereg_5`*"\
-6. "*`r quote_WD_Prereg_6`*"\
-7. "*`r quote_WD_Prereg_7`*"\
-8. "*`r quote_WD_Prereg_8`*"\
+1. "*`r quote_WD_Prereg_1`*" - source: `r quote_WD_Prereg_1_source`.\
+2. "*`r quote_WD_Prereg_2`*" - source: `r quote_WD_Prereg_2_source`.\
+3. "*`r quote_WD_Prereg_3`*" - source: `r quote_WD_Prereg_3_source`.\
+4. "*`r quote_WD_Prereg_4`*" - source: `r quote_WD_Prereg_4_source`.\
+5. "*`r quote_WD_Prereg_5`*" - source: `r quote_WD_Prereg_5_source`.\
+6. "*`r quote_WD_Prereg_6`*" - source: `r quote_WD_Prereg_6_source`.\
+7. "*`r quote_WD_Prereg_7`*" - source: `r quote_WD_Prereg_7_source`.\
+8. "*`r quote_WD_Prereg_8`*" - source: `r quote_WD_Prereg_8_source`.\
 
 Downsides to **Registered Reports** were the same as those for preregistration. In addition, some respondents noted that it delays the start of data collection to allow for peer-review of the introduction and methods.
 
 Some quotes:\
-1. "*`r quote_WD_RegRep_1`*"\
-2. "*`r quote_WD_RegRep_2`*"\
-3. "*`r quote_WD_RegRep_3`*"\
-4. "*`r quote_WD_RegRep_5`*"\
-5. "*`r quote_OB_Prereg_1`*"\
-6. "*`r quote_WD_RegRep_6`*"\
-7. "*`r quote_OB_RegRep_1`*"\
+1. "*`r quote_WD_RegRep_1`*" - source: `r quote_WD_RegRep_1_source`.\
+2. "*`r quote_WD_RegRep_2`*" - source: `r quote_WD_RegRep_2_source`.\
+3. "*`r quote_WD_RegRep_3`*" - source: `r quote_WD_RegRep_3_source`.\
+4. "*`r quote_WD_RegRep_5`*" - source: `r quote_WD_RegRep_5_source`.\
+5. "*`r quote_OB_Prereg_1`*" - source: `r quote_OB_Prereg_1_source`.\
+6. "*`r quote_WD_RegRep_6`*" - source: `r quote_WD_RegRep_6_source`.\
+7. "*`r quote_OB_RegRep_1`*" - source: `r quote_OB_RegRep_1_source`.\
 
 For both **Preregistration** and **Registered Reports**, given these quotes and others (also in 'Barriers'), and the fact that awareness of these practices was overall very low and that we know that there is limited related training at the University, I wonder whether fields (particularly experimental fields) where preregistration was judged not applicable or unjustifiably limiting flexibility in protocols, do in fact operate under the same framework (Ho testing, alpha = 0.05) as fields who have judged that preregistration is necessary to prevent insight bias, confirmation bias, and non-intentional insidious ways of p-hacking leading to drastic increases in the likelihood of obtaining false-positive results. <!-- FIMXE unclear --> Do fields rejecting preregistration have the same ideal but simply don't have the right research environment (sometimes in very practical terms as seen in some quotes) to be able to practice preregistration, or is it that in these fields approaches are different and preregistration isn't relevant, e.g. if the research process resembles the iterative processes judged as a valid norm in some social sciences. I think there may be both types of responses in the survey. As a reminder, when one conducts an experiment, one states that they have an a priori hypothesis, and that a specifically designed manipulation will explain differences observed between groups (e.g. treatment vs control groups). Even after reading all these replies, I personally still see no logical reasons (there may be very real practical barriers though), for experimental fields to not want to limit the flexibility in protocol or to not declare those deviations in order for readers to be able to assess the likelihood of each finding to be a false positive result (another reminder: each decision of conducting a statistical test based on the p value of a first test will inevitably increase the chances of the second test to be a false positive finding, over the 5% tolerated and declared rate).<!--# FIXME language to not be offensive--> <!-- possibly rephrase to just say that it would be useful to offer more training to address common misconceptions (e.g. that you cannot do/report exploratory results), and then see if responses change -->
 
@@ -381,40 +381,42 @@ Free text boxes opened for each ORP a respondent selected to have other barriers
 The most frequently mentioned other barrier to **Open Access** publications was the cost of Gold OA. In much lower frequency, additional barriers indicated by respondents were the lack of prestigious journals that offered OA options, and, given the rapid changes in policies, the lack of clarity from University services on these policies, on the list of journals that offer OA, and on general relevant guidance to researchers.
 
 Some quotes:\
-1. "*`r quote_OB_OA_1`*"\
-2. "*`r quote_OB_OA_2`*"\
-3. "*`r quote_OB_OA_3`*"
+1. "*`r quote_OB_OA_1`*" - source: `r quote_OB_OA_1_source`.\
+2. "*`r quote_OB_OA_2`*" - source: `r quote_OB_OA_2_source`.\
+3. "*`r quote_OB_OA_3`*" - source: `r quote_OB_OA_3_source`.\
 
 Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original cost of collecting primary data isn't recognised nor protected from scooping, and the fact that repositories aren't user-friendly.
 
 Some quotes:\
-1. "*`r quote_OB_Data_1`*"\
-2. "*`r quote_OB_Data_2`*"
+1. "*`r quote_OB_Data_1`*" - source: `r quote_OB_Data_1_source`.\
+2. "*`r quote_OB_Data_2`*" - source: `r quote_OB_Data_2_source`.\
 
 The main extra barrier to **Code sharing** was the time it takes to prepare such resource for sharing.
 
 Some quotes:\
-1. "*`r quote_OB_Code_1`*"
+1. "*`r quote_OB_Code_1`*" - source: `r quote_OB_Code_1_source`.\
 
 Barriers specific to **Material sharing** were ethical and safety concerns, difficult resource management, the lack of funding to store the resource, and the fact that the resource isn't always digital.
 
 Some quotes:\
-1. "*`r quote_OB_Materials_1`*"
+1. "*`r quote_OB_Materials_1`*" - source: `r quote_OB_Materials_1_source`.\
 
 Barriers to **Preprints** were IP concerns and the lack of peer-review as we saw in downsides. An additional noteworthy mention was that preprint aren't recognised as meeting OA requirements (e.g. for REF).
 
 Some quotes:\
-1. "*`r quote_OB_Preprint_1`*"
+1. "*`r quote_OB_Preprint_1`*" - source: `r quote_OB_Preprint_1_source`.\
 
 Barriers to **Preregistration** were the fact that it isn't adapted to all disciplines, the lack of fund, for instance to run pilot experiment before writing a preregistration, and the fear of scooping.
 
 Some quotes:\
-1. "*`r quote_OB_Prereg_1`*"  <!--# mentioned above --> 2. "*`r quote_OB_Prereg_2`*"\
+1. "*`r quote_OB_Prereg_1`*" - source: `r quote_OB_Prereg_1_source`.<!--# mentioned above -->\
+2. "*`r quote_OB_Prereg_2`*" - source: `r quote_OB_Prereg_2_source`.\
 
 Barriers to **Registered Reports** were the same as for preregistration. Additional barriers were the delayed start of data collection, which does not allow ECRs on short time contracts to engage with the practice; the fact that it may be too much work for peer-reviewers, and the lack of suitable journals that offer this publishing format in some fields.
 
 Some quotes:\
-1. "*`r quote_OB_RegRep_1`*" <!--# mentioned above --> 2. "*`r quote_OB_RegRep_2`*"\
+1. "*`r quote_OB_RegRep_1`*" - source: `r quote_OB_RegRep_1_source`.<!--# mentioned above -->\
+2. "*`r quote_OB_RegRep_2`*" - source: `r quote_OB_RegRep_2_source`\
 
 ```{r, echo = FALSE, include = TRUE}
 tblotherbarriers <- Alldata_OB_table %>% flextable() %>%
