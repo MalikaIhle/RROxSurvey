@@ -830,12 +830,39 @@ Some quotes:\
 1."*`r gsub("[^[:alnum:][:blank:]\\.]", "", Quote_Inventory_1)`*"\
 2."*`r Quote_Inventory_2`*"\
 
-### Recommendations
+### Summary & Recommendations
 
-<!--# FIXME  these are pieces from previous section -->
+<!--# FIXME  these are pieces from previous sections -->
 
 BARRIERS Analyses of barriers to OA reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).
 
 WHAT DOWNSIDES Perhaps further consultation, such as focus groups following an in depth introduction to preregistration would be needed to know whether the inability to create a plan a priori constitute a barrier (e.g. practical impossibility) over an actual downside (irrelevance).
 
 RECRUITMENT It would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, especially with regards to ORPs, and, considering the broader complex system, it would be interesting to consider team criteria (rather than just adding criteria on single individuals).
+
+
+EXECUTIVE SUMMARY FROM LAST YEAR:
+Main results
+● Awareness and usage of ORPs varies per Division (Fig. 1) but demand for training is equally strong (Fig. 2) <!--# doesn't exactly hold? -->
+● In all Divisions, the majority of respondents judged that the widespread adoption of ORPs would be
+beneficial. A small number indicated potential downsides, including for example concerns over intellectual
+property, ethics, and the cost of Open Access publishing.
+● Respondents reported several barriers to adoption of the different ORPs, relating to lack of infrastructure,
+training, norms, incentives, and policies.
+● Options for support to facilitate the adoption of ORPs such as online resources, mentoring, and support
+networks were judged useful or essential by the vast majority of respondents.
+● Contrasting perceived current recruitment criteria and desired recruitment criteria highlights a strong desire
+to emphasize quality of research over number of publications, prestige of publication outlets, number of
+citations, and amount of grant support. Respondents also thought that teaching, mentoring, and open
+research practices should be valued more than they currently are.
+
+Recommendations for future RROx priorities
+● Develop and provide formal training on ORPs to raise awareness and usage.
+● Continue building communities to act as support networks, and develop a mentoring programme.
+● Coordinate activity with related efforts across the Collegiate University to alleviate barriers to the adoption of
+ORPs. Relevant units include Open Scholarship Support, Bodleian Libraries; Research Data Management, IT
+Services; Ethics and Integrity, Research Services; Research Staff Hub.
+● Contribute to implementation of the Declaration on Research Assessment (DORA).
+● Liaise with University governance to develop incentives and policies (e.g. award programme, grant schemes),
+in collaboration with relevant stakeholders (e.g. funders, publishers) via the UK Reproducibility Network
+(UKRN).
