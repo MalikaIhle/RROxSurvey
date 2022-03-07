@@ -132,5 +132,5 @@ academicdata_Awareness_acrossORP_for_plotting %>%
   ggtitle(title_plot) + 
   theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
 
-#ggsave(here::here("Figures", "Round12_Single_Awareness_Academic_accross_ORP.png"), width = 10, height = 3, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Awareness_Academic_accross_ORP.png"), width = 7, height = 2.5, bg = "white")
 
