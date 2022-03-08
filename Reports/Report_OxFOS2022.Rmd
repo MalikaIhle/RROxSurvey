@@ -199,7 +199,7 @@ Later on<!--# i.e. downsides question came after barriers questions; the rationa
 
 "**In your view, are there *any* downsides to widespread adoption of the following practices in your field of research?** If so, please provide a brief description."
 
-In Figure \@ref(fig:downside-single), we see more occurrences of detrimental aspects when asking about *any* possible downsides than simple the overall effect, as can be expected. Overall, the majority of respondents (on average `r no_downsides[4]`%, ranging from `r no_downsides[1]`% to `r no_downsides[6]`%) found that the widespread adoption of open research practices would have no downsides, while few found that it would (on average `r yes_downsides[4]`%, ranging from `r yes_downsides[1]`% to `r yes_downsides[6]`%). Lower levels of favourable opinions, like previously, did not correspond to a higher level of unfavorable opinions but to a large proportion of respondents who indicated they were unsure about whether a widespread adoption of open research practices would lead to any downsides.
+In Figure \@ref(fig:downside-single), we see more occurrences of detrimental aspects when asking about *any* possible downsides than simply the overall effect, as can be expected. Overall, the majority of respondents (on average `r no_downsides[4]`%, ranging from `r no_downsides[1]`% to `r no_downsides[6]`%) found that the widespread adoption of open research practices would have no downsides, while few found that it would (on average `r yes_downsides[4]`%, ranging from `r yes_downsides[1]`% to `r yes_downsides[6]`%). Lower levels of favourable opinions, like previously, did not correspond to a higher level of unfavorable opinions but to a large proportion of respondents who indicated they were unsure about whether a widespread adoption of open research practices would lead to any downsides.
 
 ![(\#fig:downside-single) Existence of any downsides with the widespread adoption of each ORP, as judged by all students and researchers across all Divisions](../Figures/Round12_Single_Downsides-per-ORP.png)
 
@@ -360,13 +360,13 @@ In light of this, we asked:
 
 "**Do you face any barriers in adopting the following practices and, if so, what are they?** Tick all that apply and/or provide a brief description for any others."
 
-Although there were some differences between Divisions, overall responses from students, research staff, and academics showed roughly similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). The plots shown below aren't stacked bar plots like in previous questions where respondents could only select one response; in this case, responses were not mutually exclusive. Given these bar plots are now dodged, I will not be showing differences in Divisions here, as it becomes a bit complicated to look at.
+Although there were some differences between Divisions, overall responses from students, research staff, and academics showed roughly similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). The plots shown below aren't stacked bar plots like in previous questions where respondents could only select one response; in this case, responses were not mutually exclusive. Given these bar plots are now dodged, I will not be showing differences between Divisions here, as it becomes a bit complicated to look at.
 
 ![(\#fig:barrier-single) Barriers to adoptions of ORPs (non-mutually exclusive), with responses pooled across all Divisions, students and researchers.](../Figures/Round12_Single_AllDiv_Barriers.png)
 
-**Open Access** publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (`r SSD_Hum_OA_Incentives`% vs `r MSD_MPLS_OA_Incentives`%; see Figure \@ref(fig:barrier-single-OA)). In the Social sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select additional barriers to adoption of OA publishing, particularly a lack of infrastructure (`r SSD_Hum_OA_Infrastructure`% vs `r MSD_MPLS_OA_Infrastructure`%; see Figure \@ref(fig:barrier-single-OA)).
+**Open Access** publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (`r SSD_Hum_OA_Incentives`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Incentives`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)). In the Social sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select additional barriers to adoption of OA publishing, particularly a lack of infrastructure (`r SSD_Hum_OA_Infrastructure`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Infrastructure`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)).
 
-![(#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width="400px"}
+![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width="400px"}
 
 For all the other ORPs, training, norms, and incentives, were the major barriers perceived across Divisions (on average: `r allDiv_notOA_TNI[4]`%, range: `r allDiv_notOA_TNI[1]`% - `r allDiv_notOA_TNI[6]`%), followed by policies (average: `r allDiv_notOA_Policy[4]`%,range: `r allDiv_notOA_Policy[1]`% - `r allDiv_notOA_Policy[6]`%), and infrastructure (average: `r allDiv_notOA_Infrastructure[4]`%,range: `r allDiv_notOA_Infrastructure[1]`% - `r allDiv_notOA_Infrastructure[6]`%; see Figure \@ref(fig:barrier-single)).
 
@@ -557,24 +557,24 @@ nonacademic_ORP_considered_perDiv <-  All_Data_But_Academic_FutureRecruitment_fo
   All_Data_But_Academic_FutureRecruitment_for_plotting$Div %in% Plotted_Div &
   All_Data_But_Academic_FutureRecruitment_for_plotting$Answer %in% c('Slightly', 'Moderately','Considerably'),] %>% 
     group_by(Div) %>% 
-  summarise (TotalPerc = round(sum(perc),1))
-nonacademic_ORP_considered_av <- summary(nonacademic_ORP_considered_perDiv$TotalPerc)
+  summarise (TotalPerc = sum(perc))
+nonacademic_ORP_considered_av <- round(summary(nonacademic_ORP_considered_perDiv$TotalPerc),1)
 
 academic_ORP_considered_perDiv <-  academicdata_FutureRecruitment_for_plotting[
   academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices' &
   academicdata_FutureRecruitment_for_plotting$Div %in% Plotted_Div &
   academicdata_FutureRecruitment_for_plotting$Answer %in% c('Slightly', 'Moderately','Considerably'),] %>% 
     group_by(Div) %>% 
-  summarise (TotalPerc = round(sum(perc),1))
-academic_ORP_considered_av <- summary(academic_ORP_considered_perDiv$TotalPerc)
+  summarise (TotalPerc = sum(perc))
+academic_ORP_considered_av <- round(summary(academic_ORP_considered_perDiv$TotalPerc),1)
 
 nonMSD_academic_ORP_notatall_perDiv <-  academicdata_FutureRecruitment_for_plotting[
   academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices' &
   academicdata_FutureRecruitment_for_plotting$Div %in% c('SSD','MPLS','Hum') &
   academicdata_FutureRecruitment_for_plotting$Answer %in% c('Not at all'),] %>% 
     group_by(Div) %>% 
-  summarise (TotalPerc = round(sum(perc),1))
-nonMSD_academic_ORP_notatall_av <- summary(nonMSD_academic_ORP_notatall_perDiv$TotalPerc)
+  summarise (TotalPerc = sum(perc))
+nonMSD_academic_ORP_notatall_av <- round(summary(nonMSD_academic_ORP_notatall_perDiv$TotalPerc),1)
 
 MSD_academic_ORP_notatall <-  academicdata_FutureRecruitment_for_plotting[
   academicdata_FutureRecruitment_for_plotting$LabelIndiv == 'Open research practices' &
@@ -590,13 +590,13 @@ One of the criteria that showed the most differences between Divisions was actua
 
 Academics across Divisions shows widely different opinions, with only \<`r MSD_academic_ORP_notatall$TotalPerc` MSD academics suggesting that ORP should not be considered at all, while on average `r nonMSD_academic_ORP_notatall_av[4]`% of academics in the other Divisions thought so. To contextualise this difference, one need to keep in mind the relatively low sample sizes of academics when split per Divisions; so I added this number of those bars in Figure \@ref(fig:recruitment-combined-ORP).
 
-![(#fig:recruitment-combined-ORP) Perceived current and desired future importance given to open research practices as a recruitment criteria. Current Criteria: Non-Academics: MSD = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'MSD']`, MPLS = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'MPLS']`, SSD = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'SSD']`, Hum = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'Hum']`, Academics: MSD = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'MSD']`, MPLS = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'MPLS']`, SSD = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'SSD']`, Hum = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'Hum']`; Future criteria: Non-Academics: MSD = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'MSD']`, MPLS = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'MPLS']`, SSD = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'SSD']`, Hum = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'Hum']`, Academics: MSD = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'MSD']`, MPLS = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'MPLS']`, SSD = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'SSD']`, Hum = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'Hum']`](../Figures/Round12_Combined_Recruitment_ORP.png)
+![(\#fig:recruitment-combined-ORP) Perceived current and desired future importance given to open research practices as a recruitment criteria. Current Criteria: Non-Academics: MSD = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'MSD']`, MPLS = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'MPLS']`, SSD = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'SSD']`, Hum = `r NallbutacademicCurrent_perDiv$N[NallbutacademicCurrent_perDiv$Div == 'Hum']`, Academics: MSD = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'MSD']`, MPLS = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'MPLS']`, SSD = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'SSD']`, Hum = `r NacademicCurrent_perDiv$N[NacademicCurrent_perDiv$Div == 'Hum']`; Future criteria: Non-Academics: MSD = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'MSD']`, MPLS = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'MPLS']`, SSD = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'SSD']`, Hum = `r NallbutacademicFuture_perDiv$N[NallbutacademicFuture_perDiv$Div == 'Hum']`, Academics: MSD = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'MSD']`, MPLS = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'MPLS']`, SSD = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'SSD']`, Hum = `r NacademicFuture_perDiv$N[NacademicFuture_perDiv$Div == 'Hum']`](../Figures/Round12_Combined_Recruitment_ORP.png)
 
 To further contextualise this difference, we need to keep in mind that we cannot disentangle true discipline differences, from possible differences between Divisions in the self-election to participate in the survey. For instance, academics in MSD were particularly aware and favourable to ORPs compared to the other Divisions (see Figure \@ref(fig:academic-awareness-across-ORP) and \@ref(fig:academic-effect-across-ORP)) which can be due to inherent differences in disciplines or to the fact that only the MSD academics the most favourable to ORPs participated, or both.
 
-![(#fig:academic-awareness-across-ORP) Average awareness across all ORPs for academics. MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png){width="400px"}
+![(\#fig:academic-awareness-across-ORP) Average awareness across all ORPs for academics. MSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'SSD']`, Hum = `r Nacademic_awareness_perDiv$N[Nacademic_awareness_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Awareness_Academic_accross_ORP.png){width="400px"}
 
-![(#fig:academic-effect-across-ORP). Presumed effect of ORPs widespread adoption averaged across all ORPs, for academics. MSD = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'SSD']`, Hum = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Effect_Academic_accross_ORP.png){width="400px"}
+![(\#fig:academic-effect-across-ORP). Presumed effect of ORPs widespread adoption averaged across all ORPs, for academics. MSD = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'MSD']`, MPLS = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'MPLS']`, SSD = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'SSD']`, Hum = `r Nacademic_Effect_perDiv$N[Nacademic_Effect_perDiv$Div == 'Hum']`](../Figures/Round12_Single_Effect_Academic_accross_ORP.png){width="400px"}
 
 It would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, notably with regards to ORPs but also to try and implement the DORA principles and consider the broader complex system. Personally, I think it would be interesting to consider team criteria, rather than just adding criteria on single individuals; several respondents in downsides and barriers mentioned how adopting an ORPs requires time they do not have as they are already overstretched and burdened. <!--# add quotes -->
 
@@ -710,13 +710,13 @@ training_noneeds_not_OA_preprint <- round(summary(training_noneeds$TotalPerc[!tr
 
 ```
 
-Overall, the demand for guidance (written or workshop-led) was quite high, ranging from `r training_needs_av[1]`% to `r training_needs_av[6]`% ( `r training_needs_av[4]`% on average; see Figure \@ref(fig:training-single)) for all topics presented. The need for workshop-led training was a lower for Open Access and Preprint than other topics (workshop-led training: OA and Preprint: `r workshop_needs_OA_preprint[4]`% on average, other topics: `r workshop_needs_not_OA_preprint[4]`% on average) where guidance was simultaneously thought, a bit more frequently as other topcis, to not be needed (no training needed: OA: `r training_noneeds_OA`%, Preprint: `r training_noneeds_preprint`%, other topics: `r training_noneeds_not_OA_preprint[4]`% on average).
+Overall, the demand for guidance (written or workshop-led) was quite high, ranging from `r training_needs_av[1]`% to `r training_needs_av[6]`% ( `r training_needs_av[4]`% on average; see Figure \@ref(fig:training-single)) for all topics presented. The need for workshop-led training was a lower for Open Access and Preprint than other topics (workshop-led training: OA and Preprint: `r workshop_needs_OA_preprint[4]`% on average, other topics: `r workshop_needs_not_OA_preprint[4]`% on average) where guidance was simultaneously thought, a bit more frequently as other topics, to not be needed (no training needed: OA: `r training_noneeds_OA`%, Preprint: `r training_noneeds_preprint`%, other topics: `r training_noneeds_not_OA_preprint[4]`% on average).
 
 ![(\#fig:training-single) Training needs for all PGR students and other researchers across Divisions](../Figures/Round12_Single_Training.png)
 
 Students and other researchers show similar patterns of demand for training, but with students requesting more workshop-led training (in red) than only written guidance (in orange; Figure \@ref(fig:training-double-splitDiv)).
 
-![(#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height="800px"}
+![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height="800px"}
 
 For some training topics such as how to share code, or how to prepare preregistration, or how to prepare ethic proposal, some Division had less of a demand, which only correspond to a higher selection of the 'not applicable' option (Figure \@ref(fig:training-double-splitDiv)). <!--# FIXME more numbers ?-->
 
@@ -757,28 +757,40 @@ online_resources_essential_all <- round(summary(All_academicdata_Support_for_plo
                                 All_alldata_but_academic_Support_for_plotting$LabelIndiv == 'Online Resources'&
                                 All_alldata_but_academic_Support_for_plotting$Answer == 'Essential']),1)
 
-other_supports_essential_academics <- summary(All_academicdata_Support_for_plotting$perc[
+other_supports_essential_academics <- round(summary(All_academicdata_Support_for_plotting$perc[
                                 All_academicdata_Support_for_plotting$LabelIndiv != 'Online Resources'&
-                                All_academicdata_Support_for_plotting$Answer == 'Essential'])
+                                All_academicdata_Support_for_plotting$Answer == 'Essential']),1)
 
-other_supports_notuseful_academics <- summary(All_academicdata_Support_for_plotting$perc[
+other_supports_notuseful_academics <- round(summary(All_academicdata_Support_for_plotting$perc[
                                 All_academicdata_Support_for_plotting$LabelIndiv != 'Online Resources'&
-                                All_academicdata_Support_for_plotting$Answer == 'Not useful'])
+                                All_academicdata_Support_for_plotting$Answer == 'Not useful']),1)
 
-other_supports_essential_nonacademics <- summary(All_alldata_but_academic_Support_for_plotting$perc[
+other_supports_essential_nonacademics <- round(summary(All_alldata_but_academic_Support_for_plotting$perc[
                                 All_alldata_but_academic_Support_for_plotting$LabelIndiv != 'Online Resources'&
-                                All_alldata_but_academic_Support_for_plotting$Answer == 'Essential'])
+                                All_alldata_but_academic_Support_for_plotting$Answer == 'Essential']),1)
 
-other_supports_notuseful_nonacademics <- summary(All_alldata_but_academic_Support_for_plotting$perc[
+other_supports_notuseful_nonacademics <- round(summary(All_alldata_but_academic_Support_for_plotting$perc[
                                 All_alldata_but_academic_Support_for_plotting$LabelIndiv != 'Online Resources'&
-                                All_alldata_but_academic_Support_for_plotting$Answer == 'Not useful'])
+                                All_alldata_but_academic_Support_for_plotting$Answer == 'Not useful']),1)
 ```
 
 Finally, we asked:
 
 "**What additional support would you find useful to implement open research practices?**" Please list any additional means of support in the empty boxes below
 
-For this question, academics had slightly different patterns of responses than all the other types of researchers. While `r online_resources_essential_all[4]` of academics and non-academics, on average, found online resources to be essential resources, results differ for the other types of support proposed. Specifically, `r other_supports_essential_nonacademics[4]`% on average (range `r other_supports_essential_nonacademics[1]`% - `r other_supports_essential_nonacademics[6]`%) of PGR students and research staff found mentoring, supports networks, coaching, and seminars essential, as opposed to `r other_supports_essential_academics[4]`% on average (range `r other_supports_essential_academics[1]`% - `r other_supports_essential_academics[6]`%) for academics. Correspondingly, academics were more likely to find these other types of support to not be useful (`r other_supports_notuseful_academics[4]`% on average, vs `r other_supports_notuseful_nonacademics[4]`% for non academics).
+The list of support suggested were:
+
+-   **Seminars** introducing relevant topics 
+
+-   **Mentoring** from an expert in your field who has experienced similar challenges and can provide specialist advice as needed
+
+-   **Coaching** support from a trained coach who can help you explore options and identify what may work best for you to tackle either focused problems or strategic longer-term issues
+
+-   **Support networks** open to researchers from all career stages, with a focus on sharing experience and good practice
+
+-   **Online resources** collating case studies and tips.
+
+For this question, academics had slightly different patterns of responses than all the other types of researchers. While `r online_resources_essential_all[4]`% of academics and non-academics, on average, found online resources to be essential support, results differ for the other types of support proposed. Specifically, `r other_supports_essential_nonacademics[4]`% on average (range `r other_supports_essential_nonacademics[1]`% - `r other_supports_essential_nonacademics[6]`%) of PGR students and research staff found mentoring, supports networks, coaching, and seminars essential, as opposed to `r other_supports_essential_academics[4]`% on average (range `r other_supports_essential_academics[1]`% - `r other_supports_essential_academics[6]`%) for academics. Correspondingly, academics were more likely to find these other types of support to not be useful (`r other_supports_notuseful_academics[4]`% on average, vs `r other_supports_notuseful_nonacademics[4]`% for non academics).
 
 ![(\#fig:support-double-ac-vs-non-ac) Support needs for Academics and all otehr researchers and students](../Figures/Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png)
 
@@ -872,3 +884,7 @@ Services; Ethics and Integrity, Research Services; Research Staff Hub.
 ● Liaise with University governance to develop incentives and policies (e.g. award programme, grant schemes),
 in collaboration with relevant stakeholders (e.g. funders, publishers) via the UK Reproducibility Network
 (UKRN).
+
+TEXT IN RIMTS PRESENTATION:
+To be brief, the main result was that awareness and usage of ORPs varies per disciplines, being the highest in the medical sciences and the lowest in the art and humanities, but interestingly, the demand for training was equally strong across all disciplines. This reinforce the idea that a coordinated approach to promoting open research at the level of an institution may be beneficial not to reinvent the wheel for aspects that are comparable across disciplines.
+
