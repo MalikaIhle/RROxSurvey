@@ -42,8 +42,10 @@ Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_score <- factor(Alldata
 
 #View(Alldata_OtherCurrentRecruitment[,c('CurrentRecruitment_Other','CurrentRecruitment_Other_recode', 'CurrentRecruitment_Other_score')])
 
-quote_Recruitement_1 <- tolower(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other[!is.na(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other) & startsWith(Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other, "GENDER (MOST DEPARTMENTS")])
-        
+quote_Recruitement_1 <- data$CurrentRecruitment_Other1[!is.na(data$CurrentRecruitment_Other1) & startsWith(data$CurrentRecruitment_Other1, "Gender (most departments")==TRUE]
+quote_Recruitement_1_source <- c(as.character(data$Role[!is.na(data$CurrentRecruitment_Other1) & data$CurrentRecruitment_Other1 == quote_Recruitement_1]), 
+                                 data$Div[!is.na(data$CurrentRecruitment_Other1) & data$CurrentRecruitment_Other1 == quote_Recruitement_1])
+
 ## split per subdataset
 
 xtab_OtherCurrentRecruitment <- Alldata_OtherCurrentRecruitment[Alldata_OtherCurrentRecruitment$CurrentRecruitment_Other_recode != 'Not categorised',]  %>% 

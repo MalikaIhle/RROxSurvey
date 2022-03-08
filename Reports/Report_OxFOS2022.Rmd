@@ -618,8 +618,8 @@ Personal demographics (e.g. gender, citizenship) were considered to have not eno
 Finally, commitment to inclusivity was thought to be missing from current recruitment criteria.
 
 Some quotes:\
-1."*`r quote_Recruitement_1`*"\
-2."*`r quote_Recruitement_2`*"\
+1."*`r quote_Recruitement_1`*" - source: `r quote_Recruitement_1_source`.\
+2."*`r quote_Recruitement_2`*" - source: `r quote_Recruitement_2_source`.\
 
 ```{r, echo = FALSE, include = TRUE}
 tblothercurrent <- xtab_OtherCurrentRecruitment %>% flextable() %>%
@@ -833,8 +833,8 @@ Table_Inventory %>% arrange(-count) %>% flextable() %>%
 Some respondents provided unsolicited general comments in this final question, some of which were quite contrasted, which, at least, suggests that we captured the responses of some researchers who are *not* in favour of ORPs.<!--# in future iteration of the survey, would be best to have a final question asking for any remaining comment left... -->
 
 Some quotes:\
-1."*`r gsub("[^[:alnum:][:blank:]\\.]", "", Quote_Inventory_1)`*"\
-2."*`r Quote_Inventory_2`*"\
+1."*`r gsub("[^[:alnum:][:blank:]\\.]", "", Quote_Inventory_1)`*" - source `r Quote_Inventory_1_source`.\
+2."*`r Quote_Inventory_2`*" - source `r Quote_Inventory_2_source`.\
 
 ### Summary & Recommendations
 

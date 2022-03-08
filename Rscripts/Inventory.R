@@ -84,4 +84,8 @@ Table_Inventory %>% arrange(-count)
 Quote_Inventory_1 <- data$Inventory1[!is.na(data$Inventory1) & startsWith(data$Inventory1, "This survey seems to imagine")==TRUE]
 Quote_Inventory_2 <- data$Inventory1[!is.na(data$Inventory1) & startsWith(data$Inventory1, "All academics and researchers should")==TRUE]
 
+Quote_Inventory_1_source <- c(as.character(data$Role[!is.na(data$Inventory1) & data$Inventory1 == Quote_Inventory_1]), 
+                                 data$Div[!is.na(data$Inventory1) & data$Inventory1 == Quote_Inventory_1])
+Quote_Inventory_2_source <- c(as.character(data$Role[!is.na(data$Inventory1) & data$Inventory1 == Quote_Inventory_2]), 
+                              data$Div[!is.na(data$Inventory1) & data$Inventory1 == Quote_Inventory_2])
 

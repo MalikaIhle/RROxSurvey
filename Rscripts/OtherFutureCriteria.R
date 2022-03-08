@@ -49,7 +49,10 @@ Alldata_OtherFutureRecruitment[!is.na(Alldata_OtherFutureRecruitment$FutureRecru
 Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score <- factor(Alldata_OtherFutureRecruitment$FutureRecruitment_Other_score , levels = Criteria_answers)
 
 #View(Alldata_OtherFutureRecruitment[,c('FutureRecruitment_Other','FutureRecruitment_Other_recode', 'FutureRecruitment_Other_score')])
-quote_Recruitement_2 <- tolower(Alldata_OtherFutureRecruitment$FutureRecruitment_Other[!is.na(Alldata_OtherFutureRecruitment$FutureRecruitment_Other) & startsWith(Alldata_OtherFutureRecruitment$FutureRecruitment_Other, "COMMITMENT TO INCLUSIVITY")])
+
+quote_Recruitement_2 <- data$FutureRecruitment_Other1[!is.na(data$FutureRecruitment_Other1) & startsWith(data$FutureRecruitment_Other1, "Commitment to inclusivity")==TRUE]
+quote_Recruitement_2_source <- c(as.character(data$Role[!is.na(data$FutureRecruitment_Other1) & data$FutureRecruitment_Other1 == quote_Recruitement_2]), 
+                                 data$Div[!is.na(data$FutureRecruitment_Other1) & data$FutureRecruitment_Other1 == quote_Recruitement_2])
 
 
 
