@@ -690,8 +690,8 @@ The topics listed were:
 ```{r, echo = FALSE, include = FALSE}
 training_needs <-  All_Grouped_Training_for_plotting[
     All_Grouped_Training_for_plotting$Answer %in% c('Written guidance and workshop-led training', 'Written guidance only'),] %>% 
-    summarise (TotalPerc = round(sum(perc),1))
-training_needs_av <- summary(training_needs$TotalPerc)
+    summarise (TotalPerc = sum(perc),1)
+training_needs_av <- round(summary(training_needs$TotalPerc),1)
 
 workshop_needs <-  All_Grouped_Training_for_plotting[
     All_Grouped_Training_for_plotting$Answer == 'Written guidance and workshop-led training',] %>% 
@@ -702,8 +702,8 @@ workshop_needs_not_OA_preprint <- round(summary(workshop_needs$TotalPerc[!worksh
 
 training_noneeds <-  All_Grouped_Training_for_plotting[
     All_Grouped_Training_for_plotting$Answer == 'No guidance needed',] %>% 
-    summarise (TotalPerc = round(sum(perc),1))
-training_noneeds_av <- summary(training_needs$TotalPerc)
+    summarise (TotalPerc = sum(perc))
+training_noneeds_av <- round(summary(training_needs$TotalPerc),1)
 training_noneeds_OA <- training_noneeds$TotalPerc[training_needs$LabelIndiv == 'Open Access']
 training_noneeds_preprint <- training_noneeds$TotalPerc[training_needs$LabelIndiv == 'Preprint']
 training_noneeds_not_OA_preprint <- round(summary(training_noneeds$TotalPerc[!training_needs$LabelIndiv %in% c('Preprint','Open Access')]),1)
@@ -848,43 +848,82 @@ Some quotes:\
 1."*`r gsub("[^[:alnum:][:blank:]\\.]", "", Quote_Inventory_1)`*" - source `r Quote_Inventory_1_source`.\
 2."*`r Quote_Inventory_2`*" - source `r Quote_Inventory_2_source`.\
 
-### Summary & Recommendations
+### Summary
 
-<!--# FIXME  these are pieces from previous sections -->
+```{r, echo = FALSE, include = FALSE}
 
-BARRIERS Analyses of barriers to OA reveals that the lack of funding for gold open access may be one of the cause, therefore we recommend that the Bodleian Library's team keep raising awareness of the possibility of publishing open access following the green route (e.g. on ORA).
+overall_unawareness <- round(summary(All_Grouped_Awareness_for_plotting$perc[All_Grouped_Awareness_for_plotting$Answer == 'Not aware / not sure if applicable']),1)
+overall_practice <- round(summary(All_Grouped_Awareness_for_plotting$perc[All_Grouped_Awareness_for_plotting$Answer == 'Practicing myself']),1)
 
-WHAT DOWNSIDES Perhaps further consultation, such as focus groups following an in depth introduction to preregistration would be needed to know whether the inability to create a plan a priori constitute a barrier (e.g. practical impossibility) over an actual downside (irrelevance).
+overall_aware_unpracticing <- All_Grouped_Awareness_for_plotting[
+    All_Grouped_Awareness_for_plotting$Answer %in% c('Accessing / using only', 'Aware only'),] %>% 
+    summarise (TotalPerc = sum(perc))
+overall_aware_unpracticing_av <- round(summary(overall_aware_unpracticing$TotalPerc),1)
 
-RECRUITMENT It would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, especially with regards to ORPs, and, considering the broader complex system, it would be interesting to consider team criteria (rather than just adding criteria on single individuals).
+# I didn't make a double plot splitting students vs researchers *without* also splitting per Division so here the data to get overall stats for researchers only (just to add the few researchers who replied but aren't part of the 4 Div in the double plot presented in report:
+Data_withoutstudents_Awareness <- rbind(staffdata_Awareness, supportstaffdata_Awareness, academicdata_Awareness)
+Data_withoutstudents_Awareness_Split_Awareness_for_plotting <- prepare_data_for_plotting(Measures, Data_withoutstudents_Awareness, Awareness_answers, Awareness_columns)
+Data_withoutstudents_Grouped_Awareness_for_plotting <- regroup_all_data(Data_withoutstudents_Awareness_Split_Awareness_for_plotting)
+
+researchers_aware_unpracticing <- Data_withoutstudents_Grouped_Awareness_for_plotting[
+    Data_withoutstudents_Grouped_Awareness_for_plotting$Answer %in% c('Accessing / using only', 'Aware only'),] %>% 
+    summarise (TotalPerc = sum(perc))
+researchers_aware_unpracticing_av <- round(summary(researchers_aware_unpracticing$TotalPerc),1)
 
 
-EXECUTIVE SUMMARY FROM LAST YEAR:
-Main results
-● Awareness and usage of ORPs varies per Division (Fig. 1) but demand for training is equally strong (Fig. 2) <!--# doesn't exactly hold? -->
-● In all Divisions, the majority of respondents judged that the widespread adoption of ORPs would be
-beneficial. A small number indicated potential downsides, including for example concerns over intellectual
-property, ethics, and the cost of Open Access publishing.
-● Respondents reported several barriers to adoption of the different ORPs, relating to lack of infrastructure,
-training, norms, incentives, and policies.
-● Options for support to facilitate the adoption of ORPs such as online resources, mentoring, and support
-networks were judged useful or essential by the vast majority of respondents.
-● Contrasting perceived current recruitment criteria and desired recruitment criteria highlights a strong desire
-to emphasize quality of research over number of publications, prestige of publication outlets, number of
-citations, and amount of grant support. Respondents also thought that teaching, mentoring, and open
-research practices should be valued more than they currently are.
+overall_beneficial <- round(summary(All_Grouped_Effect_for_plotting$perc[All_Grouped_Effect_for_plotting$Answer == 'Beneficial']),1)
+overall_no_downsides <- round(summary(All_Grouped_Downsides_for_plotting$perc[All_Grouped_Downsides_for_plotting$Answer == 'No']),1)
 
-Recommendations for future RROx priorities
-● Develop and provide formal training on ORPs to raise awareness and usage.
-● Continue building communities to act as support networks, and develop a mentoring programme.
-● Coordinate activity with related efforts across the Collegiate University to alleviate barriers to the adoption of
-ORPs. Relevant units include Open Scholarship Support, Bodleian Libraries; Research Data Management, IT
-Services; Ethics and Integrity, Research Services; Research Staff Hub.
-● Contribute to implementation of the Declaration on Research Assessment (DORA).
-● Liaise with University governance to develop incentives and policies (e.g. award programme, grant schemes),
-in collaboration with relevant stakeholders (e.g. funders, publishers) via the UK Reproducibility Network
-(UKRN).
+## barriers always tricky to work with - created new function that summarize data without splitting per Div
+all_barriers_summary <- bind_summaries_barriers_items_without_Div_split(data_Barriers, Barriers_columns)
+### not what we want... we want nb of rows with at least 1 responses that is a barrier (not NA, not sure, none) per ORP
+# we could also want the average number of barriers respondent selected.
+# created two functions that may need deleting
 
-TEXT IN RIMTS PRESENTATION:
-To be brief, the main result was that awareness and usage of ORPs varies per disciplines, being the highest in the medical sciences and the lowest in the art and humanities, but interestingly, the demand for training was equally strong across all disciplines. This reinforce the idea that a coordinated approach to promoting open research at the level of an institution may be beneficial not to reinvent the wheel for aspects that are comparable across disciplines.
+overall_training_need <- All_Grouped_Training_for_plotting[
+    All_Grouped_Training_for_plotting$Answer %in% c("Written guidance and workshop-led training", "Written guidance only"),] %>% 
+    summarise (TotalPerc = sum(perc))
+overall_training_need_av <- round(summary(overall_training_need$TotalPerc),1)
+
+overall_support_need <- All_Grouped_Support_for_plotting[
+    All_Grouped_Support_for_plotting$Answer %in% c("Essential", "Useful"),] %>% 
+    summarise (TotalPerc = sum(perc))
+overall_support_need_av <- round(summary(overall_support_need$TotalPerc),1)
+
+overall_barrier <- bind_summaries_barriers_items_without_Div_split(data_Barriers, Barriers_columns)
+overall_atleastone_barrier <- round(summary(as.numeric(overall_barrier$perc_atleastone_barrier)),1)
+overall_notsureNA_barrier <-round(summary(as.numeric(overall_barrier$perc_notsureNA_barrier)),1)
+overall_nobarrier <-round(summary(as.numeric(overall_barrier$perc_nobarrier)),1)
+
+
+```
+
+
+Awareness and usage varied a lot between practices (`r overall_unawareness[4]`% unaware respondents on average, range: `r overall_unawareness[1]`% -`r overall_unawareness[6]`%; `r overall_practice[4]`% practicing respondents, range: `r overall_practice[1]`% - `r overall_practice[6]`% ) and to some extend varied per Division. A large proportion of respondents was aware of open research practices but did not practice them (`r overall_aware_unpracticing_av[4]`% of respondents on average, range: `r overall_aware_unpracticing_av[1]`% -`r overall_aware_unpracticing_av[6]`%), even when excluding students who may have had less opportunity to practice them (`r researchers_aware_unpracticing_av[4]`% of respondents on average, range: `r researchers_aware_unpracticing_av[1]`% -`r researchers_aware_unpracticing_av[6]`%). Is this due to downsides or barriers? 
+
+The widespread adoption of ORPs was largely presumed to be beneficial (`r overall_beneficial[4]`% of respondents on average, range: `r overall_beneficial[1]`% -`r overall_beneficial[6]`%, variation matching the inverse variation in rates of 'unsure' replies), and the majority of respondents (`r overall_no_downsides[4]`% on average, `r overall_no_downsides[1]`% -`r overall_no_downsides[6]`%, variation also corresponding to rates of 'unsure' replies) thought they were no downside associated with each ORP (with notable exceptions).
+
+Around `r overall_atleastone_barrier[4]`% of respondents thought there were at least one barrier to adoptions of ORPs, especially a lack of training, norms and incentives, followed by a lack of infrastructure, and policy. Another `r overall_notsureNA_barrier[4]`% specified they weren't sure or thought the question wasn't applicable to them. Finally, `r overall_nobarrier[4]`% on average thought there were no barriers to ORPs.
+
+
+There was a huge demand in training (online guidance and workshops, `r overall_training_need_av[4]`% on average, range: `r overall_training_need_av[1]`% - `r overall_training_need_av[6]`%), and in community support (e.g. mentorship, support networks; `r overall_support_need_av[4]`% on average, range: `r overall_support_need_av[1]`% - `r overall_support_need_av[6]`%).
+
+There was a general agreement on the direction of change between currently used vs desirable recruitment criteria that actually aligns with the DORA principles (no JIF based assessment); and there were variations in the importance of specific criteria between Divisions. 
+
+
+### Recommendations
+
+To raise awareness and adoption, the first recommendation would be to provide a comprehensive and systematic training to all staff and students, with a modular structure to account for different needs per disciplines.
+
+Along with formal training, there should be a central place for online guidance, where ideally, researchers could go through the whole research cycle that’s relevant for their field and that sign-post everything they need to consider at each stage.
+
+To help make the switch to open research practices normative, I think we should keep the community building exercises that many early career members of Reproducible Research Oxford lead and engage with, possibly also creating a more formal  mentoring programme. I also think there should be some form of recognition associated with volunteering to give time to raise awareness and propagate norms to make such approach sustainable. 
+
+In terms of bigger incentives, I think it would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, especially with regards to ORPs, and, considering the broader complex system, perhaps also considering team criteria (rather than just adding criteria on single individuals).
+
+To mitigate further barriers (such as infrastructure, norms, incentives, policies, and funding), there is a need to liaise and coordinate actions with all stakeholders, both internal ones, like the Open Scholarship Support from Bodleian Libraries; the Research Data Management team in IT Services; the Ethics and Integrity unit in Research Service; but also external ones at the national level such as funders, & publishers.
+
+While respondents thought overall that ORPs were beneficial, there were notable downsides mentioned by members of some fields, so there should no be a blanket policy. I think it would be useful to run consultations, notably in the humanities and social sciences to define what is beneficial to these fields and what would be detrimental. However, I think this need to occurs after researchers in those fields have had the opportunity to refine their discourse and consensus, which is one of the purpose of our current open humanities seminar series.
+
+Finally, at the base of it all, there should be equitability of access to resources, infrastructure, and support, and this should be built in all programmes. 
 
