@@ -119,13 +119,13 @@ subset_columns_by_pattern <- function(data, pattern){
 sample_size_perQ <- function(data, Question){
   
   # example to test function sample_size_perQ
-  # data <- pgrdata_Awareness
-  # Question <- "Awareness"
+  # data <- data_Barriers[1:10,]
+  # Question <- "Barriers"
   
-  ss <- data[rowSums(!is.na(data)) > 1, ] %>% 
+  ss <- data[rowSums(!is.na(data)) > 1, ] %>% # remove rows where all NA (but Div)
     group_by(Div) %>% 
     summarise({{Question}} := n()) # https://stackoverflow.com/questions/26003574/use-dynamic-variable-names-in-dplyr
-  return(ss)
+  return(ss) # count number of rows with at lest one value in barriers, per Div
 }
 
 ## Prepare data (all but barriers) for plotting
@@ -255,6 +255,61 @@ prepare_barriers_data_for_plotting <- function(data, answers, columns){
   formatted_data <- merge(skeleton, summaryitems, by = "ID", all.x = TRUE) # merge summary items to skeleton
   return(formatted_data)
 }
+
+
+summarise_barriers_item_without_Div_split <-  function(data, item){
+  #data <- data_Barriers
+  #columns <- c(expr(Barriers_OA), expr(Barriers_Data), expr(Barriers_Code), expr(Barriers_Materials),expr(Barriers_Preprint),expr(Barriers_Prereg),expr(Barriers_RegRep))
+  #i <- 1
+  #item <- columns[[i]]
+  
+  data2 <- subset_columns_by_pattern(data_Barriers, item) 
+  colnames(data2) <-  c("Div", sub('.*_', '', colnames(data2)[-1]))
+  LabelID <- str_remove(item, "Barriers_")
+ 
+   data3 <- data2[rowSums(!is.na(data2)) > 1, ] # remove lines where the item was not scored (all possible answers were left blank, i.e. NA)
+   NbRespondents <- nrow(data3)
+   
+   data3a <- data3[,c("Other", "Policy",  "Incentives","Norms" , "Training", "Infrastructure")]
+   data3b <- data3[,c("None")]
+   data3c <- data3[,c( "NotSure","NA")]
+   
+   data4a <- data3a[rowSums(!is.na(data3a)) > 0, ] # remove lines where the item was not not judged to have a barrier
+   data4c <- data3c[rowSums(!is.na(data3c)) > 0, ]
+   # select line where 'none' was selected (sadly, some respondents selected 'none' AND barriers... so they are deduced (to count as selecting a barrier) to get to a 100% sum
+   data4b <- sum(!is.na(data3b))- nrow(data2[!is.na(data2$None) & (!is.na(data2$Other) | !is.na(data2$Policy) | !is.na(data2$Incentives) | !is.na(data2$Norms)  | !is.na(data2$Training) | !is.na(data2$Infrastructure)),])
+  
+   perc_atleastone_barrier <- round(nrow(data4a)/nrow(data3)*100, 1) # % respondent selecting at least one barrier
+   perc_nobarrier <- round(data4b/nrow(data3)*100, 1) # % respondent selecting no barrier
+   perc_notsureNA_barrier <- round(nrow(data4c)/nrow(data3)*100, 1) # % respondent selecting not sure or NA
+   # sum(perc_atleastone_barrier,perc_nobarrier,perc_notsureNA_barrier) 
+  
+    # number of barriers selected when at least one selected
+   summary(rowSums(!is.na(data4a)))
+    
+  data5 <- c(LabelID, NbRespondents, perc_atleastone_barrier, perc_nobarrier, perc_notsureNA_barrier)
+   
+  return(data5)
+}
+
+bind_summaries_barriers_items_without_Div_split  <- function(data, columns){
+  # data <- data_Barriers
+  # columns <- c(expr(Barriers_OA), expr(Barriers_Data), expr(Barriers_Code), expr(Barriers_Materials),expr(Barriers_Preprint),expr(Barriers_Prereg),expr(Barriers_RegRep))
+  # i <- 1
+  # item <- columns[[i]]
+  # summarise_barriers_item_without_Div_split(data, columns[[i]])
+  
+  summaryitems <- vector(mode= "list", length = length(columns))
+  for (i in 1:length(columns)) {
+    summaryitems[[i]] <-  summarise_barriers_item_without_Div_split(data, columns[[i]])
+  }
+  summaryitems <- data.frame(do.call(rbind, summaryitems))
+  colnames(summaryitems) <- c("ORP", "NbRespondents", "perc_atleastone_barrier", "perc_nobarrier", "perc_notsureNA_barrier")
+
+  return(summaryitems)
+  
+}
+
 
 ## Plotting functions
 circular_plot_function <- function(data, Question, answers, title_plot, answers_colors) {
