@@ -387,7 +387,7 @@ Some quotes:\
 2. "*`r quote_OB_OA_2`*" - source: `r quote_OB_OA_2_source`.\
 3. "*`r quote_OB_OA_3`*" - source: `r quote_OB_OA_3_source`.\ <!-- FIXME typo? -->
 
-Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original cost of collecting primary data isn't recognised nor protected from scooping, <!-- FIXME unclear --- the cost or the data? -->  and the fact that repositories aren't user-friendly.
+Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original effort of collecting primary data isn't recognised and data are not protected from scooping, and the fact that repositories aren't user-friendly.
 
 Some quotes:\
 1. "*`r quote_OB_Data_1`*" - source: `r quote_OB_Data_1_source`.\
@@ -878,12 +878,6 @@ researchers_aware_unpracticing_av <- round(summary(researchers_aware_unpracticin
 overall_beneficial <- round(summary(All_Grouped_Effect_for_plotting$perc[All_Grouped_Effect_for_plotting$Answer == 'Beneficial']),1)
 overall_no_downsides <- round(summary(All_Grouped_Downsides_for_plotting$perc[All_Grouped_Downsides_for_plotting$Answer == 'No']),1)
 
-## barriers always tricky to work with - created new function that summarize data without splitting per Div
-all_barriers_summary <- bind_summaries_barriers_items_without_Div_split(data_Barriers, Barriers_columns)
-### not what we want... we want nb of rows with at least 1 responses that is a barrier (not NA, not sure, none) per ORP
-# we could also want the average number of barriers respondent selected.
-# created two functions that may need deleting
-
 overall_training_need <- All_Grouped_Training_for_plotting[
     All_Grouped_Training_for_plotting$Answer %in% c("Written guidance and workshop-led training", "Written guidance only"),] %>% 
     summarise (TotalPerc = sum(perc))
@@ -921,7 +915,7 @@ Along with formal training, there should be a central place for online guidance 
 
 To help make the switch to open research practices normative, I think we should keep the community building exercises that many early career members of Reproducible Research Oxford lead and engage with, possibly also creating a more formal mentoring programme. I also think there should be some form of recognition associated with volunteering to give time to raise awareness and propagate norms to make such approach sustainable. 
 
-In terms of bigger incentives, I think it would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, especially with regards to ORPs and, considering the broader complex system, perhaps also considering team criteria (rather than just adding criteria on single individuals). <!-- FIXME I have reservations about this, so I'd be wary of recommending unless we have strong/further evidence -->
+In terms of bigger incentives, I think it would be very interesting and useful to run focus groups with academics to discuss possible change in recruitment criteria, especially with regards to ORPs in the context of the broader complex system.
 
 To mitigate further barriers (such as infrastructure, norms, incentives, policies, and funding), there is a need to liaise and coordinate actions with all stakeholders, both internal ones, like the Open Scholarship Support from Bodleian Libraries; the Research Data Management team in IT Services; the Ethics and Integrity unit in Research Services; but also external ones at the national level, such as funders and publishers.
 
