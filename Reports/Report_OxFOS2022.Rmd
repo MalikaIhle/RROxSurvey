@@ -360,13 +360,15 @@ In light of this, we asked:
 
 "**Do you face any barriers in adopting the following practices and, if so, what are they?** Tick all that apply and/or provide a brief description for any others."
 
-Although there were some differences between Divisions, overall responses from students, research staff, and academics showed roughly similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). The plots shown below aren't stacked bar plots like in previous questions where respondents could only select one response; in this case, responses were not mutually exclusive. Given these bar plots are now dodged, I will not be showing differences between Divisions here, as it becomes a bit complicated to look at.
+Although there were some differences between Divisions, overall responses from students, research staff, and academics showed roughly similar patterns and therefore were merged (with research support staff which have very low sample sizes) in Figure \@ref(fig:barrier-single). The plots shown below aren't stacked bar plots like in previous questions where respondents could only select one response; in this case, responses were not mutually exclusive. Given these bar plots are now dodged, <!-- FIXME wording --> I will not be showing differences between Divisions here, as it becomes a bit complicated to look at.
 
-![(\#fig:barrier-single) Barriers to adoptions of ORPs (non-mutually exclusive), with responses pooled across all Divisions, students and researchers.](../Figures/Round12_Single_AllDiv_Barriers.png)
+![(\#fig:barrier-single) Barriers to adoption of ORPs (non-mutually exclusive), with responses pooled across all Divisions, students and researchers.](../Figures/Round12_Single_AllDiv_Barriers.png)
 
-**Open Access** publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (`r SSD_Hum_OA_Incentives`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Incentives`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)). In the Social sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select additional barriers to adoption of OA publishing, particularly a lack of infrastructure (`r SSD_Hum_OA_Infrastructure`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Infrastructure`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)).
+<!-- FIXME chart titles are confusing --- all researchers (N = 1061) vs. PGRs and all reseachers (N = 1030)? -->
 
-![(\#fig:barrier-single-OA) Barriers to adoptions of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researchers and split per Divisions. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width="400px"}
+**Open Access** publishing's main barrier was considered to be the lack of incentives, and this was particularly so in the Humanities and Social Sciences Divisions across students and researchers (`r SSD_Hum_OA_Incentives`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Incentives`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)). In the Social Sciences and Humanities Division, respondents were also more likely than in the other two Divisions to select additional barriers to adoption of OA publishing, particularly a lack of infrastructure (`r SSD_Hum_OA_Infrastructure`% for SSD and Hum on average, vs `r MSD_MPLS_OA_Infrastructure`% for MSD and MPLS on average; see Figure \@ref(fig:barrier-single-OA)).
+
+![(\#fig:barrier-single-OA) Barriers to adoption of Open Access publishing (non-mutually exclusive), with responses pooled across all types of researcher and split by Division. MSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MSD']`, MPLS:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'MPLS']`, SSD:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'SSD']`, Hum:`r Nalldata_Barriers_forOA_perDiv$N[Nalldata_Barriers_forOA_perDiv$Div == 'Hum']`](../Figures/Round12_Single_splitDiv_Barriers_for_OA.png){width="400px"}
 
 For all the other ORPs, training, norms, and incentives, were the major barriers perceived across Divisions (on average: `r allDiv_notOA_TNI[4]`%, range: `r allDiv_notOA_TNI[1]`% - `r allDiv_notOA_TNI[6]`%), followed by policies (average: `r allDiv_notOA_Policy[4]`%,range: `r allDiv_notOA_Policy[1]`% - `r allDiv_notOA_Policy[6]`%), and infrastructure (average: `r allDiv_notOA_Infrastructure[4]`%,range: `r allDiv_notOA_Infrastructure[1]`% - `r allDiv_notOA_Infrastructure[6]`%; see Figure \@ref(fig:barrier-single)).
 
@@ -376,16 +378,16 @@ For all the other ORPs, training, norms, and incentives, were the major barriers
 source(here::here("Rscripts","OtherBarriersWhatDownsides.R"))
 ```
 
-Free text boxes opened for each ORP a respondent selected to have other barriers. Their responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblotherbarriers). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whether some automatisation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply accross ORPs for a better read of the table summarising the counts of downsides for each ORP; I haven't revised my categories this year to do the same regrouping work so it's a bit all over the place...--> A selection of representative quotes, or to the contrary, original quotes, are also included below.
+If a respondent selected that other barriers applied for a given ORP, a free text box was displayed for entering additional information. Responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblotherbarriers). <!--# this would need to be revised carefully to see if some categorisations were overwritten, whether some automatisation picked a word in a responses that should not be categorised this way, etc. Besides, last year, I tried to create large categories that could apply across ORPs for a better read of the table summarising the counts of downsides for each ORP; I haven't revised my categories this year to do the same regrouping work so it's a bit all over the place...--> A selection of representative quotes, and of quotes that provide "unexpected" information, is also included below.
 
 The most frequently mentioned other barrier to **Open Access** publications was the cost of Gold OA. In much lower frequency, additional barriers indicated by respondents were the lack of prestigious journals that offered OA options, and, given the rapid changes in policies, the lack of clarity from University services on these policies, on the list of journals that offer OA, and on general relevant guidance to researchers.
 
 Some quotes:\
 1. "*`r quote_OB_OA_1`*" - source: `r quote_OB_OA_1_source`.\
 2. "*`r quote_OB_OA_2`*" - source: `r quote_OB_OA_2_source`.\
-3. "*`r quote_OB_OA_3`*" - source: `r quote_OB_OA_3_source`.\
+3. "*`r quote_OB_OA_3`*" - source: `r quote_OB_OA_3_source`.\ <!-- FIXME typo? -->
 
-Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original cost of collecting primary data isn't recognised nor protected from scooping, and the fact that repositories aren't user-friendly.
+Barriers to **Data sharing** were ethical concerns, the lack of ownership of the data, the lack of support (including financial support) to prepare data for sharing, the lack of metadata standards, the fact that original cost of collecting primary data isn't recognised nor protected from scooping, <!-- FIXME unclear --- the cost or the data? -->  and the fact that repositories aren't user-friendly.
 
 Some quotes:\
 1. "*`r quote_OB_Data_1`*" - source: `r quote_OB_Data_1_source`.\
@@ -406,7 +408,7 @@ Barriers to **Preprints** were IP concerns and the lack of peer-review as we saw
 Some quotes:\
 1. "*`r quote_OB_Preprint_1`*" - source: `r quote_OB_Preprint_1_source`.\
 
-Barriers to **Preregistration** were the fact that it isn't adapted to all disciplines, the lack of fund, for instance to run pilot experiment before writing a preregistration, and the fear of scooping.
+Barriers to **Preregistration** were the fact that it isn't adapted to all disciplines, the lack of funding, for instance to run pilot experiments before writing a preregistration, and the fear of scooping.
 
 Some quotes:\
 1. "*`r quote_OB_Prereg_1`*" - source: `r quote_OB_Prereg_1_source`.<!--# mentioned above -->\
@@ -432,7 +434,7 @@ tblotherbarriers <- hrule(tblotherbarriers, i = 1, rule = "exact", part = "heade
 tblotherbarriers
 ```
 
-These were additional barriers mentioned by some respondents. Overall, the main barriers to adoptions of ORPs were the lack of training, norms, and incentives as seen in the previous section. We asked further questions to explore these barriers in more details.
+These were additional barriers mentioned by some respondents. Overall, the main barriers to adoption of ORPs were the lack of training, norms, and incentives as seen in the previous section. We asked further questions to explore these barriers in more details.
 
 ### Recruitment criteria
 
