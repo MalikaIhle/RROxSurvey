@@ -659,7 +659,7 @@ tblotherfuture
 
 ### Training needs
 
-Finally, addressing the other main barriers to adoptions of ORPs, namely training and norms, we asked questions about training and community support needs.
+Finally, addressing the other main barriers to adoption of ORPs, namely training and norms, we asked questions about training and community support needs.
 
 ```{r, echo = FALSE, include = FALSE}
 source(here::here("Rscripts","Training.R"))
@@ -675,7 +675,7 @@ The topics listed were:
 
 -   How to prepare data management plans [labelled **Data Management Plan**]
 
--   How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled in the upcoming plots as **FAIR data**. FAIR stands for Findable, Accessible, Interoperable, and Reusable, a set of principles that wasn't specifically introduced in the survey with this acronym to not cause cognitive overload, but this item was definitively designed to stand for thhem]
+-   How to prepare data and metadata for archiving, and possibly for sharing in a public repository in line with community standards [labelled in the upcoming plots as **FAIR data**. FAIR stands for Findable, Accessible, Interoperable, and Reusable, a set of principles that wasn't specifically introduced in the survey with this acronym to not cause cognitive overload, but this item was designed as an "implicit" reference to FAIR]
 
 -   How to prepare ethics applications that allow archiving of anonymised data in a public repository [labelled **Ethics**]
 
@@ -714,7 +714,7 @@ training_noneeds_not_OA_preprint <- round(summary(training_noneeds$TotalPerc[!tr
 
 ```
 
-Overall, the demand for guidance (written or workshop-led) was quite high, ranging from `r training_needs_av[1]`% to `r training_needs_av[6]`% ( `r training_needs_av[4]`% on average; see Figure \@ref(fig:training-single)) for all topics presented. The need for workshop-led training was a lower for Open Access and Preprint than other topics (workshop-led training: OA and Preprint: `r workshop_needs_OA_preprint[4]`% on average, other topics: `r workshop_needs_not_OA_preprint[4]`% on average) where guidance was simultaneously thought, a bit more frequently as other topics, to not be needed (no training needed: OA: `r training_noneeds_OA`%, Preprint: `r training_noneeds_preprint`%, other topics: `r training_noneeds_not_OA_preprint[4]`% on average).
+Overall, the demand for guidance (written or workshop-led) was quite high, ranging from `r training_needs_av[1]`% to `r training_needs_av[6]`% ( `r training_needs_av[4]`% on average; see Figure \@ref(fig:training-single)) of respondents for all topics presented. The need for workshop-led training was lower for Open Access and Preprint than for other topics (workshop-led training: OA and Preprint: `r workshop_needs_OA_preprint[4]`% on average, other topics: `r workshop_needs_not_OA_preprint[4]`% on average) where guidance was simultaneously thought, a bit more frequently than other topics, to not be needed (no training needed: OA: `r training_noneeds_OA`%, Preprint: `r training_noneeds_preprint`%, other topics: `r training_noneeds_not_OA_preprint[4]`% on average). <!-- FIXME wording; rounding -->
 
 ![(\#fig:training-single) Training needs for all PGR students and other researchers across Divisions](../Figures/Round12_Single_Training.png)
 
@@ -722,7 +722,7 @@ Students and other researchers show similar patterns of demand for training, but
 
 ![(\#fig:training-double-splitDiv) Training needs for PGR students vs all other researchers for each Divisions. PGR students: MSD = `r sst_pgrdata$MSD[sst_pgrdata$Question == "Training" ]`, MPLS = `r sst_pgrdata$MPLS[sst_pgrdata$Question == "Training" ]`, SSD = `r sst_pgrdata$SSD[sst_pgrdata$Question == "Training"]`, Hum = `r sst_pgrdata$Hum[sst_pgrdata$Question == "Training"]`; Researchers: MSD = `r sst_allstaffdata$MSD[sst_allstaffdata$Question == "Training" ]`, MPLS = `r sst_allstaffdata$MPLS[sst_allstaffdata$Question == "Training" ]`, SSD = `r sst_allstaffdata$SSD[sst_allstaffdata$Question == "Training"]`, Hum = `r sst_allstaffdata$Hum[sst_allstaffdata$Question == "Training"]`](../Figures/Round12_Double_SplitDiv_Training.png){height="800px"}
 
-For some training topics such as how to share code, or how to prepare preregistration, or how to prepare ethic proposal, some Division had less of a demand, which only correspond to a higher selection of the 'not applicable' option (Figure \@ref(fig:training-double-splitDiv)). <!--# FIXME more numbers ?-->
+For some training topics such as how to share code, or how to prepare preregistration, or how to prepare proposals for ethics review, some Divisions had less of a demand, with a corresponding increase in selection of the 'not applicable' option (Figure \@ref(fig:training-double-splitDiv)). <!--# FIXME more numbers ?-->
 
 #### Extra training requested
 
@@ -730,7 +730,7 @@ For some training topics such as how to share code, or how to prepare preregistr
 source(here::here("Rscripts","OtherTraining.R"))
 ```
 
-Some respondents indicated additional training needs listed in Table \@ref(tab:tblothertraining). These included how to foster diversity in research environments, how to supervise/mentor/teach/collaborate, and how to prepare or assess job application with regards to contribution to open research or mentorship practices. More specific training, such as guidance on digital preservation, on how to negotiate with book publisher, or on how to prepare or access samples form tissue banks were also mentioned.
+Some respondents indicated additional training needs listed in Table \@ref(tab:tblothertraining). These included how to foster diversity in research environments, how to supervise/mentor/teach/collaborate, and how to prepare or assess job application with regards to contribution to open research or mentorship practices. More specific training, such as guidance on digital preservation, on how to negotiate with book publishers, or on how to prepare or access samples form tissue banks were also mentioned.
 
 ```{r, echo = FALSE, include = TRUE}
 tblothertraining <- xtab_OtherTraining %>% flextable() %>%
@@ -794,9 +794,9 @@ The list of support suggested were:
 
 -   **Online resources** collating case studies and tips.
 
-For this question, academics had slightly different patterns of responses than all the other types of researchers. While `r online_resources_essential_all[4]`% of academics and non-academics, on average, found online resources to be essential support, results differ for the other types of support proposed. Specifically, `r other_supports_essential_nonacademics[4]`% on average (range `r other_supports_essential_nonacademics[1]`% - `r other_supports_essential_nonacademics[6]`%) of PGR students and research staff found mentoring, supports networks, coaching, and seminars essential, as opposed to `r other_supports_essential_academics[4]`% on average (range `r other_supports_essential_academics[1]`% - `r other_supports_essential_academics[6]`%) for academics. Correspondingly, academics were more likely to find these other types of support to not be useful (`r other_supports_notuseful_academics[4]`% on average, vs `r other_supports_notuseful_nonacademics[4]`% for non academics).
+For this question, academics had slightly different patterns of responses than all the other types of researchers. While `r online_resources_essential_all[4]`% of academics and non-academics, on average, found online resources to be essential support, results differ for the other types of support proposed. Specifically, `r other_supports_essential_nonacademics[4]`% on average (range `r other_supports_essential_nonacademics[1]`% - `r other_supports_essential_nonacademics[6]`%) of PGR students and research staff found mentoring, support networks, coaching, and seminars essential, as opposed to `r other_supports_essential_academics[4]`% on average (range `r other_supports_essential_academics[1]`% - `r other_supports_essential_academics[6]`%) for academics. Accordingly, academics were more likely to find these other types of support to not be useful (`r other_supports_notuseful_academics[4]`% on average, vs `r other_supports_notuseful_nonacademics[4]`% for non academics). <!-- LF possibly because they feel they have no time for these... -->
 
-![(\#fig:support-double-ac-vs-non-ac) Support needs for Academics and all otehr researchers and students](../Figures/Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png)
+![(\#fig:support-double-ac-vs-non-ac) Support needs for Academics and all other researchers and students](../Figures/Round12_Double_AllDiv_AcademicvsNonAcademic_Support.png)
 
 #### Extra support requested
 
@@ -804,7 +804,7 @@ For this question, academics had slightly different patterns of responses than a
 source(here::here("Rscripts","OtherSupports.R"))
 ```
 
-Some respondents indicated additional support needs, which are listed in Table \@ref(tab:tblothersupport). Most frequently mentioned ones were a need for funding, the need for clear policies and University endorsement, and the need for advocacy work with stakeholders.
+Some respondents indicated additional support needs, which are listed in Table \@ref(tab:tblothersupport). The most frequently mentioned ones were a need for funding, the need for clear policies and University endorsement, and the need for advocacy work with stakeholders.
 
 ```{r, echo = FALSE, include = TRUE}
 tblothersupport <- xtab_OtherSupport %>% flextable() %>%
@@ -829,13 +829,13 @@ tblothersupport
 source(here::here("Rscripts","Inventory.R"))
 ```
 
-Our very last question related to open research that is *already* available at Oxford, with the aim to make an inventory of all initiatives at Oxford, so that we can promote them to relevant groups, and possibly come under a same umbrella to apply for institutional support.
+Our very last question related to open research that is *already* available at Oxford, with the aim to make an inventory of all initiatives at Oxford, so that we can promote them to relevant groups, and possibly come under the same umbrella to apply for institutional support.
 
 Therefore, after mentioning that the initiatives that we are currently aware of were listed here <https://ox.ukrn.org/resources/>, and here <https://ox.ukrn.org/events/#initiatives>, we asked:
 
 **Please provide information to help us identify initiatives at Oxford that relate to open research (e.g. courses, workshops, summer schools, working groups, study groups, meet-ups).** You can add as many initiatives as you like by clicking the '+' symbol.
 
-Free text boxes were available for respondents to indicate any initiative they were aware of. Their responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblinventory). There were very few initiative we weren't already aware of.
+Free text boxes were available for respondents to indicate any initiative they were aware of. Their responses were roughly categorised, counted, and sorted in order of frequency in Table \@ref(tab:tblinventory). There were very few initiatives we weren't already aware of.
 
 ```{r, echo = FALSE, include = TRUE}
 Table_Inventory %>% arrange(-count) %>% flextable() %>%
@@ -846,7 +846,7 @@ Table_Inventory %>% arrange(-count) %>% flextable() %>%
 
 #### Comments
 
-Some respondents provided unsolicited general comments in this final question, some of which were quite contrasted, which, at least, suggests that we captured the responses of some researchers who are *not* in favour of ORPs.<!--# in future iteration of the survey, would be best to have a final question asking for any remaining comment left... -->
+Some respondents provided unsolicited general comments in this final question, some of which were quite contrasted, <!-- FIXME unclear --> which, at least, suggests that we captured the responses of some researchers who are *not* in favour of ORPs.<!--# in future iteration of the survey, would be best to have a final question asking for any remaining comment left... -->
 
 Some quotes:\
 1."*`r gsub("[^[:alnum:][:blank:]\\.]", "", Quote_Inventory_1)`*" - source `r Quote_Inventory_1_source`.\
