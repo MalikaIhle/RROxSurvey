@@ -110,7 +110,7 @@ Nacademic_Effect_perDiv <- academicdata_Effect_acrossORP_for_plotting %>% group_
 Nacademic_Effect <- sum(Nacademic_Effect_perDiv$N)
 
 title_plot <- paste('Effect of widespread adoption 
-averaged accross all ORPs
+averaged across all ORPs
 Academics (N = ', Nacademic_Effect,")" , sep="")
 
 academicdata_Effect_acrossORP_for_plotting %>% 
@@ -129,6 +129,6 @@ academicdata_Effect_acrossORP_for_plotting %>%
   ggtitle(title_plot) + 
   theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
 
-#ggsave(here::here("Figures", "Round12_Single_Effect_Academic_accross_ORP.png"), width = 7, height = 2.5, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Effect_Academic_across_ORP.png"), width = 7, height = 2.5, bg = "white")
 
 

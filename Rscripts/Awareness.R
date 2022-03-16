@@ -113,7 +113,7 @@ academicdata_Awareness_acrossORP_for_plotting$Answer = factor(academicdata_Aware
 Nacademic_awareness_perDiv <- academicdata_Awareness_acrossORP_for_plotting %>% group_by(Div) %>% summarise(N = sum(n, na.rm=TRUE)/7) # divided by 7 because all responses for all 7 measures were pooled
 Nacademic_awareness <- sum(Nacademic_awareness_perDiv$N)
 
-title_plot <- paste('Average awareness accross all ORPs
+title_plot <- paste('Average awareness across all ORPs
 Academics (N = ', Nacademic_awareness,")" , sep="")
 
 academicdata_Awareness_acrossORP_for_plotting %>% 
@@ -132,5 +132,5 @@ academicdata_Awareness_acrossORP_for_plotting %>%
   ggtitle(title_plot) + 
   theme(plot.title = element_text(lineheight=.8, face="bold", hjust = 0.5))
 
-#ggsave(here::here("Figures", "Round12_Single_Awareness_Academic_accross_ORP.png"), width = 7, height = 2.5, bg = "white")
+#ggsave(here::here("Figures", "Round12_Single_Awareness_Academic_across_ORP.png"), width = 7, height = 2.5, bg = "white")
 
